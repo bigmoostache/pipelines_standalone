@@ -1,0 +1,14 @@
+{
+ "some_str": "Guillaume Draznieks is a Champion",
+ "some_int": 123,
+ "some_float": 1.234,
+ "some_bool": true,
+ "some_list": [
+  1,
+  2,
+  "3"
+ ],
+ "some dic": {
+  "1": 3
+ }
+}

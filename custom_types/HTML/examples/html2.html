@@ -1,0 +1,1216 @@
+<!DOCTYPE html>
+<!-- saved from url=(0039)https://thekingstimes.com/test-charles/ -->
+<html lang="en" data-color-scheme="light"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+    <title>Test Charles</title>
+
+    <meta name="HandheldFriendly" content="True">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <meta name="theme-color" content="#d73535">
+
+
+    <link rel="preload" href="./html2_files/app.min.js.téléchargement" as="script">
+    <link rel="preload" href="./html2_files/app.min.css" as="style">
+
+        <link rel="preconnect" href="https://fonts.googleapis.com/">
+    <link rel="preconnect" href="https://fonts.gstatic.com/" crossorigin="">
+
+
+    <link rel="stylesheet" href="./html2_files/css2" as="style" onload="this.onload=null;this.rel=&#39;stylesheet&#39;" crossorigin="">    
+    <style>
+      body { --font-headings: 'Bitter', serif; --font-body: 'Inter', sans; } 
+      body .content, p { --font-body: 'Bitter', serif; font-family: var(--font-body); }
+      .notification-msg, .content button { font-family: 'Inter', sans; }
+    </style>
+
+
+
+
+
+
+
+
+
+
+
+    <script async="" defer="" src="./html2_files/app.min.js.téléchargement"></script>
+
+    <link rel="stylesheet" type="text/css" href="./html2_files/app.min.css">
+
+    <style>
+  :root {
+    --global-max-width: 1400px; /* site max width */
+    --global-content-width: 700px; /* post-content-width */
+    --global-wide-width: 960px; /* site max width */
+    --global-radius: 0px; /* default radius */
+    --global-gallery-gap: 1em; /* Image gallery distance between images */
+    --global-hyphens: none; /* none/auto */
+    --global-header-height: 92px;
+    --global-theme-notifications: visible; /* visible/hidden */
+    --global-progress-bar: visible; /* visible/hidden */
+    --global-content-preview-fading: 0%; /* 50%-100% for fading effect */
+    --global-scroll-behavior: smooth;
+  }
+</style>
+
+<script>
+  let preferredTheme = localStorage.getItem('PREFERRED_COLOR_SCHEME') || `light`;
+  document.documentElement.setAttribute('data-color-scheme', preferredTheme);
+  
+  // Global values needed
+  const themeGlobal = {
+    currentPage: parseInt(''),
+    nextPage: parseInt(''),
+    nextPageLink: '',
+    maxPages: parseInt(''), 
+    lastPage: `` === `` ? true : false,
+    postsPerPage: parseInt('12'),
+    scrollPos: 0,
+    imageLightbox: false
+  }
+
+  // Calculate contrast & HSL value;
+  function getBrandColorInfo(hexcolor) {
+    // get contrast
+    if (hexcolor.slice(0, 1) === '#') { hexcolor = hexcolor.slice(1); }
+    if (hexcolor.length === 3) { hexcolor = hexcolor.split('').map(function (hex) { return hex + hex;}).join(''); }
+    let r = parseInt(hexcolor.substr(0,2),16), g = parseInt(hexcolor.substr(2,2),16), b = parseInt(hexcolor.substr(4,2),16);
+    let yiq = ((r * 299) + (g * 587) + (b * 114)) / 1000;
+    const colorContrast = (yiq >= 128) ? '#000' : '#fff';
+
+    //get HSL
+    r /= 255, g /= 255, b /= 255;
+    const max = Math.max(r, g, b), min = Math.min(r, g, b);
+    let h, s, l = (max + min)  /  2;  
+    if ( max == min ) { h = s = 0; } else {
+      let d = max - min;
+      s = l > 0.5 ? d / (2 - max - min) : d / (max + min);
+      switch(max){
+        case r: h = (g - b) / d + (g < b ? 6 : 0); break;
+        case g: h = (b - r) / d + 2; break;
+        case b: h = (r - g) / d + 4; break;
+      }
+      h /= 6;
+    }
+    const colorHSL = [Math.round(h * 360), Math.round(s * 100), Math.round(l * 100)];
+
+    // return
+    return { colorContrast, colorHSL }
+  };
+
+  const brandColor = getBrandColorInfo("#d73535");
+  let style = document.createElement('style');
+  style.innerHTML = `:root { 
+    --color-brand-contrast: ${brandColor.colorContrast}; 
+    --color-brand-h: ${brandColor.colorHSL[0]};
+    --color-brand-s: ${brandColor.colorHSL[1]}%;
+    --color-brand-l: ${brandColor.colorHSL[2]}%;
+    --color-brand-hsl: ${brandColor.colorHSL[0]} ${brandColor.colorHSL[1]}% ${brandColor.colorHSL[2]}%;
+  }`
+  document.getElementsByTagName('head')[0].appendChild(style);
+</script><style>:root { 
+    --color-brand-contrast: #fff; 
+    --color-brand-h: 0;
+    --color-brand-s: 67%;
+    --color-brand-l: 53%;
+    --color-brand-hsl: 0 67% 53%;
+  }</style>
+
+    
+    
+     
+
+    <link rel="icon" href="https://thekingstimes.com/content/images/size/w256h256/format/png/2024/05/image_1714945339697_e9ohc5.svg" type="image/png">
+    <link rel="canonical" href="https://thekingstimes.com/test-charles/">
+    <meta name="referrer" content="no-referrer-when-downgrade">
+    
+    <meta property="og:site_name" content="The King&#39;s Times">
+    <meta property="og:type" content="article">
+    <meta property="og:title" content="Test Charles">
+    <meta property="og:description" content="Advancing Forest Conservation Value through AI-Enabled Remote Sensing Technologies
+
+
+The integration of artificial intelligence (AI) into forest conservation is revolutionizing our approach to managing and understanding forest ecosystems.
+
+
+AI-enabled remote sensing technologies are enhancing the precision and efficiency of forest mapping, monitoring, and management, thereby bolstering conservation efforts and promoting">
+    <meta property="og:url" content="https://thekingstimes.com/test-charles/">
+    <meta property="og:image" content="https://images.unsplash.com/photo-1556648011-e01aca870a81?crop=entropy&amp;cs=tinysrgb&amp;fit=max&amp;fm=jpg&amp;ixid=M3wxMTc3M3wwfDF8c2VhcmNofDZ8fGp1bmdsZXxlbnwwfHx8fDE3MTUyMTE5NzV8MA&amp;ixlib=rb-4.0.3&amp;q=80&amp;w=2000content/images/size/w1200">
+    <meta property="article:published_time" content="2024-05-09T07:21:26.000Z">
+    <meta property="article:modified_time" content="2024-05-09T07:21:26.000Z">
+    <meta property="article:publisher" content="https://www.facebook.com/ghost">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Test Charles">
+    <meta name="twitter:description" content="Advancing Forest Conservation Value through AI-Enabled Remote Sensing Technologies
+
+
+The integration of artificial intelligence (AI) into forest conservation is revolutionizing our approach to managing and understanding forest ecosystems.
+
+
+AI-enabled remote sensing technologies are enhancing the precision and efficiency of forest mapping, monitoring, and management, thereby bolstering conservation efforts and promoting">
+    <meta name="twitter:url" content="https://thekingstimes.com/test-charles/">
+    <meta name="twitter:image" content="https://images.unsplash.com/photo-1556648011-e01aca870a81?crop=entropy&amp;cs=tinysrgb&amp;fit=max&amp;fm=jpg&amp;ixid=M3wxMTc3M3wwfDF8c2VhcmNofDZ8fGp1bmdsZXxlbnwwfHx8fDE3MTUyMTE5NzV8MA&amp;ixlib=rb-4.0.3&amp;q=80&amp;w=2000content/images/size/w1200">
+    <meta name="twitter:label1" content="Written by">
+    <meta name="twitter:data1" content="Logan Nguyen">
+    <meta name="twitter:site" content="@ghost">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="1800">
+    
+    <script type="application/ld+json">
+{
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "publisher": {
+        "@type": "Organization",
+        "name": "The King&#x27;s Times",
+        "url": "https://thekingstimes.com/",
+        "logo": {
+            "@type": "ImageObject",
+            "url": "https://thekingstimes.com/content/images/2024/05/image_1714945339697_e9ohc5-1.svg",
+            "width": 60,
+            "height": 60
+        }
+    },
+    "author": {
+        "@type": "Person",
+        "name": "Logan Nguyen",
+        "url": "https://thekingstimes.com/author/logan/",
+        "sameAs": []
+    },
+    "headline": "Test Charles",
+    "url": "https://thekingstimes.com/test-charles/",
+    "datePublished": "2024-05-09T07:21:26.000Z",
+    "dateModified": "2024-05-09T07:21:26.000Z",
+    "image": {
+        "@type": "ImageObject",
+        "url": "https://images.unsplash.com/photo-1556648011-e01aca870a81?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3wxMTc3M3wwfDF8c2VhcmNofDZ8fGp1bmdsZXxlbnwwfHx8fDE3MTUyMTE5NzV8MA&ixlib=rb-4.0.3&q=80&w=2000content/images/size/w1200",
+        "width": 1200,
+        "height": 1800
+    },
+    "description": "Advancing Forest Conservation Value through AI-Enabled Remote Sensing Technologies\n\n\nThe integration of artificial intelligence (AI) into forest conservation is revolutionizing our approach to managing and understanding forest ecosystems.\n\n\nAI-enabled remote sensing technologies are enhancing the precision and efficiency of forest mapping, monitoring, and management, thereby bolstering conservation efforts and promoting sustainability.\n\n\n\nHarnessing AI for Enhanced Forest Mapping\n\n\nArtificial in",
+    "mainEntityOfPage": "https://thekingstimes.com/test-charles/"
+}
+    </script>
+
+    <meta name="generator" content="Ghost 5.82">
+    <link rel="alternate" type="application/rss+xml" title="The King&#39;s Times" href="https://thekingstimes.com/latest/rss/">
+    <script defer="" src="./html2_files/portal.min.js.téléchargement" data-i18n="false" data-ghost="https://thekingstimes.com/" data-key="22575a965f3e24d3c01ddbe2fc" data-api="https://the-kings-times.ghost.io/ghost/api/content/" crossorigin="anonymous"></script><style id="gh-members-styles">.gh-post-upgrade-cta-content,
+.gh-post-upgrade-cta {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+    text-align: center;
+    width: 100%;
+    color: #ffffff;
+    font-size: 16px;
+}
+
+.gh-post-upgrade-cta-content {
+    border-radius: 8px;
+    padding: 40px 4vw;
+}
+
+.gh-post-upgrade-cta h2 {
+    color: #ffffff;
+    font-size: 28px;
+    letter-spacing: -0.2px;
+    margin: 0;
+    padding: 0;
+}
+
+.gh-post-upgrade-cta p {
+    margin: 20px 0 0;
+    padding: 0;
+}
+
+.gh-post-upgrade-cta small {
+    font-size: 16px;
+    letter-spacing: -0.2px;
+}
+
+.gh-post-upgrade-cta a {
+    color: #ffffff;
+    cursor: pointer;
+    font-weight: 500;
+    box-shadow: none;
+    text-decoration: underline;
+}
+
+.gh-post-upgrade-cta a:hover {
+    color: #ffffff;
+    opacity: 0.8;
+    box-shadow: none;
+    text-decoration: underline;
+}
+
+.gh-post-upgrade-cta a.gh-btn {
+    display: block;
+    background: #ffffff;
+    text-decoration: none;
+    margin: 28px 0 0;
+    padding: 8px 18px;
+    border-radius: 4px;
+    font-size: 16px;
+    font-weight: 600;
+}
+
+.gh-post-upgrade-cta a.gh-btn:hover {
+    opacity: 0.92;
+}</style>
+    <script defer="" src="./html2_files/sodo-search.min.js.téléchargement" data-key="22575a965f3e24d3c01ddbe2fc" data-styles="https://cdn.jsdelivr.net/ghost/sodo-search@~1.1/umd/main.css" data-sodo-search="https://the-kings-times.ghost.io/" crossorigin="anonymous"></script>
+    
+    <link href="https://thekingstimes.com/webmentions/receive/" rel="webmention">
+    <script defer="" src="./html2_files/cards.min.js.téléchargement"></script>
+    <link rel="stylesheet" type="text/css" href="./html2_files/cards.min.css">
+    <script defer="" src="./html2_files/member-attribution.min.js.téléchargement"></script><style>:root {--ghost-accent-color: #d73535;}</style>
+  <style class="fslightbox-styles">.fslightbox-absoluted{position:absolute;top:0;left:0}.fslightbox-fade-in{animation:fslightbox-fade-in .3s cubic-bezier(0,0,.7,1)}.fslightbox-fade-out{animation:fslightbox-fade-out .3s ease}.fslightbox-fade-in-strong{animation:fslightbox-fade-in-strong .3s cubic-bezier(0,0,.7,1)}.fslightbox-fade-out-strong{animation:fslightbox-fade-out-strong .3s ease}@keyframes fslightbox-fade-in{from{opacity:.65}to{opacity:1}}@keyframes fslightbox-fade-out{from{opacity:.35}to{opacity:0}}@keyframes fslightbox-fade-in-strong{from{opacity:.3}to{opacity:1}}@keyframes fslightbox-fade-out-strong{from{opacity:1}to{opacity:0}}.fslightbox-cursor-grabbing{cursor:grabbing}.fslightbox-full-dimension{width:100%;height:100%}.fslightbox-open{overflow:hidden;height:100%}.fslightbox-flex-centered{display:flex;justify-content:center;align-items:center}.fslightbox-opacity-0{opacity:0!important}.fslightbox-opacity-1{opacity:1!important}.fslightbox-scrollbarfix{padding-right:17px}.fslightbox-transform-transition{transition:transform .3s}.fslightbox-container{font-family:Arial,sans-serif;position:fixed;top:0;left:0;background:linear-gradient(rgba(30,30,30,.9),#000 1810%);touch-action:pinch-zoom;z-index:1000000000;-webkit-user-select:none;-moz-user-select:none;-ms-user-select:none;user-select:none;-webkit-tap-highlight-color:transparent}.fslightbox-container *{box-sizing:border-box}.fslightbox-svg-path{transition:fill .15s ease;fill:#ddd}.fslightbox-nav{height:45px;width:100%;position:absolute;top:0;left:0}.fslightbox-slide-number-container{display:flex;justify-content:center;align-items:center;position:relative;height:100%;font-size:15px;color:#d7d7d7;z-index:0;max-width:55px;text-align:left}.fslightbox-slide-number-container .fslightbox-flex-centered{height:100%}.fslightbox-slash{display:block;margin:0 5px;width:1px;height:12px;transform:rotate(15deg);background:#fff}.fslightbox-toolbar{position:absolute;z-index:3;right:0;top:0;height:100%;display:flex;background:rgba(35,35,35,.65)}.fslightbox-toolbar-button{height:100%;width:45px;cursor:pointer}.fslightbox-toolbar-button:hover .fslightbox-svg-path{fill:#fff}.fslightbox-slide-btn-container{display:flex;align-items:center;padding:12px 12px 12px 6px;position:absolute;top:50%;cursor:pointer;z-index:3;transform:translateY(-50%)}@media (min-width:476px){.fslightbox-slide-btn-container{padding:22px 22px 22px 6px}}@media (min-width:768px){.fslightbox-slide-btn-container{padding:30px 30px 30px 6px}}.fslightbox-slide-btn-container:hover .fslightbox-svg-path{fill:#f1f1f1}.fslightbox-slide-btn{padding:9px;font-size:26px;background:rgba(35,35,35,.65)}@media (min-width:768px){.fslightbox-slide-btn{padding:10px}}@media (min-width:1600px){.fslightbox-slide-btn{padding:11px}}.fslightbox-slide-btn-container-previous{left:0}@media (max-width:475.99px){.fslightbox-slide-btn-container-previous{padding-left:3px}}.fslightbox-slide-btn-container-next{right:0;padding-left:12px;padding-right:3px}@media (min-width:476px){.fslightbox-slide-btn-container-next{padding-left:22px}}@media (min-width:768px){.fslightbox-slide-btn-container-next{padding-left:30px}}@media (min-width:476px){.fslightbox-slide-btn-container-next{padding-right:6px}}.fslightbox-down-event-detector{position:absolute;z-index:1}.fslightbox-slide-swiping-hoverer{z-index:4}.fslightbox-invalid-file-wrapper{font-size:22px;color:#eaebeb;margin:auto}.fslightbox-video{object-fit:cover}.fslightbox-youtube-iframe{border:0}.fslightboxl{display:block;margin:auto;position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:67px;height:67px}.fslightboxl div{box-sizing:border-box;display:block;position:absolute;width:54px;height:54px;margin:6px;border:5px solid;border-color:#999 transparent transparent transparent;border-radius:50%;animation:fslightboxl 1.2s cubic-bezier(.5,0,.5,1) infinite}.fslightboxl div:nth-child(1){animation-delay:-.45s}.fslightboxl div:nth-child(2){animation-delay:-.3s}.fslightboxl div:nth-child(3){animation-delay:-.15s}@keyframes fslightboxl{0%{transform:rotate(0)}100%{transform:rotate(360deg)}}.fslightbox-source{position:relative;z-index:2;opacity:0}</style><style>.gh-portal-account-header{display:flex;flex-direction:column;align-items:center;margin:0 0 32px}.gh-portal-account-header .gh-portal-avatar{margin:6px 0 8px!important}.gh-portal-account-data{margin-bottom:40px}footer.gh-portal-account-footer{display:flex}.gh-portal-account-footer.paid{margin-top:12px}.gh-portal-account-footermenu{display:flex;align-items:center;list-style:none;padding:0;margin:0}.gh-portal-account-footerright{display:flex;flex-grow:1;align-items:center;justify-content:flex-end}.gh-portal-account-footermenu li{margin-right:16px}.gh-portal-account-footermenu li:last-of-type{margin-right:0}.gh-portal-freeaccount-newsletter{display:flex;align-items:center;justify-content:space-between;margin-top:24px}.gh-portal-freeaccount-newsletter .label{display:flex;flex-direction:column;flex-grow:1}.gh-portal-free-ctatext{margin-top:-12px}.gh-portal-cancelcontinue-container{margin:24px 0 32px}.gh-portal-list-detail .gh-portal-email-notice{display:flex;align-items:center;gap:5px;margin-top:6px;color:var(--red);font-weight:500;font-size:1.25rem;letter-spacing:.2px}.gh-portal-email-notice-icon{width:20px;height:20px}.gh-portal-billing-button-loader{width:32px;height:32px;margin-right:-3px;opacity:.6}.gh-portal-product-icon{width:52px;margin-right:12px;border-radius:2px}.gh-portal-account-discountcontainer{position:relative;display:flex;align-items:center}.gh-portal-account-old-price{text-decoration:line-through;color:var(--grey9)!important}.gh-portal-account-tagicon{width:16px;height:16px;color:var(--brandcolor);margin-right:5px;z-index:999}@media (max-width: 390px){.gh-portal-account-footer{padding:0!important}}@media (max-width: 340px){.gh-portal-account-footer{padding:0!important;flex-wrap:wrap;gap:12px}.gh-portal-account-footer .gh-portal-account-footerright{justify-content:flex-start}}.gh-email-suppressed-page-title{margin-bottom:14px}.gh-email-suppressed-page-icon{display:block;width:38px;height:38px;margin:0 auto 18px}.gh-email-suppressed-page-text{padding:0 14px;text-align:center;color:var(--grey6)}.gh-email-faq-footer-text{color:var(--grey8)}.gh-portal-list-detail.email-newsletter .gh-email-faq-page-button{display:block;margin-top:3px}.gh-portal-action-footer .gh-email-faq-page-button{margin-left:4px}.emailReceivingFAQ .gh-portal-btn-back,.emailReceivingFAQ .gh-portal-btn-back:hover{left:calc(6vmin - 14px)}.emailReceivingFAQ .gh-portal-closeicon-container{right:calc(6vmin - 20px)}@media (max-width: 480px){.emailReceivingFAQ .gh-portal-btn-back,.emailReceivingFAQ .gh-portal-btn-back:hover{left:16px}.emailReceivingFAQ .gh-portal-closeicon-container{right:24px}}.gh-email-faq-page-button{color:var(--brandcolor);cursor:pointer;background:none;transition:color linear .1s;font-size:1.45rem}</style><style>.App{text-align:center}.App-logo{height:40vmin;pointer-events:none}@media (prefers-reduced-motion: no-preference){.App-logo{animation:App-logo-spin infinite 20s linear}}.App-header{background-color:#282c34;min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;font-size:calc(10px + 2vmin);color:#fff}.App-link{color:#61dafb}@keyframes App-logo-spin{0%{transform:rotate(0)}to{transform:rotate(360deg)}}
+</style><style id="fit-vids-style">.fluid-width-video-wrapper{width:100%;position:relative;padding:0;}.fluid-width-video-wrapper iframe,.fluid-width-video-wrapper object,.fluid-width-video-wrapper embed {position:absolute;top:0;left:0;width:100%;height:100%;}</style></head>
+  <body class="post-template ">
+    <div class="progress-bar"></div>
+
+      <header class="header js-header" data-logo="center">
+  <div class="container wrapper flex items-center header__container">
+    <div class="header__more">
+      <button class="btn header__menu-toggle js-menu-toggle" title="Menu" aria-label="Menu">
+        <i class="icon icon-menu">
+  <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-menu" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+  <path d="M4 8l16 0"></path>
+  <path d="M4 16l16 0"></path>
+</svg>
+</i>        <i class="icon icon-x">
+  <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-x" width="24" height="24" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+  <line x1="18" y1="6" x2="6" y2="18"></line>
+  <line x1="6" y1="6" x2="18" y2="18"></line>
+</svg>
+</i>        <span>Menu</span>
+      </button>
+
+      <button class="btn header__search-toggle" data-ghost-search="" title="Search" aria-label="Search">
+        <i class="icon icon-search">
+  <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-search" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+  <circle cx="10" cy="10" r="7"></circle>
+  <line x1="21" y1="21" x2="15" y2="15"></line>
+</svg>
+
+
+
+</i>        <span>Search</span>
+      </button>
+    </div>
+
+    <div class="header__brand">
+<a href="https://thekingstimes.com/">          <picture class="dark-theme-logo">
+  <source srcset="/content/images/size/w100/format/webp/2024/05/download--1-.png 100w,/content/images/size/w300/format/webp/2024/05/download--1-.png 300w,/content/images/size/w600/format/webp/2024/05/download--1-.png 600w" sizes="200px" data-sizes="auto" type="image/webp">
+  <img class="header__logo" srcset="/content/images/size/w100/format/webp/2024/05/download--1-.png 100w,/content/images/size/w300/format/webp/2024/05/download--1-.png 300w,/content/images/size/w600/format/webp/2024/05/download--1-.png 600w" sizes="200px" data-sizes="auto" data-src="/content/images/size/w100/2024/05/download--1-.png" src="./html2_files/download--1-.png" alt="The King&#39;s Times">
+</picture>          <picture class="default-logo">
+  <source sizes="(max-width: 800px) 200px, 320px" srcset="/content/images/size/w300/format/webp/2024/05/image_1714945339697_e9ohc5-1.svg 300w, /content/images/size/w600/format/webp/2024/05/image_1714945339697_e9ohc5-1.svg 600w" type="image/webp">
+  <img class="header__logo" sizes="(max-width: 800px) 200px, 320px" data-srcset="/content/images/size/w300/2024/05/image_1714945339697_e9ohc5-1.svg 300w, /content/images/size/w600/2024/05/image_1714945339697_e9ohc5-1.svg 600w" srcset="/content/images/size/w30/2024/05/image_1714945339697_e9ohc5-1.svg 30w" data-src="/content/images/size/w100/2024/05/image_1714945339697_e9ohc5-1.svg" src="./html2_files/image_1714945339697_e9ohc5-1.svg" alt="The King&#39;s Times" loading="eager">
+</picture></a>    </div>
+
+    <div class="header__actions">
+          <a href="https://thekingstimes.com/signin/" class="btn signin-link radius gh-portal-close" data-portal="signin">Log in</a>
+          <a href="https://thekingstimes.com/signup/" class="btn signup-link btn--brand radius gh-portal-close" data-portal="signup">Subscribe</a>
+        
+
+      <div class="member-menu js-member-menu">
+      <a href="https://thekingstimes.com/signup/" data-portal="signup" class="signup-link gh-portal-close">
+        <i class="icon icon-arrow-up-right icon--sm">
+  <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-arrow-up-right" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+  <line x1="17" y1="7" x2="7" y2="17"></line>
+  <polyline points="8 7 17 7 17 16"></polyline>
+</svg>
+
+
+
+</i>Sign up
+      </a>
+
+      <a href="https://thekingstimes.com/signin/" data-portal="signin" class="signin-link gh-portal-close">
+        <i class="icon icon-login icon--sm">
+  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-log-in">
+  <path d="M15 3h4a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2h-4"></path>
+  <polyline points="10 17 15 12 10 7"></polyline>
+  <line x1="15" y1="12" x2="3" y2="12"></line>
+</svg>
+</i>Sign in
+      </a>
+</div>    </div>
+  </div>
+</header>
+
+<div class="header-menu">
+  <div class="container wrapper flex">
+
+    <nav class="header-menu-nav">
+      <ul class="nav">
+    <li class="nav-home" data-label="Home" data-length="4">
+      <a href="https://thekingstimes.com/">
+        <span>Home</span>
+      </a>
+    <ul></ul></li>
+    <li class="nav-about" data-label="About" data-length="5">
+      <a href="https://thekingstimes.com/about/">
+        <span>About</span>
+      </a>
+    <ul></ul></li>
+</ul>
+    </nav>
+
+  </div>
+</div>
+
+
+
+      <div class="menu js-menu">
+  <div class="container wrapper">
+    <div class="menu__content">
+      <nav class="menu__navigation">
+        <ul class="nav">
+    <li class="nav-home" data-label="Home" data-length="4">
+      <a href="https://thekingstimes.com/">
+        <span>Home</span>
+      </a>
+    </li>
+    <li class="nav-about" data-label="About" data-length="5">
+      <a href="https://thekingstimes.com/about/">
+        <span>About</span>
+      </a>
+    </li>
+</ul>
+
+          <ul class="nav secondary submenu">
+    <li class="nav-sign-up" data-label="Sign up" data-length="7">
+      <a href="https://thekingstimes.com/test-charles/#/portal/">
+        <span>Sign up</span>
+      </a>
+    </li>
+</ul>
+      </nav>
+
+      <div class="menu__posts">
+        <span class="menu__posts-title">Latest news</span>
+            <article class="post-card has-img horizontal js-post-card">
+
+  <div class="post-card__content flex flex-col ">
+
+      <h2 class="post-card__title"><a class="nav-current" href="https://thekingstimes.com/test-charles/">Test Charles</a></h2>
+    
+    <p class="post-card__excerpt opacity-080">
+      Advancing Forest Conservation Value through AI-Enabled Remote Sensing Technologies
+
+
+The integration of artificial intelligence (AI) into forest conservation is revolutionizing
+    </p>
+
+    <div class="post-info">
+  <ul class="post-info__avatars">
+        <li class="author-avatar has-icon">
+          <a href="https://thekingstimes.com/author/logan/" title="Logan Nguyen" aria-label="Logan Nguyen">
+              <i class="icon icon-user">
+  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-user">
+  <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+  <circle cx="12" cy="7" r="4"></circle>
+</svg>
+</i>          </a>
+        </li>
+  </ul>
+  
+    <span class="post-info__authors"><a href="https://thekingstimes.com/author/logan/">Logan Nguyen</a></span>
+  
+  <time datetime="2024-05-09">May 9, 2024</time> 
+
+</div>  </div>
+</article>            <article class="post-card has-img horizontal js-post-card">
+
+  <div class="post-card__content flex flex-col ">
+
+      <h2 class="post-card__title"><a href="https://thekingstimes.com/advancing-forest-conservation-value-through-ai-enabled-remote-sensing-technologies/">Advancing Forest Conservation Value through AI-Enabled Remote Sensing Technologies*</a></h2>
+    
+    <p class="post-card__excerpt opacity-080">
+      The intersection of artificial intelligence (AI) and remote sensing technologies has ushered in a new era for forest conservation. These
+    </p>
+
+    <div class="post-info">
+  <ul class="post-info__avatars">
+        <li class="author-avatar has-icon">
+          <a href="https://thekingstimes.com/author/logan/" title="Logan Nguyen" aria-label="Logan Nguyen">
+              <i class="icon icon-user">
+  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-user">
+  <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+  <circle cx="12" cy="7" r="4"></circle>
+</svg>
+</i>          </a>
+        </li>
+  </ul>
+  
+    <span class="post-info__authors"><a href="https://thekingstimes.com/author/logan/">Logan Nguyen</a></span>
+  
+  <time datetime="2024-05-08">May 8, 2024</time> 
+
+</div>  </div>
+</article>            <article class="post-card has-img horizontal js-post-card">
+
+  <div class="post-card__content flex flex-col ">
+      <a class="post-tag mr-sm tag-business" href="https://thekingstimes.com/tag/business/" aria-label="Business" style="--color-accent: #2e62ff">Business</a>
+
+      <h2 class="post-card__title"><a href="https://thekingstimes.com/one-final-test/">One final test</a></h2>
+    
+    <p class="post-card__excerpt opacity-080">
+      AKZGDAZJHCDGHAZCDHZA
+    </p>
+
+    <div class="post-info">
+  <ul class="post-info__avatars">
+        <li class="author-avatar has-icon">
+          <a href="https://thekingstimes.com/author/logan/" title="Logan Nguyen" aria-label="Logan Nguyen">
+              <i class="icon icon-user">
+  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-user">
+  <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+  <circle cx="12" cy="7" r="4"></circle>
+</svg>
+</i>          </a>
+        </li>
+  </ul>
+  
+    <span class="post-info__authors"><a href="https://thekingstimes.com/author/logan/">Logan Nguyen</a></span>
+  
+  <time datetime="2024-05-06">May 6, 2024</time> 
+
+</div>  </div>
+</article>      </div>
+    </div>
+  </div>
+
+  <div class="w-100 mt border-top">
+    <div class="menu__actions">
+          <a href="https://thekingstimes.com/signin/" data-portal="signin" class="btn signin-link radius gh-portal-close">
+            Log in
+          </a>
+          <a href="https://thekingstimes.com/signup/" data-portal="signup" class="btn signup-link btn--brand radius gh-portal-close">
+            Subscribe
+          </a>
+
+      <span class="flex-1"></span>
+
+      <div class="social-links items-center mb">
+        <span class="fw-600 mr-sm">Follow</span>
+          <a href="https://www.facebook.com/ghost" class="facebook" aria-label="Facebook"><i class="icon icon-facebook icon--sm filled">
+  <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-brand-facebook" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+  <path d="M7 10v4h3v7h4v-7h3l1 -4h-4v-2a1 1 0 0 1 1 -1h3v-4h-3a5 5 0 0 0 -5 5v2h-3"></path>
+</svg>
+
+
+
+</i><span>Facebook</span></a>
+
+  <a href="https://twitter.com/ghost" class="twitter" aria-label="Twitter"><i class="icon icon-twitter-x icon--sm">
+  <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-brand-x" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+  <path d="M4 4l11.733 16h4.267l-11.733 -16z"></path>
+  <path d="M4 20l6.768 -6.768m2.46 -2.46l6.772 -6.772"></path>
+</svg>
+</i><span>Twitter</span></a>
+
+<a href="https://thekingstimes.com/latest/rss" class="rss" aria-label="RSS"><i class="icon icon-rss icon--sm">
+  <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-rss" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+  <circle cx="5" cy="19" r="1"></circle>
+  <path d="M4 4a16 16 0 0 1 16 16"></path>
+  <path d="M4 11a9 9 0 0 1 9 9"></path>
+</svg>
+
+
+
+</i><span>RSS</span></a>
+
+
+
+
+
+
+
+
+
+      </div>
+    </div>
+  </div>
+</div>
+    <main class="main flex-1">
+      
+  <div class="container wrapper">
+        <div class="post-hero is-post wide" data-feature-image="true">
+    
+    <div class="post-hero__content flex flex-col">
+
+      <h1 class="post-hero__title">Test Charles</h1>
+    
+
+        <div class="post-info">
+  <ul class="post-info__avatars">
+        <li class="author-avatar has-icon">
+          <a href="https://thekingstimes.com/author/logan/" title="Logan Nguyen" aria-label="Logan Nguyen">
+              <i class="icon icon-user">
+  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-user">
+  <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+  <circle cx="12" cy="7" r="4"></circle>
+</svg>
+</i>          </a>
+        </li>
+  </ul>
+  
+    <span class="post-info__authors"><a href="https://thekingstimes.com/author/logan/">Logan Nguyen</a></span>
+  
+  <time datetime="2024-05-09">May 9, 2024</time> 
+
+</div>    </div>
+
+      <div class="post-hero__media">
+        <figure class="post-hero__figure">
+          <picture class="">
+  <source sizes="960px" data-sizes="auto" srcset="https://images.unsplash.com/photo-1556648011-e01aca870a81?crop=entropy&amp;cs=tinysrgb&amp;fit=max&amp;fm=webp&amp;ixid=M3wxMTc3M3wwfDF8c2VhcmNofDZ8fGp1bmdsZXxlbnwwfHx8fDE3MTUyMTE5NzV8MA&amp;ixlib=rb-4.0.3&amp;q=80&amp;w=300 300w, https://images.unsplash.com/photo-1556648011-e01aca870a81?crop=entropy&amp;cs=tinysrgb&amp;fit=max&amp;fm=webp&amp;ixid=M3wxMTc3M3wwfDF8c2VhcmNofDZ8fGp1bmdsZXxlbnwwfHx8fDE3MTUyMTE5NzV8MA&amp;ixlib=rb-4.0.3&amp;q=80&amp;w=600 600w, https://images.unsplash.com/photo-1556648011-e01aca870a81?crop=entropy&amp;cs=tinysrgb&amp;fit=max&amp;fm=webp&amp;ixid=M3wxMTc3M3wwfDF8c2VhcmNofDZ8fGp1bmdsZXxlbnwwfHx8fDE3MTUyMTE5NzV8MA&amp;ixlib=rb-4.0.3&amp;q=80&amp;w=1000 1000w, https://images.unsplash.com/photo-1556648011-e01aca870a81?crop=entropy&amp;cs=tinysrgb&amp;fit=max&amp;fm=webp&amp;ixid=M3wxMTc3M3wwfDF8c2VhcmNofDZ8fGp1bmdsZXxlbnwwfHx8fDE3MTUyMTE5NzV8MA&amp;ixlib=rb-4.0.3&amp;q=80&amp;w=2000 2000w" data-srcset="https://images.unsplash.com/photo-1556648011-e01aca870a81?crop=entropy&amp;cs=tinysrgb&amp;fit=max&amp;fm=webp&amp;ixid=M3wxMTc3M3wwfDF8c2VhcmNofDZ8fGp1bmdsZXxlbnwwfHx8fDE3MTUyMTE5NzV8MA&amp;ixlib=rb-4.0.3&amp;q=80&amp;w=300 300w, https://images.unsplash.com/photo-1556648011-e01aca870a81?crop=entropy&amp;cs=tinysrgb&amp;fit=max&amp;fm=webp&amp;ixid=M3wxMTc3M3wwfDF8c2VhcmNofDZ8fGp1bmdsZXxlbnwwfHx8fDE3MTUyMTE5NzV8MA&amp;ixlib=rb-4.0.3&amp;q=80&amp;w=600 600w, https://images.unsplash.com/photo-1556648011-e01aca870a81?crop=entropy&amp;cs=tinysrgb&amp;fit=max&amp;fm=webp&amp;ixid=M3wxMTc3M3wwfDF8c2VhcmNofDZ8fGp1bmdsZXxlbnwwfHx8fDE3MTUyMTE5NzV8MA&amp;ixlib=rb-4.0.3&amp;q=80&amp;w=1000 1000w, https://images.unsplash.com/photo-1556648011-e01aca870a81?crop=entropy&amp;cs=tinysrgb&amp;fit=max&amp;fm=webp&amp;ixid=M3wxMTc3M3wwfDF8c2VhcmNofDZ8fGp1bmdsZXxlbnwwfHx8fDE3MTUyMTE5NzV8MA&amp;ixlib=rb-4.0.3&amp;q=80&amp;w=2000 2000w" type="image/webp">
+  <img class="post-hero__img lazyautosizes lazyloaded" sizes="960px" data-sizes="auto" data-srcset="https://images.unsplash.com/photo-1556648011-e01aca870a81?crop=entropy&amp;cs=tinysrgb&amp;fit=max&amp;fm=jpg&amp;ixid=M3wxMTc3M3wwfDF8c2VhcmNofDZ8fGp1bmdsZXxlbnwwfHx8fDE3MTUyMTE5NzV8MA&amp;ixlib=rb-4.0.3&amp;q=80&amp;w=300 300w, https://images.unsplash.com/photo-1556648011-e01aca870a81?crop=entropy&amp;cs=tinysrgb&amp;fit=max&amp;fm=jpg&amp;ixid=M3wxMTc3M3wwfDF8c2VhcmNofDZ8fGp1bmdsZXxlbnwwfHx8fDE3MTUyMTE5NzV8MA&amp;ixlib=rb-4.0.3&amp;q=80&amp;w=600 600w, https://images.unsplash.com/photo-1556648011-e01aca870a81?crop=entropy&amp;cs=tinysrgb&amp;fit=max&amp;fm=jpg&amp;ixid=M3wxMTc3M3wwfDF8c2VhcmNofDZ8fGp1bmdsZXxlbnwwfHx8fDE3MTUyMTE5NzV8MA&amp;ixlib=rb-4.0.3&amp;q=80&amp;w=1000 1000w, https://images.unsplash.com/photo-1556648011-e01aca870a81?crop=entropy&amp;cs=tinysrgb&amp;fit=max&amp;fm=jpg&amp;ixid=M3wxMTc3M3wwfDF8c2VhcmNofDZ8fGp1bmdsZXxlbnwwfHx8fDE3MTUyMTE5NzV8MA&amp;ixlib=rb-4.0.3&amp;q=80&amp;w=2000 2000w" srcset="https://images.unsplash.com/photo-1556648011-e01aca870a81?crop=entropy&amp;cs=tinysrgb&amp;fit=max&amp;fm=jpg&amp;ixid=M3wxMTc3M3wwfDF8c2VhcmNofDZ8fGp1bmdsZXxlbnwwfHx8fDE3MTUyMTE5NzV8MA&amp;ixlib=rb-4.0.3&amp;q=80&amp;w=300 300w, https://images.unsplash.com/photo-1556648011-e01aca870a81?crop=entropy&amp;cs=tinysrgb&amp;fit=max&amp;fm=jpg&amp;ixid=M3wxMTc3M3wwfDF8c2VhcmNofDZ8fGp1bmdsZXxlbnwwfHx8fDE3MTUyMTE5NzV8MA&amp;ixlib=rb-4.0.3&amp;q=80&amp;w=600 600w, https://images.unsplash.com/photo-1556648011-e01aca870a81?crop=entropy&amp;cs=tinysrgb&amp;fit=max&amp;fm=jpg&amp;ixid=M3wxMTc3M3wwfDF8c2VhcmNofDZ8fGp1bmdsZXxlbnwwfHx8fDE3MTUyMTE5NzV8MA&amp;ixlib=rb-4.0.3&amp;q=80&amp;w=1000 1000w, https://images.unsplash.com/photo-1556648011-e01aca870a81?crop=entropy&amp;cs=tinysrgb&amp;fit=max&amp;fm=jpg&amp;ixid=M3wxMTc3M3wwfDF8c2VhcmNofDZ8fGp1bmdsZXxlbnwwfHx8fDE3MTUyMTE5NzV8MA&amp;ixlib=rb-4.0.3&amp;q=80&amp;w=2000 2000w" data-src="https://images.unsplash.com/photo-1556648011-e01aca870a81?crop=entropy&amp;cs=tinysrgb&amp;fit=max&amp;fm=jpg&amp;ixid=M3wxMTc3M3wwfDF8c2VhcmNofDZ8fGp1bmdsZXxlbnwwfHx8fDE3MTUyMTE5NzV8MA&amp;ixlib=rb-4.0.3&amp;q=80&amp;w=100" src="./html2_files/photo-1556648011-e01aca870a81" alt="Test Charles">
+</picture>          <figcaption><span style="white-space: pre-wrap;">Photo by </span><a href="https://unsplash.com/@yan_slg?utm_source=ghost&amp;utm_medium=referral&amp;utm_campaign=api-credit"><span style="white-space: pre-wrap;">Rabhimbh Bardhan</span></a><span style="white-space: pre-wrap;"> / </span><a href="https://unsplash.com/?utm_source=ghost&amp;utm_medium=referral&amp;utm_campaign=api-credit"><span style="white-space: pre-wrap;">Unsplash</span></a></figcaption>
+        </figure>
+      </div>
+
+  </div>
+
+      <div class="mb-lg wrapper-wide m-0-auto">
+        <div class="row">
+          <div class="col-xs-12 col-lg-8">
+              <div class="post-date-share">
+  <time datetime="2024-05-09">
+    <span>May 09 2024</span>
+    <span class="post-date__time">7:21 AM</span>
+  </time>
+
+    <span class="post-readtime">3 min read</span>
+  
+
+  <span class="spacing"></span>
+
+  <button class="share-toggle" onclick="this.classList.toggle(&#39;is-active&#39;)">
+    <span>Share</span>
+    <i class="icon icon-chevron-down">
+  <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-chevron-down" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+   <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+   <polyline points="6 9 12 15 18 9"></polyline>
+</svg>
+</i>  </button>
+
+  <div class="social-share content-width ">
+  <a class="social-share__item twitter js-share" target="_blank" href="https://twitter.com/share?text=Test%20Charles&amp;url=https://thekingstimes.com/test-charles/" title="Share on Twitter" aria-label="Share on Twitter">
+    <i class="icon icon-twitter-x icon--sm">
+  <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-brand-x" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+  <path d="M4 4l11.733 16h4.267l-11.733 -16z"></path>
+  <path d="M4 20l6.768 -6.768m2.46 -2.46l6.772 -6.772"></path>
+</svg>
+</i>    <span>Tweet</span>
+  </a>
+  <a class="social-share__item facebook js-share" target="_blank" href="https://www.facebook.com/sharer.php?u=https://thekingstimes.com/test-charles/" title="Share on Facebook" aria-label="Share on Facebook">
+    <i class="icon icon-facebook icon--sm filled">
+  <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-brand-facebook" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+  <path d="M7 10v4h3v7h4v-7h3l1 -4h-4v-2a1 1 0 0 1 1 -1h3v-4h-3a5 5 0 0 0 -5 5v2h-3"></path>
+</svg>
+
+
+
+</i>    <span>Share</span>
+  </a>
+  <a class="social-share__item linkedin js-share" target="_blank" href="https://www.linkedin.com/shareArticle?mini=true&amp;url=https://thekingstimes.com/test-charles/&amp;title=Test%20Charles&amp;summary=Test%20Charles" title="Share on Linkedin" aria-label="Share on Linkedin">
+    <i class="icon icon-linkedin icon--sm filled">
+  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-linkedin">
+  <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"></path>
+  <rect x="2" y="9" width="4" height="12"></rect>
+  <circle cx="4" cy="4" r="2"></circle>
+</svg>
+</i>    <span>Share</span>
+  </a>
+  <a class="social-share__item mail" href="mailto:?subject=Test%20Charles&amp;body=https://thekingstimes.com/test-charles/%C2%A0Test%20Charles" title="Share by email" aria-label="Share by email">
+    <i class="icon icon-mail icon--sm">
+  <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-mail" width="24" height="24" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+  <rect x="3" y="5" width="18" height="14" rx="2"></rect>
+  <polyline points="3 7 12 13 21 7"></polyline>
+</svg>
+</i>    <span>Email</span>
+  </a>
+  <button class="copy-link copy js-copy-link" data-url="https://thekingstimes.com/test-charles/" title="Copy to clipboard" data-label="Copied!" aria-label="Copy to clipboard">
+    <i class="icon icon-link icon--sm">
+  <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-link" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+   <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+   <path d="M9 15l6 -6"></path>
+   <path d="M11 6l.463 -.536a5 5 0 0 1 7.071 7.072l-.534 .464"></path>
+   <path d="M13 18l-.397 .534a5.068 5.068 0 0 1 -7.127 0a4.972 4.972 0 0 1 0 -7.071l.524 -.463"></path>
+</svg>
+</i>    <span>Copy</span>
+  </button>
+</div>
+
+</div>
+            <article class="post content post-access-public no-overflow">
+              <h1 id="advancing-forest-conservation-value-through-ai-enabled-remote-sensing-technologies">Advancing Forest Conservation Value through AI-Enabled Remote Sensing Technologies</h1>
+<p>The integration of <strong>artificial intelligence (AI)</strong> into forest conservation is revolutionizing our approach to managing and understanding forest ecosystems.</p>
+<p><strong>AI</strong>-enabled remote sensing technologies are enhancing the precision and efficiency of forest mapping, monitoring, and management, thereby bolstering conservation efforts and promoting sustainability.</p>
+<h2 id="harnessing-ai-for-enhanced-forest-mapping">Harnessing <strong>AI</strong> for Enhanced Forest Mapping</h2>
+<p><strong>Artificial intelligence</strong> technologies have significantly improved the accuracy and efficiency of mapping forest canopy heights, contributing to better forest management and conservation strategies. High-resolution, large-scale mapping capabilities provided by <strong>AI</strong>-driven tools overcome the limitations of traditional survey methods, allowing for more precise and comprehensive data collection. For instance, <strong>Meta</strong>, in collaboration with the <strong>World Resources Institute</strong>, has implemented <strong>AI</strong> to develop high-resolution global forest canopy maps, using satellite imagery from <em>2009</em> to <em>2020</em> to monitor forest biomass and carbon storage (<em>sustainability.fb.com</em>).</p>
+<p>The <strong>AI</strong> model used to map global tree canopy heights can predict canopy heights with a mean error of just <em>2.8 meters</em>, trained on approximately <em>18 million</em> satellite images with resolutions of up to <em>0.5 meters</em> (<em>news.mongabay.com</em>). Moreover, <strong>AI</strong> systems such as the updated <strong>YOLO</strong> have become notably more accurate in detecting wildlife from forest and roadside cameras during clear day conditions, significantly reducing false positives and improving real-world application in biodiversity monitoring (<em>techxplore.com</em>).</p>
+<p>However, the reliability of <strong>AI</strong> in mapping can vary with differing environmental conditions and may still require supplemental verification through ground-truthing. The <strong>Bezos Earth Fund</strong> has earmarked <em>$100M</em> to support <strong>AI</strong> innovations that could accelerate ecosystem conservation efforts, highlighting the potential of <strong>AI</strong> to transform traditional conservation methodologies on a global scale (<em>bezosearthfund.org</em>). Dr. <strong>Mark van Rijmenam</strong> also emphasized <strong>AI</strong>'s role in biodiversity conservation, showcasing their essential role in informing conservation decisions (<em>thedigitalspeaker.com</em>).</p>
+<h2 id="challenges-and-ethical-concerns">Challenges and Ethical Concerns</h2>
+<p>While <strong>AI</strong> offers transformative potential for forest conservation, it also raises ethical concerns and practical challenges that need to be addressed. <strong>AI</strong>'s ability to process large datasets rapidly aids in timely conservation decisions, which can be crucial during ecological emergencies. However, issues such as data privacy, the potential for biased algorithms, and the depersonalization of conservation efforts pose significant challenges.</p>
+<p>Ethical concerns have been raised regarding the use of <strong>AI</strong> in monitoring wildlife, particularly with respect to data privacy and the potential for intrusive surveillance that might affect animal behaviors (<em>techxplore.com</em>). Dr. <strong>Mark van Rijmenam</strong> addressed the potential biases in <strong>AI</strong> data processing, which could lead to skewed conservation priorities if not appropriately managed (<em>thedigitalspeaker.com</em>). Conservation practitioners at <strong>WILDLABS</strong> community emphasize the need for clear guidelines and robust frameworks to ensure that <strong>AI</strong> technologies are used responsibly in wildlife research and data collection (<em>wildlabs.net</em>).</p>
+<p>Research published on <em>Frontiers in Remote Sensing</em> discusses the implications of <strong>AI</strong> in ecosystem monitoring, stressing the importance of addressing the environmental impact of deploying large-scale <strong>AI</strong> technologies (<em>frontiersin.org</em>). The adoption of <strong>AI</strong> tools in conservation has initiated discussions on international regulation standards and protocols to mitigate the unforeseen ecological disruptions caused by these technologies (<em>news.mongabay.com</em>).</p>
+<h2 id="interdisciplinary-collaborations-and-future-directions">Interdisciplinary Collaborations and Future Directions</h2>
+<p>The integration of <strong>AI</strong> with traditional conservation methods requires interdisciplinary efforts to enhance its efficacy and sustainability. Collaborative projects between technologists, ecologists, and local stakeholders can create tailored <strong>AI</strong> solutions that align closely with specific conservation needs. The <strong>Bezos Earth Fund</strong> encourages such collaboration among <strong>AI</strong> technologists, ecologists, and policymakers to create and deploy <strong>AI</strong> solutions that are specifically designed to address complex ecological challenges (<em>bezosearthfund.org</em>).</p>
+<p>The <strong>AI for Conservation</strong> group on <strong>WILDLABS</strong> facilitates meetings and discussions that aim to bridge the gap between technology and practical conservation efforts, sharing resources and knowledge across disciplines (<em>wildlabs.net</em>). <strong>Meta</strong>'s initiative to map the Earth's forests using <strong>AI</strong> involves collaboration with scientists, remote sensing experts, and conservationists to ensure that the <strong>AI</strong> models are ecologically valid and useful for real-world application (<em>sustainability.fb.com</em>).</p>
+<p>Future directions in <strong>AI</strong> for conservation, as discussed by Dr. <strong>Mark van Rijmenam</strong>, include developing <strong>AI</strong> systems that can adapt to changing environmental conditions and integrate seamlessly with ongoing conservation practices (<em>thedigitalspeaker.com</em>). Emerging technologies highlighted on <em>techxplore.com</em> show the potential for <strong>AI</strong> to evolve in ways that could more closely mimic natural ecological processes, thus enhancing the integration of <strong>AI</strong> in conservation strategies.</p>
+<p>In conclusion, <strong>AI</strong>-enabled remote sensing technologies are poised to make significant contributions to forest conservation. However, the success of these technologies depends on addressing ethical concerns, overcoming practical challenges, and fostering interdisciplinary collaborations to ensure that <strong>AI</strong> solutions are both effective and sustainable.</p>
+
+            </article>
+          </div>
+
+          <div class="col-xs-12 col-lg-4">
+            <aside class="sidebar">
+    <h2 class="section-title xxs">Featured</h2>
+    <div class="sidebar__section">
+        <article class="post-card post-card-simple no-image is-featured js-post-card">
+  
+  <div class="post-card-simple__content flex-1">
+
+    <h3 class="post-card-simple__title">
+      <a href="https://thekingstimes.com/and-one-more/" aria-label="And one more">And one more</a>
+    </h3>
+
+
+    <div class="post-info">
+  <ul class="post-info__avatars">
+        <li class="author-avatar has-icon">
+          <a href="https://thekingstimes.com/author/logan/" title="Logan Nguyen" aria-label="Logan Nguyen">
+              <i class="icon icon-user">
+  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-user">
+  <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+  <circle cx="12" cy="7" r="4"></circle>
+</svg>
+</i>          </a>
+        </li>
+  </ul>
+  
+    <span class="post-info__authors"><a href="https://thekingstimes.com/author/logan/">Logan Nguyen</a></span>
+  
+  <time datetime="2024-05-05">May 5, 2024</time> 
+
+</div>  </div>
+</article>        <article class="post-card post-card-simple no-image is-featured js-post-card">
+  
+  <div class="post-card-simple__content flex-1">
+
+    <h3 class="post-card-simple__title">
+      <a href="https://thekingstimes.com/sed-ut-perspiciatis-unde-omnis/" aria-label="Sed ut perspiciatis unde omnis">Sed ut perspiciatis unde omnis</a>
+    </h3>
+
+
+    <div class="post-info">
+  <ul class="post-info__avatars">
+        <li class="author-avatar has-icon">
+          <a href="https://thekingstimes.com/author/logan/" title="Logan Nguyen" aria-label="Logan Nguyen">
+              <i class="icon icon-user">
+  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-user">
+  <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+  <circle cx="12" cy="7" r="4"></circle>
+</svg>
+</i>          </a>
+        </li>
+  </ul>
+  
+    <span class="post-info__authors"><a href="https://thekingstimes.com/author/logan/">Logan Nguyen</a></span>
+  
+  <time datetime="2024-05-05">May 5, 2024</time> 
+
+</div>  </div>
+</article>        <article class="post-card post-card-simple no-image is-featured js-post-card">
+  
+  <div class="post-card-simple__content flex-1">
+
+    <h3 class="post-card-simple__title">
+      <a href="https://thekingstimes.com/lorem-ipsum/" aria-label="Lorem ipsum">Lorem ipsum</a>
+    </h3>
+
+
+    <div class="post-info">
+  <ul class="post-info__avatars">
+        <li class="author-avatar has-icon">
+          <a href="https://thekingstimes.com/author/logan/" title="Logan Nguyen" aria-label="Logan Nguyen">
+              <i class="icon icon-user">
+  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-user">
+  <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+  <circle cx="12" cy="7" r="4"></circle>
+</svg>
+</i>          </a>
+        </li>
+  </ul>
+  
+    <span class="post-info__authors"><a href="https://thekingstimes.com/author/logan/">Logan Nguyen</a></span>
+  
+  <time datetime="2024-05-05">May 5, 2024</time> 
+
+</div>  </div>
+</article>    </div>
+
+    <h2 class="section-title xxs">Latest</h2>
+    <div class="sidebar__section">   
+        <article class="post-card post-card-simple no-image js-post-card">
+  
+  <div class="post-card-simple__content flex-1">
+
+    <h3 class="post-card-simple__title">
+      <a href="https://thekingstimes.com/advancing-forest-conservation-value-through-ai-enabled-remote-sensing-technologies/" aria-label="Advancing Forest Conservation Value through AI-Enabled Remote Sensing Technologies*">Advancing Forest Conservation Value through AI-Enabled Remote Sensing Technologies*</a>
+    </h3>
+
+
+    <div class="post-info">
+  <ul class="post-info__avatars">
+        <li class="author-avatar has-icon">
+          <a href="https://thekingstimes.com/author/logan/" title="Logan Nguyen" aria-label="Logan Nguyen">
+              <i class="icon icon-user">
+  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-user">
+  <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+  <circle cx="12" cy="7" r="4"></circle>
+</svg>
+</i>          </a>
+        </li>
+  </ul>
+  
+    <span class="post-info__authors"><a href="https://thekingstimes.com/author/logan/">Logan Nguyen</a></span>
+  
+  <time datetime="2024-05-08">May 8, 2024</time> 
+
+</div>  </div>
+</article>        <article class="post-card post-card-simple no-image js-post-card">
+  
+  <div class="post-card-simple__content flex-1">
+      <a class="post-tag tag-business" href="https://thekingstimes.com/tag/business/" aria-label="Business" style="--color-accent: #2e62ff">Business</a>
+
+    <h3 class="post-card-simple__title">
+      <a href="https://thekingstimes.com/one-final-test/" aria-label="One final test">One final test</a>
+    </h3>
+
+
+    <div class="post-info">
+  <ul class="post-info__avatars">
+        <li class="author-avatar has-icon">
+          <a href="https://thekingstimes.com/author/logan/" title="Logan Nguyen" aria-label="Logan Nguyen">
+              <i class="icon icon-user">
+  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-user">
+  <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+  <circle cx="12" cy="7" r="4"></circle>
+</svg>
+</i>          </a>
+        </li>
+  </ul>
+  
+    <span class="post-info__authors"><a href="https://thekingstimes.com/author/logan/">Logan Nguyen</a></span>
+  
+  <time datetime="2024-05-06">May 6, 2024</time> 
+
+</div>  </div>
+</article>        <article class="post-card post-card-simple no-image js-post-card">
+  
+  <div class="post-card-simple__content flex-1">
+      <a class="post-tag tag-finance" href="https://thekingstimes.com/tag/finance/" aria-label="Finance">Finance</a>
+
+    <h3 class="post-card-simple__title">
+      <a href="https://thekingstimes.com/abc/" aria-label="ABC">ABC</a>
+    </h3>
+
+
+    <div class="post-info">
+  <ul class="post-info__avatars">
+        <li class="author-avatar has-icon">
+          <a href="https://thekingstimes.com/author/logan/" title="Logan Nguyen" aria-label="Logan Nguyen">
+              <i class="icon icon-user">
+  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-user">
+  <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+  <circle cx="12" cy="7" r="4"></circle>
+</svg>
+</i>          </a>
+        </li>
+  </ul>
+  
+    <span class="post-info__authors"><a href="https://thekingstimes.com/author/logan/">Logan Nguyen</a></span>
+  
+  <time datetime="2024-05-06">May 6, 2024</time> 
+
+</div>  </div>
+</article>    </div>
+
+        <div class="sidebar__section is-sticky flex flex-cc">
+          <div class="sidebar__subscribe">
+            <h2 class="sidebar__subscribe-title text-acc fw-800">
+              The King's Times
+            </h2>
+            <p class="sidebar__subscribe-description mb text-acc" id="sidebar-input-label">
+                News about a changing world.
+            </p>
+            <form class="subscribe-form" data-members-form="subscribe" data-style="">
+  <input data-members-email="" class="" type="email" autocomplete="email" placeholder="Your email address" aria-labelledby="sidebar-input-label" required="" control-id="ControlID-1"> 
+  <button class="btn btn--brand" type="submit" control-id="ControlID-2">
+    <span>Subscribe</span>
+  </button>
+  <div class="msg-success">Great! Check your inbox and click the link.</div>
+  <div class="msg-error">Sorry, something went wrong. Please try again.</div>
+</form>          </div>
+        </div>
+</aside>
+          </div>
+        </div>
+      </div>
+
+
+      
+        <div class="post-authors mb-xl">
+    <span class="section-title xs">Author</span>
+    <div class="grid gap-200">
+        <div class="author-card author-logan">
+
+
+  <div class="author-card__content flex-1 flex flex-col text-acc">
+    <div class="author-card__header">
+      <h3 class="author-card__name fw-700 mb-0">
+        <a href="https://thekingstimes.com/author/logan/">Logan Nguyen</a>
+      </h3>
+
+      <ul class="author-card__social ">
+      </ul>
+    </div>
+    
+    
+    
+    <a class="author-card__view text-08 text-acc opacity-075 fw-600" href="https://thekingstimes.com/author/logan/">View articles</a>
+  </div>
+</div>
+    </div>
+  </div>
+  </div>
+
+    
+
+  
+    </main>
+    
+      
+      <footer class="footer">
+  <div class="container wrapper">
+    <div class="row">
+      <div class="col-xs-12 col-md-4">
+        <div class="footer__brand flex items-center">
+            <picture class="dark-theme-logo">
+  <source srcset="/content/images/size/w100/format/webp/2024/05/download--1-.png 100w,/content/images/size/w300/format/webp/2024/05/download--1-.png 300w,/content/images/size/w600/format/webp/2024/05/download--1-.png 600w" sizes="200px" data-sizes="auto" type="image/webp">
+  <img class="footer__logo mr lazyload" srcset="/content/images/size/w100/format/webp/2024/05/download--1-.png 100w,/content/images/size/w300/format/webp/2024/05/download--1-.png 300w,/content/images/size/w600/format/webp/2024/05/download--1-.png 600w" sizes="200px" data-sizes="auto" data-src="/content/images/size/w100/2024/05/download--1-.png" src="./html2_files/download--1-.png" alt="The King&#39;s Times">
+</picture>            <picture class="default-logo">
+  <source sizes="200px" data-sizes="auto" srcset="/content/images/size/w30/2024/05/image_1714945339697_e9ohc5-1.svg 30w" data-srcset="/content/images/size/w300/format/webp/2024/05/image_1714945339697_e9ohc5-1.svg 300w, /content/images/size/w600/format/webp/2024/05/image_1714945339697_e9ohc5-1.svg 600w" type="image/webp">
+  <img class="footer__logo mr lazyload" sizes="200px" data-sizes="auto" data-srcset="/content/images/size/w300/2024/05/image_1714945339697_e9ohc5-1.svg 300w, /content/images/size/w600/2024/05/image_1714945339697_e9ohc5-1.svg 600w" srcset="/content/images/size/w30/2024/05/image_1714945339697_e9ohc5-1.svg 30w" data-src="/content/images/size/w100/2024/05/image_1714945339697_e9ohc5-1.svg" src="./html2_files/image_1714945339697_e9ohc5-1.svg" alt="The King&#39;s Times">
+</picture>        </div>
+
+        <div class="footer__description" id="footer-input-label">
+          News about a changing world.
+        </div>
+
+        <div class="social-links">
+            <a href="https://www.facebook.com/ghost" class="facebook" aria-label="Facebook"><i class="icon icon-facebook icon--sm filled">
+  <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-brand-facebook" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+  <path d="M7 10v4h3v7h4v-7h3l1 -4h-4v-2a1 1 0 0 1 1 -1h3v-4h-3a5 5 0 0 0 -5 5v2h-3"></path>
+</svg>
+
+
+
+</i><span>Facebook</span></a>
+
+  <a href="https://twitter.com/ghost" class="twitter" aria-label="Twitter"><i class="icon icon-twitter-x icon--sm">
+  <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-brand-x" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+  <path d="M4 4l11.733 16h4.267l-11.733 -16z"></path>
+  <path d="M4 20l6.768 -6.768m2.46 -2.46l6.772 -6.772"></path>
+</svg>
+</i><span>Twitter</span></a>
+
+<a href="https://thekingstimes.com/latest/rss" class="rss" aria-label="RSS"><i class="icon icon-rss icon--sm">
+  <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-rss" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+  <circle cx="5" cy="19" r="1"></circle>
+  <path d="M4 4a16 16 0 0 1 16 16"></path>
+  <path d="M4 11a9 9 0 0 1 9 9"></path>
+</svg>
+
+
+
+</i><span>RSS</span></a>
+
+
+
+
+
+
+
+
+
+        </div>
+      </div>
+
+      <div class="col-xs-12 col-md-8">
+        <span class="fw-700 mb-xs display-block text-12">Navigation</span>
+        <ul class="nav">
+    <li class="nav-home" data-label="Home" data-length="4">
+      <a href="https://thekingstimes.com/">
+        <span>Home</span>
+      </a>
+    </li>
+    <li class="nav-about" data-label="About" data-length="5">
+      <a href="https://thekingstimes.com/about/">
+        <span>About</span>
+      </a>
+    </li>
+</ul>
+
+          <span class="footer__subtitle fw-700 mb-xs display-block text-12">More</span>
+          <ul class="nav secondary submenu">
+    <li class="nav-sign-up" data-label="Sign up" data-length="7">
+      <a href="https://thekingstimes.com/test-charles/#/portal/">
+        <span>Sign up</span>
+      </a>
+    </li>
+</ul>
+
+          <span class="footer__subtitle fw-700 mb-xs display-block text-12">Topics</span>
+            <ul class="nav">
+                <li><a href="https://thekingstimes.com/tag/politics/">Politics</a></li>
+                <li><a href="https://thekingstimes.com/tag/business/">Business</a></li>
+            </ul>
+
+      </div>
+    </div>
+
+    <div class="footer__bottom">
+      <div class="footer__copy">
+        <span>©2024&nbsp;<a href="https://thekingstimes.com/">The King's Times</a>.</span>
+        <span>Published with&nbsp;<a href="https://ghost.org/">Ghost</a>&nbsp;&amp;&nbsp;<a href="https://brightthemes.com/themes/maali/">Maali</a>.</span>
+      </div>
+
+      <div class="color-scheme flex flex-cc radius-half">
+  <div class="color-scheme-symbol">
+    <span class="accent-bg"></span>
+  </div>
+  <select class="color-scheme-select radius-half js-color-scheme-select" aria-label="Change color scheme" control-id="ControlID-3">
+    <option value="system" selected="">System</option>
+    <option value="light">Light</option>
+    <option value="dark">Dark</option>
+  </select>
+  <i class="icon icon-select">
+  <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-select" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path d="M17 8.517L12 3 7 8.517M7 15.48l5 5.517 5-5.517"></path>
+</svg>
+
+
+
+</i></div>    </div>
+
+  </div>
+</footer>
+
+    <dialog class="notification">
+  <i class="icon icon-success notification-icon">
+  <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-circle-check" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+  <circle cx="12" cy="12" r="9"></circle>
+  <path d="M9 12l2 2l4 -4"></path>
+</svg>
+
+
+
+</i>  <i class="icon icon-error notification-icon">
+  <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-alert-octagon" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+  <path d="M8.7 3h6.6c.3 0 .5 .1 .7 .3l4.7 4.7c.2 .2 .3 .4 .3 .7v6.6c0 .3 -.1 .5 -.3 .7l-4.7 4.7c-.2 .2 -.4 .3 -.7 .3h-6.6c-.3 0 -.5 -.1 -.7 -.3l-4.7 -4.7c-.2 -.2 -.3 -.4 -.3 -.7v-6.6c0 -.3 .1 -.5 .3 -.7l4.7 -4.7c.2 -.2 .4 -.3 .7 -.3z"></path>
+  <line x1="12" y1="8" x2="12" y2="12"></line>
+  <line x1="12" y1="16" x2="12.01" y2="16"></line>
+</svg>
+
+
+
+</i>  <i class="icon icon-warning notification-icon">
+  <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-alert-triangle" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+  <path d="M12 9v2m0 4v.01"></path>
+  <path d="M5 19h14a2 2 0 0 0 1.84 -2.75l-7.1 -12.25a2 2 0 0 0 -3.5 0l-7.1 12.25a2 2 0 0 0 1.75 2.75"></path>
+</svg>
+
+
+
+</i>  <p class="notification-msg signup-success">Great! You’ve successfully signed up.</p> 
+  <p class="notification-msg signin-success">Welcome back! You've successfully signed in.</p> 
+  <p class="notification-msg subscribe-success">You've successfully subscribed to The King's Times.</p> 
+  <p class="notification-msg link-expired">Your link has expired.</p> 
+  <p class="notification-msg checkout-success">Success! Check your email for magic link to sign-in.</p> 
+  <p class="notification-msg billing-success">Success! Your billing info has been updated.</p> 
+  <p class="notification-msg billing-cancel">Your billing was not updated.</p> 
+  <button class="notification-close js-notification-close" aria-label="Close" onclick="closeNotification(event.currentTarget.parentNode);" control-id="ControlID-4">
+    <i class="icon icon-x">
+  <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-x" width="24" height="24" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+  <line x1="18" y1="6" x2="6" y2="18"></line>
+  <line x1="6" y1="6" x2="18" y2="18"></line>
+</svg>
+</i>  </button>
+</dialog>
+
+      
+    
+
+      <script>
+    // Copy button
+    const copyBtn = document.querySelector('.js-copy-link');
+    if (copyBtn) {
+      copyBtn.onclick = function(event) {
+        copyToClipboard(event.currentTarget, event.currentTarget.getAttribute('data-url'));
+      }
+    }
+    
+    /** 
+    * Copy to clipboard
+    * @src - source element
+    * @str - string to copy
+    */ 
+    const copyToClipboard = function(src, str) {
+      const el = document.createElement('textarea');
+      el.value = str;
+      el.setAttribute('readonly', '');
+      el.style.position = 'absolute';
+      el.style.left = '-9999px';
+      document.body.appendChild(el);
+      el.select();
+      document.execCommand('copy');
+      document.body.removeChild(el);
+
+      src.classList.add('has-tooltip');
+      src.setAttribute('data-label', 'Copied!');
+
+      src.onmouseleave = function() { 
+        src.classList.remove('has-tooltip');
+        setTimeout(function(){
+          src.setAttribute('data-label', '');
+        }, 500); 
+      }
+    };
+  </script>
+
+<script>
+  const navItems = document.querySelectorAll('.header-menu .nav:not(.submenu) li')
+  const allNavItems = document.querySelectorAll('.is-subitem')
+
+  // Remove '-' signs
+  allNavItems.forEach(item => {
+    const itemName = item.querySelector('a span')
+    itemName.innerText = itemName.innerText.slice(1)
+  });
+
+  // Add subitems in place
+  let subMenu, hasItems
+  navItems.forEach((item, index) => {
+    if (item.classList.contains('is-subitem') && !navItems[index - 1].classList.contains('is-subitem')) navItems[index - 1].classList.add('is-mainitem'); 
+    subMenu = item.classList.contains('is-subitem') ? subMenu : document.createElement('ul');
+    if (item.classList.contains('is-subitem')) { 
+      subMenu.appendChild(item)
+      subMenu.classList.add('nav','submenu')
+    } else { 
+      item.appendChild(subMenu)
+    }
+  });
+</script>
+
+  <script>
+    // Give the parameter a variable name
+    const qsParams = new URLSearchParams(window.location.search);
+    const isAction = qsParams.has('action');
+    const isStripe = qsParams.has('stripe');
+    const success = qsParams.get('success');
+    const action = qsParams.get('action');
+    const stripe = qsParams.get('stripe');
+
+    if (qsParams && isAction) {
+      if (success === "true") {
+        switch (action) {
+          case 'subscribe':
+            openNotification('subscribe-success');
+            break;
+          case 'signup': 
+            openNotification('signup-success');
+            break;
+          case 'signin':
+            openNotification('signin-success');
+            break;
+          default:
+            break;
+        }
+      } else {
+        openNotification('link-expired');
+      }
+    }
+
+    if (qsParams && isStripe) {
+      switch (stripe) {
+        case 'success':
+          openNotification('checkout-success');
+          break;
+        case 'billing-update-success':
+          openNotification('billing-success');
+          break;
+        case 'billing-update-cancel':
+          openNotification('billing-cancel');
+          break;
+        default:
+          break;
+      }
+    }
+
+    /**
+    * Handle Notifications
+    */
+    function openNotification(type) {
+      const notification = document.querySelector('dialog.notification');
+      if (notification) { 
+        notification.setAttribute('data-msg-type', type);
+        notification.show();
+        setTimeout(function(){ closeNotification(notification); }, 3000);
+      }
+    }
+    
+    /**
+    * Clean URI
+    */
+    function clearURI() {
+      window.history.replaceState({}, '', `${window.location.pathname}`);
+    }
+
+    function closeNotification(notification) {
+      notification.close();
+      clearURI();
+      setTimeout(function(){ notification.removeAttribute('data-msg-type') }, 500);
+    }
+  </script>
+
+
+    
+  
+
+<div id="ghost-portal-root"><iframe data-testid="portal-trigger-frame" title="portal-trigger" frameborder="0" class="gh-portal-triggerbtn-iframe" style="z-index: 3999998; position: fixed; bottom: 0px; right: 0px; width: 185px; max-width: 500px; height: 98px; animation: 250ms ease 0s 1 normal none running animation-bhegco; transition: opacity 0.3s ease 0s; overflow: hidden;" src="./html2_files/saved_resource.html"></iframe></div><div id="sodo-search-root"></div></body></html>

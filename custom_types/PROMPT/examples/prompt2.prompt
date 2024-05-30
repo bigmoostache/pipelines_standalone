@@ -1,0 +1,1 @@
+[{"role": "system", "content": "This is a second instance"}, {"role": "user", "content": "Testing with different roles"}]
