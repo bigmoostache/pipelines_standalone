@@ -44,7 +44,7 @@ class Pipeline:
                 return self.retry__call__(p)
             except:
                 pass
-        return self.retry__call__(p)
+        return {}
 
     def retry__call__(self, 
                  p : PROMPT
