@@ -9,7 +9,10 @@ class Pipeline:
         pass 
 
     def __call__(self, pdf : PDF) -> str:
-        bytes_io = BytesIO(pdf.file_as_bytes)
-        reader = PdfReader(bytes_io)
-        text = '\n'.join([_.extract_text() for _ in reader.pages])
-        return text
+        try:
+            bytes_io = BytesIO(pdf.file_as_bytes)
+            reader = PdfReader(bytes_io)
+            text = '\n'.join([_.extract_text() for _ in reader.pages])
+            return text
+        except:
+            return "Error extracting text from PDF"
