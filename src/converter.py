@@ -24,6 +24,9 @@ def get_converter(extension):
     extension = extension.lower().strip()
     return all_types[extension].converter
 
+def get_visualiser(extension):
+    return None
+
 def get_secondary_converter(source_ext, destination_ext):
     return all_types[source_ext].additional_converters[destination_ext]
 
