@@ -6,7 +6,7 @@ class TYPE:
                  converter,
                  inputable : bool = True,
                  additional_converters : dict = {},
-                 visualiser = None
+                 visualiser = ""
                  ):
         self.extension = extension
         self.customclass = _class
