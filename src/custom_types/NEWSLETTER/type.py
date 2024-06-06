@@ -2,6 +2,7 @@ from typing import List, Literal, Optional
 from dataclasses import dataclass, asdict
 import json
 from datetime import datetime
+from custom_types.JSON.type import BytesEncoder, bytes_decoder
 
 @dataclass
 class SummaryEntry:
@@ -27,6 +28,8 @@ class Article:
     source           : str # Source of the article
     author           : Optional[str] # Author of the article
     sentiment        : Optional[Literal["positive", "negative", "neutral"]] # Sentiment analysis
+    url              : Optional[str] # URL of the article
+    image            : Optional[bytes] # Image of the article
 
 @dataclass
 class Metric:
@@ -44,43 +47,15 @@ class FullReport:
     timestamp         : datetime # When the report was generated
     summary_analysis  : str # Key takeaways of the report
 
-
-
 class Converter:
     @staticmethod
-    def to_dict(obj):
-        if isinstance(obj, datetime):
-            return obj.isoformat()
-        elif hasattr(obj, "__dataclass_fields__"):
-            return {k: Converter.to_dict(v) for k, v in asdict(obj).items()}
-        elif isinstance(obj, (list, tuple)):
-            return [Converter.to_dict(i) for i in obj]
-        return obj
-    
-    @staticmethod
-    def to_bytes(report: FullReport) -> bytes:
-        return bytes(json.dumps(Converter.to_dict(report)), 'utf-8')
-    
-    @staticmethod
-    def from_dict(data, cls):
-        if isinstance(data, dict):
-            fieldtypes = {f.name: f.type for f in cls.__dataclass_fields__.values()}
-            return cls(**{f: Converter.from_dict(data[f], fieldtypes[f]) for f in data})
-        elif isinstance(data, list):
-            elem_type = cls.__args__[0]
-            return [Converter.from_dict(i, elem_type) for i in data]
-        elif isinstance(data, str):
-            try:
-                return datetime.fromisoformat(data)
-            except ValueError:
-                return data
-        else:
-            return data
+    def to_bytes(full_report : FullReport) -> bytes:
+        return bytes(json.dumps(asdict(full_report), cls=BytesEncoder), 'utf-8')
     
     @staticmethod
     def from_bytes(b: bytes) -> FullReport:
-        data = json.loads(b.decode('utf-8'))
-        return Converter.from_dict(data, FullReport)
+        loaded_str = b.decode('utf-8')
+        return FullReport(**json.loads(loaded_str, object_hook=bytes_decoder))
     
     @staticmethod
     def str_preview(report: FullReport) -> str:

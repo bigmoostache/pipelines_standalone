@@ -13,8 +13,10 @@ from custom_types.BYTES.type import wraped as BYTESWrapped
 from custom_types.INT.type import wraped as INTWrapped
 from custom_types.FLOAT.type import wraped as FLOATWrapped
 from custom_types.BOOL.type import wraped as BOOLWrapped
+from custom_types.NEWSLETTER.type import wraped as NEWSLETTERWrapped
+from custom_types.PLAN.type import wraped as PLANWrapped
 
-all_types = [URLWrapped,PDFWrapped,BIBWrapped,HTMLWrapped,PUBMEDWrapped,PROMPTWrapped, XLSXWrapped,JSONWrapped,JSONLWrapped, TXTWrapped, BYTESWrapped, FLOATWrapped, INTWrapped, BOOLWrapped]
+all_types = [URLWrapped,PDFWrapped,BIBWrapped,HTMLWrapped,PUBMEDWrapped,PROMPTWrapped, XLSXWrapped,JSONWrapped,JSONLWrapped, TXTWrapped, BYTESWrapped, FLOATWrapped, INTWrapped, BOOLWrapped, NEWSLETTERWrapped, PLANWrapped]
 _allowed_inputs = {_.extension : list(set([_.extension] + [__.extension for __ in all_types if _.extension in __.additional_converters])) for _ in all_types}
 _ext_to_class = {_.extension:_.customclass for _ in all_types}
 _class_to_ext = {v:k for k,v in _ext_to_class.items()}
