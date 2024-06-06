@@ -2,8 +2,8 @@ from typing import List, Literal, Optional
 from dataclasses import dataclass, asdict
 import json
 from datetime import datetime
-from custom_types.JSON.type import BytesEncoder, bytes_decoder
-
+from custom_types.JSON.type import BytesEncoder, bytes_decoder 
+    
 @dataclass
 class SummaryEntry:
     title         : str
@@ -44,7 +44,7 @@ class FullReport:
     summary           : List[SummaryParagraph]
     articles          : List[Article]
     metrics           : List[Metric]
-    timestamp         : datetime # When the report was generated
+    timestamp         : str # When the report was generated
     summary_analysis  : str # Key takeaways of the report
 
 class Converter:
