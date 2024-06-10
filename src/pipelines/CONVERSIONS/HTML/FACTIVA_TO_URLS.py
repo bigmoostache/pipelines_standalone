@@ -30,5 +30,5 @@ class Pipeline:
                     text_content.append(tag.get_text())
             IMAGES = [x.get('src') for x in article.find_all('img')]
             CONTENT = ' '.join(text_content).strip()
-            urls.append(URL(url = "localhost", tilte = TITLE, images = IMAGES, success = True, text = CONTENT))
+            urls.append(URL(url = "localhost", title = TITLE, images = IMAGES, success = True, text = CONTENT))
         return urls
