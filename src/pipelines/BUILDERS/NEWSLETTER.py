@@ -3,6 +3,15 @@ from custom_types.JSONL.type import JSONL
 from typing import List
 from datetime import datetime
 
+def tonumber(val):
+    if isinstance(val, int):
+        return val
+    elif isinstance(val, float):
+        return int(val)
+    elif isinstance(val, str) and val.isdigit():
+        return float(val)
+    return 0
+
 class Pipeline:
     def __init__(self):
         pass
@@ -28,7 +37,7 @@ class Pipeline:
                 Article(**{
                     "reference_id" : _.get("reference_id", ""),
                     "title" : _.get("title", ""),
-                    "pertinence_score" : _.get("pertinence_score", 0),
+                    "pertinence_score" : tonumber(_.get("pertinence_score", 0)),
                     "analysis" : _.get("analysis", []),
                     "summary" : _.get("summary", ""),
                     "complete_entry" : _.get("text", ""),
@@ -45,9 +54,9 @@ class Pipeline:
             metrics = [
                 Metric(**{
                     "metric" : _.get("metric", ""),
-                    "value" : _.get("value", 0),
+                    "value" : tonumber(_.get("value", 0)),
                     "unit" : _.get("unit", ""),
-                    "previous_value" : _.get("previous_value", 0),
+                    "previous_value" : tonumber(_.get("previous_value", 0)),
                     "previous_relative_time" : _.get("previous_value_relative_time", ""),
                 })
                 for _ in metrics.lines
