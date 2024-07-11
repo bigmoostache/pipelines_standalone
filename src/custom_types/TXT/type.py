@@ -16,5 +16,5 @@ wraped = TYPE(
     extension='txt',
     _class = TXT,
     converter = Converter,
-    visualiser = "https://simplevisuals.blends.fr/txt"
+    visualiser = "https://visuals.croquo.com/txt"
 )
