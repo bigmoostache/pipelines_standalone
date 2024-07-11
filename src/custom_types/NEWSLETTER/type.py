@@ -80,5 +80,5 @@ wraped = TYPE(
     _class = NEWSLETTER,
     converter = Converter,
     inputable  = False,
-    visualiser = "https://simplevisuals.blends.fr/newsletter"
+    visualiser = "https://visuals.croquo.com/newsletter"
 )
