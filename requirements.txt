@@ -26,3 +26,5 @@ google-api-python-client
 python-Levenshtein
 lxml_html_clean
 pdfkit
+gnews==0.3.6
+newspaper3k
