@@ -3,18 +3,13 @@ from dataclasses import dataclass
 import json 
 
 @dataclass
-class BIB:
-    title: str
-    abstract : str
-    doi : str
-    date : str
+class DAM_full_text_select: #avoir un tableau excel
+    title_pdf: str
+    title_article: str
+    first_author : str
     journal : str
-    authors : List[str]
-    type : List[str]
-    keywords : List[str]
-    affiliations : List[str]
-    full_entry_type : Literal['PUBMED', 'OTHER']
-    full_entry : dict
+    full_entry : dict # donc il faut répondre au prompt comme DAM_select.  Include all articles regarding nail removal. => donc il faut un tableau TRUE/FALSE et explication
+                      #  In those articles extract : reason of removal, iatrogenic complications of the removal, delay of removal, length of the nail, type of nail, rotator cuff state 
     
 class Converter:
     @staticmethod
