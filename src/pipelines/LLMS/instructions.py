@@ -1,4 +1,3 @@
-from utils.logger import log, result
 import os
 import dotenv
 import openai

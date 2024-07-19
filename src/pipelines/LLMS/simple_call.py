@@ -1,4 +1,3 @@
-from utils.logger import log, result
 import os
 import dotenv
 from typing import Annotated, List, Optional, Union

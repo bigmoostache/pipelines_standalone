@@ -3,7 +3,6 @@ from custom_types.RA.type import RA
 from custom_types.AUTHOR.type import AUTHOR
 
 from typing import Literal
-#from utils.logger import log, result
 import os
 import requests
 

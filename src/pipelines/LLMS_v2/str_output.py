@@ -1,4 +1,3 @@
-from utils.logger import log, result
 import os
 import openai
 from utils.booleans import to_bool
