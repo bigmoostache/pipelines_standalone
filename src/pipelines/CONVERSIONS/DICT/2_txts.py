@@ -7,5 +7,5 @@ class Pipeline:
     def __call__(self, json : dict) -> List[str]:
         assert self.param in json
         assert isinstance(json[self.param], list)
-        return json[self.param]
+        return [str(_) for _ in json[self.param]]
             
