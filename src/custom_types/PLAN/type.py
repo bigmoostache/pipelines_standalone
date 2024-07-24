@@ -74,6 +74,6 @@ class Converter:
 from custom_types.wrapper import TYPE
 wraped = TYPE(
     extension='plan',
-    _class = Article,
+    _class = Plan,
     converter = Converter
 )
