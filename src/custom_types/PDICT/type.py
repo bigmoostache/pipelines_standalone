@@ -106,6 +106,9 @@ class PDICT:
         }}
         """
         return r
+    
+    def str_preview(self):
+        return json.dumps(self.to_dict(), indent = 2)
 
 
 from custom_types.wrapper import TYPE
