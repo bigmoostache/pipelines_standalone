@@ -13,8 +13,8 @@ class Pipeline:
         self.after = after
 
 
-    def __call__(self, p : PROMPT, pdict : PDICT) -> PROMPT:
+    def __call__(self, p : PROMPT) -> PROMPT:
         p.add(
-            self.before + str(pdict) + self.after, 
+            self.before + PDICT.instructions() + self.after, 
             role = self.role)
         return p
