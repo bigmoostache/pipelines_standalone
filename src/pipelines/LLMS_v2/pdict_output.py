@@ -62,6 +62,7 @@ class Pipeline:
         res = response.choices[0].message.content
         logging.info(res)
         dic = TXT2DICT()(res)
+        dic = dic["variables"]
         logging.info(dic)
         if not isinstance(dic, list):
             print("Not a list of dicts", dic)

@@ -96,12 +96,14 @@ class PDICT:
         x = ', '.join(vals)
         
         r = f"""
-        List[{{
+        {{
+            "variables" : [{{
             "name": str, # variable name, no special characters, not empty
             "description": str, # precise definition of the variable
             "value_type": str, Literal[{x}] # this should be a string picked in the available values,
             "required": bool
-        }}]
+            }}]
+        }}
         """
         return r
 
