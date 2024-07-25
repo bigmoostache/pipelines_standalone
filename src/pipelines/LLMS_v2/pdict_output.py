@@ -56,6 +56,8 @@ class Pipeline:
             presence_penalty=self.presence_penalty,
             response_format= {"type": "json_object"}
         )
+        print(response)
+        print(response.choices)
         
         res = response.choices[0].message.content
         logging.info(res)
