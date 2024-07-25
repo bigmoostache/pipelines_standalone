@@ -108,7 +108,7 @@ class PDICT:
 
 from custom_types.wrapper import TYPE
 wraped = TYPE(
-    extension='txt',
+    extension='pdict',
     _class = PDICT,
     converter = PDICT,
 )
