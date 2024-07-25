@@ -63,5 +63,6 @@ class Pipeline:
         if not isinstance(dic, list):
             print("Not a list of dicts", dic)
             raise Exception("Failed to get a valid PDICT")
+        print(dic)
         dic = PDICT.from_dicts(dic)
         return dic
