@@ -64,8 +64,7 @@ class PreparedDict:
     @classmethod
     def new(cls):
         return cls([])
-        
-    @classmethod
+
     def from_bytes(cls, b : bytes):
         return cls.from_dicts(json.loads(b.decode("utf-8")))
 
@@ -90,6 +89,22 @@ class PreparedDict:
             if entry.required and entry.name not in dic:
                 if raise_if_not_correct:
                     raise ValueError(f"Required key '{entry.name}' is missing")
+    @classmethod
+    def instructions(cls):
+        vals = [f'"{x}"' for x in list(Entry.supported_types)]
+        vals.sort( key = lambda x : len(x) )
+        x = ', '.join(vals)
+        
+        r = f"""
+        List[{{
+            "name": str, # variable name, no special characters, not empty
+            "description": str, # precise definition of the variable
+            "value_type": str, Literal[{x}] # this should be a string picked in the available values,
+            "required": bool
+        }}]
+        """
+        return r
+
 
 from custom_types.wrapper import TYPE
 wraped = TYPE(
