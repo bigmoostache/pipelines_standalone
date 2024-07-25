@@ -59,7 +59,9 @@ class Pipeline:
         )
         
         res = response.choices[0].message.content
+        print(res)
         dic = TXT2DICT()(res)
+        print(dec)
         if not isinstance(dic, list):
             print("Not a list of dicts", dic)
             raise Exception("Failed to get a valid PDICT")
