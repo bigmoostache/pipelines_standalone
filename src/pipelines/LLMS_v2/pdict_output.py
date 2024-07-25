@@ -1,13 +1,12 @@
-import os
-import dotenv
 from typing import Annotated, List, Optional, Union
 from custom_types.PROMPT.type import PROMPT
 from custom_types.PDICT.type import PDICT
 import openai
 from utils.booleans import to_bool
 from pipelines.CONVERSIONS.txt_2_dict import Pipeline as TXT2DICT
-
-dotenv.load_dotenv()
+import logging 
+import os
+logging.basicConfig(level=logging.INFO)
 
 class Pipeline:
     __env__ = ["openai_api_key"]
@@ -59,12 +58,12 @@ class Pipeline:
         )
         
         res = response.choices[0].message.content
-        print(res)
+        logging.info(res)
         dic = TXT2DICT()(res)
-        print(dec)
+        logging.info(dic)
         if not isinstance(dic, list):
             print("Not a list of dicts", dic)
             raise Exception("Failed to get a valid PDICT")
-        print(dic)
+        logging.info(dic)
         dic = PDICT.from_dicts(dic)
         return dic
