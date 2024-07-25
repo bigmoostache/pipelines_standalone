@@ -62,6 +62,10 @@ class PreparedDict:
         return bytes(json.dumps(self.to_dict(), indent = 2), 'utf-8')
 
     @classmethod
+    def new(cls):
+        return cls([])
+        
+    @classmethod
     def from_bytes(cls, b : bytes):
         return cls.from_dicts(json.loads(b.decode("utf-8")))
 
