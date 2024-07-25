@@ -10,4 +10,4 @@ class Pipeline:
         for k,v in dic.items():
             val = val and isinstance(v, bool) and v
         dic[self.param_name] = val
-        return val
+        return dic
