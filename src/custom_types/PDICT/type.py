@@ -43,7 +43,7 @@ class Entry:
         else:
             return False
 
-class PreparedDict:
+class PDICT:
     def __init__(self, entries):
         self.entries = entries
         
@@ -65,6 +65,7 @@ class PreparedDict:
     def new(cls):
         return cls([])
 
+    @classmethod
     def from_bytes(cls, b : bytes):
         return cls.from_dicts(json.loads(b.decode("utf-8")))
 
@@ -87,12 +88,11 @@ class PreparedDict:
         # Optionally, verify if all required fields are present
         for entry in self.entries:
             if entry.required and entry.name not in dic:
-                if raise_if_not_correct:
-                    raise ValueError(f"Required key '{entry.name}' is missing")
+                raise ValueError(f"Required key '{entry.name}' is missing")
     @classmethod
     def instructions(cls):
         vals = [f'"{x}"' for x in list(Entry.supported_types)]
-        vals.sort( key = lambda x : len(x) )
+        vals.sort(key=len)
         x = ', '.join(vals)
         
         r = f"""
@@ -109,6 +109,6 @@ class PreparedDict:
 from custom_types.wrapper import TYPE
 wraped = TYPE(
     extension='txt',
-    _class = TXT,
-    converter = PreparedDict,
+    _class = PDICT,
+    converter = PDICT,
 )
