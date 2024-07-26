@@ -50,7 +50,7 @@ class PDICT:
     def __str__(self, ask_justifications : bool = False):
         result = "{\n"
         for i, e in enumerate(self.entries):
-            if not ask_justifications:
+            if ask_justifications:
                 result += f'\t"{e.name}_justification" : str, # Your thoughts and analysis for the correct value of {e.name}. Make it at least 2 sentences.\n'
             virgule = "," if i != len(self.entries) - 1 else ""
             result += f'\t"{e.name}" : {e.value_type}{virgule} # {e.description}\n'
