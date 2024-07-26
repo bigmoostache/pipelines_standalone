@@ -9,7 +9,8 @@ class Pipeline:
         self.keep_false = keep_false
     
     def __call__(self, jsonl : JSONL) -> JSONL:
-        print(jsonl.lines[0])
+        print([_[self.param] for _ in jsonl.lines])
+        print(self.keep_false)
         if self.keep_false:
             return JSONL([_ for _ in jsonl.lines if not _[self.param]])
         return JSONL([_ for _ in jsonl.lines if _[self.param]])
