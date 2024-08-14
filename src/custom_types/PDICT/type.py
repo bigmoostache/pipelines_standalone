@@ -48,7 +48,7 @@ class PDICT:
         self.entries = entries
         
     def __str__(self, ask_justifications : bool = False):
-        result = "{\n"
+        result = "Expected json structure of your answer:\n{\n"
         for i, e in enumerate(self.entries):
             if ask_justifications:
                 result += f'\t"{e.name}_justification" : str, # Your thoughts and analysis for the correct value of {e.name}. Make it at least 2 sentences.\n'
