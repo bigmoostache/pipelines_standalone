@@ -46,27 +46,41 @@ class Pipeline:
         api_key = os.environ.get("openai_api_key")
         client = openai.OpenAI(api_key=api_key, base_url=self.base_url)
         messages = p.messages
-        response = client.chat.completions.create(
-            model=self.model,
-            messages=messages,
-            temperature=self.temperature,
-            max_tokens=self.max_tokens,
-            top_p=self.top_p,
-            frequency_penalty=self.frequency_penalty,
-            presence_penalty=self.presence_penalty,
-            response_format= {"type": "json_object"}
-        )
-        print(response)
-        print(response.choices)
+        try:
+            response = client.chat.completions.create(
+                model=self.model,
+                messages=messages,
+                temperature=self.temperature,
+                max_tokens=self.max_tokens,
+                top_p=self.top_p,
+                frequency_penalty=self.frequency_penalty,
+                presence_penalty=self.presence_penalty,
+                response_format= {"type": "json_object"}
+            )
+            print(response)
+            print(response.choices)
+            
+            res = response.choices[0].message.content
+            logging.info(res)
+            dic = TXT2DICT()(res)
+            dic = dic["variables"]
+            logging.info(dic)
+            if not isinstance(dic, list):
+                print("Not a list of dicts", dic)
+                raise Exception("Failed to get a valid PDICT")
+            logging.info(dic)
+            dic = PDICT.from_dicts(dic)
+            return dic
         
-        res = response.choices[0].message.content
-        logging.info(res)
-        dic = TXT2DICT()(res)
-        dic = dic["variables"]
-        logging.info(dic)
-        if not isinstance(dic, list):
-            print("Not a list of dicts", dic)
-            raise Exception("Failed to get a valid PDICT")
-        logging.info(dic)
-        dic = PDICT.from_dicts(dic)
-        return dic
+        except openai.error.InvalidRequestError as e:
+            logging.error(f"Invalid Request Error: {e}")
+            logging.error(f"Error details: {e.response.json()}")
+            raise e
+        
+        except openai.error.OpenAIError as e:
+            logging.error(f"OpenAI API Error: {e}")
+            raise e
+
+        except Exception as e:
+            logging.error(f"An unexpected error occurred: {e}")
+            raise e
