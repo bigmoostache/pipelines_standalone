@@ -41,7 +41,8 @@ class Pipeline:
         for _ in range(self.retries -1):
             try:
                 return self.retry__call__(p)
-            except:
+            except Exception as e:
+                print(f"Problem {e}")
                 pass
         return {}
 

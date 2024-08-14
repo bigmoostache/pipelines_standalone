@@ -37,8 +37,8 @@ class Pipeline:
         for _ in range(self.retries -1):
             try:
                 return self.retry__call__(p, structure)
-            except:
-                pass
+            except Exception as e:
+                print(f"Problem {e}")
         raise Exception("Failed to get a valid PDICT")
     
     def retry__call__(self, 
