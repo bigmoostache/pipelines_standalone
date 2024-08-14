@@ -62,7 +62,7 @@ class Pipeline:
             presence_penalty=self.presence_penalty,
             response_format= {"type": "json_object"}
         )
-        
+        print("response dict", response)
         res = response.choices[0].message.content
         dic = TXT2DICT()(res)
         for k in self.verify:
