@@ -98,6 +98,7 @@ class PDICT:
         x = ', '.join(vals)
         
         r = f"""
+        Your output should be a json with the follogin structure:
         {{
             "variables" : [{{
             "name": str, # variable name, no special characters, not empty
