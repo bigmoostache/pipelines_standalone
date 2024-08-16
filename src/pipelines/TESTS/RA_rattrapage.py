@@ -60,15 +60,19 @@ class Pipeline:
                  start_date : str = '2024/01/01', 
                  end_date : str = '2024/01/30',
                  max_results : int = 100,
-                 references: bool = True,
+                 #references: bool = True,
                  protocol : Literal["http", "https"] = "https",
-                 host_port : str = "tools.blends.fr", 
+                 host_port : str = "tools.blends.fr"
                  #verify: str = False
                  ):
         
 
         self.request_body = None
-        
+        self.start_date = start_date
+        self.end_date = end_date
+        self.max_results = max_results
+        #self.references = references
+
         # if not verify:
         #     self.verify = []
         # else:
@@ -95,7 +99,7 @@ class Pipeline:
 
         self.request_url = request_url
 
-    def __call__(self, body: JSONL) -> List[RA]:
+    def __call__(self, body: str) -> List[RA]:
 
         # env variables
         #api_key = os.environ.get("openai_api_key")
@@ -105,10 +109,11 @@ class Pipeline:
                         'start_date': self.start_date,
                         'end_date': self.end_date,
                         'max_results': self.max_results,
-                        'references': self.references
+                        #'references': self.references
             }
 
         # Attempt to parse the body as a json
+
         try : 
             self.request_body = json.loads(body)
         except Exception as e:
@@ -117,8 +122,17 @@ class Pipeline:
 
         try:
 
-            response = requests.post(self.request_url, params=request_params, json = body)
-            json_response = response.json()[0]
+            response = requests.post(self.request_url, params=request_params, json = self.request_body)
+
+            json_response = response.json()
+
+            # delete
+            print(json_response)
+
+            if response.status_code != 200:
+                print(response)
+                raise Exception('problem with crawler rattrapage')
+
 
 
             ra_list = []
@@ -141,7 +155,7 @@ class Pipeline:
                     publication_date= data['publication_date'],
                     journal= data['title'],
                     authors= authors,
-                    country= data['publication_country'],
+                    country= None, # Implement this
                     # we can define a new subtype for the info below here so we can handle the type better
                     data=None,
                     type=None,
@@ -163,6 +177,7 @@ class Pipeline:
             
 
         except Exception as e:
+            
             raise e
         
         #print(json_response)
