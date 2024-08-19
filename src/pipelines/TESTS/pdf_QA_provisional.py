@@ -28,25 +28,33 @@ class Pipeline:
         self.min_chars = min_chars
 
 
-    def __call__(self,  article : str) -> str :
-
-        # Recieves the txt that comes out of a pdf extractor
-
-        keep = "True"
-
-        # if the number of charactes without spaces is less than 5000 the paper is problematic
-        article = article.replace(' ', '') # removes all spaces
-        length = len(article)
-        if length <= self.min_chars:
-            keep = "False"
-
-        # Checking if the number of line is less than a specified number
-        line_count = len(article.splitlines())
-        if line_count <= self.min_line_count:
-            keep = "False"
 
 
-        # Returns a flag indicating whether the pdf was parsed correctly or not
-        return keep
+
+    # Recieves the txt that comes out of a pdf extractor
+    def __call__(self,  articles : List[str]) -> List[str] :
+
+        filtered_articles = [article for article in articles if flag_article(article, min_line_count= self.min_line_count, min_chars=self.min_chars)]
+
+        return filtered_articles
     
+
+def flag_article(article, min_line_count, min_chars):
+            
+            # Returns true if we want to keep the article
+
+            keep = True
+
+            # if the number of charactes without spaces is less than 5000 the paper is problematic
+            article = article.replace(' ', '') # removes all spaces
+            length = len(article)
+            if length <= min_chars:
+                keep = False
+
+            # Checking if the number of line is less than a specified number
+            line_count = len(article.splitlines())
+            if line_count <= min_line_count:
+                keep = False
+
+            return keep
         
