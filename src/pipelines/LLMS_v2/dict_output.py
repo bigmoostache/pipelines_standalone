@@ -41,7 +41,8 @@ class Pipeline:
         for _ in range(self.retries -1):
             try:
                 return self.retry__call__(p)
-            except:
+            except Exception as e:
+                print(f"Problem {e}")
                 pass
         return {}
 
@@ -61,7 +62,7 @@ class Pipeline:
             presence_penalty=self.presence_penalty,
             response_format= {"type": "json_object"}
         )
-        
+        print("response dict", response)
         res = response.choices[0].message.content
         dic = TXT2DICT()(res)
         for k in self.verify:

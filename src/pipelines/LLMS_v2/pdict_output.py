@@ -36,8 +36,8 @@ class Pipeline:
         for _ in range(self.retries -1):
             try:
                 return self.retry__call__(p)
-            except:
-                pass
+            except Exception as e:
+                print(f"Problem {e}")
         raise Exception("Failed to get a valid PDICT")
     
     def retry__call__(self, 
@@ -56,7 +56,7 @@ class Pipeline:
             presence_penalty=self.presence_penalty,
             response_format= {"type": "json_object"}
         )
-        print(response)
+        print("response", response)
         print(response.choices)
         
         res = response.choices[0].message.content
