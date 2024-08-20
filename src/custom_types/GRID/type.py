@@ -11,9 +11,12 @@ class NOTATION_CRITERIA(BaseModel):
     definition: str
     possible_values: List[POSSIBLE_VALUE]
 
-class GRID(BaseModel):
+class GRID_SECTION(BaseModel):
+    name : str
     rows: List[NOTATION_CRITERIA]
     
+class GRID(BaseModel):
+    rows: List[GRID_SECTION]
     def to_dict(self):
         return self.dict()
  
