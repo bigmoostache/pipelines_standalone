@@ -12,7 +12,7 @@ class Pipeline:
     __env__ = ["openai_api_key"]
 
     def __init__(self, 
-                 model : str = "gpt-4-turbo", 
+                 model : str = "gpt-4o", 
                  base_url : str = "https://api.openai.com/v1",
                  temperature : int =1, 
                  retries : int =3, 
