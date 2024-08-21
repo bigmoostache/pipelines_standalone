@@ -1,7 +1,7 @@
 from typing import List
 import json 
-from pydantic import BaseModel
-from typing import Optional, Field
+from pydantic import BaseModel, Field
+from typing import Optional
 from datetime import datetime 
 
 class TINY_BIB(BaseModel):
