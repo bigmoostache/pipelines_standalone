@@ -87,5 +87,5 @@ class Pipeline:
             raise ValueError("Invalid response")
         
         x = event.dict()
-        return {**{k : v["value"] for k,v in x.items()}, "TOTAL_SCORE" : sum([v["value"] for v in x.values()]), **{k+'_JUSTIFICATION' : v["value_justification"] for k,v in x.items()}}, 
+        return {**{k : v["value"] for k,v in x.items()}, "TOTAL_SCORE" : sum([v["value"] for v in x.values()]), **{k+'_JUSTIFICATION' : v["value_justification"] for k,v in x.items()}} 
     
