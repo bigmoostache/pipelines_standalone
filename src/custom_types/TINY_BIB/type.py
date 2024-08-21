@@ -2,12 +2,11 @@ from typing import List
 import json 
 from pydantic import BaseModel, Field
 from typing import Optional
-from datetime import datetime 
 
 class TINY_BIB(BaseModel):
     title: Optional[str] = Field(..., description = "Article title")
     doi : Optional[str] = Field(..., description = "Article doi")
-    date : Optional[datetime] = Field(..., description = "Publication Date")
+    date : Optional[str] = Field(..., description = "Publication Date, format DD-MM-YYYY")
     journal : Optional[str] = Field(..., description = "Article journal")
     authors : List[str] = Field(..., description = "Article authors")
     

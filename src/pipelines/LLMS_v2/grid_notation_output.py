@@ -7,6 +7,7 @@ from utils.booleans import to_bool
 from pipelines.CONVERSIONS.txt_2_dict import Pipeline as TXT2DICT
 import logging 
 import os
+import re
 logging.basicConfig(level=logging.INFO)
 
 def clean_string(input_string):
