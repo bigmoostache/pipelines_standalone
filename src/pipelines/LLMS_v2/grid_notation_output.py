@@ -84,6 +84,8 @@ class Pipeline:
 
         event = completion.choices[0].message.parsed
         if not isinstance(event, MyBaseModel):
-            raise Exception("Invalid response")
-        return event.dict()
+            raise ValueError("Invalid response")
+        
+        x = event.dict()
+        return {**{k : v["value"] for k,v in x.items()}, "TOTAL_SCORE" : sum([v["value"] for v in x.values()]), **{k+'_JUSTIFICATION' : v["value_justification"] for k,v in x.items()}}, 
     
