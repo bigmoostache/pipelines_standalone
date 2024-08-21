@@ -1,5 +1,7 @@
 from custom_types.PROMPT.type import PROMPT
-from custom_types.GRID.type import GRID
+from custom_types.GRID.type import GRID, NOTATION_CRITERIA, GRID_SECTION
+from typing import Literal
+from pydantic import Field, BaseModel, create_model
 import openai
 from utils.booleans import to_bool
 from pipelines.CONVERSIONS.txt_2_dict import Pipeline as TXT2DICT
