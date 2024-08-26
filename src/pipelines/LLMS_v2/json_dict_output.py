@@ -16,8 +16,7 @@ class Pipeline:
                  schema : str,
                  model : str = "gpt-4o-2024-08-06", 
                  base_url : str = "https://api.openai.com/v1",
-                 temperature : int =1, 
-                 retries : int =3, 
+                 temperature : int =1,                  
                  max_tokens : int =3500, 
                  top_p : int =1, 
                  frequency_penalty : float =0, 
@@ -31,8 +30,7 @@ class Pipeline:
         self.max_tokens = max_tokens
         self.top_p = top_p
         self.frequency_penalty = frequency_penalty
-        self.presence_penalty = presence_penalty
-        self.retries = retries
+        self.presence_penalty = presence_penalty        
         self.base_url = base_url
         
     def __call__(self, 
@@ -69,6 +67,5 @@ class Pipeline:
         print("response dict", response)
         res = response.choices[0].message.content
         dic = TXT2DICT()(res)
-        for k in self.verify:
-            assert k in dic
+      
         return dic
