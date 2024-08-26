@@ -16,6 +16,8 @@ def simplify(text : str) -> str:
     res = re.sub(r'[ýÿ]', 'y', res)
     res = re.sub(r'[ç]', 'c', res)
     res = re.sub(r'[ñ]', 'n', res)
+
+    return res
     
 class Pipeline:
     def __init__(self,
