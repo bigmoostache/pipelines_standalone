@@ -1,3 +1,35 @@
+'''
+json_schema example: 
+        {
+          "name": "abstract_analyzed",
+          "strict": true,
+          "schema": {
+              "type": "object",
+              "properties": {
+                "score":{"type":"number","description":"between 0 and 10, how much does the article talks about the topic"},
+                "score_justification":{"type":"string","description":"one sentence to explain the score"},
+                "hypothesis":{"type":"string","description":"the article's hypothesis in 1 sentence"},
+                "article_type":{"type":"string","enum":["Clinical Trial", "Review", "Case Report", "Meta-Analysis", "Erratum", "Retrospective Study", "Prospective Study", "Longitudinal Study", "Other"]},
+                "type_justification":{"type":"string","description":"2 sentences explaining the artical_type you choose"},
+                "method":{"type":"string","description":"1 sentence describing the method and scope of the study"},
+                "key_points": {
+                    "type": "array",
+                    "description":"a list of key results for my study",
+                    "items": {"type":"string"}
+                  },
+                "breakthrough":{"type":"string","enum":["Incremental Advance", "Significant Development", "Major Breakthrough"]},
+                "breakthrough_justification":{"type":"string","description":"2 sentences explaining the breakthrough"}
+              },
+              "required": ["score", "score_justification","hypothesis","article_type","type_justification","method","key_points","breakthrough","breakthrough_justification"],
+              "additionalProperties": false
+          }
+
+More doc:
+https://platform.openai.com/docs/guides/structured-outputs/how-to-use?context=without_parse
+https://platform.openai.com/docs/guides/structured-outputs/supported-schemas
+'''
+
+
 import os
 import dotenv
 from typing import Annotated, List, Optional, Union
