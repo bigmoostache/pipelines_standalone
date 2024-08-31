@@ -102,6 +102,11 @@
          }
       }
    },
+   "active_authors": {
+      "1": [
+         1
+      ]
+   },
    "signatures": [
       {
          "role": {

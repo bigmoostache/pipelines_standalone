@@ -90,6 +90,7 @@ class SOTA(BaseModel):
     current_version_id : int                = Field(..., description = "version_id of the currently featured version.")
     
     authors            : Dict[int, Author]  = Field(..., description = "author_id -> Author")
+    active_authors     : Dict[int, List[int]] = Field(..., description = "version_id -> List[author_id]")
     signatures         : List[SignHere]     = Field(..., description = "A list of signatures related to the Document.")
     keywords           : Dict[int, Keyword] = Field(..., description = "A list of keywords used globally in the Document.")
 
