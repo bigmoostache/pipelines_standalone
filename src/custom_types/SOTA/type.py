@@ -16,7 +16,7 @@ class Version(BaseModel):
     description         : str        = Field(..., description="Update description")
     digest              : str        = Field(..., description="Document digest")
     blame_author_id     : int        = Field(..., description="Author to blame")
-    previous_version_id : int | None = Field(..., description="ID of parent version. If None, then initializes a tree.")
+    previous_version_id : Optional[int] = Field(..., description="ID of parent version. If None, then initializes a tree.")
 
 class Author(BaseModel):
     name                : VersionedText = Field(..., description = "Author name")
