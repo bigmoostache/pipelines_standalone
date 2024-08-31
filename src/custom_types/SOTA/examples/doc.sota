@@ -1,0 +1,360 @@
+{
+   "title": {
+      "versions": {
+         "1": "A Study on the Effects of XYZ on ABC"
+      }
+   },
+   "drop_url": "https://fs.croquo.com/files",
+   "versions": {
+      "1": {
+         "date": "2024-08-23",
+         "description": "Initial version of the document",
+         "digest": "a1b2c3d4",
+         "blame_author_id": 1,
+         "previous_version_id": null
+      },
+      "2": {
+         "date": "2024-08-23",
+         "description": "Second version of the document",
+         "digest": "a1b2c3d4",
+         "blame_author_id": 1,
+         "previous_version_id": 1
+      },
+      "3": {
+         "date": "2024-08-23",
+         "description": "Third version of the document",
+         "digest": "a1b2c3d4",
+         "blame_author_id": 1,
+         "previous_version_id": 2
+      }
+   },
+   "current_version_id": 1,
+   "authors": {
+      "1": {
+         "name": {
+            "versions": {
+               "1": "Dr. John Doe"
+            }
+         },
+         "role": {
+            "versions": {
+               "1": "Lead Researcher",
+               "2": "Mega Lead Researcher"
+            }
+         },
+         "current_affiliations": {
+            "entries": {
+               "1": {
+                  "versions": {
+                     "1": "University of Science"
+                  }
+               },
+               "2": {
+                  "versions": {
+                     "1": "Institute of Advanced Research"
+                  }
+               }
+            },
+            "versions": {
+               "1": [
+                  1
+               ],
+               "2": [
+                  2
+               ]
+            }
+         },
+         "contact_information": {
+            "versions": {
+               "1": "john.doe@example.com"
+            }
+         }
+      },
+      "2": {
+         "name": {
+            "versions": {
+               "1": "Dr. Jane Smith"
+            }
+         },
+         "role": {
+            "versions": {
+               "1": "Co-Researcher"
+            }
+         },
+         "current_affiliations": {
+            "entries": {
+               "1": {
+                  "versions": {
+                     "1": "University of Science"
+                  }
+               }
+            },
+            "versions": {
+               "1": [
+                  1
+               ]
+            }
+         },
+         "contact_information": {
+            "versions": {
+               "1": "jane.smith@example.com"
+            }
+         }
+      }
+   },
+   "signatures": [
+      {
+         "role": {
+            "versions": {
+               "1": "Author"
+            }
+         },
+         "description": {
+            "versions": {
+               "1": "Signed by the lead author"
+            }
+         },
+         "signatures": [
+            {
+               "author_id": 1,
+               "version_signed": 1,
+               "public_key": "abc123publickey",
+               "signature": "signature123"
+            }
+         ]
+      }
+   ],
+   "keywords": {
+      "1": {
+         "abbreviation": {
+            "versions": {
+               "1": "XYZ"
+            }
+         },
+         "definition": {
+            "versions": {
+               "1": "A complex chemical compound used in the study"
+            }
+         }
+      },
+      "2": {
+         "abbreviation": {
+            "versions": {
+               "1": "ABC"
+            }
+         },
+         "definition": {
+            "versions": {
+               "1": "The biological system studied"
+            }
+         }
+      }
+   },
+   "information": {
+      "1": {
+         "versions": {
+            "1": {
+               "enumeration": "Numbers enumeration",
+               "sections": [
+                  [
+                     true,
+                     2
+                  ],
+                  [
+                     true,
+                     3
+                  ],
+                  [
+                     true,
+                     4
+                  ],
+                  [
+                     true,
+                     5
+                  ]
+               ]
+            }
+         },
+         "referencements": {
+            "1": {
+               "information_id": 2,
+               "detail": "Page 1",
+               "analysis": "Introduction to the study",
+               "pertinence": 0.9
+            }
+         },
+         "referencement_versions": {
+            "1": [
+               1
+            ]
+         },
+         "title": {
+            "versions": {
+               "1": "I"
+            }
+         },
+         "abstract": {
+            "versions": {
+               "1": "This study investigates the effects of XYZ on ABC in a controlled environment."
+            }
+         },
+         "reference_as": {
+            "versions": {
+               "1": "Body"
+            }
+         },
+         "annotations": {
+            "1": {
+               "versions": {
+                  "1": "This is an important section to consider for future research."
+               }
+            },
+            "2": {
+               "versions": {
+                  "1": "This is an important section to consider for future research."
+               }
+            },
+            "3": {
+               "versions": {
+                  "1": "This is an important section to consider for future research."
+               }
+            }
+         },
+         "active_annotations": {
+            "1": [
+               1,
+               2,
+               3
+            ]
+         }
+      },
+      "2": {
+         "versions": {
+            "1": "Hello",
+            "2": "Super Hello",
+            "3": "Super super hello"
+         },
+         "referencements": {},
+         "referencement_versions": {},
+         "title": {
+            "versions": {
+               "1": "Section 1"
+            }
+         },
+         "abstract": {
+            "versions": {
+               "1": "This section includes the methodology and results."
+            }
+         },
+         "reference_as": {
+            "versions": {
+               "1": "I.1"
+            }
+         },
+         "annotations": {},
+         "active_annotations": {}
+      },
+      "3": {
+         "versions": {
+            "1": {
+               "url": "https://encrypted-tbn2.gstatic.com/images?q=tbn:ANd9GcQMzhFNFo6-w38Rp5dIgDa3LJhYOCYOuT8cbR_nVn1skvc6rTbH",
+               "label": "Obama"
+            }
+         },
+         "referencements": {},
+         "referencement_versions": {},
+         "title": {
+            "versions": {
+               "1": "Section 2"
+            }
+         },
+         "abstract": {
+            "versions": {
+               "1": "This section includes images related to the results."
+            }
+         },
+         "reference_as": {
+            "versions": {
+               "1": "I.2"
+            }
+         },
+         "annotations": {},
+         "active_annotations": {}
+      },
+      "4": {
+         "versions": {
+            "1": {}
+         },
+         "referencements": {},
+         "referencement_versions": {},
+         "title": {
+            "versions": {
+               "1": "Section 3"
+            }
+         },
+         "abstract": {
+            "versions": {
+               "1": "This placeholder represents a section to be developed."
+            }
+         },
+         "reference_as": {
+            "versions": {
+               "1": "I.3"
+            }
+         },
+         "annotations": {},
+         "active_annotations": {}
+      },
+      "5": {
+         "versions": {
+            "1": {}
+         },
+         "referencements": {},
+         "referencement_versions": {},
+         "title": {
+            "versions": {
+               "1": "Section 4"
+            }
+         },
+         "abstract": {
+            "versions": {
+               "1": "Another placeholder for future content."
+            }
+         },
+         "reference_as": {
+            "versions": {
+               "1": "I.4"
+            }
+         },
+         "annotations": {},
+         "active_annotations": {}
+      },
+      "6": {
+         "versions": {
+            "1": {
+               "external_db": "file",
+               "external_id": "here.png"
+            }
+         },
+         "referencements": {},
+         "referencement_versions": {},
+         "title": {
+            "versions": {}
+         },
+         "abstract": {
+            "versions": {}
+         },
+         "reference_as": {
+            "versions": {}
+         },
+         "annotations": {},
+         "active_annotations": {}
+      }
+   },
+   "mother_id": 1,
+   "bibliography": {
+      "1": [
+         6
+      ]
+   }
+}
