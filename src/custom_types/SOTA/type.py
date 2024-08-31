@@ -82,7 +82,7 @@ class VersionedInformation(BaseModel):
     active_annotations : Dict[int, List[int]] = Field(..., description = "version_id -> List[local_annotation_id]")
 
 
-class Document(BaseModel):
+class SOTA(BaseModel):
     title              : VersionedText      = Field(..., description = "Document title")
     drop_url           : str
     
@@ -99,19 +99,19 @@ class Document(BaseModel):
 
 class Converter:
     @staticmethod
-    def to_bytes(doc : Document) -> bytes:
+    def to_bytes(doc : SOTA) -> bytes:
         return doc.model_dump_json(indent=2).encode('utf-8')
     @staticmethod
-    def from_bytes(b: bytes) -> Document:
-        return Document.parse_obj(json.loads(b.decode('utf-8')))
+    def from_bytes(b: bytes) -> SOTA:
+        return SOTA.parse_obj(json.loads(b.decode('utf-8')))
     @staticmethod
-    def str_preview(doc: Document) -> str:
+    def str_preview(doc: SOTA) -> str:
         return doc.model_dump_json(indent=2)[:10000]
     
 from custom_types.wrapper import TYPE
 wraped = TYPE(
     extension='sota',
-    _class = Document,
+    _class = SOTA,
     converter = Converter,
     visualiser = "https://sota.croquo.com"
 )
