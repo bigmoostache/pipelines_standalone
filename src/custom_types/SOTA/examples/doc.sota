@@ -1,7 +1,8 @@
 {
    "title": {
       "versions": {
-         "1": "A Study on the Effects of XYZ on ABC"
+         "1": "A Study on the Effects of XYZ on ABC",
+         "3": "New version of title"
       }
    },
    "drop_url": "https://fs.croquo.com/files",
