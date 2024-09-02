@@ -60,9 +60,9 @@ class VersionedInformation(BaseModel):
         column_hierarcy : dict            = Field(..., description = "Tree. Each node is a string. Leafs are column names. Will aggregate columns according to that tree. Non found columns will be isolated.")
     class External(BaseModel):
         external_db : str                 = Field(..., description = "Database, provider, api, whatever. Must match an implemented algorithm.")
-        external_id : str | int           = Field(..., description = "External identifier. May be anything. Unlike the Sections model, conceptually, the information here is not just the id, it is also the information behind the underlying entity.")
+        external_id : Union[str, float]           = Field(..., description = "External identifier. May be anything. Unlike the Sections model, conceptually, the information here is not just the id, it is also the information behind the underlying entity.")
 
-    versions : Dict[int,  PlaceHolder | Sections | Image | Table | External | str | Paragraphs | FormatedText] = Field(..., description = "Content of the versioned information. The key is the version id.")
+    versions: Dict[int, Union[PlaceHolder, Sections, Image, Table, External, str, Paragraphs, FormatedText]] = Field(..., description="Content of the versioned information. The key is the version id.")
 
     # TODO: versioned text for str entries
     class Referencement(BaseModel):
