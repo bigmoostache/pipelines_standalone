@@ -24,13 +24,16 @@ class Pipeline:
         client = openai.OpenAI(
             api_key=os.environ.get("openai_api_key"), 
             base_url=self.base_url)
+        _type = e.get_nested_model()
         completion = client.beta.chat.completions.parse(
             model="gpt-4o-2024-08-06",
             messages=p.messages,
             temperature=self.temperature,
             top_p=self.top_p,
-            response_format=e.get_nested_model()
+            response_format=_type
         )
         event = completion.choices[0].message.parsed
-        return e.get_result_dict(event)
+        if not isinstance(event, _type):
+            raise ValueError(f"Expected {_type} but got {type(event)}")
+        return e.get_result_dict(event, keep_justifications= True)
     

@@ -44,7 +44,7 @@ class Entries(BaseModel):
         for e in self.entries:
             x[e.name+'_JUSTIFICATION'] = (str, Field(..., description = f'Justifiy briefly the answer you want to give to {e.name} ({e.description}). Be fair and unbiased. Your reflexion should aim at avoiding traps, making sure not to miss data, and avoid errors.'))
             x[e.name] = (
-                    (ValueTypeToType[e.value.value] if e.multiple != ValueMultiplicity.SINGLE else List[ValueTypeToType[e.value.value]])
+                    (ValueTypeToType[e.value.value] if e.multiple == ValueMultiplicity.SINGLE else List[ValueTypeToType[e.value.value]])
                     , Field(..., description = e.description)
             )
         return create_model("Data", **x)
