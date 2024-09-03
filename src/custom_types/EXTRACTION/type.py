@@ -81,7 +81,7 @@ import json
 class Converter:
     @staticmethod
     def to_bytes(obj : Entries) -> bytes:
-        return bytes(json.dumps(obj.to_dict()), encoding = 'utf-8')
+        return bytes(json.dumps(obj.model_dump()), encoding = 'utf-8')
          
     @staticmethod
     def from_bytes(obj : bytes) -> 'Entries':
