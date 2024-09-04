@@ -39,5 +39,5 @@ wraped = TYPE(
     additional_converters={
         'json':lambda x : x.__dict__
         },
-    icon='icons/doc.svg'#'lib'
+    icon='/icons/doc.svg'#'lib'
 )

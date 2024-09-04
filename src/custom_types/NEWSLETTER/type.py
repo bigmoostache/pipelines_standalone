@@ -81,5 +81,5 @@ wraped = TYPE(
     converter = Converter,
     inputable  = False,
     visualiser = "https://visuals.croquo.com/newsletter",
-    icon='micons/apps-script.svg'
+    icon='/micons/apps-script.svg'
 )

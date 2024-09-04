@@ -14,5 +14,5 @@ wraped = TYPE(
     extension='float',
     _class = float,
     converter = Converter,
-    icon = "icons/exe.svg"
+    icon = "/icons/exe.svg"
 )

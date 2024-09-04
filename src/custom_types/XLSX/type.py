@@ -21,5 +21,5 @@ wraped = TYPE(
     extension='xlsx',
     _class = XLSX,
     converter = Converter,
-    icon="icons/xlsx.svg"
+    icon="/icons/xlsx.svg"
 )

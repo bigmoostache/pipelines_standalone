@@ -119,5 +119,5 @@ wraped = TYPE(
     extension='pdict',
     _class = PDICT,
     converter = PDICT,
-    icon="micons/pnpm_light.svg"
+    icon="/micons/pnpm_light.svg"
 )

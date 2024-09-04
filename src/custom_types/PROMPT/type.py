@@ -33,5 +33,5 @@ wraped = TYPE(
     additional_converters={
         'jsonl':lambda x : JSONL(x.messages)
         },
-    icon='micons/coffee.svg'
+    icon='/micons/coffee.svg'
 )

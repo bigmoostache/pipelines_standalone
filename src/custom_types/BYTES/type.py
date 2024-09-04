@@ -16,5 +16,5 @@ wraped = TYPE(
     extension='bytes',
     _class = BYTES,
     converter = Converter,
-    icon = "icons/exe.svg"
+    icon = "/icons/exe.svg"
 )

@@ -25,5 +25,5 @@ wraped = TYPE(
     additional_converters={
         'txt' : lambda x : x.html
         },
-    icon = "icons/html.svg"
+    icon = "/icons/html.svg"
 )
