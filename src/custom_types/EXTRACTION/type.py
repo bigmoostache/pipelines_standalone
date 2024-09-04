@@ -70,7 +70,6 @@ class Entries(BaseModel):
                 dico = row.model_dump()
                 if not keep_justifications:
                     dico = {k:v for k,v in dico.items() if not k.endswith('_JUSTIFICATION')}
-                del dico['row_scope_analysis']
                 x.append(dico)
         return x
 
