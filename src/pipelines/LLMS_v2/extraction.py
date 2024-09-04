@@ -20,7 +20,7 @@ class Pipeline:
     def try_call(self, 
                  p : PROMPT,
                  e : Entries
-                 ) -> List[dict]:
+                 ):
         client = openai.OpenAI(
             api_key=os.environ.get("openai_api_key"), 
             base_url=self.base_url)
