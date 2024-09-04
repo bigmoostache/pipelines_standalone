@@ -38,5 +38,5 @@ wraped = TYPE(
     extension='json',
     _class = JSON,
     converter = Converter,
-    icon="json"
+    icon="icons/js.svg"
 )

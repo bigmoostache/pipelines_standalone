@@ -17,5 +17,5 @@ wraped = TYPE(
     _class = TXT,
     converter = Converter,
     visualiser = "https://visuals.croquo.com/txt",
-    icon='document'
+    icon='icons/txt.svg'
 )

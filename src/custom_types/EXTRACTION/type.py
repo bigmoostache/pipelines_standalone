@@ -96,5 +96,5 @@ wraped = TYPE(
         'json':lambda x : x.model_dump()
         },
     visualiser = "https://visualizations.croquo.com/extraction",
-    icon = 'pnpm_light'
+    icon = 'micons/pnpm_light'
 )

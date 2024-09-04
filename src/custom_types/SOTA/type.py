@@ -115,5 +115,5 @@ wraped = TYPE(
     _class = SOTA,
     converter = Converter,
     visualiser = "https://sota.croquo.com",
-    icon='pnpm_light'
+    icon='icons/ai.svg'
 )

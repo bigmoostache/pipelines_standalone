@@ -15,5 +15,5 @@ wraped = TYPE(
     extension='int',
     _class = int,
     converter = Converter,
-    icon="database"
+    icon="icons/exe.svg"
 )

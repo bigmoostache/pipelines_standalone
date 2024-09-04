@@ -100,5 +100,5 @@ wraped = TYPE(
     additional_converters={
         'jsonl':lambda x : JSONL([_.__dict__ for _ in x.entries])
         },
-    icon='test-ts'
+    icon='icons/pubmed.svg'
 )

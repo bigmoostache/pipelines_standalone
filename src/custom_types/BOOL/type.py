@@ -14,5 +14,5 @@ wraped = TYPE(
     extension='bool',
     _class = bool,
     converter = Converter,
-    icon = "velite"
+    icon = "icons/bool.svg"
 )
