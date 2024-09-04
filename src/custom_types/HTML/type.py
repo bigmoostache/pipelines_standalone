@@ -24,5 +24,6 @@ wraped = TYPE(
     converter = Converter,
     additional_converters={
         'txt' : lambda x : x.html
-        }
+        },
+    icon = "html"
 )

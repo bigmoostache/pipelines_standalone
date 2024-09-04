@@ -95,5 +95,6 @@ wraped = TYPE(
     additional_converters={
         'json':lambda x : x.model_dump()
         },
-    visualiser = "https://visualizations.croquo.com/extraction"
+    visualiser = "https://visualizations.croquo.com/extraction",
+    icon = 'pnpm_light'
 )

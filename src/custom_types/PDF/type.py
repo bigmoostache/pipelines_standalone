@@ -24,4 +24,5 @@ wraped = TYPE(
     extension='pdf',
     _class = PDF,
     converter = Converter,
+    icon="pdf"
 )

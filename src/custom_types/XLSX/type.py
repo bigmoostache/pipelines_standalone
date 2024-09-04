@@ -21,4 +21,5 @@ wraped = TYPE(
     extension='xlsx',
     _class = XLSX,
     converter = Converter,
+    icon="table"
 )

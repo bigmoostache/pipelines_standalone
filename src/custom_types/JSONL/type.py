@@ -25,4 +25,5 @@ wraped = TYPE(
     extension='jsonl',
     _class = JSONL,
     converter = Converter,
+    icon="raml"
 )

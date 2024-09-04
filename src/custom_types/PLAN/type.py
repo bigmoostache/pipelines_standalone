@@ -70,3 +70,12 @@ class Converter:
     @staticmethod
     def str_preview(article : Plan) -> str:
         return json.dumps(asdict(article), cls=BytesEncoder, indent = 1)
+    
+    
+from custom_types.wrapper import TYPE
+wraped = TYPE(
+    extension='plan',
+    _class = Plan,
+    converter = Converter,
+    icon="roadmap"
+)

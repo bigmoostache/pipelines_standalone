@@ -119,4 +119,5 @@ wraped = TYPE(
     extension='pdict',
     _class = PDICT,
     converter = PDICT,
+    icon="pnpm_light"
 )

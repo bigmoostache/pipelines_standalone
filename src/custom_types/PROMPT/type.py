@@ -32,5 +32,6 @@ wraped = TYPE(
     converter = Converter,
     additional_converters={
         'jsonl':lambda x : JSONL(x.messages)
-        }
+        },
+    icon='coffee'
 )

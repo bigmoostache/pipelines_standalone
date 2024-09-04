@@ -80,5 +80,6 @@ wraped = TYPE(
     _class = NEWSLETTER,
     converter = Converter,
     inputable  = False,
-    visualiser = "https://visuals.croquo.com/newsletter"
+    visualiser = "https://visuals.croquo.com/newsletter",
+    icon='apps-script'
 )

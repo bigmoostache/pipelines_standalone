@@ -69,5 +69,6 @@ wraped = TYPE(
     inputable  = False,
     additional_converters={
         'json':lambda x : x.__dict__
-        }
+        },
+    icon='codeowners'
 )

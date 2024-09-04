@@ -14,4 +14,5 @@ wraped = TYPE(
     extension='float',
     _class = float,
     converter = Converter,
+    icon = "database"
 )

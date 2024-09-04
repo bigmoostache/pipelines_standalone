@@ -40,5 +40,6 @@ wraped = TYPE(
     converter = Converter,
     additional_converters={
         'json':lambda x : x.to_dict()
-        }
+        },
+    icon='deepsource'
 )

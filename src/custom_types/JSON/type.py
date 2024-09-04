@@ -37,5 +37,6 @@ from custom_types.wrapper import TYPE
 wraped = TYPE(
     extension='json',
     _class = JSON,
-    converter = Converter
+    converter = Converter,
+    icon="json"
 )

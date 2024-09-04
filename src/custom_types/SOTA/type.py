@@ -114,5 +114,6 @@ wraped = TYPE(
     extension='sota',
     _class = SOTA,
     converter = Converter,
-    visualiser = "https://sota.croquo.com"
+    visualiser = "https://sota.croquo.com",
+    icon='pnpm_light'
 )

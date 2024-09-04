@@ -16,4 +16,5 @@ wraped = TYPE(
     extension='bytes',
     _class = BYTES,
     converter = Converter,
+    icon = "assembly"
 )
