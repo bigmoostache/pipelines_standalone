@@ -17,7 +17,7 @@ class Pipeline:
         self.top_p = top_p
         self.base_url = base_url
         
-    def __call__(self, 
+    def try_call(self, 
                  p : PROMPT,
                  e : Entries
                  ) -> List[dict]:
@@ -34,6 +34,16 @@ class Pipeline:
         )
         event = completion.choices[0].message.parsed
         if not isinstance(event, _type):
-            raise ValueError(f"Expected {_type} but got {type(event)}")
-        return e.get_result_dict(event, keep_justifications= True)
+            return False, None
+        return True, e.get_result_dict(event, keep_justifications= True)
+    
+    def call(self, 
+             p : PROMPT,
+             e : Entries
+             ) -> List[dict]:
+        for k in range(3):
+            success, result = self.try_call(p, e)
+            if success:
+                return result
+        raise Exception("Failed to extract the event after 3 attempts")
     
