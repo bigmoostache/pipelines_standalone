@@ -37,10 +37,8 @@ class Entries(BaseModel):
     one_entry_only_per_document : bool = Field(..., description = "Will each provided document to analyse have one, or multiple rows to extract? (one, or multiple rows?)")
     entry_definition : str = Field(..., description = "In case one_entry_only_per_document = false, describe here precisely how to properly define a single row of entries. With this definition alone, it should be clear to anyone with the document at hand which and how many rows of entries to extract from the document. If one_entry_only_per_document = true, just return 'na' here")
     
-    def get_model(self, description : str = None):
+    def get_model(self):
         x = {}
-        if description is not None:
-            x['row_scope_analysis'] = (str, Field(..., description = f'Determine briefly which row you are extracting here ({description}). This is to avoid confusions later on and to proprely define the rest of the extraction process for this row.'))
         for e in self.entries:
             x[e.name+'_JUSTIFICATION'] = (str, Field(..., description = f'Justifiy briefly the answer you want to give to {e.name} ({e.description}). Be fair and unbiased. Your reflexion should aim at avoiding traps, making sure not to miss data, and avoid errors.'))
             x[e.name] = (
@@ -50,13 +48,13 @@ class Entries(BaseModel):
         return create_model("Data", **x)
     
     def get_nested_model(self):
+        basemodel = self.get_model()
         if self.one_entry_only_per_document:
-            return self.get_model()
+            return basemodel
         else:
-            basemodel = self.get_model(description = self.entry_definition)
             x = {
-                "rows_analysis" : (str, Field(..., description = f'Determine here which and how many rows to extract. {self.entry_definition}')),
-                "rows" : (List[basemodel], Field(..., description = f'Extract without doing ANY errors'))
+                "rows_analysis" : (str, Field(..., description = f'{self.entry_definition}. In this field, analyse and determine all the rows you can extract from the document. Be precise and exhaustive. Make sure to differentiate the rows properly, not to forget any, and to avoid errors.')),
+                "rows" : (List[basemodel], Field(..., description = f'Extract the rows you defined above. Be careful to extract the right amount of rows, and to differentiate them properly.'))
             }
             return create_model("Data", **x)
         
