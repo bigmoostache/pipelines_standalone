@@ -37,7 +37,7 @@ class Pipeline:
             return False, None
         return True, e.get_result_dict(event, keep_justifications= True)
     
-    def call(self, 
+    def __call__(self, 
              p : PROMPT,
              e : Entries
              ) -> List[dict]:
