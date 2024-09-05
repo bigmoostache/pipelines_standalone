@@ -17,13 +17,14 @@ class Pipeline:
         self.retrieve_pdf = retrieve_pdf
 
 
+
     def __call__(self, jsonl : JSONL) -> JSONL:
 
         # loads the whole dataset as a python object
         data = [line for line in jsonl.lines]
 
         # do a post request to the "download-and-get-s3url" endpoint
-        url = "https://tools.blends.fr/pdfservices/download-and-get-s3url"
+        url = "http://172.16.100.121:5566/pdfservices/download-and-get-s3url"
         params = {'retrieve_pdf': self.retrieve_pdf}
         response = requests.post(url,params=params,json=data)
 
