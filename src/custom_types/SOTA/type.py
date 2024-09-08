@@ -70,6 +70,7 @@ class VersionedInformation(BaseModel):
         detail         : str              = Field(..., max_length = 20, description = "Very short detail about where exactly in the information to look (eg: the page number, t)")
         analysis       : str              = Field(..., description = "Analysis of the reference w.r.t. this information.")
         pertinence     : float
+        detail_is_id   : bool             = Field(..., description = "Whether the detail is an id or not", default = False)
         
     referencements : Dict[int, Referencement]     = Field(..., description = "local_referencement_id -> Referencement")
     referencement_versions : Dict[int, List[int]] = Field(..., description = "version_id -> List[local_annotation_id]")
@@ -97,6 +98,40 @@ class SOTA(BaseModel):
     information        : Dict[int, VersionedInformation] = Field(..., description = "information_id -> VersionedInformation")
     mother_id          : int                  = Field(..., description = "Master information for the rendering")
     bibliography       : Dict[int, List[int]] = Field(..., description = "version_id -> List[information_id]")
+    
+    @classmethod
+    def get_empty(cls) -> 'SOTA':
+        return cls(
+            title = VersionedText(versions = {0: "New Document"}),
+            drop_url = "https://fs.croquo.com",
+            versions = Version(
+                date = datetime.now().isoformat(),
+                description = "Initial version",
+                digest = "Initial version",
+                blame_author_id = 0,
+                previous_version_id = None
+            ),
+            current_version_id = 0,
+            authors = {},
+            active_authors = {},
+            signatures = [],
+            keywords = {},
+            information = {},
+            mother_id = 0,
+            bibliography = {}
+        )
+    
+    def get_unassigned_information_id(self) -> int:
+        """
+        Get an unassigned information ID.
+
+        Returns:
+            int: The unassigned information ID.
+        """
+        _id: int = len(self.information)
+        while _id in self.information:
+            _id += 1
+        return _id
 
 class Converter:
     @staticmethod
