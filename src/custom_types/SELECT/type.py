@@ -17,8 +17,8 @@ class SELECT(BaseModel):
         x = {}
         for e in self.selection_criteria:
             is_exclusion = type(e) == ExclusionCriteria
-            x[e.name + '_JUSTIFICATION'] = (str, Field(..., description = f'Justifiy briefly the answer you want to give to {e.name} ({e.exclusion_criteria if is_exclusion else e.inclusion_criteria}). Be fair and unbiased. Your reflexion should aim at avoiding traps, making sure not to miss data, and avoid errors.'))
-            x[e.name] = (bool, Field(..., description = e.exclusion_criteria if is_exclusion else e.inclusion_criteria))
+            x[e.name + '_JUSTIFICATION'] = (str, Field(..., description = f'Justifiy briefly the answer you want to give to {e.name} ({e.exclusion_criteria_description if is_exclusion else e.inclusion_criteria_description}). Be fair and unbiased. Your reflexion should aim at avoiding traps, making sure not to miss data, and avoid errors.'))
+            x[e.name] = (bool, Field(..., description = e.exclusion_criteria_description if is_exclusion else e.inclusion_criteria_description))
         return create_model("Data", **x)
     
 class Converter:
