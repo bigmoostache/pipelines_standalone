@@ -3,12 +3,12 @@ from pydantic import BaseModel, Field, create_model
 import json
     
 class ExclusionCriteria(BaseModel):
+    exclusion_criteria_description: str = Field(..., description = "Describe precisely the situation where this exclusion criteria should be applied.")
     name: str = Field(..., description = "The name of the exclusion criteria. Should be upper, no special characters, spaces replaced by underscores and no numbers.")
-    exclusion_criteria: str = Field(..., description = "Describe precisely the situation where this exclusion criteria should be applied.")
 
 class InclusionCriteria(BaseModel):
+    inclusion_criteria_description: str = Field(..., description = "Describe precisely the situation where this inclusion criteria should be applied.")
     name: str = Field(..., description = "The name of the selection criteria. Should be upper, no special characters, spaces replaced by underscores and no numbers.")
-    inclusion_criteria: str = Field(..., description = "Describe precisely the situation where this inclusion criteria should be applied.")
 
 class SELECT(BaseModel):
     selection_criteria : List[Union[ExclusionCriteria, InclusionCriteria]] = Field(..., description = "List of selection criteria") 
