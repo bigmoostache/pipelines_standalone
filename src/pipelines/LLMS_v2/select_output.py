@@ -35,7 +35,7 @@ class Pipeline:
         event = completion.choices[0].message.parsed
         if not isinstance(event, _type):
             return False, None
-        return True, e.model_dump()
+        return True, event.model_dump()
     
     def __call__(self, 
              p : PROMPT,
