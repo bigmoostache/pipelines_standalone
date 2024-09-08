@@ -70,7 +70,6 @@ class VersionedInformation(BaseModel):
         detail         : str              = Field(..., max_length = 20, description = "Very short detail about where exactly in the information to look (eg: the page number, t)")
         analysis       : str              = Field(..., description = "Analysis of the reference w.r.t. this information.")
         pertinence     : float
-        detail_is_id   : bool             = Field(..., description = "Whether the detail is an id or not", default = False)
         
     referencements : Dict[int, Referencement]     = Field(..., description = "local_referencement_id -> Referencement")
     referencement_versions : Dict[int, List[int]] = Field(..., description = "version_id -> List[local_annotation_id]")
