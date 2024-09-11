@@ -38,5 +38,6 @@ wraped = TYPE(
     additional_converters={
         'json':lambda x : x.to_dict()
         },
-    icon='/micons/deepsource.svg'
+    icon='/micons/deepsource.svg',
+    visualiser = "https://visualizations.croquo.com/select",
 )
