@@ -16,11 +16,11 @@ class Pipeline:
         self.temperature = temperature
         self.top_p = top_p
         self.base_url = base_url
-        
-    def try_call(self, 
-                 p : PROMPT,
-                 e : SELECT
-                 ):
+    
+    def __call__(self, 
+             p : PROMPT,
+             e : SELECT
+             ) -> dict:
         client = openai.OpenAI(
             api_key=os.environ.get("openai_api_key"), 
             base_url=self.base_url)
@@ -34,16 +34,6 @@ class Pipeline:
         )
         event = completion.choices[0].message.parsed
         if not isinstance(event, _type):
-            return False, None
-        return True, event.model_dump()
-    
-    def __call__(self, 
-             p : PROMPT,
-             e : SELECT
-             ) -> dict:
-        for k in range(3):
-            success, result = self.try_call(p, e)
-            if success:
-                return result
-        raise Exception("Failed to extract the event after 3 attempts")
+            raise ValueError(f"Expected {e.get_model()} but got {type(event)}")
+        return event.model_dump()
     
