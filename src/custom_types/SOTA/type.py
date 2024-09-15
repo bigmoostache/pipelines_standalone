@@ -80,8 +80,22 @@ class VersionedInformation(BaseModel):
     
     annotations : Dict[int, VersionedText]    = Field(..., description = "local_annotation_id -> Annotation")
     active_annotations : Dict[int, List[int]] = Field(..., description = "version_id -> List[local_annotation_id]")
+    ai_pipelines_to_run : List[str]           = Field(..., description = "List of AI pipelines to run on this information")
 
-
+    @classmethod
+    def create_text(cls, title : str = '', contents : str = '', abstract : str = '', reference_as : str = None):
+        return cls(
+            versions = {-1 : contents},
+            referencements = {},
+            referencement_versions = {-1:[]},
+            title = VersionedText(versions={-1:title}),
+            abstract = VersionedText(versions={-1:abstract}),
+            reference_as = VersionedText(versions={-1:reference_as if reference_as else title}),
+            annotations = {},
+            active_annotations = {-1:[]},
+            ai_pipelines_to_run = []
+        )
+    
 class SOTA(BaseModel):
     title              : VersionedText      = Field(..., description = "Document title")
     drop_url           : str
@@ -101,36 +115,55 @@ class SOTA(BaseModel):
     @classmethod
     def get_empty(cls) -> 'SOTA':
         return cls(
-            title = VersionedText(versions = {0: "New Document"}),
+            title = VersionedText(versions = {1: "New Document"}),
             drop_url = "https://fs.croquo.com",
-            versions = Version(
-                date = datetime.now().isoformat(),
-                description = "Initial version",
-                digest = "Initial version",
-                blame_author_id = 0,
-                previous_version_id = None
-            ),
-            current_version_id = 0,
-            authors = {},
-            active_authors = {},
+            versions = {
+                1:
+                    Version(
+                        date = datetime.now().isoformat(),
+                        description = "Initial version",
+                        digest = "Initial version",
+                        blame_author_id = 1,
+                        previous_version_id = None
+                    )
+            },
+            current_version_id = 1,
+            authors = {1:Author(
+                name = VersionedText(versions={1:"Author"}),
+                role = VersionedText(versions={1:"Writer"}),
+                current_affiliations = VersionedListVersionedText(entries = {}, versions = {1 : []}),
+                contact_information = VersionedText(versions={1:""})
+            )},
+            active_authors = {1:[1]},
             signatures = [],
             keywords = {},
-            information = {},
-            mother_id = 0,
-            bibliography = {}
+            information = {
+                1 : VersionedInformation.create_text(contents = {}, title = 'Body', reference_as = 'Body')
+            },
+            mother_id = 1,
+            bibliography = {1:[]}
         )
     
-    def get_unassigned_information_id(self) -> int:
-        """
-        Get an unassigned information ID.
-
-        Returns:
-            int: The unassigned information ID.
-        """
-        _id: int = len(self.information)
-        while _id in self.information:
-            _id += 1
-        return _id
+    def versions_list(self : 'SOTA', version : int):
+        if version == -1:
+            version = self.current_version_id
+            versions = [-1, version]
+        else:
+            versions = [version]
+        if version not in self.versions:
+            raise "Version does not exist"
+        while True:
+            v = self.versions[version]
+            if v.previous_version_id is None:
+                return versions
+            versions.append(v.previous_version_id)
+            version = v.previous_version_id
+    @staticmethod
+    def get_new_id(something):
+        i = len(something)
+        while i in something:
+            i += 1
+        return i
 
 class Converter:
     @staticmethod
