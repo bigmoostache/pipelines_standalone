@@ -1,9 +1,15 @@
-from typing import List, Union, Dict, Literal, Tuple
-from pydantic import BaseModel, Field, create_model
+from typing import List, Union, Dict, Literal, Tuple, Optional
+from pydantic import BaseModel, Field, create_model, ValidationError
 from openai import OpenAI
 import json 
 import re
 import unicodedata
+
+class Reference(BaseModel):
+    url: str = Field(..., description="URL of the reference")
+    label: str = Field(..., description="Title of the reference")
+    description: str = Field(..., description="Short description of the reference")
+    image : Optional[str] = Field(None, description="URL of an image to display with the reference")
 
 class Metric(BaseModel):
     metric_definition: str = Field(..., description="Define precisely what is expected in this metric")
@@ -16,6 +22,7 @@ class MetricI(BaseModel):
     kind : Literal['negative', 'neutral', 'positive'] = Field(..., description="Kind of metric")
     title: str = Field(..., description="Label of the metric")
     info_type: Literal['metric'] = Field(..., description="Just put 'metric'")
+    references: List[Reference]
     
      
 class Image(BaseModel):
@@ -24,7 +31,8 @@ class ImageI(BaseModel):
     image_url: str = Field(..., description="URL of the image")
     title: str = Field(..., description="Label of the image")
     info_type: Literal['image'] = Field(..., description="Just put 'image'")
-    
+    references: List[Reference]
+
 
 class ChampTxt(BaseModel):
     txt_definition: str = Field(..., description="Definition of what information is expected here")
@@ -33,7 +41,8 @@ class ChampTxtI(BaseModel):
     text_contents: str = Field(..., description="Text contents")
     title : str = Field(..., description="Title of the text")
     info_type: Literal['text'] = Field(..., description="Just put 'text'")
-    
+    references: List[Reference]
+
 class BulletPoints(BaseModel):
     bullets_points_definition: str = Field(..., description="Definition of what information is expected in the bullet points.")
     bullet_points_aimed : int = Field(..., description = "Number of bullet points aimed for the field")
@@ -43,6 +52,7 @@ class BulletPointsI(BaseModel):
     enumerate: bool = Field(..., description="Whether to enumerate or itemize")
     title : str = Field(..., description="Title of the bullet points")
     info_type: Literal['bullet_points'] = Field(..., description="Just put 'bullet_points'")
+    references: List[Reference]
 
    
 class Table(BaseModel):
@@ -52,6 +62,7 @@ class TableI(BaseModel):
     table: List[List[str]] = Field(..., description="Table contents")
     title: str = Field(..., description="Title of the table")
     info_type: Literal['table'] = Field(..., description="Just put 'table'")
+    references: List[Reference]
 
     
 class XYGraph(BaseModel):
@@ -66,6 +77,7 @@ class XYGraphI(BaseModel):
     kind : Literal['line', 'h-bar', 'v-bar', 'pie', 'radar'] = Field(..., description="Kind of graph")
     title: str = Field(..., description="Title of the graph")
     info_type: Literal['xy_graph'] = Field(..., description="Just put 'xy_graph'")
+    references: List[Reference]
 
 
 
@@ -82,6 +94,7 @@ class XYGraphsStackedI(BaseModel):
     kind : Literal['line', 'h-bar', 'v-bar', 'pie', 'radar'] = Field(..., description="Kind of graph")
     title: str = Field(..., description="Title of the graph")
     info_type: Literal['xy_graph_stacked'] = Field(..., description="Just put 'xy_graph'")
+    references: List[Reference]
 
 
 class GenericType(BaseModel):
@@ -166,6 +179,7 @@ class Result(BaseModel):
     title : str = Field(..., description="Title of the information")
     info_type : str = Field(..., description="Type of information, can be a text, number, bullet points, source, or nested generic types")
     contents : List[Union[MetricI, ImageI, ChampTxtI, BulletPointsI, TableI, XYGraphI, XYGraphsStackedI, 'Result']] = Field(..., description="Contents of the information")
+    references: List[Reference]
     
 def GET_RESULT_FROM_LLM(api_key : str, event : GenericType) -> Result:
     client = OpenAI(api_key=api_key)
