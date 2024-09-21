@@ -57,8 +57,6 @@ class Embedder(BaseModel):
     context : str
         
 class VersionedInformation(BaseModel):
-    # Actual Content
-    
     class Paragraphs(BaseModel):
         paragraphs : List[FormatedText]
         class_name : ClassVar[str] = 'Paragraphs'
@@ -139,12 +137,6 @@ class VersionedInformation(BaseModel):
         if (last_version_id is None) or (last_version_id == -1) or (last_version_id != versions_list[0]): return False
         return True
     
-    def external_has_been_processed(self, versions_list : List[int]):
-        last = SOTA.get_last(self.versions, versions_list)
-        if last.class_name != 'External': return True
-        if last.external_db == 'files': return False
-        return True
-    
     @classmethod
     def create_text(cls, title : str = '', contents : str = '', abstract : str = '', reference_as : str = None):
         return cls(
@@ -159,6 +151,7 @@ class VersionedInformation(BaseModel):
             ai_pipelines_to_run = [],
             embeddings = {}
         )
+        
     def get_last_version(
         self : 'VersionedInformation', 
         versions_list : List[int]
@@ -179,7 +172,7 @@ class VersionedInformation(BaseModel):
             return res
         return {}
     def exists_in_stack(self : 'VersionedInformation', versions_list : List[int]) -> bool:
-        last = self.get_last_version(versions_list, return_id = True)
+        last = SOTA.get_last(self.versions, versions_list, return_id = True)
         return last is not None
     
     @staticmethod

@@ -6,7 +6,7 @@ class Pipeline:
     def __init__(self):
         pass
 
-    def __call__(self, sota : SOTA) -> List[int]:
+    def __call__(self, sota : SOTA) -> List[dict]:
         tasks = []
         versions_list = sota.versions_list(-1)
         mother = sota.information[sota.mother_id]
@@ -18,6 +18,18 @@ class Pipeline:
             if (k not in active_ids) or (not information.exists_in_stack(versions_list)):
                 # ignore inactive information
                 continue
-            if not information.external_has_been_processed(versions_list):
-                tasks.append(k)
+            
+            last = SOTA.get_last(information.versions, versions_list)
+            if information.get_class_name(last) == 'External':
+                if last.external_db == 'file': 
+                    tasks.append({
+                        'pipeline' : 'pdf',
+                        'information_id' : k
+                    })
+            else:
+                if not information.embeddings_are_up_to_date(versions_list):
+                    tasks.append({
+                        'pipeline' : 'embeddings',
+                        'information_id' : k
+                    })
         return tasks
