@@ -120,21 +120,23 @@ def Write(
     message = completion.choices[0].message.content
     return {'text': message}
 
+import os
+
 class Pipeline:
+    __env__ = ["openai_api_key"]
     def __init__(self, 
-                 api_key : str,
                  json_model : str = 'gpt-4o-2024-08-06',
                  redaction_model : str = 'o1-preview',
                  ):
-        self.api_key = api_key
         self.json_model = json_model
         self.redaction_model = redaction_model
 
     def __call__(self, sota : SOTA, task : dict) -> dict:
+        api_key = os.getenv('openai_api_key')
         information_id, task_name = task['information'], task['task']
         if task_name == 'Attendu':
             return  Attendu(
-                api_key = self.api_key, 
+                api_key = api_key, 
                 model = self.json_model, 
                 sota = sota,
                 information_id = information_id
