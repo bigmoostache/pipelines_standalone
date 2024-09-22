@@ -16,19 +16,21 @@ class Pipeline:
         versions_list = sota.versions_list(-1)
         
         abstract = SOTA.get_last(information.abstract, versions_list)
-        content = str(SOTA.get_last(information.versions, versions_list))
-        if abstract.strip():
+        content = SOTA.get_last(information.versions, versions_list)
+        if abstract and abstract.strip():
             res.append({
                 'information_id' : information_id,
                 'section_id': 'abstract',
                 'context': 'Section abstract and attendus',
                 'content': abstract
             })
-        if content.strip():
-            res.append({
-                'information_id' : information_id,
-                'section_id': 'content',
-                'context': 'Section content',
-                'content': content
-            })
+        if content:
+            content = str(content).strip()
+            if content:
+                res.append({
+                    'information_id' : information_id,
+                    'section_id': 'content',
+                    'context': 'Section content',
+                    'content': content
+                })
         return JSONL(lines=res)
