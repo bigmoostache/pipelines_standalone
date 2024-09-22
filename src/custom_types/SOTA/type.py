@@ -382,7 +382,20 @@ class SOTA(BaseModel):
         }
         response = requests.post(f'{self.pikabu_url}/top_k', headers=headers, json=json_data)
         return response.json()
-        
+    
+    def retrieve(self, information_id : int, section_id : str):
+        response = requests.get(
+            f'{self.pikabu_url}/get', 
+            params={
+                'file_id': self.file_id,
+                'information_id': information_id,
+                'section_id': section_id,
+            }, 
+            headers={'accept': 'application/json'}
+            )
+        response.raise_for_status()
+        return response.json()
+                
     def embed(self, embedders : List[Embedder]):
         headers = {
             'accept': 'application/json',
