@@ -6,7 +6,11 @@ class Pipeline:
     def __init__(self):
         pass
 
-    def __call__(self, sota : SOTA) -> List[dict]:
+    def __call__(
+        self, 
+        sota : SOTA,
+        only_pdfs : bool = True
+        ) -> List[dict]:
         tasks = []
         versions_list = sota.versions_list(-1)
         mother = sota.information[sota.mother_id]
@@ -20,16 +24,14 @@ class Pipeline:
                 continue
             
             last = SOTA.get_last(information.versions, versions_list)
-            if information.get_class_name(last) == 'External':
-                if last.external_db == 'file': 
-                    tasks.append({
-                        'pipeline' : 'pdf',
-                        'information_id' : k
-                    })
-            else:
-                if not information.embeddings_are_up_to_date(versions_list):
-                    tasks.append({
-                        'pipeline' : 'embeddings',
-                        'information_id' : k
-                    })
+            if only_pdfs and information.get_class_name(last) == 'External' and last.external_db == 'file' and last.external_id.endswith('.pdf'):
+                tasks.append({
+                    'pipeline' : 'pdf',
+                    'information_id' : k
+                })
+            elif not only_pdfs and not information.embeddings_are_up_to_date(versions_list):
+                tasks.append({
+                    'pipeline' : 'embeddings',
+                    'information_id' : k
+                })
         return tasks
