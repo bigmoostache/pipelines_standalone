@@ -136,6 +136,8 @@ def FindReferences(
     ) -> JSONL:
     versions_list = sota.versions_list(-1)
     active_ids = sota.information[sota.mother_id].get_all_children_ids(sota, sota.mother_id, versions_list)
+    for bib_id in sota.get_last(sota.bibliography, versions_list):
+        active_ids[bib_id] = None
     active_ids[sota.mother_id] = None
     active_ids = list(active_ids.keys())
     # 1. find candidates
