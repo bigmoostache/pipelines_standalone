@@ -321,7 +321,7 @@ class Pipeline:
                 information_id = information_id,
                 referencement_id = referencement_id
             )
-        elif task_name == 'Sections':
+        elif task_name in {'Rewrite subsections', 'Rewrite subsections'}:
             return Sections(
                 model = self.json_model, 
                 sota = sota,

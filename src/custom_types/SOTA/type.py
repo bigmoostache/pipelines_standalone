@@ -289,9 +289,9 @@ pipelines = {
     'Analyse References': ['FormattedText', 'Sections', 'Image', 'Table', 'External', 'Paragraphs', 'PlaceHolder', 'str'],
     'Write': ['Paragraphs', 'FormattedText', 'str'],
     'Suggest AI pipelines': ['FormattedText', 'Sections', 'Image', 'Table', 'External', 'Paragraphs', 'PlaceHolder', 'str'],
-    'Rewrite subsections': ['Sections'],
+    'Rewrite subsections': ['PlaceHolder', 'Sections', 'str'],
     'Extract data': ['Table'],
-    'Create subsections': ['PlaceHolder'],
+    'Create subsections': ['PlaceHolder', 'Sections', 'str']
 }
     
 class SOTA(BaseModel):
