@@ -182,7 +182,7 @@ class Pipeline:
             raise ValueError("information_id is corrupted: informaiton not found")
         versions_list = sota.versions_list(-1)
         api_key = os.environ.get("openai_api_key")
-        x, titles_list, titles , res = deconstruct(t)
+        x, titles_list, titles , res = deconstruct(text)
         root = get_node(res, api_key)
         all_nodes, _ = process_node(root)
 
