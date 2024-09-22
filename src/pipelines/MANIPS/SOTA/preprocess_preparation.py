@@ -3,13 +3,13 @@ from custom_types.SOTA.type import SOTA, pipelines
 from typing import List 
 
 class Pipeline:
-    def __init__(self):
-        pass
+    def __init__(self,
+        only_pdfs : bool = True):
+        self.only_pdfs = only_pdfs
 
     def __call__(
         self, 
         sota : SOTA,
-        only_pdfs : bool = True
         ) -> List[dict]:
         tasks = []
         versions_list = sota.versions_list(-1)
@@ -24,12 +24,12 @@ class Pipeline:
                 continue
             
             last = SOTA.get_last(information.versions, versions_list)
-            if only_pdfs and information.get_class_name(last) == 'External' and last.external_db == 'file' and last.external_id.endswith('.pdf'):
+            if self.only_pdfs and information.get_class_name(last) == 'External' and last.external_db == 'file' and last.external_id.endswith('.pdf'):
                 tasks.append({
                     'pipeline' : 'pdf',
                     'information_id' : k
                 })
-            elif not only_pdfs and not information.embeddings_are_up_to_date(versions_list):
+            elif not self.only_pdfs and not information.embeddings_are_up_to_date(versions_list):
                 tasks.append({
                     'pipeline' : 'embeddings',
                     'information_id' : k
