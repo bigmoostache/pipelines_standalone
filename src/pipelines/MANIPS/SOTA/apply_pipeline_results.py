@@ -79,7 +79,7 @@ class Pipeline:
                             abstract = section['abstract'],
                             reference_as= section['reference_as']
                         )
-                        new_section_id = sota.get_new_id(information.information)
+                        new_section_id = sota.get_new_id(sota.information)
                     else:
                         new_section = sota.information[old_section_id]
                         new_section_id = old_section_id
