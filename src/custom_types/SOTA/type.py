@@ -107,7 +107,7 @@ class VersionedInformation(BaseModel):
 
     class Referencement(BaseModel):
         information_id : int              = Field(..., description = "information_id")
-        detail         : str              = Field(..., max_length = 20, description = "Very short detail about where exactly in the information to look (eg: the page number, t)")
+        detail         : str              = Field(..., description = "Very short detail about where exactly in the information to look (eg: the page number, t)")
         analysis       : str              = Field(..., description = "Analysis of the reference w.r.t. this information.")
         pertinence     : float
         
