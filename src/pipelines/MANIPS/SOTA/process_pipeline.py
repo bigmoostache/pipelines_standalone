@@ -253,7 +253,7 @@ def Sections(
     api_key = os.getenv('openai_api_key')
     client = OpenAI(api_key = api_key)
     class SectionsNew(BaseModel):
-        class SubSection(BaseMode):
+        class SubSection(BaseModel):
             title: str = Field(..., description="The title of the subsection.")
             attendus: str = Field(..., description="The expected content of the subsection, in terms of substance and form. NOT the content itself.")
             reference_as : str = Field(..., description="A short 3 words max string that will be used to refer to this subsection.")
@@ -320,6 +320,12 @@ class Pipeline:
                 sota = sota,
                 information_id = information_id,
                 referencement_id = referencement_id
+            )
+        elif task_name == 'Sections':
+            return Sections(
+                model = self.json_model, 
+                sota = sota,
+                information_id = information_id
             )
         elif task_name == 'Suggest AI pipelines':
             return JSONL(lines=[{'contents': ['Attendu', 'Suggest AI pipelines'], 'change': 'ai-pipelines-to-run', 'information_id': information_id}])
