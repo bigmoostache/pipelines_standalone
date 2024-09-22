@@ -259,7 +259,8 @@ def Sections(
             title: str = Field(..., description="The title of the subsection.")
             attendus: str = Field(..., description="The expected content of the subsection, in terms of substance and form. NOT the content itself.")
             reference_as : str = Field(..., description="A short 3 words max string that will be used to refer to this subsection.")
-        sections: List[SubSection]
+        analysis : str = Field(..., description="Think, analyse on which structure would be the most relevant for this chapter.")
+        sections: List[SubSection] = Field(..., description="List of proposed subsections.")
     completion = client.beta.chat.completions.parse(
         model=model,
         messages=[

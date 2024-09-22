@@ -84,7 +84,7 @@ class Pipeline:
                         new_section = sota.information[old_section_id]
                         new_section_id = old_section_id
                     section_ids.append(new_section_id)
-                    information.information[new_section_id] = new_section
+                    sota.information[new_section_id] = new_section
                 information.versions[-1] = VersionedInformation.Sections(
                     enumeration = "Numbers enumeration",
                     sections = [(True, _) for _ in section_ids]
