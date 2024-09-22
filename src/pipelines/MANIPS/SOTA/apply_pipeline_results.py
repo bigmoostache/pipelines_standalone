@@ -10,7 +10,7 @@ class Pipeline:
     def __call__(self, 
                  sota : SOTA,
                  pipeline_results: JSONL
-                 ) -> List[dict]:
+                 ) -> SOTA:
         for pipeline_result in pipeline_results.lines:
             information_id = pipeline_result['information_id']
             information = sota.information[information_id]
