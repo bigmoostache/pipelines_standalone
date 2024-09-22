@@ -381,7 +381,7 @@ class SOTA(BaseModel):
             'max_per_information': max_per_information,
         }
         response = requests.post(f'{self.pikabu_url}/top_k', headers=headers, json=json_data)
-        return response.json()
+        response.raise_for_status()
         
     def embed(self, embedders : List[Embedder]):
         headers = {
