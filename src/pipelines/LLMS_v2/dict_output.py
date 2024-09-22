@@ -42,7 +42,6 @@ class Pipeline:
             try:
                 return self.retry__call__(p)
             except Exception as e:
-                print(f"Problem {e}")
                 pass
         return {}
 

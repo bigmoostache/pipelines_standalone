@@ -200,8 +200,6 @@ class VersionedInformation(BaseModel):
         gl = lambda x : sota.get_last(x, versions_list)
         bs = lambda contents, emoji, title : f'\n//\n// {emoji}{emoji}{emoji} {title}\n//:\n{contents}\n' 
         ############################################################
-        if mode == 'reference':
-            return "not implemented"
         ############################################################
         if mode == 'context':
             # return the title plus the abstract. if no abstract, replace with contents
@@ -219,6 +217,7 @@ class VersionedInformation(BaseModel):
         if include_parent_context:
             mother = sota.information[sota.mother_id]
             active_ids = mother.get_all_children_ids(sota, sota.mother_id, versions_list)
+            active_ids[sota.mother_id] = None
             parent_id = active_ids[my_id]
             if parent_id:
                 parent = sota.information[parent_id]
@@ -238,7 +237,7 @@ class VersionedInformation(BaseModel):
                 r += bs(abstract, '🧑‍🍳', 'Attendus, expectations')
         if include_content:
             last = self.get_last_version(versions_list)
-            if not isinstance(last, self.External):
+            if self.get_class_name(last) != 'External':
                 contents = str(last)
                 if contents:
                     r += bs(contents, '🖊️', 'Current contents')
@@ -256,7 +255,9 @@ class VersionedInformation(BaseModel):
                 for referencement in last:
                     reference_information = sota.information[referencement.information_id]
                     reference_text = reference_information.text_representation(sota, versions_list, detail = referencement.detail, include_title = True, include_abstract = False, include_content = True, include_annotations = False, include_referencements = 0, reference_mode = True)
-                    contents += f'  - [reference id: {referencement.information_id}], [{referencement.information_id}]: {reference_text}\n'
+                    reference_text = '\t' + reference_text.replace('\n', '\n\t')
+                    contents += f'  - [reference id: {referencement.information_id}], [{referencement.information_id}]: \n{reference_text}\n'
+                    contents += f'    Analysis wtr this section: {referencement.analysis}\n'
                 r += bs(contents, '📄', 'Sources and references')
         if include_annotations:
             annotations = [gl(self.annotations[_].versions) for _ in gl(self.active_annotations)]
@@ -271,8 +272,15 @@ class VersionedInformation(BaseModel):
         versions_list : List[int],
         detail : str
     ) -> str:
-        
-        return "not implemented"
+        result = sota.retrieve(my_id, detail)
+        context = result.get('context', '')
+        content = result.get('content', '')
+        res = ''
+        if context:
+            res += f'Context: {context}\n'
+        if content:
+            res += f'Content: {content}\n'
+        return res
 
 pipelines = {
     'dummy': ['FormattedText', 'Sections', 'Image', 'Table', 'External', 'Paragraphs', 'PlaceHolder', 'str'],
@@ -381,7 +389,8 @@ class SOTA(BaseModel):
             'max_per_information': max_per_information,
         }
         response = requests.post(f'{self.pikabu_url}/top_k', headers=headers, json=json_data)
-        return response.json()
+        r = response.json()
+        return r
     
     def retrieve(self, information_id : int, section_id : str):
         response = requests.get(

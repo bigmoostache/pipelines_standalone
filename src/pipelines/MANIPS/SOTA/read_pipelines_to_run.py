@@ -25,5 +25,13 @@ class Pipeline:
             if (not information.ai_pipelines_to_run):
                 # no pipeline to run
                 continue
-            tasks.append({'task': information.ai_pipelines_to_run[0], 'information' : k})
+            pipeline_name = information.ai_pipelines_to_run[0]
+            if pipeline_name == 'Analyse References':
+                current_references = sota.get_last(information.referencement_versions, versions_list)
+                tasks += [
+                    {'task': 'Analyse Reference', 'information' : k, 'referencement_id' : _} 
+                    for _ in current_references
+                ]
+            else:
+                tasks.append({'task': pipeline_name, 'information' : k})
         return tasks

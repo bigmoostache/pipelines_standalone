@@ -24,7 +24,8 @@ class Pipeline:
                 continue
             
             last = SOTA.get_last(information.versions, versions_list)
-            if self.only_pdfs and information.get_class_name(last) == 'External' and last.external_db == 'file' and last.external_id.endswith('.pdf'):
+            class_name = information.get_class_name(last)
+            if self.only_pdfs and class_name == 'External' and last.external_db == 'file' and last.external_id.endswith('.pdf'):
                 tasks.append({
                     'pipeline' : 'pdf',
                     'information_id' : k

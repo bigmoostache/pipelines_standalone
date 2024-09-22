@@ -26,28 +26,35 @@ def clean_string(input_string):
     
     return cleaned_string.upper()
 
-def question_to_BM(NC : NOTATION_CRITERIA, section : str) -> type(BaseModel):
+def question_to_BM(NC : NOTATION_CRITERIA, section : str, with_justifications : bool) -> type(BaseModel):
     r = '\n'.join(f'- {x.value} : {x.definition}' for x in sorted(NC.possible_values, key = lambda _ : _.value)) + '\nJustify briefly the grade you want to give. Be fair and unbiased.'
     t = tuple(_.value for _ in NC.possible_values)
-    x = {
-        "section": (Literal[section], Field(..., description = "section")),
-        "name": (Literal[NC.name], Field(..., description = "question name")),
-        "value_justification": (str, Field(..., description = r)),
-        "value": (Literal[t], Field(..., description = f'Grade for: {NC.name}'))
-    }
+    if with_justifications:
+        x = {
+            "section": (Literal[section], Field(..., description = "section")),
+            "name": (Literal[NC.name], Field(..., description = "question name")),
+            "value_justification": (str, Field(..., description = r)),
+            "value": (Literal[t], Field(..., description = f'Grade for: {NC.name}'))
+        }
+    else:
+        x = {
+            "section": (Literal[section], Field(..., description = "section")),
+            "name": (Literal[NC.name], Field(..., description = "question name")),
+            "value": (Literal[t], Field(..., description = r))
+        }
     return create_model(clean_string(NC.name), **x)
     
-def section_to_BM(NC : GRID_SECTION) -> type(BaseModel):
+def section_to_BM(NC : GRID_SECTION, with_justifications : bool) -> type(BaseModel):
     prefix = clean_string(NC.name) + '_'
     x = {
-    prefix + clean_string(_.name) : (question_to_BM(_, NC.name), Field(..., description = _.definition))
+    prefix + clean_string(_.name) : (question_to_BM(_, NC.name, with_justifications), Field(..., description = _.definition))
     for _ in NC.rows
     }
     return x
 
-def grid_to_BM(NC : GRID) -> type(BaseModel):
+def grid_to_BM(NC : GRID, with_justifications : bool) -> type(BaseModel):
     x = {
-        k:v for _ in NC.rows for k,v in section_to_BM(_).items()
+        k:v for _ in NC.rows for k,v in section_to_BM(_, with_justifications).items()
     }
     return create_model('GRID_NOTATION', **x)
 
@@ -60,19 +67,22 @@ class Pipeline:
                  base_url : str = "https://api.openai.com/v1",
                  temperature : int =1, 
                  retries : int =3, 
-                 top_p : int =1):
+                 top_p : int =1,
+                 with_justifications : bool = True
+                 ):
         self.model = model
         self.temperature = temperature
         self.top_p = top_p
         self.retries = retries
         self.base_url = base_url
+        self.with_justifications = with_justifications
         
     def __call__(self, 
                  p : PROMPT,
                  grid : GRID
                  ) -> dict:
         api_key = os.environ.get("openai_api_key")
-        MyBaseModel = grid_to_BM(grid)
+        MyBaseModel = grid_to_BM(grid, self.with_justifications)
         client = openai.OpenAI(api_key=api_key, base_url=self.base_url)
         completion = client.beta.chat.completions.parse(
             model=self.model,
@@ -87,5 +97,7 @@ class Pipeline:
             raise ValueError("Invalid response")
         
         x = event.dict()
-        return {**{k : v["value"] for k,v in x.items()}, "TOTAL_SCORE" : sum([v["value"] for v in x.values()]), **{k+'_JUSTIFICATION' : v["value_justification"] for k,v in x.items()}} 
+        if self.with_justifications:
+            return {**{k : v["value"] for k,v in x.items()}, "TOTAL_SCORE" : sum([v["value"] for v in x.values()]), **{k+'_JUSTIFICATION' : v["value_justification"] for k,v in x.items()}} 
+        return {**{k : v["value"] for k,v in x.items()}, "TOTAL_SCORE" : sum([v["value"] for v in x.values()])}
     

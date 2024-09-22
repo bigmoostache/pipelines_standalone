@@ -1,15 +1,22 @@
 
 from custom_types.SOTA.type import SOTA, pipelines
+from custom_types.GRID.type import GRID
 from typing import List, Dict, Literal
 from openai import OpenAI
 from pydantic import BaseModel, Field
+from custom_types.JSONL.type import JSONL
+from pipelines.LLMS_v2.grid_instance_output import Pipeline as GridInstanceOutput
+from pipelines.LLMS_v2.grid_notation_output import Pipeline as GridNotationOutput
+from pipelines.LLMS_v2.str_output import Pipeline as LLMStrOutput
+from custom_types.PROMPT.type import PROMPT
+import os
 
 def Attendu(
     api_key : str, 
     model : str, 
     sota : SOTA,
     information_id : int,
-    ) -> dict:
+    ) -> JSONL:
     versions_list = sota.versions_list(-1)
     information = sota.information[information_id]
     prompt = information.text_representation(
@@ -88,14 +95,14 @@ def Attendu(
         response_format=DynamicAttendus,
     )
     thoughts = completion.choices[0].message.parsed
-    return {'abstract': str(thoughts)}
+    return JSONL(lines=[{'contents': str(thoughts), 'change': 'abstract', 'information_id': information_id}])
 
 def Write(
     api_key : str, 
     model : str, 
     sota : SOTA,
     information_id : int,
-    ) -> dict:
+    ) -> JSONL:
     versions_list = sota.versions_list(-1)
     information = sota.information[information_id]
     prompt = information.text_representation(
@@ -113,25 +120,173 @@ def Write(
     completion = client.beta.chat.completions.parse(
         model=model,
         messages=[
-            {"role": "user", "content": "Please (re)-write this section. You may ONLY use the information provided above, nothing else."},
+            {"role": "user", "content": "Please (re)-write this section. You may ONLY use the information provided above, nothing else. Use markdown to format your text. You may include paragraphs (####) but not sections (# ## and ###). Do not re-state the title, abstract, or annotations: pure content."},
             {"role": "user", "content": prompt},
         ]
     )
     message = completion.choices[0].message.content
-    return {'text': message}
+    return JSONL(lines=[{'contents': message, 'change': 'content-str', 'information_id': information_id}])
 
-import os
+def FindReferences(
+    api_key : str, 
+    model : str, 
+    cheap_model : str,
+    sota : SOTA,
+    information_id : int,
+    ) -> JSONL:
+    versions_list = sota.versions_list(-1)
+    active_ids = sota.information[sota.mother_id].get_all_children_ids(sota, sota.mother_id, versions_list)
+    active_ids[sota.mother_id] = None
+    active_ids = list(active_ids.keys())
+    # 1. find candidates
+    information = sota.information[information_id]
+    current_references = sota.get_last(information.referencement_versions, versions_list)
+    current_references_values = [information.referencements[_] for _ in current_references]
+    current_top_k = [
+        {
+            'information_id': _['information_id'],
+            'context': 'In-document reference:' +sota.get_last(sota.information[_.information_id].reference_as.versions, versions_list),
+            'content': str(sota.get_last(sota.information[_.information_id].versions, versions_list)),
+            'distance': _.pertinence/10,
+            'analysis': _.analysis,
+            'referencement_id': _id
+        }
+        for _id, _ in zip(current_references, current_references_values)
+    ]
+    abstract = sota.get_last(information.abstract.versions, versions_list)
+    title = sota.get_last(information.title.versions, versions_list)
+    abstract = str(sota.get_last(information.versions, versions_list))
+    top_k = sota.top_k(abstract, k = 15, information_ids = active_ids, max_per_information = 3)
+    top_k = top_k + current_top_k
+    top_k.sort(key = lambda x : x['distance'])
+    seen_tuples = set()
+    top_k_ = []
+    for r in top_k:
+        t = (r['information_id'], r.get('section_id', ''))
+        if t not in seen_tuples:
+            top_k_.append(r)
+            seen_tuples.add(t)
+    top_k = top_k_
+    tok_k = top_k[:12]
+    results = []
+    for r in top_k:
+        results.append({
+            'contents': {
+                'referencement_id': r.get('referencement_id', None),
+                'information_id': r['information_id'],
+                'detail': r.get('section_id', ''),
+                'pertinence': int(max(0, r['distance']*10)),
+                'analysis': r.get('analysis', r.get('context', ''))
+            },
+            'change': 'references',
+            'information_id': information_id
+        })
+    return JSONL(lines=results)
+   
+def AnalyseReference(
+    api_key : str, 
+    model : str, 
+    cheap_model : str,
+    sota : SOTA,
+    information_id : int,
+    referencement_id : int
+    ) -> JSONL:
+    versions_list = sota.versions_list(-1)
+    active_ids = sota.information[sota.mother_id].get_all_children_ids(sota, sota.mother_id, versions_list)
+    active_ids[sota.mother_id] = None
+    active_ids = list(active_ids.keys())
+    title = sota.get_last(sota.information[information_id].title.versions, versions_list)
+    abstract = sota.get_last(sota.information[information_id].abstract.versions, versions_list)
+    # 1. find candidates
+    information = sota.information[information_id]
+    reference = information.referencements[referencement_id]
+    _prompts = PROMPT()
+    
+    information_id = reference.information_id
+    referenced_information = sota.information[information_id]
+    
+    r_text = referenced_information.text_representation(
+        information_id,
+        sota,
+        versions_list,
+        detail=reference.detail,
+        include_title=True,
+        include_content=True,
+        include_annotations=True
+    )
+    _prompts.add('Here is a description of the current section we are working on', role = 'system')
+    _prompts.add(f'Title: {title}\nAbstract: {abstract}', role = 'user')
+    _prompts.add('Please analyse very precisely, with great detail and fine reasoning, what the reference below may bring to the current section of interest. Be both factual (listing facts and figures) and analytical.', role = 'system')
+    _prompts.add(r_text, role = 'user')
+    _p = LLMStrOutput(model=model)
+    analysis = _p(_prompts)
+    return JSONL(lines=[{
+        'contents': {
+            'information_id': reference.information_id,
+            'analysis': analysis,
+            'detail': reference.detail,
+            'pertinence': reference.pertinence,
+            'referencement_id': referencement_id
+        },
+        'change': 'references',
+        'information_id': information_id
+    }])     
+
+def Sections(
+    model : str, 
+    sota : SOTA,
+    information_id : int,
+) -> JSONL:
+    versions_list = sota.versions_list(-1)
+    information = sota.information[information_id]
+    prompt = information.text_representation(
+        information_id, 
+        sota, 
+        versions_list, 
+        include_title=True,
+        include_abstract=True,
+        include_annotations=True,
+        include_content=True,
+        include_parent_context=True,
+        include_referencements=10
+    )
+    api_key = os.getenv('openai_api_key')
+    client = OpenAI(api_key = api_key)
+    class SectionsNew(BaseModel):
+        class SubSection(BaseMode):
+            title: str = Field(..., description="The title of the subsection.")
+            attendus: str = Field(..., description="The expected content of the subsection, in terms of substance and form. NOT the content itself.")
+            reference_as : str = Field(..., description="A short 3 words max string that will be used to refer to this subsection.")
+        sections: List[SubSection]
+    completion = client.beta.chat.completions.parse(
+        model=model,
+        messages=[
+            {"role": "user", "content": prompt},
+            {"role": "system", "content": "Above is a highly detailed description of the current chapter, with its expected contents, its context (of any), references (if any), and annotations. We now want to divide this chapter in subsections. Propose ths most relevant structure, the most likely to be accepted by highly demanding experts."},
+        ],
+        response_format=SectionsNew,
+    )
+    response = completion.choices[0].message.parsed
+    return JSONL(lines=[
+        {'contents': [
+            {'title': _.title, 'abstract': _.attendus, 'reference_as': _.reference_as}
+            for _ in response.sections
+            ], 
+         'change': 'sections', 
+         'information_id': information_id}])
 
 class Pipeline:
     __env__ = ["openai_api_key"]
     def __init__(self, 
                  json_model : str = 'gpt-4o-2024-08-06',
                  redaction_model : str = 'o1-preview',
+                 cheap_model : str = 'gpt-4o-mini',
                  ):
         self.json_model = json_model
         self.redaction_model = redaction_model
+        self.cheap_model = cheap_model
 
-    def __call__(self, sota : SOTA, task : dict) -> dict:
+    def __call__(self, sota : SOTA, task : dict) -> JSONL:
         api_key = os.getenv('openai_api_key')
         information_id, task_name = task['information'], task['task']
         if task_name == 'Attendu':
@@ -142,16 +297,32 @@ class Pipeline:
                 information_id = information_id
             )
         elif task_name == 'Write':
-            return  Attendu(
-                api_key = self.api_key, 
-                model = self.redaction_model, 
-                sota = sota,
-                information_id = information_id
-            )
-        else:
             return  Write(
-                api_key = self.api_key, 
+                api_key = api_key, 
                 model = self.redaction_model, 
                 sota = sota,
                 information_id = information_id
             )
+        elif task_name == 'Find references':
+            return  FindReferences(
+                api_key = api_key, 
+                model = self.json_model, 
+                cheap_model = self.cheap_model,
+                sota = sota,
+                information_id = information_id
+            )
+        elif task_name == 'Analyse Reference':
+            referencement_id = task.get('referencement_id', None)
+            return  AnalyseReference(
+                api_key = api_key, 
+                model = self.json_model, 
+                cheap_model = self.cheap_model,
+                sota = sota,
+                information_id = information_id,
+                referencement_id = referencement_id
+            )
+        elif task_name == 'Suggest AI pipelines':
+            return JSONL(lines=[{'contents': ['Attendu', 'Suggest AI pipelines'], 'change': 'ai-pipelines-to-run', 'information_id': information_id}])
+        else:
+            print(f"Task {task_name} not found")
+            return JSONL(lines=[])
