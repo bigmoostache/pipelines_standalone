@@ -254,7 +254,7 @@ class VersionedInformation(BaseModel):
                 contents = ''
                 for referencement in last:
                     reference_information = sota.information[referencement.information_id]
-                    reference_text = reference_information.text_representation(sota, versions_list, detail = referencement.detail, include_title = True, include_abstract = False, include_content = True, include_annotations = False, include_referencements = 0, reference_mode = True)
+                    reference_text = reference_information.text_representation(sota, versions_list, detail = referencement.detail, include_title = True, include_abstract = False, include_content = True, include_annotations = False, include_referencements = 0)
                     reference_text = '\t' + reference_text.replace('\n', '\n\t')
                     contents += f'  - [reference id: {referencement.information_id}], [{referencement.information_id}]: \n{reference_text}\n'
                     contents += f'    Analysis wtr this section: {referencement.analysis}\n'
