@@ -2,6 +2,8 @@ import openai, os
 import numpy as np
 from sklearn.metrics.pairwise import cosine_similarity
 from typing import List
+import re
+
 
 class Pipeline:
     __env__ = ["openai_api_key"]
@@ -57,9 +59,6 @@ class Pipeline:
 
 
 
-
-from typing import List
-import re
 
 class Pipeline:
 
