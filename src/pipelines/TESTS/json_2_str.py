@@ -20,7 +20,7 @@ class Pipeline:
 
 
 
-    def __call__(self,  json_input : dict) -> str :
+    def __call__(self,  json_input : JSON) -> str :
         json_string = json.dumps(json_input)
         return json_string
     
