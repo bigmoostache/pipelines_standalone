@@ -238,7 +238,8 @@ def generic_type_instance_to_pydantic_basemodel(gt: GenericType):
         L['references'] = (List[Reference], Field(..., description="List of references used in the information"))
         L['header_image_url'] = (Union[str, None], Field(..., description="URL of the header image"))
         for _, gt_ in enumerate(gt.info_type):
-            L[f'{U(gt_.title)}_{_}'] = (generic_type_instance_to_pydantic_basemodel(gt_), Field(..., description=gt_.description))
+            var_name = f'{U(gt_.title)[:31]}_{_[:31]}'
+            L[var_name] = (generic_type_instance_to_pydantic_basemodel(gt_), Field(..., description=gt_.description))
         return create_model(U(gt.title), **L)
     else:
         return matches[_type.__name__]
