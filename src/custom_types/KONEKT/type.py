@@ -10,7 +10,6 @@ class Reference(BaseModel):
     label: str = Field(..., description="Title of the reference")
     description: str = Field(..., description="Short description of the reference")
     image : Union[str, None] = Field(..., description="URL of an image to display with the reference")
-
     def to_markdown(self, depth=0):
         if not self.image_url:
             return f"[{self.label}]({self.url}) - {self.description}"
@@ -22,7 +21,8 @@ class Reference(BaseModel):
 class Metric(BaseModel):
     metric_definition: str = Field(..., description="Define precisely what is expected in this metric")
     metric_units: str = Field(..., description="Units of the metric")
-
+    def to_markdown(self, depth=0):
+        return f"**[Metric]\n{self.metric_definition}**\n*Unit* : {self.metric_units}\n\n"
 class MetricI(BaseModel):
     metric_value: str = Field(..., description="Metric value")
     metric_reference_upper_value: str = Field(..., description="Upper reference value for the metric, used for rendering")
@@ -39,12 +39,13 @@ class MetricI(BaseModel):
      
 class Image(BaseModel):
     image_definition: str = Field(..., description="Definition of what is expected in the image")
+    def to_markdown(self, depth=0):
+        return f"[Image]\n**{self.image_definition}**\n\n"
 class ImageI(BaseModel):
     image_url: str = Field(..., description="URL of the image")
     title: str = Field(..., description="Label of the image")
     info_type: Literal['image'] = Field(..., description="Just put 'image'")
     references: List[Reference]
-    
     def to_markdown(self, depth=0):
         return f"![{self.title}]({self.image_url})" + Reference.to_markdown_list(self.references)
 
@@ -52,6 +53,8 @@ class ImageI(BaseModel):
 class ChampTxt(BaseModel):
     txt_definition: str = Field(..., description="Definition of what information is expected here")
     sentences_aimed: int = Field(..., description="Number of sentences aimed at for the text")
+    def to_markdown(self, depth=0):
+        return f"[Text]\n**{self.txt_definition}**\nApproximate number of sentences : {self.sentences_aimed}\n\n"
 class ChampTxtI(BaseModel):
     text_contents: str = Field(..., description="Text contents")
     title : str = Field(..., description="Title of the text")
@@ -66,6 +69,8 @@ class BulletPoints(BaseModel):
     bullets_points_definition: str = Field(..., description="Definition of what information is expected in the bullet points.")
     bullet_points_aimed : int = Field(..., description = "Number of bullet points aimed for the field")
     enumerate : bool = Field(..., description = "Whether to enumerate or itemize")
+    def to_markdown(self, depth=0):
+        return f"[Bullet Points]\n**{self.bullets_points_definition}**\nApproximate number of bullet points : {self.bullet_points_aimed}\n\n"
 class BulletPointsI(BaseModel):
     bullet_points: List[str] = Field(..., description="List of bullet points")
     enumerate: bool = Field(..., description="Whether to enumerate or itemize")
@@ -80,6 +85,8 @@ class BulletPointsI(BaseModel):
    
 class Table(BaseModel):
     columns: List[str] = Field(..., description="List of columns in the table")
+    def to_markdown(self, depth=0):
+        return f"[Table]\n**Columns** : {', '.join(self.columns)}\n\n"
 class TableI(BaseModel):
     columns: List[str] = Field(..., description="List of columns in the table")
     table: List[List[str]] = Field(..., description="Table contents")
@@ -100,6 +107,8 @@ class XYGraph(BaseModel):
     x_axis: str = Field(..., description="Label and unit for the x-axis")
     y_axis: str = Field(..., description="Label and unit for the y-axis")
     kind : Literal['line', 'h-bar', 'v-bar', 'pie', 'radar'] = Field(..., description="Kind of graph")
+    def to_markdown(self, depth=0):
+        return f"[XY Graph]\n**{self.x_axis}** | **{self.y_axis}**\nKind : {self.kind}\n\n"
 class XYGraphI(BaseModel):
     x_axis: str = Field(..., description="Label and unit for the x-axis")
     y_axis: str = Field(..., description="Label and unit for the y-axis")
@@ -126,6 +135,8 @@ class XYGraphsStacked(BaseModel):
     x_axis: str = Field(..., description="Label and unit for the x-axis")
     y_axis: str = Field(..., description="Label and unit for the y-axis")
     kind : Literal['line', 'h-bar', 'v-bar', 'pie', 'radar'] = Field(..., description="Kind of graph")
+    def to_markdown(self, depth=0):
+        return f"[XY Graph Stacked]\n**{self.x_axis}** | **{self.y_axis}**\nKind : {self.kind}\n\n"
 class XYGraphsStackedI(BaseModel):
     ys_values : Dict[str, List[float]] = Field(..., description="Dictionary of y values to stack. Key is the label of the stack")
     x_values : List[Union[str, float]] = Field(..., description="List of x values. If dates, put them in ISO-8601 format")
@@ -153,6 +164,15 @@ class GenericType(BaseModel):
     info_type: Union[Metric, Image, ChampTxt, BulletPoints, Table, XYGraph, XYGraphsStacked, List['GenericType']] = Field(
         ..., description="Type of information, can be a text, number, bullet points, source, or nested generic types"
     )
+    def to_markdown(self, depth=0):
+        prefix = {0:'#', 1:'##', 2:'###', 3:'####'}.get(depth, '####')
+        r = f"{prefix} {self.title}\n\n{self.description}\n\n"
+        if isinstance(self.info_type, List):
+            for content in self.info_type:
+                r += content.to_markdown(depth+1)
+        else:
+            r += self.info_type.to_markdown(depth+1)
+        return r
 
 matches = {
     "Metric": MetricI,
