@@ -282,7 +282,7 @@ class ConverterResult:
          
     @staticmethod
     def from_bytes(b : bytes) -> Result:
-        return Result.parse_obj(json.loads(b.decode('utf-8')))
+        return Result.model_construct(**json.loads(b.decode('utf-8')))
     
 from custom_types.wrapper import TYPE
 wraped_result = TYPE(
@@ -302,7 +302,7 @@ class ConverterGeneric:
          
     @staticmethod
     def from_bytes(obj : bytes) -> GenericType:
-        return GenericType.parse_obj(json.loads(obj.decode('utf-8')))
+        return GenericType.model_construct(**json.loads(obj.decode('utf-8')))
     
 wraped_generic = TYPE(
     extension='konektstrukt',
