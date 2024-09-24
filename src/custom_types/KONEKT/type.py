@@ -236,6 +236,7 @@ def generic_type_instance_to_pydantic_basemodel(gt: GenericType):
         L['title'] = (str, Field(..., description=gt.title))
         L['info_type'] = (Literal['sections'], Field(..., description="Just put 'sections'"))
         L['references'] = (List[Reference], Field(..., description="List of references used in the information"))
+        L['header_image_url'] = (Union[str, None], Field(..., description="URL of the header image"))
         for _, gt_ in enumerate(gt.info_type):
             L[f'{U(gt_.title)}_{_}'] = (generic_type_instance_to_pydantic_basemodel(gt_), Field(..., description=gt_.description))
         return create_model(U(gt.title), **L)
@@ -270,7 +271,7 @@ def GET_RESULT_FROM_LLM(api_key : str, event : GenericType, model : str, prompts
             for k, v in ntype.__dict__.items():
                 if k not in ['title', 'info_type', 'references']:
                     contents.append(process_event(v))
-            return Result(title=ntype.title, info_type="sections", contents=contents, references=ntype.references)
+            return Result(title=ntype.title, info_type="sections", contents=contents, references=ntype.references, header_image_url=ntype.header_image_url)
         return ntype
     return process_event(ntype)
 
