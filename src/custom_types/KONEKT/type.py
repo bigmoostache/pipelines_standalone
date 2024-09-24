@@ -256,11 +256,11 @@ def GET_RESULT_FROM_LLM(api_key : str, event : GenericType, model : str, prompts
 class ConverterResult:
     @staticmethod
     def to_bytes(obj : Result) -> bytes:
-        return bytes(json.dumps(obj.to_dict()), encoding = 'utf-8')
+        return obj.model_dump_json(indent=2).encode('utf-8')
          
     @staticmethod
-    def from_bytes(obj : bytes) -> Result:
-        return Result.parse_obj(json.loads(obj.decode('utf-8')))
+    def from_bytes(b : bytes) -> Result:
+        return Result.parse_obj(json.loads(b.decode('utf-8')))
     
 from custom_types.wrapper import TYPE
 wraped_result = TYPE(
@@ -276,7 +276,7 @@ wraped_result = TYPE(
 class ConverterGeneric:
     @staticmethod
     def to_bytes(obj : GenericType) -> bytes:
-        return bytes(json.dumps(obj.to_dict()), encoding = 'utf-8')
+        return obj.model_dump_json(indent=2).encode('utf-8')
          
     @staticmethod
     def from_bytes(obj : bytes) -> GenericType:
