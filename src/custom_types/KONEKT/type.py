@@ -312,7 +312,7 @@ wraped_generic = TYPE(
     converter = ConverterGeneric,
     additional_converters={
         'json':lambda x : x.model_dump(),
-        'txt': lambda x : x.model_dumpjson(indent=2)
+        'txt': lambda x : x.model_dump_json(indent=2)
         },
     icon='/micons/deepsource.svg',
 )
