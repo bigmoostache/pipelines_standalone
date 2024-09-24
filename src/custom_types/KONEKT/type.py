@@ -9,11 +9,20 @@ class Reference(BaseModel):
     url: str = Field(..., description="URL of the reference")
     label: str = Field(..., description="Title of the reference")
     description: str = Field(..., description="Short description of the reference")
-    image : Optional[str] = Field(None, description="URL of an image to display with the reference")
+    image_url : Union[str, None] = Field(..., description="URL of an image to display with the reference")
+
+    def to_markdown(self, depth=0):
+        if not self.image_url:
+            return f"[{self.label}]({self.url}) - {self.description}"
+        return f"![image]({self.image_url}) [{self.label}]({self.url}) - {self.description}"
+    @staticmethod
+    def to_markdown_list(references : List['Reference']):
+        return "\t-" + "\n\t-".join([r.to_markdown() for r in references])
 
 class Metric(BaseModel):
     metric_definition: str = Field(..., description="Define precisely what is expected in this metric")
     metric_units: str = Field(..., description="Units of the metric")
+
 class MetricI(BaseModel):
     metric_value: str = Field(..., description="Metric value")
     metric_reference_upper_value: str = Field(..., description="Upper reference value for the metric, used for rendering")
@@ -24,6 +33,9 @@ class MetricI(BaseModel):
     info_type: Literal['metric'] = Field(..., description="Just put 'metric'")
     references: List[Reference]
     
+    def to_markdown(self, depth=0):
+        emoji = {'negative': '📉', 'positive': '📈', 'neural': '🗞️'}[self.kind]
+        return f'{self.title} : {emoji} {self.metric_value} {self.metric_unit} {emoji}\n{self.description}\n\n' + Reference.to_markdown_list(self.references)
      
 class Image(BaseModel):
     image_definition: str = Field(..., description="Definition of what is expected in the image")
@@ -32,6 +44,9 @@ class ImageI(BaseModel):
     title: str = Field(..., description="Label of the image")
     info_type: Literal['image'] = Field(..., description="Just put 'image'")
     references: List[Reference]
+    
+    def to_markdown(self, depth=0):
+        return f"![{self.title}]({self.image_url})" + Reference.to_markdown_list(self.references)
 
 
 class ChampTxt(BaseModel):
@@ -42,6 +57,10 @@ class ChampTxtI(BaseModel):
     title : str = Field(..., description="Title of the text")
     info_type: Literal['text'] = Field(..., description="Just put 'text'")
     references: List[Reference]
+    
+    def to_markdown(self, depth=0):
+        prefix = {0:'#', 1:'##', 2:'###', 3:'####'}.get(depth, '####')
+        return f'{prefix} {self.title}\n\n{self.text_contents}\n" + Reference.to_markdown_list(self.references)'
 
 class BulletPoints(BaseModel):
     bullets_points_definition: str = Field(..., description="Definition of what information is expected in the bullet points.")
@@ -53,6 +72,10 @@ class BulletPointsI(BaseModel):
     title : str = Field(..., description="Title of the bullet points")
     info_type: Literal['bullet_points'] = Field(..., description="Just put 'bullet_points'")
     references: List[Reference]
+    
+    def to_markdown(self, depth=0):
+        prefix = {0:'#', 1:'##', 2:'###', 3:'####'}.get(depth, '####')
+        return f"{prefix} {self.title}\n\n" + ("\n".join([f"- {bp}" for bp in self.bullet_points])) + Reference.to_markdown_list(self.references)
 
    
 class Table(BaseModel):
@@ -63,7 +86,15 @@ class TableI(BaseModel):
     title: str = Field(..., description="Title of the table")
     info_type: Literal['table'] = Field(..., description="Just put 'table'")
     references: List[Reference]
-
+    
+    def to_markdown(self, depth=0):
+        prefix = {0:'#', 1:'##', 2:'###', 3:'####'}.get(depth, '####')
+        r = f"{prefix} {self.title}\n\n"
+        r += "|".join(self.columns) + "\n"
+        r += "|".join(["---" for _ in self.columns]) + "\n"
+        for row in self.table:
+            r += "|".join(row) + "\n"
+        return r + Reference.to_markdown_list(self.references)
     
 class XYGraph(BaseModel):
     x_axis: str = Field(..., description="Label and unit for the x-axis")
@@ -78,6 +109,15 @@ class XYGraphI(BaseModel):
     title: str = Field(..., description="Title of the graph")
     info_type: Literal['xy_graph'] = Field(..., description="Just put 'xy_graph'")
     references: List[Reference]
+    
+    def to_markdown(self, depth=0):
+        prefix = {0:'#', 1:'##', 2:'###', 3:'####'}.get(depth, '####')
+        r = f"{prefix} {self.title}\n\n"
+        r += f"**{self.x_axis}** | **{self.y_axis}**\n"
+        r += "|".join(["---" for _ in range(2)]) + "\n"
+        for x, y in zip(self.x_values, self.y_values):
+            r += f"{x} | {y}\n"
+        return r + Reference.to_markdown_list(self.references)
 
 
 
@@ -95,6 +135,15 @@ class XYGraphsStackedI(BaseModel):
     title: str = Field(..., description="Title of the graph")
     info_type: Literal['xy_graph_stacked'] = Field(..., description="Just put 'xy_graph'")
     references: List[Reference]
+    
+    def to_markdown(self, depth=0):
+        prefix = {0:'#', 1:'##', 2:'###', 3:'####'}.get(depth, '####')
+        r = f"{prefix} {self.title}\n\n"
+        r += f"**{self.x_axis}** | **{self.y_axis}**\n"
+        r += "|".join(["---" for _ in range(2)]) + "\n"
+        for x in self.x_values:
+            r += f"{x} | " + " | ".join([str(y) for y in [self.ys_values[entry] for entry in self.entries]]) + "\n"
+        return r + Reference.to_markdown_list(self.references)
 
 
 class GenericType(BaseModel):
@@ -114,15 +163,12 @@ matches = {
     "XYGraph": XYGraphI,
     "XYGraphsStacked": XYGraphsStackedI
 }
+from custom_types.PROMPT.type import PROMPT
 
-def GET_STRUCTURE_FROM_LLM(prompt : str, api_key : str) -> GenericType:
-    client = OpenAI(api_key=api_key)
-    completion = client.beta.chat.completions.parse(
-        model="gpt-4o-2024-08-06",
-        messages=[
-            {"role": "system", "content": "Provide a report structure fitting the user's request and needs."},
-            {"role": "user", "content": prompt},
-        ],
+def GET_STRUCTURE_FROM_LLM(prompt : PROMPT, api_key : str, model : str) -> GenericType:
+    completion = OpenAI(api_key=api_key).beta.chat.completions.parse(
+        model=model,
+        messages=prompt.messages,
         response_format=GenericType,
     )
     event = completion.choices[0].message.parsed
@@ -169,8 +215,9 @@ def generic_type_instance_to_pydantic_basemodel(gt: GenericType):
         L = {}
         L['title'] = (str, Field(..., description=gt.title))
         L['info_type'] = (Literal['sections'], Field(..., description="Just put 'sections'"))
+        L['references'] = (List[Reference], Field(..., description="List of references used in the information"))
         for _, gt_ in enumerate(gt.info_type):
-            L[f'{U(gt_.title)}_{_}'] = (generic_type_instance_to_pydantic_basemodel(gt_), ...)
+            L[f'{U(gt_.title)}_{_}'] = (generic_type_instance_to_pydantic_basemodel(gt_), Field(..., description=gt_.description))
         return create_model(U(gt.title), **L)
     else:
         return matches[_type.__name__]
@@ -179,32 +226,33 @@ class Result(BaseModel):
     title : str = Field(..., description="Title of the information")
     info_type : str = Field(..., description="Type of information, can be a text, number, bullet points, source, or nested generic types")
     contents : List[Union[MetricI, ImageI, ChampTxtI, BulletPointsI, TableI, XYGraphI, XYGraphsStackedI, 'Result']] = Field(..., description="Contents of the information")
-    references: List[Reference]
+    references: List[Reference] = Field(..., description="List of references used in the information")
     
-def GET_RESULT_FROM_LLM(api_key : str, event : GenericType) -> Result:
+    def to_markdown(self, depth=0):
+        prefix = {0:'#', 1:'##', 2:'###'}.get(depth, '###')
+        r = f"{prefix} {self.title}\n\n"
+        for content in self.contents:
+            r += content.to_markdown(depth+1)
+        return r + '\n\n' + Reference.to_markdown_list(self.references)
+    
+def GET_RESULT_FROM_LLM(api_key : str, event : GenericType, model : str, prompts : PROMPT) -> Result:
     client = OpenAI(api_key=api_key)
     completion = client.beta.chat.completions.parse(
-        model="gpt-4o-2024-08-06",
-        messages=[
-            {"role": "system", "content": "Generate a dummy report with dummy information"},
-        ],
+        model=model,
+        messages=prompts.messages,
         response_format=generic_type_instance_to_pydantic_basemodel(event),
     )
-
     ntype = completion.choices[0].message.parsed
-    
     def process_event(ntype) -> Result:
         if ntype.info_type == "sections":
             contents = []
             for k, v in ntype.__dict__.items():
-                if k not in ['title', 'info_type']:
+                if k not in ['title', 'info_type', 'references']:
                     contents.append(process_event(v))
-            return Result(title=ntype.title, info_type="sections", contents=contents)
+            return Result(title=ntype.title, info_type="sections", contents=contents, references=ntype.references)
         return ntype
-    
     return process_event(ntype)
 
-    
 class ConverterResult:
     @staticmethod
     def to_bytes(obj : Result) -> bytes:
@@ -225,7 +273,6 @@ wraped_result = TYPE(
     icon='/micons/deepsource.svg',
 )
 
-
 class ConverterGeneric:
     @staticmethod
     def to_bytes(obj : GenericType) -> bytes:
@@ -240,7 +287,8 @@ wraped_generic = TYPE(
     _class = GenericType,
     converter = ConverterGeneric,
     additional_converters={
-        'json':lambda x : x.model_dump()
+        'json':lambda x : x.model_dump(),
+        'txt': lambda x : x.model_dumpjson(indent=2)
         },
     icon='/micons/deepsource.svg',
 )
