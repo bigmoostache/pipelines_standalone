@@ -9,7 +9,7 @@ class Reference(BaseModel):
     url: str = Field(..., description="URL of the reference")
     label: str = Field(..., description="Title of the reference")
     description: str = Field(..., description="Short description of the reference")
-    image_url : Union[str, None] = Field(..., description="URL of an image to display with the reference")
+    image : Union[str, None] = Field(..., description="URL of an image to display with the reference")
 
     def to_markdown(self, depth=0):
         if not self.image_url:
@@ -227,6 +227,7 @@ class Result(BaseModel):
     info_type : str = Field(..., description="Type of information, can be a text, number, bullet points, source, or nested generic types")
     contents : List[Union[MetricI, ImageI, ChampTxtI, BulletPointsI, TableI, XYGraphI, XYGraphsStackedI, 'Result']] = Field(..., description="Contents of the information")
     references: List[Reference] = Field(..., description="List of references used in the information")
+    header_image_url: Union[str, None] = Field(..., description="URL of the header image")
     
     def to_markdown(self, depth=0):
         prefix = {0:'#', 1:'##', 2:'###'}.get(depth, '###')
