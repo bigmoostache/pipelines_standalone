@@ -42,7 +42,7 @@ class Image(BaseModel):
     def to_markdown(self, depth=0):
         return f"[Image]\n**{self.image_definition}**\n\n"
 class ImageI(BaseModel):
-    image_url: str = Field(..., description="URL of the image")
+    image_url: Union[str, None] = Field(..., description="URL of the image")
     title: str = Field(..., description="Label of the image")
     info_type: Literal['image'] = Field(..., description="Just put 'image'")
     references: List[Reference]
@@ -269,7 +269,7 @@ def GET_RESULT_FROM_LLM(api_key : str, event : GenericType, model : str, prompts
         if ntype.info_type == "sections":
             contents = []
             for k, v in ntype.__dict__.items():
-                if k not in ['title', 'info_type', 'references']:
+                if k not in ['title', 'info_type', 'references', 'header_image_url']:
                     contents.append(process_event(v))
             return Result(title=ntype.title, info_type="sections", contents=contents, references=ntype.references, header_image_url=ntype.header_image_url)
         return ntype
@@ -302,7 +302,7 @@ class ConverterGeneric:
          
     @staticmethod
     def from_bytes(obj : bytes) -> GenericType:
-        return GenericType.model_construct(**json.loads(obj.decode('utf-8')))
+        return GenericType.parse_obj(json.loads(obj.decode('utf-8')))
     
 wraped_generic = TYPE(
     extension='konektstrukt',
