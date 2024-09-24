@@ -295,6 +295,7 @@ wraped_result = TYPE(
         'json':lambda x : x.model_dump()
         },
     icon='/micons/deepsource.svg',
+    visualiser='https://konekt.croquo.com'
 )
 
 class ConverterGeneric:
