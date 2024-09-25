@@ -2,9 +2,6 @@ from custom_types.URL2.type import URL2
 import requests
 from typing import Literal
 import os 
-from trafilatura import  extract
-from bs4 import BeautifulSoup
-from dateutil import parser
 import datetime as dt
 
 class Pipeline:
@@ -34,26 +31,23 @@ class Pipeline:
             params={
                         'api_key': SCRAPING_BEE,
                         'url': _url, 
-                        'custom_google': "true" if "google.com" in _url else "false",
                         'wait_browser': self.wait, 
                     }
+            if 'google.com' in _url:
+                params['custom_google'] = "true"
             if self.premium:
                 params['premium_proxy'] = "true"
             if self.block_ads:
                 params['block_ads'] = "true"
-            if self.render_js:
-                params['render_js'] = "true"
+            if not self.render_js:
+                params['render_js'] = "false"
             if self.country:
                 params['country_code'] = self.country
             try:
                 response = requests.get(url='https://app.scrapingbee.com/api/v1/', params=params)
                 response.raise_for_status()
-                text = extract(response.text)
-                if len(text.strip()) < 100:
-                    raise ValueError("Text is too short")
-                return text
             except:
-                pass 
-            return None
+                return None 
+            return response.text
         url.apply_html_finder(html_finder)
         return url
