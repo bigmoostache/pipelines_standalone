@@ -3,23 +3,25 @@ from custom_types.URL2.type import URL2
 import os 
 import requests
 from datetime import datetime, timedelta
+from typing import Literal
 
 
 class Pipeline:
     __env__ = ["SCRAPING_BEE"]
     def __init__(self, 
-                 n_days : int = 30,
+                 timeframe : Literal["day", "week", "month", "year"] = "month",
                  news : bool = False,
                  ):
-        self.n_days = 30 
         self.news = news
+        self.extraparams = {'day':'&tbs=qdr:d', 'week':'&tbs=qdr:w', 'month':'&tbs=qdr:m', 'year':'&tbs=qdr:y'}.get(timeframe, '&tbs=qdr:m')
 
     def __call__(self, query: str) -> List[URL2]:
         SCRAPING_BEE = os.environ.get("SCRAPING_BEE")
         params={
                 'api_key': SCRAPING_BEE,
                 'search': query,
-                'language': 'en'
+                'language': 'en',
+                'extra_params': self.extraparams
             }
         if self.news:
             params['search_type'] = 'news'
