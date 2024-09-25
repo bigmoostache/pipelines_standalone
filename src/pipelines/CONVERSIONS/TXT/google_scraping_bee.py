@@ -36,11 +36,8 @@ class Pipeline:
         result = response.json()
         news = result['news_results'] if self.news else result['organic_results']
         res = []
-        date_filter = datetime.now() - timedelta(days=self.n_days)
         for _ in news:
             date = _['date'] if _['date'] else ''
-            if date and datetime.fromisoformat(date) < date_filter:
-                continue
             url = _['url'] if not self.news else _['link']
             title = _['title']
             res.append(URL2.init(url = url, title=title, date=date))
