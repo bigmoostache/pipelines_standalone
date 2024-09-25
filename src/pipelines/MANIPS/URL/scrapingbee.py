@@ -3,6 +3,7 @@ import requests
 from typing import Literal
 import os 
 import datetime as dt
+import time  # Import time module for sleep functionality
 
 class Pipeline:
     __env__ = ["SCRAPING_BEE"]
@@ -43,11 +44,24 @@ class Pipeline:
                 params['render_js'] = "false"
             if self.country:
                 params['country_code'] = self.country
-            try:
-                response = requests.get(url='https://app.scrapingbee.com/api/v1/', params=params)
-                response.raise_for_status()
-            except:
-                return None 
-            return response.text
+
+            max_retries = 10  # Maximum number of retries
+            retries = 0
+            while retries < max_retries:
+                try:
+                    response = requests.get(url='https://app.scrapingbee.com/api/v1/', params=params)
+                    response.raise_for_status()
+                    return response.text  # Success, return the response text
+                except requests.exceptions.HTTPError as e:
+                    # Check for the specific 429 error and URL
+                    if (e.response.status_code == 429 and
+                        'TOO MANY REQUESTS' in str(e) and
+                        'search_type=news' in e.response.url):
+                        retries += 1
+                        time.sleep(5)  # Wait before retrying
+                        continue  # Retry the request
+                    else:
+                        return None  # Other errors, do not retry
+            return None  # Return None if max retries exceeded
         url.apply_html_finder(html_finder)
         return url
