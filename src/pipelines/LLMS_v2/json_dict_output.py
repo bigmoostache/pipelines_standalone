@@ -49,7 +49,7 @@ class Pipeline:
             top_p=self.top_p,
             frequency_penalty=self.frequency_penalty,
             presence_penalty=self.presence_penalty,
-            response_format= {'schema':self.json_schema, 'name':'ResultStructure'}
+            response_format= {'json_schema':self.json_schema, 'name':'ResultStructure'}
         )
         res = response.choices[0].message.content
         return json.loads(res)
