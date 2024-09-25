@@ -50,7 +50,7 @@ class Pipeline:
             frequency_penalty=self.frequency_penalty,
             presence_penalty=self.presence_penalty,
             response_format= {
-                'type' : 'json_schema'
+                'type' : 'json_schema',
                 'json_schema':{
                     'schema': self.json_schema,
                     'name': 'ResultStructure'
