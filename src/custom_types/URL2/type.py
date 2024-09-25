@@ -19,6 +19,7 @@ class URL2(BaseModel):
     description: str = Field(..., description="The description of the web page.")
     images: List[Image] = Field([], description="A list of image URLs from the web page.")
     text: str = Field(..., description="The raw text content of the web page.")
+    telegraphic_processed: bool = Field(False, description="Whether the telegraphic has been processed.")
     telegraphic: str = Field(..., description="Condensed version of the contents.")
     html: str = Field(..., description="The raw HTML content of the web page.")
     date: str = Field(..., description="ISO 8601 formatted date of the web page.")
