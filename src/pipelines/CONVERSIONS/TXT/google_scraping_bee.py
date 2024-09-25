@@ -32,7 +32,7 @@ class Pipeline:
             url='https://app.scrapingbee.com/api/v1/store/google',
             params=params
         )
-        result.raise_for_status()
+        response.raise_for_status()
         result = response.json()
         news = result['news_results'] if self.news else result['organic_results']
         res = []
