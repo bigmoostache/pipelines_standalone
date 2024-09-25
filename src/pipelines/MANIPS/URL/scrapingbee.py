@@ -55,8 +55,7 @@ class Pipeline:
                 except requests.exceptions.HTTPError as e:
                     # Check for the specific 429 error and URL
                     if (e.response.status_code == 429 and
-                        'TOO MANY REQUESTS' in str(e) and
-                        'search_type=news' in e.response.url):
+                        'TOO MANY REQUESTS' in str(e)):
                         retries += 1
                         time.sleep(5)  # Wait before retrying
                         continue  # Retry the request
