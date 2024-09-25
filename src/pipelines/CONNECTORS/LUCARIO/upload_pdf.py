@@ -1,10 +1,7 @@
-from typing import List
 from custom_types.URL2.type import URL2
-from custom_types.PDF.type import PDF
-from googleapiclient.discovery import build
-import os 
 import requests
-from PyPDF2 import PdfReader
+from custom_types.PDF.type import PDF
+from pypdf import PdfReader
 from datetime import datetime
 import io
 
