@@ -38,18 +38,6 @@ class Pipeline:
     def __call__(self, 
                  p : PROMPT
                  ) -> dict:
-        
-        for _ in range(self.retries -1):
-            try:
-                return self.retry__call__(p)
-            except Exception as e:
-                print(f"Problem {e}")
-                pass
-        return {}
-
-    def retry__call__(self, 
-                 p : PROMPT
-                 ) -> dict:
         api_key = os.environ.get("openai_api_key")
         client = openai.OpenAI(api_key=api_key, base_url=self.base_url)
         messages = p.messages
