@@ -16,9 +16,10 @@ class URL2(BaseModel):
         alt: str = Field(..., description="The alt text of the image.")
     url: str = Field(..., description="The full URL of the web page.")
     title: str = Field(..., description="The title of the web page.")
-    description: str = Field("", description="The description of the web page.")
+    description: str = Field(..., description="The description of the web page.")
     images: List[Image] = Field([], description="A list of image URLs from the web page.")
     text: str = Field(..., description="The raw text content of the web page.")
+    telegraphic: str = Field(..., description="Condensed version of the contents.")
     html: str = Field(..., description="The raw HTML content of the web page.")
     date: str = Field(..., description="ISO 8601 formatted date of the web page.")
 
@@ -95,6 +96,11 @@ class URL2(BaseModel):
         if html:
             self.html = html
             self.process_html()
+            
+    def apply_telegraphic(self, telegraphic):
+        if self.telegraphic:
+            return
+        self.telegraphic = telegraphic(self.text)
 
 class Converter:
     extension = 'url2'
