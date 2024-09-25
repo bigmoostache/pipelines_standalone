@@ -29,14 +29,16 @@ class URL2(BaseModel):
         return obj
     
     def parse_trafilatura(self):
-        self.text = extract(self.html, include_tables = True, include_images = True, deduplicate = True)
+        text = extract(self.html, include_tables = True, include_images = True, deduplicate = True)
+        if text and len(text) > 100:
+            self.text = text
     
     def find_title(self):
         if self.title:
             return
         soup = BeautifulSoup(self.html, 'html.parser')
         title_tag = soup.find('title')
-        if title_tag:
+        if title_tag and title_tag.text and len(title_tag.text.strip()) > 0:
             self.title = title_tag.text.strip()
     
     def find_date(self):
@@ -87,6 +89,7 @@ class URL2(BaseModel):
         html = html_finder(self.url)
         if html:
             self.html = html
+            print('html', self.html)
             self.process_html()
 
 class Converter:
