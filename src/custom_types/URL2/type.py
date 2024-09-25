@@ -19,7 +19,7 @@ class URL2(BaseModel):
     date: str = Field(..., description="ISO 8601 formatted date of the web page.")
 
     @classmethod
-    def init(cls, url: str, title: str, date: str = None) -> 'URL2':
+    def init(cls, url: str, title: str = '', date: str = None) -> 'URL2':
         obj = cls(url=url, title=title, images=[], text="", html="", date="")
         if date:
             try:
@@ -63,7 +63,6 @@ class URL2(BaseModel):
                 date_strings.append(tag[attr])
         
         # Try parsing the collected date strings
-        print(date_strings)
         for date_string in date_strings:
             try:
                 publication_date = parser.parse(date_string)
