@@ -1,10 +1,14 @@
 import json
 from typing import List
 from pydantic import BaseModel, Field
-from trafilatura import  extract
+from trafilatura import extract
+from trafilatura.settings import use_config
 from datetime import datetime
 from bs4 import BeautifulSoup
 from dateutil import parser
+
+newconfig = use_config()
+newconfig.set("DEFAULT", "EXTRACTION_TIMEOUT", "0")
 
 class URL2(BaseModel):
     class Image(BaseModel):
@@ -29,7 +33,7 @@ class URL2(BaseModel):
         return obj
     
     def parse_trafilatura(self):
-        text = extract(self.html, include_tables = True)
+        text = extract(self.html, include_tables = True, config=newconfig)
         if text and len(text) > 100:
             self.text = text
     
