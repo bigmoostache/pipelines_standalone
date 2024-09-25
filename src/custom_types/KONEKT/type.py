@@ -5,7 +5,11 @@ import json
 import re
 import unicodedata
 
-class Reference(BaseModel):
+class StrictBaseModel(BaseModel):
+    class Config:
+        extra = 'forbid'
+        
+class Reference(StrictBaseModel):
     url: str = Field(..., description="URL of the reference")
     label: str = Field(..., description="Title of the reference")
     description: str = Field(..., description="Short description of the reference")
@@ -23,7 +27,7 @@ class Metric(BaseModel):
     metric_units: str = Field(..., description="Units of the metric")
     def to_markdown(self, depth=0):
         return f"**[Metric]\n{self.metric_definition}**\n*Unit* : {self.metric_units}\n\n"
-class MetricI(BaseModel):
+class MetricI(StrictBaseModel):
     metric_value: str = Field(..., description="Metric value")
     metric_reference_upper_value: str = Field(..., description="Upper reference value for the metric, used for rendering")
     metric_unit: str = Field(..., description="Unit of the metric")
@@ -41,7 +45,7 @@ class Image(BaseModel):
     image_definition: str = Field(..., description="Definition of what is expected in the image")
     def to_markdown(self, depth=0):
         return f"[Image]\n**{self.image_definition}**\n\n"
-class ImageI(BaseModel):
+class ImageI(StrictBaseModel):
     image_url: Union[str, None] = Field(..., description="URL of the image")
     title: str = Field(..., description="Label of the image")
     info_type: Literal['image'] = Field(..., description="Just put 'image'")
@@ -55,7 +59,7 @@ class ChampTxt(BaseModel):
     sentences_aimed: int = Field(..., description="Number of sentences aimed at for the text")
     def to_markdown(self, depth=0):
         return f"[Text]\n**{self.txt_definition}**\nApproximate number of sentences : {self.sentences_aimed}\n\n"
-class ChampTxtI(BaseModel):
+class ChampTxtI(StrictBaseModel):
     text_contents: str = Field(..., description="Text contents")
     title : str = Field(..., description="Title of the text")
     info_type: Literal['text'] = Field(..., description="Just put 'text'")
@@ -71,7 +75,7 @@ class BulletPoints(BaseModel):
     enumerate : bool = Field(..., description = "Whether to enumerate or itemize")
     def to_markdown(self, depth=0):
         return f"[Bullet Points]\n**{self.bullets_points_definition}**\nApproximate number of bullet points : {self.bullet_points_aimed}\n\n"
-class BulletPointsI(BaseModel):
+class BulletPointsI(StrictBaseModel):
     bullet_points: List[str] = Field(..., description="List of bullet points")
     enumerate: bool = Field(..., description="Whether to enumerate or itemize")
     title : str = Field(..., description="Title of the bullet points")
@@ -87,7 +91,7 @@ class Table(BaseModel):
     columns: List[str] = Field(..., description="List of columns in the table")
     def to_markdown(self, depth=0):
         return f"[Table]\n**Columns** : {', '.join(self.columns)}\n\n"
-class TableI(BaseModel):
+class TableI(StrictBaseModel):
     columns: List[str] = Field(..., description="List of columns in the table")
     table: List[List[str]] = Field(..., description="Table contents")
     title: str = Field(..., description="Title of the table")
@@ -109,7 +113,7 @@ class XYGraph(BaseModel):
     kind : Literal['line', 'h-bar', 'v-bar', 'pie', 'radar'] = Field(..., description="Kind of graph")
     def to_markdown(self, depth=0):
         return f"[XY Graph]\n**{self.x_axis}** | **{self.y_axis}**\nKind : {self.kind}\n\n"
-class XYGraphI(BaseModel):
+class XYGraphI(StrictBaseModel):
     x_axis: str = Field(..., description="Label and unit for the x-axis")
     y_axis: str = Field(..., description="Label and unit for the y-axis")
     x_values : List[Union[str, float]] = Field(..., description="List of x values. If dates, put them in ISO-8601 format")
@@ -137,7 +141,7 @@ class XYGraphsStacked(BaseModel):
     kind : Literal['line', 'h-bar', 'v-bar', 'pie', 'radar'] = Field(..., description="Kind of graph")
     def to_markdown(self, depth=0):
         return f"[XY Graph Stacked]\n**{self.x_axis}** | **{self.y_axis}**\nKind : {self.kind}\n\n"
-class XYGraphsStackedI(BaseModel):
+class XYGraphsStackedI(StrictBaseModel):
     ys_values : Dict[str, List[float]] = Field(..., description="Dictionary of y values to stack. Key is the label of the stack")
     x_values : List[Union[str, float]] = Field(..., description="List of x values. If dates, put them in ISO-8601 format")
     x_axis: str = Field(..., description="Label and unit for the x-axis")
@@ -161,8 +165,7 @@ class GenericType(BaseModel):
     title: str = Field(..., description="Title of the information")
     description: str = Field(..., description="Description of the information, or of its content if nested.")
     contents : str = Field(..., description = "Are we expecting a table? a graph? a text? a bullet points? an image? a metric? Or subsections of these?")
-    info_type: Union[Metric, Image, ChampTxt, BulletPoints, Table, XYGraph, XYGraphsStacked, List['GenericType']] = Field(
-        ..., description="Type of information, can be a text, number, bullet points, source, or nested generic types"
+    info_type: Union[Metric, Image, ChampTxt, BulletPoints, Table, XYGraph, XYGraphsStacked, List['GenericType']] = Field(..., description="Type of information, can be a text, number, bullet points, source, or nested generic types"
     )
     def to_markdown(self, depth=0):
         prefix = {0:'#', 1:'##', 2:'###', 3:'####'}.get(depth, '####')
@@ -240,8 +243,10 @@ def generic_type_instance_to_pydantic_basemodel(gt: GenericType):
         for _, gt_ in enumerate(gt.info_type):
             one = U(gt_.title)[:50]
             var_name = f'{one}_{_}'
+            print(f'Adding {var_name} to the model')
             L[var_name] = (generic_type_instance_to_pydantic_basemodel(gt_), Field(..., description=gt_.description))
-        return create_model(U(gt.title), **L)
+        Config = type('Config', (), {'extra': 'forbid'})
+        return create_model(U(gt.title), __config__=Config, **L)
     else:
         return matches[_type.__name__]
 
@@ -261,10 +266,12 @@ class Result(BaseModel):
     
 def GET_RESULT_FROM_LLM(api_key : str, event : GenericType, model : str, prompts : PROMPT) -> Result:
     client = OpenAI(api_key=api_key)
+    response_format = generic_type_instance_to_pydantic_basemodel(event)
+    import json
     completion = client.beta.chat.completions.parse(
         model=model,
         messages=prompts.messages,
-        response_format=generic_type_instance_to_pydantic_basemodel(event),
+        response_format=response_format
     )
     ntype = completion.choices[0].message.parsed
     def process_event(ntype) -> Result:
