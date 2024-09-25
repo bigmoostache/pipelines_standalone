@@ -11,8 +11,10 @@ class Pipeline:
     def __init__(self, 
                  timeframe : Literal["day", "week", "month", "year"] = "month",
                  news : bool = False,
+                 n_results : int = 10
                  ):
         self.news = news
+        self.n_results = n_results
         self.extraparams = {'day':'&tbs=qdr:d', 'week':'&tbs=qdr:w', 'month':'&tbs=qdr:m', 'year':'&tbs=qdr:y'}.get(timeframe, '&tbs=qdr:m')
 
     def __call__(self, query: str) -> List[URL2]:
@@ -21,7 +23,8 @@ class Pipeline:
                 'api_key': SCRAPING_BEE,
                 'search': query,
                 'language': 'en',
-                'extra_params': self.extraparams
+                'extra_params': self.extraparams,
+                'nb_results': str(self.n_results),
             }
         if self.news:
             params['search_type'] = 'news'
