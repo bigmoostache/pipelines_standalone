@@ -36,6 +36,7 @@ class URL2(BaseModel):
         text = extract(self.html, include_tables = True, config=newconfig)
         if text and len(text) > 100:
             self.text = text
+            self.html = ""
     
     def find_title(self):
         if self.title:
