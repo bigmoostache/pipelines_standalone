@@ -26,7 +26,17 @@ class URL2(BaseModel):
 
     @classmethod
     def init(cls, url: str, title: str = '', date: str = None) -> 'URL2':
-        obj = cls(url=url, title=title, images=[], text="", html="", date="")
+        obj = cls(
+            url=url, 
+            title=title, 
+            description="",
+            images=[], 
+            text="", 
+            telegraphic_processed=False, 
+            telegraphic="",
+            html="", 
+            date=""
+            )
         if date:
             try:
                 obj.date = datetime.fromisoformat(date).isoformat()
