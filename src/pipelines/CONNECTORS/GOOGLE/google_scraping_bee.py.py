@@ -1,5 +1,5 @@
 from typing import List
-from custom_types.URL.type import URL
+from custom_types.URL2.type import URL2
 import os 
 import requests
 from datetime import datetime, timedelta
@@ -14,7 +14,7 @@ class Pipeline:
         self.n_days = 30 
         self.news = news
 
-    def __call__(self, query: str) -> List[URL]:
+    def __call__(self, query: str) -> List[URL2]:
         SCRAPING_BEE = os.environ.get("SCRAPING_BEE")
         params={
                 'api_key': SCRAPING_BEE,
@@ -38,6 +38,5 @@ class Pipeline:
                 continue
             url = _['url'] if not self.news else _['link']
             title = _['title']
-            res.append(URL(url = url, title=title, date=date))
+            res.append(URL2.init(url = url, title=title, date=date))
         return res
-        
