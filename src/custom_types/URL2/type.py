@@ -26,6 +26,7 @@ class URL2(BaseModel):
                 obj.date = datetime.fromisoformat(date).isoformat()
             except:
                 pass
+        return obj
     
     def parse_trafilatura(self):
         self.text = extract(self.html, include_tables = True, include_images = True, deduplicate = True)
