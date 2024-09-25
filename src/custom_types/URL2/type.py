@@ -90,7 +90,7 @@ class URL2(BaseModel):
             self.process_html()
 
 class Converter:
-    extension = 'url'
+    extension = 'url2'
     @staticmethod
     def to_bytes(url : URL2) -> bytes:
         return url.model_dump_json(indent=2).encode('utf-8')
