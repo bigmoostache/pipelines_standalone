@@ -1,4 +1,4 @@
-from custom_types.URL.type import URL
+from custom_types.URL2.type import URL2
 import openai
 import os
 from pydantic import BaseModel, Field
@@ -23,8 +23,8 @@ class Pipeline:
         self.base_url = base_url
         
     def __call__(self, 
-                 url : URL,
-                 ) -> URL:
+                 url : URL2,
+                 ) -> URL2:
         api_key = os.environ.get("openai_api_key")
         client = openai.OpenAI(api_key=api_key)
         class Response(BaseModel):
