@@ -100,6 +100,9 @@ class Converter:
     @staticmethod
     def from_bytes(b: bytes) -> URL2:
         return URL2.parse_obj(json.loads(b.decode('utf-8')))
+    @staticmethod
+    def str_preview(url: str) -> str:
+        return url.model_dump_json(indent=2)
     
 from custom_types.wrapper import TYPE
 wraped = TYPE(
