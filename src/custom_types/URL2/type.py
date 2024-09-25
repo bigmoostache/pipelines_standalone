@@ -29,7 +29,7 @@ class URL2(BaseModel):
         return obj
     
     def parse_trafilatura(self):
-        text = extract(self.html, include_tables = True, include_images = True, deduplicate = True)
+        text = extract(self.html, include_tables = True)
         if text and len(text) > 100:
             self.text = text
     
