@@ -4,7 +4,6 @@ import os
 from pydantic import BaseModel, Field
 from typing import List, Optional
 from urllib.parse import urlparse
-logging.basicConfig(level=logging.INFO)
 
 #function to get base domain name
 
