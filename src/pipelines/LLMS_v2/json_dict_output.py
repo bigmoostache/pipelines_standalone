@@ -35,46 +35,46 @@ class Pipeline:
         self.retries = retries
         self.base_url = base_url
 
-def __call__(self, p: PROMPT) -> dict:
-    api_key = os.environ.get("openai_api_key")
-    client = openai.OpenAI(api_key=api_key, base_url=self.base_url)
-    messages = p.messages
-    attempts = 0
+    def __call__(self, p: PROMPT) -> dict:
+        api_key = os.environ.get("openai_api_key")
+        client = openai.OpenAI(api_key=api_key, base_url=self.base_url)
+        messages = p.messages
+        attempts = 0
 
-    while attempts < self.retries:
-        try:
-            completion = client.beta.chat.completions.parse(
-                model=self.model,
-                messages=messages,
-                temperature=self.temperature,
-                max_tokens=self.max_tokens,
-                top_p=self.top_p,
-                frequency_penalty=self.frequency_penalty,
-                presence_penalty=self.presence_penalty,
-                response_format={
-                    'type': 'json_schema',
-                    'json_schema': {
-                        'schema': self.json_schema,
-                        'name': 'ResultStructure'
+        while attempts < self.retries:
+            try:
+                completion = client.beta.chat.completions.parse(
+                    model=self.model,
+                    messages=messages,
+                    temperature=self.temperature,
+                    max_tokens=self.max_tokens,
+                    top_p=self.top_p,
+                    frequency_penalty=self.frequency_penalty,
+                    presence_penalty=self.presence_penalty,
+                    response_format={
+                        'type': 'json_schema',
+                        'json_schema': {
+                            'schema': self.json_schema,
+                            'name': 'ResultStructure'
+                        }
                     }
-                }
-            )
-            res = completion.choices[0].message.content
-            return json.loads(res)
+                )
+                res = completion.choices[0].message.content
+                return json.loads(res)
 
-        except openai.LengthFinishReasonError as e:
-            attempts += 1
-            if attempts >= self.retries:
-                print(f"Maximum retries reached ({self.retries}). Raising the exception.")
+            except openai.LengthFinishReasonError as e:
+                attempts += 1
+                if attempts >= self.retries:
+                    print(f"Maximum retries reached ({self.retries}). Raising the exception.")
+                    raise e
+                else:
+                    print(f"LengthFinishReasonError encountered. Retrying {attempts}/{self.retries}...")
+                    # Optionally, you can adjust parameters like max_tokens here
+                    # For example, reduce max_tokens to prevent the error
+                    # self.max_tokens -= 100
+                    continue  # Retry the API call
+
+            except Exception as e:
+                # Handle other exceptions if necessary
+                print(f"An unexpected error occurred: {e}")
                 raise e
-            else:
-                print(f"LengthFinishReasonError encountered. Retrying {attempts}/{self.retries}...")
-                # Optionally, you can adjust parameters like max_tokens here
-                # For example, reduce max_tokens to prevent the error
-                # self.max_tokens -= 100
-                continue  # Retry the API call
-
-        except Exception as e:
-            # Handle other exceptions if necessary
-            print(f"An unexpected error occurred: {e}")
-            raise e
