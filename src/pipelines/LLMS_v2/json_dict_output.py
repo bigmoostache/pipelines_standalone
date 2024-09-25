@@ -41,7 +41,7 @@ class Pipeline:
         api_key = os.environ.get("openai_api_key")
         client = openai.OpenAI(api_key=api_key, base_url=self.base_url)
         messages = p.messages
-        response = client.chat.completions.create(
+        completion = client.beta.chat.completions.parse(
             model=self.model,
             messages=messages,
             temperature=self.temperature,
@@ -49,7 +49,13 @@ class Pipeline:
             top_p=self.top_p,
             frequency_penalty=self.frequency_penalty,
             presence_penalty=self.presence_penalty,
-            response_format= {'json_schema':self.json_schema, 'name':'ResultStructure'}
+            response_format= {
+                'type' : 'json_schema'
+                'json_schema':{
+                    'schema': self.json_schema,
+                    'name': 'ResultStructure'
+                }
+                }
         )
-        res = response.choices[0].message.content
+        res = completion.choices[0].message.content
         return json.loads(res)
