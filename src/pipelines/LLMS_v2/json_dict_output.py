@@ -66,9 +66,5 @@ class Pipeline:
                 "json_schema": self.json_schema
             }
         )
-        print("response dict", response)
         res = response.choices[0].message.content
-        dic = TXT2DICT()(res)
-        for k in self.verify:
-            assert k in dic
-        return dic
+        return json.loads(res)

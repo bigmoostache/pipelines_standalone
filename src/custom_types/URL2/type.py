@@ -84,12 +84,11 @@ class URL2(BaseModel):
         self.find_title()
     
     def apply_html_finder(self, html_finder):
-        if self.html:
+        if (self.html and len(self.html) > 100) or (self.text and len(self.text) > 100) or self.title == 'Uploaded PDF':
             return
         html = html_finder(self.url)
         if html:
             self.html = html
-            print('html', self.html)
             self.process_html()
 
 class Converter:

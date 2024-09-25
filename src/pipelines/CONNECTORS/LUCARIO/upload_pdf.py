@@ -29,7 +29,7 @@ class Pipeline:
             text += page.extract_text()
     
         return URL2(
-            url=url, 
+            url=f'https://lucario.croquo.com/files?file={url}', 
             title='Uploaded PDF', 
             description='Uploaded PDF',
             images=[],
