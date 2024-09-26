@@ -236,9 +236,9 @@ def generic_type_instance_to_pydantic_basemodel(gt: GenericType):
     _type = infer_type(gt.info_type)
     if _type is None:
         L = {}
-        L['title'] = (str, Field(..., description=gt.title))
+        L['title'] = (str, Field(..., description=f"The proposed title was {gt.title}. Pick a better suiting name for this section, fine-tuned to the content. Also, make sure it is in english"))
         L['info_type'] = (Literal['sections'], Field(..., description="Just put 'sections'"))
-        L['references'] = (List[Reference], Field(..., description="List of references used in the information"))
+        L['references'] = (List[Reference], Field(..., description="List of references used in the information. Pick in the provided sources, and ALWAYS provide at least one reference, but more is better."))
         L['header_image_url'] = (Union[str, None], Field(..., description="URL of the header image"))
         for _, gt_ in enumerate(gt.info_type):
             one = U(gt_.title)[:50]
