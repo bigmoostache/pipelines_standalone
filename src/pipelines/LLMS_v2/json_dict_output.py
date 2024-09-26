@@ -36,6 +36,7 @@ class Pipeline:
         self.base_url = base_url
 
     def __call__(self, p: PROMPT) -> dict:
+        import json  # Ensure json is imported
         api_key = os.environ.get("openai_api_key")
         client = openai.OpenAI(api_key=api_key, base_url=self.base_url)
         messages = p.messages
@@ -62,16 +63,15 @@ class Pipeline:
                 res = completion.choices[0].message.content
                 return json.loads(res)
 
-            except openai.LengthFinishReasonError as e:
+            except (openai.LengthFinishReasonError, json.decoder.JSONDecodeError) as e:
                 attempts += 1
                 if attempts >= self.retries:
-                    print(f"Maximum retries reached ({self.retries}). Raising the exception.")
-                    raise e
+                    print(f"Maximum retries reached ({self.retries}). Returning empty dict.")
+                    return {}
                 else:
-                    print(f"LengthFinishReasonError encountered. Retrying {attempts}/{self.retries}...")
-                    # Optionally, you can adjust parameters like max_tokens here
-                    # For example, reduce max_tokens to prevent the error
-                    # self.max_tokens -= 100
+                    print(f"Error encountered ({type(e).__name__}). Retrying {attempts}/{self.retries}...")
+                    # Optionally, adjust parameters to prevent the error in next attempt
+                    # For example, reduce max_tokens or modify the prompt
                     continue  # Retry the API call
 
             except Exception as e:
