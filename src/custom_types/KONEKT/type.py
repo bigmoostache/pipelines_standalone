@@ -60,7 +60,7 @@ class ChampTxt(BaseModel):
     def to_markdown(self, depth=0):
         return f"[Text]\n**{self.txt_definition}**\nApproximate number of sentences : {self.sentences_aimed}\n\n"
 class ChampTxtI(StrictBaseModel):
-    text_contents: str = Field(..., description="Text contents")
+    text_contents: str = Field(..., description="Text contents; do NOT apply markdown formatting")
     title : str = Field(..., description="Title of the text")
     info_type: Literal['text'] = Field(..., description="Just put 'text'")
     references: List[Reference]
@@ -76,7 +76,7 @@ class BulletPoints(BaseModel):
     def to_markdown(self, depth=0):
         return f"[Bullet Points]\n**{self.bullets_points_definition}**\nApproximate number of bullet points : {self.bullet_points_aimed}\n\n"
 class BulletPointsI(StrictBaseModel):
-    bullet_points: List[str] = Field(..., description="List of bullet points")
+    bullet_points: List[str] = Field(..., description="List of bullet points. Do NOT apply markdown formatting")
     enumerate: bool = Field(..., description="Whether to enumerate or itemize")
     title : str = Field(..., description="Title of the bullet points")
     info_type: Literal['bullet_points'] = Field(..., description="Just put 'bullet_points'")
