@@ -291,7 +291,7 @@ class ConverterResult:
          
     @staticmethod
     def from_bytes(b : bytes) -> Result:
-        return Result.model_construct(**json.loads(b.decode('utf-8')))
+        return Result.parse_obj(json.loads(b.decode('utf-8')))
     
 from custom_types.wrapper import TYPE
 wraped_result = TYPE(
