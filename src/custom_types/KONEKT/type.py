@@ -20,7 +20,7 @@ class Reference(StrictBaseModel):
         return f"![image]({self.image}) [{self.label}]({self.url}) - {self.description}"
     @staticmethod
     def to_markdown_list(references : List['Reference']):
-        return "\t-" + "\n\t-".join([r.to_markdown() for r in references])
+        return "\t- " + "\n\t- ".join([r.to_markdown() for r in references])
 
 class Metric(BaseModel):
     metric_definition: str = Field(..., description="Define precisely what is expected in this metric")
