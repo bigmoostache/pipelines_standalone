@@ -38,7 +38,7 @@ class MetricI(StrictBaseModel):
     references: List[Reference] = Field(..., description="List of references used in the information. Pick in the provided sources, and ALWAYS provide at least one reference, but more is better. Be Careful, one reference may only be used once, as first reference, once as second reference, etc. If you break this rule, you will be flagged for huge bias and your article will be rejected.")
     
     def to_markdown(self, depth=0):
-        emoji = {'negative': '📉', 'positive': '📈', 'neural': '🗞️'}[self.kind]
+        emoji = {'negative': '📉', 'positive': '📈', 'neutral': '🗞️'}.get(self.kind, '📈')
         return f'{self.title} : {emoji} {self.metric_value} {self.metric_unit} {emoji}\n{self.description}\n\n' + Reference.to_markdown_list(self.references)
      
 class Image(BaseModel):
