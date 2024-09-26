@@ -50,8 +50,11 @@ class Pipeline:
                     retries += 1
                     time.sleep(5)  # Wait for 5 seconds before retrying
                     continue  # Retry the request
+                elif e.response.status_code == 504: # Gateway Timeout
+                    retries += 1
+                    time.sleep(5)
                 else:
-                    raise  # Re-raise exception if it's not the specific error
+                    raise
         else:
             # If max retries exceeded, raise an exception
             raise Exception("Maximum retries exceeded for 429 TOO MANY REQUESTS error.")
