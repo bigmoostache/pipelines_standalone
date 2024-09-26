@@ -35,7 +35,7 @@ class MetricI(StrictBaseModel):
     kind : Literal['negative', 'neutral', 'positive'] = Field(..., description="Kind of metric")
     title: str = Field(..., description="Label of the metric")
     info_type: Literal['metric'] = Field(..., description="Just put 'metric'")
-    references: List[Reference]
+    references: List[Reference] = Field(..., description="List of references used in the information. Pick in the provided sources, and ALWAYS provide at least one reference, but more is better. Be Careful, one reference may only be used once, as first reference, once as second reference, etc. If you break this rule, you will be flagged for huge bias and your article will be rejected.")
     
     def to_markdown(self, depth=0):
         emoji = {'negative': '📉', 'positive': '📈', 'neural': '🗞️'}[self.kind]
@@ -49,7 +49,7 @@ class ImageI(StrictBaseModel):
     image_url: Union[str, None] = Field(..., description="URL of the image")
     title: str = Field(..., description="Label of the image")
     info_type: Literal['image'] = Field(..., description="Just put 'image'")
-    references: List[Reference]
+    references: List[Reference] = Field(..., description="List of references used in the information. Pick in the provided sources, and ALWAYS provide at least one reference, but more is better. Be Careful, one reference may only be used once, as first reference, once as second reference, etc. If you break this rule, you will be flagged for huge bias and your article will be rejected.")
     def to_markdown(self, depth=0):
         return f"![{self.title}]({self.image_url})" + Reference.to_markdown_list(self.references)
 
@@ -63,7 +63,7 @@ class ChampTxtI(StrictBaseModel):
     text_contents: str = Field(..., description="Text contents; do NOT apply markdown formatting")
     title : str = Field(..., description="Title of the text")
     info_type: Literal['text'] = Field(..., description="Just put 'text'")
-    references: List[Reference]
+    references: List[Reference] = Field(..., description="List of references used in the information. Pick in the provided sources, and ALWAYS provide at least one reference, but more is better. Be Careful, one reference may only be used once, as first reference, once as second reference, etc. If you break this rule, you will be flagged for huge bias and your article will be rejected.")
     
     def to_markdown(self, depth=0):
         prefix = {0:'#', 1:'##', 2:'###', 3:'####'}.get(depth, '####')
@@ -80,7 +80,7 @@ class BulletPointsI(StrictBaseModel):
     enumerate: bool = Field(..., description="Whether to enumerate or itemize")
     title : str = Field(..., description="Title of the bullet points")
     info_type: Literal['bullet_points'] = Field(..., description="Just put 'bullet_points'")
-    references: List[Reference]
+    references: List[Reference] = Field(..., description="List of references used in the information. Pick in the provided sources, and ALWAYS provide at least one reference, but more is better. Be Careful, one reference may only be used once, as first reference, once as second reference, etc. If you break this rule, you will be flagged for huge bias and your article will be rejected.")
     
     def to_markdown(self, depth=0):
         prefix = {0:'#', 1:'##', 2:'###', 3:'####'}.get(depth, '####')
@@ -96,7 +96,7 @@ class TableI(StrictBaseModel):
     table: List[List[str]] = Field(..., description="Table contents")
     title: str = Field(..., description="Title of the table")
     info_type: Literal['table'] = Field(..., description="Just put 'table'")
-    references: List[Reference]
+    references: List[Reference] = Field(..., description="List of references used in the information. Pick in the provided sources, and ALWAYS provide at least one reference, but more is better. Be Careful, one reference may only be used once, as first reference, once as second reference, etc. If you break this rule, you will be flagged for huge bias and your article will be rejected.")
     
     def to_markdown(self, depth=0):
         prefix = {0:'#', 1:'##', 2:'###', 3:'####'}.get(depth, '####')
@@ -121,7 +121,7 @@ class XYGraphI(StrictBaseModel):
     kind : Literal['line', 'h-bar', 'v-bar', 'pie', 'radar'] = Field(..., description="Kind of graph")
     title: str = Field(..., description="Title of the graph")
     info_type: Literal['xy_graph'] = Field(..., description="Just put 'xy_graph'")
-    references: List[Reference]
+    references: List[Reference] = Field(..., description="List of references used in the information. Pick in the provided sources, and ALWAYS provide at least one reference, but more is better. Be Careful, one reference may only be used once, as first reference, once as second reference, etc. If you break this rule, you will be flagged for huge bias and your article will be rejected.")
     
     def to_markdown(self, depth=0):
         prefix = {0:'#', 1:'##', 2:'###', 3:'####'}.get(depth, '####')
@@ -149,7 +149,7 @@ class XYGraphsStackedI(StrictBaseModel):
     kind : Literal['line', 'h-bar', 'v-bar', 'pie', 'radar'] = Field(..., description="Kind of graph")
     title: str = Field(..., description="Title of the graph")
     info_type: Literal['xy_graph_stacked'] = Field(..., description="Just put 'xy_graph'")
-    references: List[Reference]
+    references: List[Reference] = Field(..., description="List of references used in the information. Pick in the provided sources, and ALWAYS provide at least one reference, but more is better. Be Careful, one reference may only be used once, as first reference, once as second reference, etc. If you break this rule, you will be flagged for huge bias and your article will be rejected.")
     
     def to_markdown(self, depth=0):
         prefix = {0:'#', 1:'##', 2:'###', 3:'####'}.get(depth, '####')
@@ -238,7 +238,7 @@ def generic_type_instance_to_pydantic_basemodel(gt: GenericType):
         L = {}
         L['title'] = (str, Field(..., description=f"The proposed title was {gt.title}. Pick a better suiting name for this section, fine-tuned to the content. Also, make sure it is in english"))
         L['info_type'] = (Literal['sections'], Field(..., description="Just put 'sections'"))
-        L['references'] = (List[Reference], Field(..., description="List of references used in the information. Pick in the provided sources, and ALWAYS provide at least one reference, but more is better."))
+        L['references'] = (List[Reference], Field(..., description="List of references used in the information. Pick in the provided sources, and ALWAYS provide at least one reference, but more is better. Be Careful, one reference may only be used once, as first reference, once as second reference, etc. If you break this rule, you will be flagged for huge bias and your article will be rejected."))
         L['header_image_url'] = (Union[str, None], Field(..., description="URL of the header image"))
         for _, gt_ in enumerate(gt.info_type):
             one = U(gt_.title)[:50]
@@ -261,7 +261,7 @@ class Result(BaseModel):
         prefix = {0:'#', 1:'##', 2:'###'}.get(depth, '###')
         r = f"{prefix} {self.title}\n\n"
         for content in self.contents:
-            r += content.to_markdown(depth+1)
+            r += content.to_markdown(depth+1) + "\n\n"
         return r + '\n\n' + Reference.to_markdown_list(self.references)
     
 def GET_RESULT_FROM_LLM(api_key : str, event : GenericType, model : str, prompts : PROMPT) -> Result:
