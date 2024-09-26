@@ -15,9 +15,9 @@ class Reference(StrictBaseModel):
     description: str = Field(..., description="Short description of the reference")
     image : Union[str, None] = Field(..., description="URL of an image to display with the reference")
     def to_markdown(self, depth=0):
-        if not self.image_url:
+        if not self.image:
             return f"[{self.label}]({self.url}) - {self.description}"
-        return f"![image]({self.image_url}) [{self.label}]({self.url}) - {self.description}"
+        return f"![image]({self.image}) [{self.label}]({self.url}) - {self.description}"
     @staticmethod
     def to_markdown_list(references : List['Reference']):
         return "\t-" + "\n\t-".join([r.to_markdown() for r in references])
