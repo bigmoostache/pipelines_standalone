@@ -28,8 +28,8 @@ class Metric(BaseModel):
     def to_markdown(self, depth=0):
         return f"**[Metric]\n{self.metric_definition}**\n*Unit* : {self.metric_units}\n\n"
 class MetricI(StrictBaseModel):
-    metric_value: str = Field(..., description="Metric value")
-    metric_reference_upper_value: str = Field(..., description="Upper reference value for the metric, used for rendering")
+    metric_value: float = Field(..., description="Metric value")
+    metric_reference_upper_value: float = Field(..., description="Upper reference value for the metric, used for rendering")
     metric_unit: str = Field(..., description="Unit of the metric")
     description: str = Field(..., description="Short description and analysis of the metric and its sources")
     kind : Literal['negative', 'neutral', 'positive'] = Field(..., description="Kind of metric")
@@ -60,7 +60,7 @@ class ChampTxt(BaseModel):
     def to_markdown(self, depth=0):
         return f"[Text]\n**{self.txt_definition}**\nApproximate number of sentences : {self.sentences_aimed}\n\n"
 class ChampTxtI(StrictBaseModel):
-    text_contents: str = Field(..., description="Text contents; do NOT apply markdown formatting")
+    text_contents: str = Field(..., description="Text contents; do NOT apply markdown formatting. Do NOT cite references in this field, use the references field instead.")
     title : str = Field(..., description="Title of the text")
     info_type: Literal['text'] = Field(..., description="Just put 'text'")
     references: List[Reference] = Field(..., description="List of references used in the information. Pick in the provided sources, and ALWAYS provide at least one reference, but more is better. Be Careful, one reference may only be used once, as first reference, once as second reference, etc. If you break this rule, you will be flagged for huge bias and your article will be rejected.")
@@ -76,7 +76,7 @@ class BulletPoints(BaseModel):
     def to_markdown(self, depth=0):
         return f"[Bullet Points]\n**{self.bullets_points_definition}**\nApproximate number of bullet points : {self.bullet_points_aimed}\n\n"
 class BulletPointsI(StrictBaseModel):
-    bullet_points: List[str] = Field(..., description="List of bullet points. Do NOT apply markdown formatting")
+    bullet_points: List[str] = Field(..., description="List of bullet points. Do NOT apply markdown formatting. Do NOT cite references in this field, use the references field instead.")
     enumerate: bool = Field(..., description="Whether to enumerate or itemize")
     title : str = Field(..., description="Title of the bullet points")
     info_type: Literal['bullet_points'] = Field(..., description="Just put 'bullet_points'")

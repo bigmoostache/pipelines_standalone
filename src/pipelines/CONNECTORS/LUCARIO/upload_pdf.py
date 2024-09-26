@@ -28,12 +28,4 @@ class Pipeline:
         for page in reader.pages:
             text += page.extract_text()
     
-        return URL2(
-            url=f'https://lucario.croquo.com/files?file={url}', 
-            title='Uploaded PDF', 
-            description='Uploaded PDF',
-            images=[],
-            text=text,
-            html="", 
-            date=datetime.now().isoformat()
-            )
+        return URL2.init(url=f'https://lucario.croquo.com/files?file={url}', title='Uploaded PDF', description='Uploaded PDF', date=datetime.now().isoformat())
