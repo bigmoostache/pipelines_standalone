@@ -47,7 +47,7 @@ class Pipeline:
                 completion = client.beta.chat.completions.parse(
                     model=self.model,
                     messages=messages,
-                    temperature=self.temperature,
+                    temperature=1,
                     max_tokens=self.max_tokens,
                     top_p=self.top_p,
                     frequency_penalty=self.frequency_penalty,
@@ -63,7 +63,7 @@ class Pipeline:
                 res = completion.choices[0].message.content
                 return json.loads(res)
 
-            except (openai.LengthFinishReasonError, json.decoder.JSONDecodeError) as e:
+            except Exception as e:
                 attempts += 1
                 if attempts >= self.retries:
                     print(f"Maximum retries reached ({self.retries}). Returning empty dict.")

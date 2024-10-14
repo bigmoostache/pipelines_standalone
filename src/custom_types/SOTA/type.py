@@ -299,6 +299,7 @@ class SOTA(BaseModel):
     drop_url           : str
     pikabu_url         : str
     file_id            : str
+    pipeline_id        : Union[int, None]   = Field(None, description = "The pipeline id that is currently running on the document. None if no pipeline is running.")
     
     versions           : Dict[int, Version] = Field(..., description = "version_id -> Version")
     current_version_id : int                = Field(..., description = "version_id of the currently featured version.")
@@ -319,6 +320,7 @@ class SOTA(BaseModel):
             drop_url = "https://lucario.croquo.com/files",
             pikabu_url = "https://pikabu.croquo.com",
             file_id = str(time())+'.'+str(uuid4()),
+            pipeline_id = None,
             versions = {
                 1:
                     Version(
