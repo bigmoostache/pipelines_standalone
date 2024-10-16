@@ -126,6 +126,12 @@ class VersionedInformation(BaseModel):
     # this below is a bit special.
     embeddings : Dict[int, List[str]] = Field(..., description = "version_id -> List[section_id]")
 
+    def retrieve_reference_id(self, referenced_information_id):
+        for ref_id, ref in self.referencements.items():
+            if ref.information_id == referenced_information_id:
+                return ref_id
+        return None
+
     def update_embeddings(self, versions_list : List[int], embedders : List[Embedder]):
         last_id = SOTA.get_last(self.versions, versions_list, return_id = True)
         if last_id is None: return
