@@ -190,9 +190,9 @@ class VersionedInformation(BaseModel):
         versions_list : List[int]
     ) -> str:
         reference = self.referencements[referencement_id]
-        information = sota.information[reference.information_id]
-        information = sota.get_last(information.versions, versions_list)
-        if information.class_name == 'External':
+        _information = sota.information[reference.information_id]
+        information = sota.get_last(_information.versions, versions_list)
+        if information.get_class_name(_information) == 'External':
             raise "External references are not supported"
         else:
             return information.text_representation(
@@ -213,8 +213,6 @@ class VersionedInformation(BaseModel):
         detail : str
     ) -> str:
         last = self.get_last_version(versions_list)
-        assert last.class_name == 'External'
-        assert last.external_db == 'file'
         # In this case, detail is the file_id in the lucario 🦊 database
         headers = {'accept': 'application/json' }
         params = {'file_id': str(detail)}
@@ -238,7 +236,7 @@ class VersionedInformation(BaseModel):
         detail : str
     ) -> str:
         last = self.get_last_version(versions_list)
-        assert last.class_name == 'External'
+        assert self.get_class_name(last) == 'External'
         if last.external_db == 'file':
             return self.lucario_get_chunk(sota, versions_list, detail)
         raise "External references are not supported"
