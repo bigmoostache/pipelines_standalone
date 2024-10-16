@@ -186,7 +186,7 @@ def FindReferencesInLucario(
                 'information_id': referenced_information_id,
                 'detail': detail,
                 'pertinence': pertinence,
-                'analysis': ' '.join([_.text for _ in top_k_document.chunks])
+                'analysis': ''
             },
             'change': 'references',
             'information_id': information_id

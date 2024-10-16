@@ -223,18 +223,21 @@ class VersionedInformation(BaseModel):
         # In this case, detail is the file_id in the lucario 🦊 database
         headers = {'accept': 'application/json' }
         params = {'file_id': str(detail)}
-        url = re.sub(r'/files', '/topk', sota.drop_url)
+        url = re.sub(r'/files', '/chunk', sota.drop_url)
         response = requests.get(url, params=params, headers=headers)
         response.raise_for_status()
-        if response['file_ext'] == 'image_desc':
+        documents : List[Document] = [Document.model_validate(_) for _ in response.json()]
+        assert len(documents) == 1, "Query did not return 1 document exactly..."
+        document = documents[0]
+        if document.file_ext == 'image_desc':
             return response['description']
         res = ''
-        if response.get('context', None):
-            res += 'Context: ' + response['context'] + '\n\n'
-        if response.get('description', None):
-            res += 'Contents: ' + response['description'] + '\n\n'
-        if response.get('text', None):
-            res += 'Text: ' + response['text'] + '\n\n'
+        if document.context:
+            res += 'Context: ' + document.context + '\n\n'
+        if document.description:
+            res += 'Description: ' + document.description + '\n\n'
+        if document.text:
+            res += 'Text: ' + document.text + '\n\n'
     
     def access_external(
         self : 'VersionedInformation',
