@@ -142,7 +142,7 @@ def FindReferencesInLucario(
     versions_list = sota.versions_list(-1)
     for _information_id, information in sota.information.items():
         last_version = information.get_last_version(versions_list)
-        if last_version.get_class_name() != 'External' or last_version.external_db != 'file':
+        if information.get_class_name(last_version) != 'External' or last_version.external_db != 'file':
             continue
         uuid_to_information_id_dic[last_version.external_id] = _information_id
     
