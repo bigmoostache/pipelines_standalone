@@ -179,7 +179,7 @@ def FindReferencesInLucario(
         referenced_information_id = uuid_to_information_id_dic[top_k_document.main_document.file_uuid]
         reference_id = information.retrieve_reference_id(referenced_information_id)
         pertinence = max(0,5*(1+np.mean([_.score for _ in top_k_document.chunks])))
-        detail = ','.join([_.file_id for _ in top_k_document.chunks])
+        detail = ','.join([str(_.file_id) for _ in top_k_document.chunks])
         results.append({
             'contents': {
                 'referencement_id': reference_id,
