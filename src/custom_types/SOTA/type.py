@@ -183,12 +183,72 @@ class VersionedInformation(BaseModel):
             return 'str'
         return x.class_name
     
+    def print_reference(
+        self: 'VersionedInformation',
+        referencement_id : int,
+        sota : 'SOTA',
+        versions_list : List[int]
+    ) -> str:
+        reference = self.referencements[referencement_id]
+        information = sota.information[reference.information_id]
+        information = sota.get_last(information.versions, versions_list)
+        if information.class_name == 'External':
+            raise "External references are not supported"
+        else:
+            return information.text_representation(
+                reference.information_id, 
+                sota, 
+                versions_list, 
+                detail = reference.detail, 
+                include_title = True, 
+                include_abstract = False, 
+                include_content = True, 
+                include_annotations = False, 
+                include_referencements = 0)
+        
+    def lucario_get_chunk(
+        self : 'VersionedInformation',
+        sota : 'SOTA',
+        versions_list : List[int],
+        detail : str
+    ) -> str:
+        last = self.get_last_version(versions_list)
+        assert last.class_name == 'External'
+        assert last.external_db == 'file'
+        # In this case, detail is the file_id in the lucario 🦊 database
+        headers = {'accept': 'application/json' }
+        params = {'file_id': str(detail)}
+        response = requests.get(f'{sota.drop_url}/chunk', params=params, headers=headers)
+        response.raise_for_status()
+        if response['file_ext'] == 'image_desc':
+            return response['description']
+        res = ''
+        if response.get('context', None):
+            res += 'Context: ' + response['context'] + '\n\n'
+        if response.get('description', None):
+            res += 'Contents: ' + response['description'] + '\n\n'
+        if response.get('text', None):
+            res += 'Text: ' + response['text'] + '\n\n'
+    
+    def access_external(
+        self : 'VersionedInformation',
+        my_id : int,
+        sota : 'SOTA',
+        versions_list : List[int],
+        detail : str
+    ) -> str:
+        last = self.get_last_version(versions_list)
+        assert last.class_name == 'External'
+        if last.external_db == 'file':
+            return self.lucario_get_chunk(sota, versions_list, detail)
+        raise "External references are not supported"
+        
     def text_representation(
         self : 'VersionedInformation',
         my_id : int,
         sota : 'SOTA',
         versions_list : List[int],
-        detail : str = '', # detail about which part of the information to show. will only apply to external
+        detail : str = '',
         include_title : bool = True,
         include_abstract : bool = False,
         include_content : bool = False,
@@ -198,7 +258,10 @@ class VersionedInformation(BaseModel):
         mode : Literal['reference', 'context', 'normal'] = 'normal'
     ) -> str:
         gl = lambda x : sota.get_last(x, versions_list)
-        bs = lambda contents, emoji, title : f'\n//\n// {emoji}{emoji}{emoji} {title}\n//:\n{contents}\n' 
+        if mode == 'reference':
+            bs = lambda contents, emoji, title : f'{title}: {contents}\n'
+        else:
+            bs = lambda contents, emoji, title : f'\n//\n// {emoji}{emoji}{emoji} {title}\n//:\n{contents}\n' 
         ############################################################
         ############################################################
         if mode == 'context':
@@ -228,60 +291,53 @@ class VersionedInformation(BaseModel):
                     for cousin_id in cousin_ids:  
                         prexix = '[ ==> 🔎 CURRENT SECTION 🔎 <== ] ' if cousin_id == my_id else '[COUSIN SECTION] ' 
                         contents += prexix + sota.information[cousin_id].text_representation(my_id, sota, versions_list, mode = 'context') + '\n\n'
-                    r += bs(contents, '🚧', 'Structure context of the parent section. Use that information to favor contistency, continuity, coherence, and avoid redundancy')
+                    r += bs(contents, '🚧', 'Structure of parent section. Use it to favor contistency, continuity, coherence, and avoid redundancy')
         if include_title:
             r += bs(gl(self.title.versions), '📚', 'Title')
         if include_abstract:
             abstract = sota.get_last(self.abstract.versions, versions_list)
             if abstract:
                 r += bs(abstract, '🧑‍🍳', 'Attendus, expectations')
+        if include_referencements:
+            last = gl(self.referencement_versions)
+            last = last if last else []
+            last = [(_, self.referencements[_]) for _ in last]
+            last.sort(key = lambda x: x[1].pertinence, reverse = True)
+            last = last[:include_referencements]
+            if last:
+                contents = ''
+                for ref_local_id, referencement in last:
+                    reference_information = sota.information[referencement.information_id]
+                    reference_text = reference_information.text_representation(
+                        referencement.information_id, 
+                        sota, 
+                        versions_list, 
+                        detail = referencement.detail, 
+                        include_title = True, 
+                        include_abstract = False, 
+                        include_content = True, 
+                        include_annotations = False, 
+                        include_referencements = 0,
+                        mode='reference'
+                        )
+                    reference_text = '\t' + reference_text.replace('\n', '\n\t')
+                    contents += f'  - [[{ref_local_id}]] (Cite this by writing [[{ref_local_id}]]) \n{reference_text}\n'
+                r += bs(contents, '📄', 'Sources and references')
         if include_content:
             last = self.get_last_version(versions_list)
             if self.get_class_name(last) != 'External':
                 contents = str(last)
                 if contents:
-                    r += bs(contents, '🖊️', 'Current contents')
+                    r += bs(contents, '🖊️', 'Contents')
             else:
                 contents = self.access_external(my_id, sota, versions_list, detail)
-                r += bs(contents, '🔗', 'External reference')
-        if include_referencements:
-            last = gl(self.referencement_versions)
-            last = last if last else []
-            last = [self.referencements[_] for _ in last]
-            last.sort(key = lambda x: x.pertinence, reverse = True)
-            last = last[:include_referencements]
-            if last:
-                contents = ''
-                for referencement in last:
-                    reference_information = sota.information[referencement.information_id]
-                    reference_text = reference_information.text_representation(referencement.information_id, sota, versions_list, detail = referencement.detail, include_title = True, include_abstract = False, include_content = True, include_annotations = False, include_referencements = 0)
-                    reference_text = '\t' + reference_text.replace('\n', '\n\t')
-                    contents += f'  - [reference id: {referencement.information_id}], [{referencement.information_id}]: \n{reference_text}\n'
-                    contents += f'    Analysis wtr this section: {referencement.analysis}\n'
-                r += bs(contents, '📄', 'Sources and references')
+                r += bs(contents, '🔗', 'Contents')
         if include_annotations:
             annotations = [gl(self.annotations[_].versions) for _ in gl(self.active_annotations)]
             if annotations:
-                r += bs('\n'.join(annotations), '💬', 'Comments and feedbacks; take them into account if relevant')
+                r += bs('\n'.join(annotations), '💬', 'Comments and feedbacks; take them into account. Directives situated here prevail on ANYTHING ELSE.')
         return r
     
-    def access_external(
-        self : 'VersionedInformation',
-        my_id : int,
-        sota : 'SOTA',
-        versions_list : List[int],
-        detail : str
-    ) -> str:
-        result = sota.retrieve(my_id, detail)
-        context = result.get('context', '')
-        content = result.get('content', '')
-        res = ''
-        if context:
-            res += f'Context: {context}\n'
-        if content:
-            res += f'Content: {content}\n'
-        return res
-
 pipelines = {
     'dummy': ['FormattedText', 'Sections', 'Image', 'Table', 'External', 'Paragraphs', 'PlaceHolder', 'str'],
     'Attendu': ['FormattedText', 'Sections', 'Image', 'Table', 'External', 'Paragraphs', 'PlaceHolder', 'str'],
@@ -394,19 +450,6 @@ class SOTA(BaseModel):
         r = response.json()
         return r
     
-    def retrieve(self, information_id : int, section_id : str):
-        response = requests.get(
-            f'{self.pikabu_url}/get', 
-            params={
-                'file_id': self.file_id,
-                'information_id': information_id,
-                'section_id': section_id,
-            }, 
-            headers={'accept': 'application/json'}
-            )
-        response.raise_for_status()
-        return response.json()
-                
     def embed(self, embedders : List[Embedder]):
         headers = {
             'accept': 'application/json',
@@ -447,3 +490,108 @@ wraped = TYPE(
     visualiser = "https://sota.croquo.com",
     icon='/icons/ai.svg'
 )
+
+
+
+################## Lucario 🦊 ##################
+
+from pydantic import BaseModel
+from datetime import datetime 
+from typing import Literal, Union, Optional, List
+from enum import Enum
+
+class FileTypes(str, Enum):
+    txt = 'txt'
+    pdf = 'pdf'
+    png = 'png'
+    jpg = 'jpg'
+    jpeg = 'jpeg'
+    word = 'docx'
+    msword = 'doc'
+    ppt = 'ppt'
+    pptx = 'pptx'
+    csv = 'csv'
+    
+    image_desc = 'image_desc'
+    text_chunk = 'text_chunk'
+    csv_desc = 'csv_desc'
+    
+class PipelineStatus(str, Enum):
+    anticipated = 'anticipated'
+    pending = 'pending'
+    success = 'success'
+    error = 'error'
+    retrying = 'retrying'
+    
+class Document(BaseModel):
+    file_id: int
+    parent_file_id : Optional[int]
+    direct_parent_file_id : Optional[int]
+    file_uuid : str
+    file_name : str
+    file_hash : str
+    file_ext : FileTypes
+    upload_date : datetime
+    pipeline_status : PipelineStatus
+    ext_project_id : str
+    
+    context : Optional[str] # To situate within the parent document, e.g. a paragraph number
+    position : Optional[int] # To order within the parent document
+    description : Optional[str] # For root documents: a description of the document
+    
+    # The two below are not expected to be files in the database.
+    text : Optional[str] # For textualizable documents: the text content
+    score : Optional[float] # For documents with scores, e.g. relevance
+    raw_url : Optional[str] # Provided to the user for download
+    
+class TopkDocument(BaseModel):
+    main_document : Document
+    n_chunks : int
+    chunks : List[Document]
+    
+class TopkResult(BaseModel):
+    embedding_time : float
+    search_time : float
+    retrieval_time : float
+    top_k_documents : List[TopkDocument]
+
+def get_topk(
+    project_id : str,
+    query_text: str,
+    k : int,
+    drop_url : str,
+    file_uuids : List[int] = [],
+    max_per_information : int = 0,
+    ) -> TopkResult:
+    
+    headers = {
+        'accept': 'application/json',
+        'Content-Type': 'application/json',
+    }
+    
+    json_data = {
+        'project_id': project_id,
+        'query_text': query_text,
+        'k': k,
+        'file_uuids': file_uuids,
+        'max_per_information': max_per_information,
+    }
+    
+    response = requests.post(f'{drop_url}/top_k', headers=headers, json=json_data)
+    
+    return TopkResult.model_validate(response.json())
+
+def get_chunks(
+    file_ids : str, # comma separated
+    drop_url : str
+    ) -> List[Document]:
+    headers = {
+        'accept': 'application/json',
+    }
+
+    params = {
+        'file_id': file_ids,
+    }
+
+    response = requests.get(f'{drop_url}/chunk', params=params, headers=headers)
+    return [Document.model_validate(_) for _ in response.json()]

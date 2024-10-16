@@ -19,7 +19,7 @@ class Pipeline:
                 # ignore inactive information
                 continue
             last = SOTA.get_last(information.versions, versions_list)
-            if information.get_class_name(last) == 'External'and last.external_db == 'file' and last.external_id.endswith('.pdf'):
+            if information.get_class_name(last) == 'External' and last.external_db == 'file' and last.external_id.endswith('.pdf'):
                 last.external_db = 'file_preprocessed'
                 # x
         return sota

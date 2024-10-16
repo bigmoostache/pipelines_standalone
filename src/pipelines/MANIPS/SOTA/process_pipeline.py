@@ -1,7 +1,7 @@
 
-from custom_types.SOTA.type import SOTA, pipelines
+from custom_types.SOTA.type import SOTA, pipelines, get_topk
 from custom_types.GRID.type import GRID
-from typing import List, Dict, Literal
+from typing import List, Dict, Literal, Union, Optional
 from openai import OpenAI
 from pydantic import BaseModel, Field
 from custom_types.JSONL.type import JSONL
@@ -9,7 +9,10 @@ from pipelines.LLMS_v2.grid_instance_output import Pipeline as GridInstanceOutpu
 from pipelines.LLMS_v2.grid_notation_output import Pipeline as GridNotationOutput
 from pipelines.LLMS_v2.str_output import Pipeline as LLMStrOutput
 from custom_types.PROMPT.type import PROMPT
-import os
+import os, requests
+from datetime import datetime 
+from enum import Enum
+import numpy as np
 
 def Attendu(
     api_key : str, 
@@ -127,58 +130,63 @@ def Write(
     message = completion.choices[0].message.content
     return JSONL(lines=[{'contents': message, 'change': 'content-str', 'information_id': information_id}])
 
-def FindReferences(
+def FindReferencesInLucario(
     api_key : str, 
     model : str, 
     cheap_model : str,
     sota : SOTA,
     information_id : int,
+    iterate_only : bool = False
     ) -> JSONL:
+    uuid_to_information_id_dic = {}
     versions_list = sota.versions_list(-1)
-    active_ids = sota.information[sota.mother_id].get_all_children_ids(sota, sota.mother_id, versions_list)
-    for bib_id in sota.get_last(sota.bibliography, versions_list):
-        active_ids[bib_id] = None
-    active_ids[sota.mother_id] = None
-    active_ids = list(active_ids.keys())
-    # 1. find candidates
+    for _information_id, information in sota.information.items():
+        last_version = information.get_last_version(versions_list)
+        if last_version.class_name != 'External' or last_version.external_db != 'file':
+            continue
+        uuid_to_information_id_dic[last_version.external_id] = _information_id
+    
     information = sota.information[information_id]
-    current_references = sota.get_last(information.referencement_versions, versions_list)
-    current_references_values = [information.referencements[_] for _ in current_references]
-    current_top_k = [
-        {
-            'information_id': _['information_id'],
-            'context': 'In-document reference:' +sota.get_last(sota.information[_.information_id].reference_as.versions, versions_list),
-            'content': str(sota.get_last(sota.information[_.information_id].versions, versions_list)),
-            'distance': _.pertinence/10,
-            'analysis': _.analysis,
-            'referencement_id': _id
-        }
-        for _id, _ in zip(current_references, current_references_values)
-    ]
-    abstract = sota.get_last(information.abstract.versions, versions_list)
-    title = sota.get_last(information.title.versions, versions_list)
-    abstract = str(sota.get_last(information.versions, versions_list))
-    top_k = sota.top_k(abstract, k = 15, information_ids = active_ids, max_per_information = 3)
-    top_k = top_k + current_top_k
-    top_k.sort(key = lambda x : x['distance'])
-    seen_tuples = set()
-    top_k_ = []
-    for r in top_k:
-        t = (r['information_id'], r.get('section_id', ''))
-        if t not in seen_tuples:
-            top_k_.append(r)
-            seen_tuples.add(t)
-    top_k = top_k_
-    tok_k = top_k[:12]
+    query = information.text_representation(
+        information_id,
+        sota,
+        versions_list,
+        include_title=True,
+        include_abstract=True,
+        include_content=True,
+        mode = 'reference'
+    )
+    file_uuids = []
+    if iterate_only:
+        references = sota.get_last(information.referencement_versions, versions_list)
+        for ref in references:
+            info = sota.information[ref.information_id]
+            info_last = info.get_last_version(versions_list)
+            if info_last.class_name == 'External' and info_last.external_db == 'file':
+                file_uuids.append(info_last.external_id)
+    top_k = get_topk(
+        project_id = sota.file_id,
+        query_text = query,
+        k = 10,
+        drop_url = sota.drop_url,
+        file_uuids = file_uuids,
+        max_per_information=5
+    )
     results = []
-    for r in top_k:
+    for top_k_document in top_k.top_k_documents:
+        if len(top_k_document.chunks) == 0:
+            continue
+        referenced_information_id = uuid_to_information_id_dic[top_k_document.main_document.file_uuid]
+        reference_id = information.retrieve_reference_id(referenced_information_id)
+        pertinence = max(0,5*(1+np.mean([_.score for _ in top_k_document.chunks])))
+        detail = ','.join([_.file_id for _ in top_k_document.chunks])
         results.append({
             'contents': {
-                'referencement_id': r.get('referencement_id', None),
-                'information_id': r['information_id'],
-                'detail': r.get('section_id', ''),
-                'pertinence': int(max(0, r['distance']*10)),
-                'analysis': r.get('analysis', r.get('context', ''))
+                'referencement_id': reference_id,
+                'information_id': referenced_information_id,
+                'detail': detail,
+                'pertinence': pertinence,
+                'analysis': ' '.join([_.text for _ in top_k_document.chunks])
             },
             'change': 'references',
             'information_id': information_id
@@ -307,12 +315,21 @@ class Pipeline:
                 information_id = information_id
             )
         elif task_name == 'Find references':
-            return  FindReferences(
+            return  FindReferencesInLucario(
                 api_key = api_key, 
                 model = self.json_model, 
                 cheap_model = self.cheap_model,
                 sota = sota,
                 information_id = information_id
+            )
+        elif task_name == 'Iterate References':
+            return  FindReferencesInLucario(
+                api_key = api_key, 
+                model = self.json_model, 
+                cheap_model = self.cheap_model,
+                sota = sota,
+                information_id = information_id,
+                iterate_only = True
             )
         elif task_name == 'Analyse Reference':
             referencement_id = task.get('referencement_id', None)
