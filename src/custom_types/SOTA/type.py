@@ -5,6 +5,7 @@ import json
 from time import time
 from uuid import uuid4
 import requests
+import re
 
 class VersionedText(BaseModel):
     versions      : Dict[int, str] = Field(..., description = "version_id -> text value until next version. Key = None if modified but not stored in last version not saved yet")
@@ -216,7 +217,8 @@ class VersionedInformation(BaseModel):
         # In this case, detail is the file_id in the lucario 🦊 database
         headers = {'accept': 'application/json' }
         params = {'file_id': str(detail)}
-        response = requests.get(f'{sota.drop_url}/chunk', params=params, headers=headers)
+        url = re.sub(r'/files', '/topk', sota.drop_url)
+        response = requests.get(url, params=params, headers=headers)
         response.raise_for_status()
         if response['file_ext'] == 'image_desc':
             return response['description']
@@ -561,7 +563,7 @@ def get_topk(
     file_uuids : List[int] = [],
     max_per_information : int = 0,
     ) -> TopkResult:
-    
+    url = re.sub(r'/files', '/top_k', drop_url)
     headers = {
         'accept': 'application/json',
         'Content-Type': 'application/json',
@@ -575,7 +577,7 @@ def get_topk(
         'max_per_information': max_per_information,
     }
     
-    response = requests.post(f'{drop_url}/top_k', headers=headers, json=json_data)
+    response = requests.post(url, headers=headers, json=json_data)
     
     return TopkResult.model_validate(response.json())
 
@@ -590,6 +592,6 @@ def get_chunks(
     params = {
         'file_id': file_ids,
     }
-
-    response = requests.get(f'{drop_url}/chunk', params=params, headers=headers)
+    url = re.sub(r'/files', '/chunk', drop_url)
+    response = requests.get(url, params=params, headers=headers)
     return [Document.model_validate(_) for _ in response.json()]
