@@ -233,17 +233,19 @@ class VersionedInformation(BaseModel):
             print(f"An error occurred: {e}")
             return []
         documents : List[Document] = [Document.model_validate(_) for _ in response.json()]
-        assert len(documents) == 1, f'Expected 1 document, got {len(documents)} for {url} with {params}'
-        document = documents[0]
-        if document.file_ext == 'image_desc':
-            return response['description']
         res = ''
-        if document.context:
-            res += 'Context: ' + document.context + '\n\n'
-        if document.description:
-            res += 'Description: ' + document.description + '\n\n'
-        if document.text:
-            res += 'Text: ' + document.text + '\n\n'
+        for document in documents:
+            if document.file_ext == 'image_desc':
+                res += f'Image: {document.description}\n'
+            else:
+                if document.context:
+                    res += 'Context: ' + document.context + '\n'
+                if document.description:
+                    res += 'Description: ' + document.description + '\n'
+                if document.text:
+                    res += 'Text: ' + document.text + '\n'
+            res += '---\n'
+        return res
     
     def access_external(
         self : 'VersionedInformation',
