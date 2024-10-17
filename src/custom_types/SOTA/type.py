@@ -219,13 +219,19 @@ class VersionedInformation(BaseModel):
         versions_list : List[int],
         detail : str
     ) -> str:
-        last = self.get_last_version(versions_list)
         # In this case, detail is the file_id in the lucario 🦊 database
         headers = {'accept': 'application/json' }
         params = {'file_id': str(detail)}
+        if not str(detail):
+            last = self.get_last_version(versions_list)
+            params['file_uuid'] = last.external_id
         url = re.sub(r'/files', '/chunk', sota.drop_url)
-        response = requests.get(url, params=params, headers=headers)
-        response.raise_for_status()
+        try:
+            response = requests.get(url, params=params, headers=headers)
+            response.raise_for_status()
+        except requests.exceptions.RequestException as e:
+            print(f"An error occurred: {e}")
+            return []
         documents : List[Document] = [Document.model_validate(_) for _ in response.json()]
         assert len(documents) == 1, "Query did not return 1 document exactly..."
         document = documents[0]
