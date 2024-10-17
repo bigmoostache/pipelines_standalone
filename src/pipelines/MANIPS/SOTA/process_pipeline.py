@@ -246,7 +246,11 @@ def AnalyseReference(
     )
     _prompts.add('Here is a description of the current section we are working on', role = 'system')
     _prompts.add(f'Title: {title}\nAbstract: {abstract}', role = 'user')
-    _prompts.add('Please analyse very precisely, with great detail and fine reasoning, what the reference below may bring to the current section of interest. Be both factual (listing facts and figures) and analytical.', role = 'system')
+    _prompts.add('\
+        Please analyse very precisely, with great detail and fine reasoning, what the reference below may bring to the current section of interest. \
+        Be both factual (listing facts and figures) and analytical.\
+        Very important: if there are already images (something like ![image](url)) in the previous version, keep it in this version.',
+        role = 'system')
     _prompts.add(r_text, role = 'user')
     _p = LLMStrOutput(model=model)
     analysis = _p(_prompts)
