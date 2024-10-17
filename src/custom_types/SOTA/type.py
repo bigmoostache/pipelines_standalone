@@ -352,7 +352,9 @@ class VersionedInformation(BaseModel):
                 contents = self.access_external(my_id, sota, versions_list, detail)
                 r += bs(contents, '🔗', 'Contents')
         if include_annotations:
-            annotations = [gl(self.annotations[_].versions) for _ in gl(self.active_annotations)]
+            actives = gl(self.active_annotations)
+            actives = actives if actives else []
+            annotations = [gl(self.annotations[_].versions) for _ in actives]
             if annotations:
                 r += bs('\n'.join(annotations), '💬', 'Comments and feedbacks; take them into account. Directives situated here prevail on ANYTHING ELSE. Here are the actual requests of the user, so FOCUS ON THEM!')
         return r
