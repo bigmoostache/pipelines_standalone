@@ -140,7 +140,7 @@ def Write(
     completion = client.beta.chat.completions.parse(
         model=model,
         messages=[
-            {"role": "user", "content": "Please (re)-write this section. You may ONLY use the information provided above, nothing else. Use markdown to format your text. You may include paragraphs (####) but not sections (# ## and ###). Do not re-state the title, abstract, or annotations: pure content."},
+            {"role": "user", "content": "Please (re)-write this section. You may ONLY use the information provided above, nothing else. Use markdown to format your text (you may use **bold**, *italic*, itemizations, enumerations, markdown tables, and include images if some are provided and relevant to include). You may include paragraphs (####) but not sections (# ## and ###). Do NOT re-state the title, abstract, or annotations: pure content."},
             {"role": "user", "content": prompt},
         ]
     )
