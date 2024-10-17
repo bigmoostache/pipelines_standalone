@@ -159,7 +159,7 @@ def FindReferencesInLucario(
     file_uuids = []
     if iterate_only:
         references = sota.get_last(information.referencement_versions, versions_list)
-        references = [references] if references else []
+        references = references if references else []
         for ref in references:
             info = sota.information[ref.information_id]
             info_last = info.get_last_version(versions_list)
