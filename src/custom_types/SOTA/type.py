@@ -233,7 +233,7 @@ class VersionedInformation(BaseModel):
             print(f"An error occurred: {e}")
             return []
         documents : List[Document] = [Document.model_validate(_) for _ in response.json()]
-        assert len(documents) == 1, "Query did not return 1 document exactly..."
+        assert len(documents) == 1, f'Expected 1 document, got {len(documents)} for {url} with {params}'
         document = documents[0]
         if document.file_ext == 'image_desc':
             return response['description']
@@ -575,7 +575,7 @@ def get_topk(
     query_text: str,
     k : int,
     drop_url : str,
-    file_uuids : List[int] = [],
+    file_uuids : List[str] = [],
     max_per_information : int = 0,
     ) -> TopkResult:
     url = re.sub(r'/files', '/top_k', drop_url)
