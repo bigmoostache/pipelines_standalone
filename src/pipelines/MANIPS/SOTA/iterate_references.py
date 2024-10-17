@@ -13,6 +13,8 @@ class Pipeline:
         active_ids = mother.get_all_children_ids(sota, sota.mother_id, versions_list)
         active_ids[sota.mother_id] = None
         for k,information in sota.information.items():
+            if len(information.ai_pipelines_to_run) == 0:
+                continue
             tasks.append(
                 {'task': 'Iterate References', 'information' : k} 
             )
