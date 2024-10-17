@@ -337,6 +337,8 @@ class VersionedInformation(BaseModel):
                         include_referencements = 0,
                         mode='reference'
                         )
+                    if referencement.analysis:
+                        reference_text += '\n' + referencement.analysis
                     reference_text = '\t' + reference_text.replace('\n', '\n\t')
                     contents += f'  - [[{ref_local_id}]] (Cite this by writing [[{ref_local_id}]]) \n{reference_text}\n'
                 r += bs(contents, '📄', 'Sources and references')

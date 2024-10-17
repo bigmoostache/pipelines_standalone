@@ -13,6 +13,7 @@ import os, requests
 from datetime import datetime 
 from enum import Enum
 import numpy as np
+import re
 
 def Attendu(
     api_key : str, 
@@ -100,6 +101,22 @@ def Attendu(
     thoughts = completion.choices[0].message.parsed
     return JSONL(lines=[{'contents': str(thoughts), 'change': 'abstract', 'information_id': information_id}])
 
+
+def replace_nested_lists(text):
+    # Regex pattern to match lists like [[1], [2], ..., [n]]
+    pattern = r"\[\[([0-9]+(?:\],\s*\[[0-9]+)*)\]\]"
+    
+    # Function to transform the matched pattern
+    def replacer(match):
+        # Split the inner integers and wrap them in new [[some int]] format
+        inner_list = match.group(1)
+        parts = inner_list.split('], [')
+        return ', '.join(f'[[{part}]]' for part in parts)
+    
+    # Perform the substitution using the replacer function
+    result = re.sub(pattern, replacer, text)
+    return result
+
 def Write(
     api_key : str, 
     model : str, 
@@ -128,6 +145,7 @@ def Write(
         ]
     )
     message = completion.choices[0].message.content
+    message = replace_nested_lists(message)
     return JSONL(lines=[{'contents': message, 'change': 'content-str', 'information_id': information_id}])
 
 def FindReferencesInLucario(
