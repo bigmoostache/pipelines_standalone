@@ -354,7 +354,7 @@ class VersionedInformation(BaseModel):
         if include_annotations:
             annotations = [gl(self.annotations[_].versions) for _ in gl(self.active_annotations)]
             if annotations:
-                r += bs('\n'.join(annotations), '💬', 'Comments and feedbacks; take them into account. Directives situated here prevail on ANYTHING ELSE.')
+                r += bs('\n'.join(annotations), '💬', 'Comments and feedbacks; take them into account. Directives situated here prevail on ANYTHING ELSE. Here are the actual requests of the user, so FOCUS ON THEM!')
         return r
     
 pipelines = {
