@@ -197,6 +197,7 @@ def FindReferencesInLucario(
         if len(top_k_document.chunks) == 0:
             continue
         referenced_information_id = uuid_to_information_id_dic.get(top_k_document.main_document.file_uuid, None)
+        
         if referenced_information_id is None:
             continue
         reference_id = information.retrieve_reference_id(referenced_information_id)
