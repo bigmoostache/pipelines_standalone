@@ -42,7 +42,7 @@ def Attendu(
         form_expectations: List[str] = Field(..., description=f"List of the expected form of the section.")
         context_guidelines: str = Field(..., description=f"Give very specific and detailed guidelines relative to the context of the section to maximize continuity and coherence, and minimize redundancy.")
         def __str__(self):
-            return '🎯 Objective: '+ self.section_purpose + '\n⚗️ Structure: ' + self.section_category + '\n📝 Substance:\n\t-' + '\n\t-'.join(self.substance_expectations) + '\n🖌️ Form:\n\t-' + '\n\t-'.join(self.form_expectations) + '\n' + self.context_guidelines 
+            return '🎯 Objective: '+ self.section_purpose + '\n⚗️ Structure: ' + self.section_category + '\n📝 Substance:\n\t- ' + '\n\t- '.join(self.substance_expectations) + '\n🖌️ Form:\n\t- ' + '\n\t- '.join(self.form_expectations) + '\n' + self.context_guidelines 
     
     class ImageAttendus(BaseModel):
         image_purpose: str = Field(..., description=f"The general purpose, message we want to convey with this image.")
@@ -59,7 +59,7 @@ def Attendu(
         subsections_proposition : List[str] = Field(..., description=f"List of proposed subsections.")
         context_guidelines: str = Field(..., description=f"Give very specific and detailed guidelines relative to the context of the section to maximize continuity and coherence, and minimize redundancy.")
         def __str__(self):
-            return '🎯 Objective: '+ self.section_purpose + '\n🔍 Category: ' + self.section_category + '\n📝 Substance:\n\t-' + '\n\t-'.join(self.substance_expectations) + '\n📚 Subsections:\n\t-' + '\n\t-'.join(self.subsections_proposition) + '\n' + self.context_guidelines
+            return '🎯 Objective: '+ self.section_purpose + '\n🔍 Category: ' + self.section_category + '\n📝 Substance:\n\t- ' + '\n\t- '.join(self.substance_expectations) + '\n📚 Subsections:\n\t- ' + '\n\t- '.join(self.subsections_proposition) + '\n' + self.context_guidelines
     
     class TableAttendus(BaseModel):
         table_purpose: str = Field(..., description="The general purpose, message we want to convey with this table.")
