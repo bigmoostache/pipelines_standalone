@@ -211,10 +211,14 @@ def U(s):
     # Step 4: Replace spaces with underscores
     s = re.sub(r'\s+', '_', s)
     
+    # **New Step**: Remove leading underscores
+    s = s.lstrip('_')
+    
     # Step 5: Convert to uppercase
     s = s.upper()
     
     return s
+
 
 def infer_type(v : Union[Metric, Image, ChampTxt, BulletPoints, Table, XYGraph, XYGraphsStacked, List['GenericType']]) -> str:
     for v_ in [Metric, Image, ChampTxt, BulletPoints, Table, XYGraph, XYGraphsStacked]:
