@@ -56,7 +56,14 @@ class Embedder(BaseModel):
     section_id : str
     content : str
     context : str
-        
+      
+class Congiguration(BaseModel):
+    textColor : str
+    boldColor : str
+    titleColor : str
+    font : str
+    language : str    
+      
 class VersionedInformation(BaseModel):
     class Paragraphs(BaseModel):
         paragraphs : List[FormatedText]
@@ -390,13 +397,6 @@ class SOTA(BaseModel):
     mother_id          : int                  = Field(..., description = "Master information for the rendering")
     bibliography       : Dict[int, List[int]] = Field(..., description = "version_id -> List[information_id]")
     
-    class Congiguration(BaseModel):
-        textColor : str
-        boldColor : str
-        titleColor : str
-        font : str
-        language : str
-    
     configuration : Congiguration = Field(..., description = "Document configuration")
     
     @classmethod
@@ -431,7 +431,7 @@ class SOTA(BaseModel):
                 1 : VersionedInformation.create_text(contents = {}, title = 'Body', reference_as = 'Body')
             },
             mother_id = 1,
-            bibliography = {1:[]}
+            bibliography = {1:[]},
             configuration = Congiguration(
                 textColor = '#1e1b4b',
                 boldColor = '#4f46e5',
