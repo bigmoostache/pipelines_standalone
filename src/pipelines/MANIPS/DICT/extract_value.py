@@ -7,4 +7,4 @@ class Pipeline:
         self.key_name = key_name
 
     def __call__(self, dic : dict) -> str:
-        return dic[self.key_name]
+        return str(dic[self.key_name])
