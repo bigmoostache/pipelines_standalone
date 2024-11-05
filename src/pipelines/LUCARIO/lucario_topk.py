@@ -44,12 +44,14 @@ class Pipeline:
             #"file_uuids": uuids,
             "max_per_information": self.max_per_information
             }
-        top_k_response = requests.post(url = 'https://lucario.croquo.com/top_k', json=json_payload)
+        top_k_response = requests.post(url ='https://lucario.croquo.com/top_k', json=json_payload)
+        
         if top_k_response.status_code != 200:
             raise Exception(f'Unsuccessful response: {top_k_response}')
-        json_out = [chunk for _ in top_k_response.json()['top_k_documents'] for chunk in _['chunks'] ]
+        
+        json_out = [chunk for _ in top_k_response.json()['top_k_documents'] for chunk in _['chunks']]
 
-        return JSONL([_ for _ in json_out])
+        return JSONL(json_out)
         
 
         
