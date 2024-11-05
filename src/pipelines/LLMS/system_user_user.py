@@ -1,7 +1,7 @@
 import os
 import dotenv
 import openai
-
+from utils.booleans import to_bool
 dotenv.load_dotenv()
 
 class Pipeline:
@@ -26,7 +26,7 @@ class Pipeline:
         self.frequency_penalty = frequency_penalty
         self.presence_penalty = presence_penalty
         self.role_message = role_message
-        self.json_format = json_format
+        self.json_format = to_bool(json_format)
 
     def __call__(self, 
                  user_message : str) -> str:
