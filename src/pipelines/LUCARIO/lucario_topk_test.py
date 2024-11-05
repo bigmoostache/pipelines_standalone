@@ -35,7 +35,7 @@ class Pipeline:
         self.max_per_information = max_per_information
 
     
-    def __call__(self, query_text: str) -> JSONL:
+    def __call__(self, query_text: str) -> str:
 
         json_payload = {
             "project_id": self.project_id,
@@ -51,8 +51,7 @@ class Pipeline:
         
         json_out = [chunk for _ in top_k_response.json()['top_k_documents'] for chunk in _['chunks']]
 
-
-        return JSONL(json_out)
+        return json.dumps(json_out)
         
 
         
