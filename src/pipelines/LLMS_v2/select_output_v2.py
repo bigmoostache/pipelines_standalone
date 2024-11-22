@@ -5,7 +5,7 @@ import os
 class Pipeline:
     __env__ = ["openai_api_key"]
     def __init__(self, 
-                 model : str = "gpt-4o-2024-08-06", 
+                 model : str = "gpt-4o", 
                  rerolls: int = 1,
                  ):
         self.model = model
