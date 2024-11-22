@@ -434,8 +434,8 @@ class SOTA(BaseModel):
             bibliography = {1:[]},
             configuration = Congiguration(
                 textColor = '#1e1b4b',
-                boldColor = '#4f46e5',
-                titleColor = '#a16207',
+                titleColor = '#4f46e5',
+                boldColor = '#a16207',
                 font = 'Calibri',
                 language = 'us'
             )
