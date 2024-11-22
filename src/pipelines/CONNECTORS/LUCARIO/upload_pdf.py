@@ -9,7 +9,7 @@ class Pipeline:
     def __init__(self):
         pass
 
-    def __call__(self, pdf: PDF) -> URL2:
+    def __call__(self, pdf: PDF, project_id : str) -> URL2:
         headers = {
             'accept': 'application/json',
         }
@@ -18,7 +18,13 @@ class Pipeline:
             'file': ('article.pdf', pdf.file_as_bytes, 'application/pdf')
         }
 
-        response = requests.post('https://lucario.croquo.com/files', headers=headers, files=files)
+        
+        params= {
+                "project_id": project_id 
+            } 
+        
+
+        response = requests.post('https://lucario.croquo.com/files', headers=headers, files=files, params=params)
         response.raise_for_status()
         url = response.json()['file_name']
         
