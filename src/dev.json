@@ -1,363 +1,44 @@
 {
-    "$defs": {
-      "ANALYSE_SWOT": {
-        "properties": {
-          "title": {
-            "description": "Analyse SWOT",
-            "title": "Title",
-            "type": "string"
-          },
-          "info_type": {
-            "const": "sections",
-            "description": "Just put 'sections'",
-            "enum": [
-              "sections"
-            ],
-            "title": "Info Type",
-            "type": "string"
-          },
-          "references": {
-            "description": "List of references used in the information",
-            "items": {
-              "$ref": "#/$defs/Reference"
-            },
-            "title": "References",
-            "type": "array"
-          },
-          "header_image_url": {
-            "anyOf": [
-              {
-                "type": "string"
-              },
-              {
-                "type": "null"
-              }
-            ],
-            "description": "URL of the header image",
-            "title": "Header Image Url"
-          },
-          "FAIBLESSES_0": {
-            "allOf": [
-              {
-                "$ref": "#/$defs/BulletPointsI"
-              }
-            ],
-            "description": "Trois faiblesses identifi\u00e9es pour l'entreprise."
-          },
-          "DANGERS_1": {
-            "allOf": [
-              {
-                "$ref": "#/$defs/BulletPointsI"
-              }
-            ],
-            "description": "Menaces actuelles ou potentielles pour l'entreprise."
-          },
-          "FORCES_2": {
-            "allOf": [
-              {
-                "$ref": "#/$defs/BulletPointsI"
-              }
-            ],
-            "description": "Trois forces majeures de l'entreprise par rapport aux concurrents."
-          },
-          "OPPORTUNITES_3": {
-            "allOf": [
-              {
-                "$ref": "#/$defs/BulletPointsI"
-              }
-            ],
-            "description": "Potentielles opportunit\u00e9s de croissance ou d'am\u00e9lioration."
-          }
-        },
-        "required": [
-          "title",
-          "info_type",
-          "references",
-          "header_image_url",
-          "FAIBLESSES_0",
-          "DANGERS_1",
-          "FORCES_2",
-          "OPPORTUNITES_3"
-        ],
-        "title": "ANALYSE_SWOT",
-        "type": "object"
-      },
-      "BulletPointsI": {
-        "properties": {
-          "bullet_points": {
-            "description": "List of bullet points",
-            "items": {
-              "type": "string"
-            },
-            "title": "Bullet Points",
-            "type": "array"
-          },
-          "enumerate": {
-            "description": "Whether to enumerate or itemize",
-            "title": "Enumerate",
-            "type": "boolean"
-          },
-          "title": {
-            "description": "Title of the bullet points",
-            "title": "Title",
-            "type": "string"
-          },
-          "info_type": {
-            "const": "bullet_points",
-            "description": "Just put 'bullet_points'",
-            "enum": [
-              "bullet_points"
-            ],
-            "title": "Info Type",
-            "type": "string"
-          },
-          "references": {
-            "items": {
-              "$ref": "#/$defs/Reference"
-            },
-            "title": "References",
-            "type": "array"
-          }
-        },
-        "required": [
-          "bullet_points",
-          "enumerate",
-          "title",
-          "info_type",
-          "references"
-        ],
-        "title": "BulletPointsI",
-        "type": "object"
-      },
-      "ChampTxtI": {
-        "properties": {
-          "text_contents": {
-            "description": "Text contents",
-            "title": "Text Contents",
-            "type": "string"
-          },
-          "title": {
-            "description": "Title of the text",
-            "title": "Title",
-            "type": "string"
-          },
-          "info_type": {
-            "const": "text",
-            "description": "Just put 'text'",
-            "enum": [
-              "text"
-            ],
-            "title": "Info Type",
-            "type": "string"
-          },
-          "references": {
-            "items": {
-              "$ref": "#/$defs/Reference"
-            },
-            "title": "References",
-            "type": "array"
-          }
-        },
-        "required": [
-          "text_contents",
-          "title",
-          "info_type",
-          "references"
-        ],
-        "title": "ChampTxtI",
-        "type": "object"
-      },
-      "METHODE_ET_SOURCES": {
-        "properties": {
-          "title": {
-            "description": "M\u00e9thode et Sources",
-            "title": "Title",
-            "type": "string"
-          },
-          "info_type": {
-            "const": "sections",
-            "description": "Just put 'sections'",
-            "enum": [
-              "sections"
-            ],
-            "title": "Info Type",
-            "type": "string"
-          },
-          "references": {
-            "description": "List of references used in the information",
-            "items": {
-              "$ref": "#/$defs/Reference"
-            },
-            "title": "References",
-            "type": "array"
-          },
-          "header_image_url": {
-            "anyOf": [
-              {
-                "type": "string"
-              },
-              {
-                "type": "null"
-              }
-            ],
-            "description": "URL of the header image",
-            "title": "Header Image Url"
-          },
-          "METHODE_0": {
-            "allOf": [
-              {
-                "$ref": "#/$defs/ChampTxtI"
-              }
-            ],
-            "description": "Approche utilis\u00e9e pour recueillir les informations concurrentielles."
-          },
-          "SOURCES_1": {
-            "allOf": [
-              {
-                "$ref": "#/$defs/BulletPointsI"
-              }
-            ],
-            "description": "Provenance des informations utilis\u00e9es."
-          }
-        },
-        "required": [
-          "title",
-          "info_type",
-          "references",
-          "header_image_url",
-          "METHODE_0",
-          "SOURCES_1"
-        ],
-        "title": "METHODE_ET_SOURCES",
-        "type": "object"
-      },
-      "Reference": {
-        "properties": {
-          "url": {
-            "description": "URL of the reference",
-            "title": "Url",
-            "type": "string"
-          },
-          "label": {
-            "description": "Title of the reference",
-            "title": "Label",
-            "type": "string"
-          },
-          "description": {
-            "description": "Short description of the reference",
-            "title": "Description",
-            "type": "string"
-          },
-          "image": {
-            "anyOf": [
-              {
-                "type": "string"
-              },
-              {
-                "type": "null"
-              }
-            ],
-            "description": "URL of an image to display with the reference",
-            "title": "Image"
-          }
-        },
-        "required": [
-          "url",
-          "label",
-          "description",
-          "image"
-        ],
-        "title": "Reference",
-        "type": "object"
-      }
+  "selection_criteria": [
+    {
+      "inclusion_criteria_description": "Acceptance of Randomized Controlled Trials, prospective comparative studies, and retrospective comparative studies for the analysis.",
+      "name": "RCTS_PROSPECTIVE_RETRO_COMPARATIVE"
     },
-    "properties": {
-      "title": {
-        "description": "Veille Concurrentielle",
-        "title": "Title",
-        "type": "string"
-      },
-      "info_type": {
-        "const": "sections",
-        "description": "Just put 'sections'",
-        "enum": [
-          "sections"
-        ],
-        "title": "Info Type",
-        "type": "string"
-      },
-      "references": {
-        "description": "List of references used in the information",
-        "items": {
-          "$ref": "#/$defs/Reference"
-        },
-        "title": "References",
-        "type": "array"
-      },
-      "header_image_url": {
-        "anyOf": [
-          {
-            "type": "string"
-          },
-          {
-            "type": "null"
-          }
-        ],
-        "description": "URL of the header image",
-        "title": "Header Image Url"
-      },
-      "ACTIONS_NOTABLES_DES_CONCURRENTS_0": {
-        "allOf": [
-          {
-            "$ref": "#/$defs/BulletPointsI"
-          }
-        ],
-        "description": "R\u00e9sum\u00e9 de 3 \u00e0 5 actions strat\u00e9giques r\u00e9centes des concurrents, avec r\u00e9f\u00e9rence aux sources."
-      },
-      "ANALYSE_SWOT_1": {
-        "allOf": [
-          {
-            "$ref": "#/$defs/ANALYSE_SWOT"
-          }
-        ],
-        "description": "\u00c9valuer les forces, faiblesses, opportunit\u00e9s, et menaces pour notre entreprise par rapport au march\u00e9."
-      },
-      "RECOMMANDATIONS_2": {
-        "allOf": [
-          {
-            "$ref": "#/$defs/BulletPointsI"
-          }
-        ],
-        "description": "Propositions strat\u00e9giques bas\u00e9es sur l'analyse et les observations de la veille concurrentielle."
-      },
-      "ACTU_OU_NOUVEAUTE_DU_MOIS_3": {
-        "allOf": [
-          {
-            "$ref": "#/$defs/BulletPointsI"
-          }
-        ],
-        "description": "R\u00e9sum\u00e9 d'une nouvelle significative du mois pour l'industrie ou l'entreprise."
-      },
-      "METHODE_ET_SOURCES_4": {
-        "allOf": [
-          {
-            "$ref": "#/$defs/METHODE_ET_SOURCES"
-          }
-        ],
-        "description": "M\u00e9thodologie utilis\u00e9e pour la veille et origine des sources d'informations."
-      }
+    {
+      "inclusion_criteria_description": "Studies written and published in the English language.",
+      "name": "ENGLISH_LANGUAGE_ONLY"
     },
-    "required": [
-      "title",
-      "info_type",
-      "references",
-      "header_image_url",
-      "ACTIONS_NOTABLES_DES_CONCURRENTS_0",
-      "ANALYSE_SWOT_1",
-      "RECOMMANDATIONS_2",
-      "ACTU_OU_NOUVEAUTE_DU_MOIS_3",
-      "METHODE_ET_SOURCES_4"
-    ],
-    "title": "VEILLE_CONCURRENTIELLE",
-    "type": "object"
-  }
+    {
+      "inclusion_criteria_description": "Must be sourced from peer-reviewed journals to ensure credible and validated findings.",
+      "name": "PEER_REVIEWED_PUBLICATIONS_ONLY"
+    },
+    {
+      "inclusion_criteria_description": "Studies which have a minimum follow-up duration of 2 years to ensure reliable outcomes.",
+      "name": "MIN_FOLLOW_UP_2_YEARS"
+    },
+    {
+      "inclusion_criteria_description": "Research where ≥75% of patients' indication for THA is primary or secondary osteoarthritis, including specific cases like dysplasia, FAI, and post-trauma.",
+      "name": "PRIMARY_SECONDARY_OA_INDICATION"
+    },
+    {
+      "inclusion_criteria_description": "Studies that compare primary total hip arthroplasty with ceramic-on-ceramic bearings to those with ceramic-on-highly crosslinked polyethylene bearings.",
+      "name": "COC_VS_COHXLPE_COMPARISON"
+    },
+    {
+      "exclusion_criteria_description": "Excludes systematic reviews, meta-analyses, case reports, and editorials as they do not match the desired study types.",
+      "name": "EXCLUDE_SECONDARY_SOC"
+    },
+    {
+      "exclusion_criteria_description": "Excludes in vitro, biomechanical, cadaveric, and animal studies as they do not involve human participants.",
+      "name": "EXCLUDE_NON_HUMAN_STUDIES"
+    },
+    {
+      "exclusion_criteria_description": "Studies published before 2004 should be excluded.",
+      "name": "EXCLUDE_OLD_STUDIES"
+    },
+    {
+      "exclusion_criteria_description": "Exclude studies with a drop-out rate of 50% or more at the 2-year follow-up mark, including lost-to-follow-up, deaths, or revisions.",
+      "name": "HIGH_DROP_OUT_RATE_EXCLUSION"
+    }
+  ]
+}
