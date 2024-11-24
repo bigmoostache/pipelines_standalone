@@ -103,20 +103,21 @@ def Attendu(
 
 
 def replace_nested_lists(text):
-    # Regex pattern to match nested lists like [[1], [2], ..., [n]]
-    list_pattern = r"\[\[([0-9]+(?:\],\s*\[[0-9]+)*)\]\]"
+    # Regex pattern to match nested lists like [[1],[2],[3]] or [[1], [2], [3]]
+    list_pattern = r"\[\[([0-9]+(?:\],?\[?[0-9]+)*)\]\]"
     
     # Function to transform the matched nested lists
     def list_replacer(match):
         inner_list = match.group(1)
-        parts = inner_list.split('], [')
+        # Normalize splitting on `],[` regardless of spaces
+        parts = re.split(r'\],\s*\[', inner_list)
         return ', '.join(f'[[{part}]]' for part in parts)
     
     # Replace nested lists
     text = re.sub(list_pattern, list_replacer, text)
 
-    # Regex pattern to replace [\n...\n] with $$\n...\n$$
-    bracket_pattern = r"\[\n(.*?)\n\]"
+    # Regex pattern to replace \[...\] (multiline) with $$...$$
+    bracket_pattern = r"\\\[\s*(.*?)\s*\\\]"
     text = re.sub(bracket_pattern, lambda m: f"$$\n{m.group(1)}\n$$", text, flags=re.DOTALL)
 
     # Regex pattern to replace \(...\) with $...$
@@ -195,10 +196,10 @@ def FindReferencesInLucario(
     top_k = get_topk(
         project_id = sota.file_id,
         query_text = query,
-        k = 30,
+        k = 40,
         drop_url = sota.drop_url,
         file_uuids = file_uuids,
-        max_per_information=4
+        max_per_information=5
     )
     results = []
     for top_k_document in top_k.top_k_documents:
