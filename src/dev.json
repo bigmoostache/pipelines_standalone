@@ -1,44 +1,235 @@
-{
-  "selection_criteria": [
-    {
-      "inclusion_criteria_description": "Acceptance of Randomized Controlled Trials, prospective comparative studies, and retrospective comparative studies for the analysis.",
-      "name": "RCTS_PROSPECTIVE_RETRO_COMPARATIVE"
-    },
-    {
-      "inclusion_criteria_description": "Studies written and published in the English language.",
-      "name": "ENGLISH_LANGUAGE_ONLY"
-    },
-    {
-      "inclusion_criteria_description": "Must be sourced from peer-reviewed journals to ensure credible and validated findings.",
-      "name": "PEER_REVIEWED_PUBLICATIONS_ONLY"
-    },
-    {
-      "inclusion_criteria_description": "Studies which have a minimum follow-up duration of 2 years to ensure reliable outcomes.",
-      "name": "MIN_FOLLOW_UP_2_YEARS"
-    },
-    {
-      "inclusion_criteria_description": "Research where ≥75% of patients' indication for THA is primary or secondary osteoarthritis, including specific cases like dysplasia, FAI, and post-trauma.",
-      "name": "PRIMARY_SECONDARY_OA_INDICATION"
-    },
-    {
-      "inclusion_criteria_description": "Studies that compare primary total hip arthroplasty with ceramic-on-ceramic bearings to those with ceramic-on-highly crosslinked polyethylene bearings.",
-      "name": "COC_VS_COHXLPE_COMPARISON"
-    },
-    {
-      "exclusion_criteria_description": "Excludes systematic reviews, meta-analyses, case reports, and editorials as they do not match the desired study types.",
-      "name": "EXCLUDE_SECONDARY_SOC"
-    },
-    {
-      "exclusion_criteria_description": "Excludes in vitro, biomechanical, cadaveric, and animal studies as they do not involve human participants.",
-      "name": "EXCLUDE_NON_HUMAN_STUDIES"
-    },
-    {
-      "exclusion_criteria_description": "Studies published before 2004 should be excluded.",
-      "name": "EXCLUDE_OLD_STUDIES"
-    },
-    {
-      "exclusion_criteria_description": "Exclude studies with a drop-out rate of 50% or more at the 2-year follow-up mark, including lost-to-follow-up, deaths, or revisions.",
-      "name": "HIGH_DROP_OUT_RATE_EXCLUSION"
-    }
-  ]
-}
+Detailed Plan for Literature Review
+
+---
+
+1. Introduction
+
+*Overview of Models, Methods, Results, and Plan of the Literature Review*
+
+1.1 Background and Importance of VVUQ in Biomedical Modeling
+
+- Discussion Points:
+  - Introduce the significance of computational modeling in biomedical engineering, specifically in understanding complex biological systems like bone remodeling in osteoporosis.
+  - Emphasize the challenges posed by agent-based models (ABMs) with numerous uncertain parameters.
+  - Highlight the critical role of Verification, Validation, and Uncertainty Quantification (VVUQ) in ensuring the reliability and predictive capability of such models.
+
+- References to Use:
+  - [23] Marino et al. (2008): Discusses methodologies for global uncertainty and sensitivity analysis in systems biology.
+  - [4] Tourolle et al. (2021): Focuses on long-term simulations of bone remodeling and the effects of treatments.
+
+- Contextualization:
+  - Relate the importance of VVUQ to your own ABM of osteoporosis, which contains approximately 150 input parameters, many lacking precise values.
+  - Stress the need for VVUQ to build confidence in your model predictions, given the limited availability of experimental data.
+
+1.2 Challenges in High-Dimensional Modeling
+
+- Discussion Points:
+  - Address the difficulties of conducting UQ and SA in models with a high number of parameters.
+  - Discuss computational constraints, especially when the simulation budget is limited (around 500 simulations).
+
+- References to Use:
+  - [15] Ziraldo et al. (2015): Managed a model with 68 parameters, highlighting challenges in parameter estimation.
+  - [23] Marino et al. (2008): Dealt with 90 parameters and provided methodologies for handling such complexity.
+
+- Contextualization:
+  - Explain how your model's high dimensionality impacts the choice of UQ and SA methods.
+  - Emphasize the need to select efficient sampling and surrogate modeling techniques suitable for high-dimensional spaces within computational limits.
+
+1.3 Overview of the Literature Review Structure
+
+- Discussion Points:
+  - Present the plan of the literature review, outlining the main sections: Parameter Distributions, Sampling Methods, Surrogate Modeling, and their roles in VVUQ and SA.
+  - Briefly describe what each section will cover and how it contributes to addressing the challenges identified.
+
+---
+
+2. Parameter Distributions
+
+2.1 Overview of Parameter Estimation in Biomedical Models
+
+- Discussion Points:
+  - Discuss common practices in establishing parameter distributions for biomedical models.
+  - Highlight methods such as literature reviews, expert elicitation, calibration against experimental data, and assumptions when data is scarce.
+
+- References to Use:
+  - [23] Marino et al. (2008): Employed literature data and calibration for 90 parameters.
+  - [15] Ziraldo et al. (2015): Used literature, calibration to clinical data, and iterative testing for 68 parameters.
+
+- Contextualization:
+  - Explain that in your model, over two-thirds of the parameters lack direct measurements.
+  - Discuss plans to use literature ranges where available, expert opinions, and reasonable assumptions to define parameter distributions.
+
+2.2 Methods to Establish Parameter Distributions
+
+- Discussion Points:
+  - Detail techniques for determining parameter ranges and probability distributions.
+    - Use of uniform distributions when data is minimal.
+    - Application of normal or log-normal distributions based on literature statistics.
+  - Discuss the importance of sensitivity analysis in refining these distributions.
+
+- References to Use:
+  - [24] Tourolle et al. (2021): Parameters determined via literature and calibration against clinical trials.
+  - [20] Jagiella et al. (2016): Iterative model development to match experimental data.
+
+- Contextualization:
+  - Describe how you will apply these methods to your parameters, prioritizing those with the most significant impact on model outputs.
+  - Mention plans to update distributions as more data becomes available through sensitivity analysis.
+
+2.3 Sampling Methods for High-Dimensional Spaces
+
+2.3.1 Sampling Using Sobol Sequences and Sobol Indices
+
+- Discussion Points:
+  - Explain Sobol sequences as a quasi-random low-discrepancy sequence useful for uniform sampling in high-dimensional spaces.
+  - Discuss Sobol sensitivity indices for quantifying the contribution of each input parameter to output variance.
+  - Address computational challenges in calculating Sobol indices with many parameters.
+
+- References to Use:
+  - [25] Nikishova et al. (2019): Used Sobol sequences and indices for sensitivity analysis.
+  - [22] Ye et al. (2021): Applied Sobol methods in multiscale modeling.
+
+- Contextualization:
+  - Evaluate the feasibility of using Sobol indices in your project, considering the high number of parameters and limited simulations.
+  - Discuss potential strategies, such as fixing less influential parameters or using screening methods to reduce dimensionality.
+
+2.3.2 Sampling Using Latin Hypercube Sampling (LHS)
+
+- Discussion Points:
+  - Introduce LHS as an efficient stratified sampling method that ensures better coverage of the parameter space than simple random sampling.
+  - Explain how LHS can be advantageous in high-dimensional problems by requiring fewer samples for the same level of accuracy.
+
+- References to Use:
+  - [5] Marino et al. (2008): Employed LHS in global sensitivity analysis.
+  - [18] Corti et al. (2022): Used LHS for parameter sampling in an agent-based model.
+
+- Contextualization:
+  - Propose using LHS in your project to maximize the information gained from the limited number of simulations.
+  - Discuss how LHS can be combined with sensitivity analysis to identify the most critical parameters.
+
+2.3.3 Other Sampling Methods
+
+- Discussion Points:
+  - Explore alternative sampling techniques such as:
+    - Quasi-Monte Carlo methods.
+    - Maximin Latin Hypercube Designs.
+    - Importance sampling.
+  - Compare their efficiency and applicability to high-dimensional problems.
+
+- References to Use:
+  - [8] Dancik et al. (2010): Used Maximin LHS for parameter estimation.
+  - [7] Abbiati et al. (2021): Applied Sobol sequences in hybrid simulations.
+
+- Contextualization:
+  - Assess whether these alternative methods could offer benefits over LHS or Sobol sequences in your specific context.
+  - Consider the trade-offs between computational cost and sampling efficiency.
+
+---
+
+3. Surrogate Modeling
+
+3.1 Gaussian Processes (GP)
+
+- Discussion Points:
+  - Introduce Gaussian Processes as a non-parametric Bayesian approach to create surrogate models.
+  - Explain how GPs can approximate expensive simulations and provide uncertainty estimates.
+  - Discuss the challenges of training GPs in high-dimensional spaces.
+
+- References to Use:
+  - [6] Longobardi et al. (2021): Used GP emulators for cardiac function prediction.
+  - [9] Han et al. (2022): Employed multi-fidelity GPs in tissue expansion modeling.
+
+- Contextualization:
+  - Discuss the potential of using GPs to build a surrogate for your ABM, thereby reducing computational costs.
+  - Acknowledge the difficulty of applying GPs with 100-150 parameters and explore dimensionality reduction techniques like principal component analysis (PCA).
+
+3.2 Polynomial Chaos Expansion (PCE) and Similar Methods
+
+- Discussion Points:
+  - Describe PCE as a method to represent the model output as a series of orthogonal polynomial functions of the input parameters.
+  - Explain how PCE can facilitate analytical computation of Sobol indices.
+  - Discuss the 'curse of dimensionality' associated with PCE in high-dimensional settings.
+
+- References to Use:
+  - [7] Abbiati et al. (2021): Utilized PCE for global sensitivity analysis.
+  - [1] Hua et al. (2018): Applied generalized polynomial chaos in cardiac electrophysiology modeling.
+
+- Contextualization:
+  - Evaluate the applicability of PCE to your model, considering the high number of parameters.
+  - Consider sparse PCE or adaptive methods to manage computational costs.
+
+3.3 Other Surrogate Modeling Methods
+
+- Discussion Points:
+  - Explore additional surrogate modeling techniques:
+    - Support Vector Regression (SVR).
+    - Artificial Neural Networks (ANNs).
+    - Reduced-Order Modeling (ROM).
+  - Discuss their strengths and limitations in the context of high-dimensional problems.
+
+- References to Use:
+  - [4] Li et al. (2019): Used SVR for uncertainty optimization in dental implants.
+  - [14] Menichetti et al. (2021): Applied ANN for predicting brain strain in injury metrics.
+  - [19] Pagani & Manzoni (2021): Employed ROM and machine learning in cardiac electrophysiology.
+
+- Contextualization:
+  - Consider whether ANNs could handle your high-dimensional input, possibly requiring a significant amount of training data.
+  - Discuss the potential of ROM if your model has identifiable patterns or redundancies.
+
+3.4 Use of Surrogate Models in VVUQ and SA
+
+- Discussion Points:
+  - Explain how surrogate models can be integrated into VVUQ workflows to reduce computational burden.
+  - Discuss methods for validating surrogate models to ensure they accurately represent the original simulations.
+  - Describe techniques for computing sensitivity indices using surrogate models.
+
+- References to Use:
+  - [25] Nikishova et al. (2019): Semi-intrusive UQ with surrogate models.
+  - [22] Ye et al. (2021): Non-intrusive UQ using GP and neural networks.
+
+- Contextualization:
+  - Outline a plan to develop and validate a surrogate model for your ABM.
+  - Discuss how the surrogate will enable extensive UQ and SA within your computational budget.
+  - Emphasize the importance of surrogate accuracy and strategies to maintain it.
+
+---
+
+4. Conclusion
+
+4.1 Summary of Findings
+
+- Discussion Points:
+  - Recap the main methods for parameter distribution estimation, sampling, and surrogate modeling discussed.
+  - Highlight the challenges and solutions identified for high-dimensional, computationally constrained models.
+
+- Contextualization:
+  - Summarize how the literature informs your choices for UQ and SA methods.
+  - Emphasize the relevance of LHS and surrogate modeling in your context.
+
+4.2 Recommendations for Your Project
+
+- Discussion Points:
+  - Propose a methodological framework for performing UQ and SA on your ABM, based on the literature review.
+  - Suggest specific techniques (e.g., LHS combined with GP surrogate modeling) that balance computational efficiency and accuracy.
+
+- Contextualization:
+  - Address how you plan to manage the high number of parameters, perhaps by prioritizing parameters through preliminary sensitivity analysis.
+  - Outline steps to validate your surrogate model and ensure reliable VVUQ outcomes.
+
+4.3 Future Work
+
+- Discussion Points:
+  - Identify areas where further research or methodological development is needed.
+  - Discuss the potential for incorporating new data or methods as they become available.
+
+- Contextualization:
+  - Mention the possibility of refining parameter distributions with new experimental data.
+  - Consider exploring advanced surrogate modeling techniques or high-performance computing resources to expand your simulation budget.
+
+---
+
+Additional Notes:
+
+- Throughout the literature review, ensure that each reference is properly cited and that its relevance to your project is clear.
+- Use tables or figures where appropriate to compare methods or illustrate concepts.
+- Maintain a critical perspective, acknowledging the limitations of each method and how they may impact your project.
+- Keep the discussion focused on how the literature informs practical decisions in your VVUQ and SA efforts.
