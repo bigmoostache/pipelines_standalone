@@ -1,0 +1,106 @@
+{
+    "fields": [
+        {
+            "object_name": "Bib Entry",
+            "object_description": "The bibliographic entry in APA format",
+            "object_required": true,
+            "object_type": {
+                "string_maxLength": 250
+            }
+        },
+        {
+            "object_name": "Meta-Models Description",
+            "object_description": "A short description of the meta-models and their associated methodology",
+            "object_required": true,
+            "object_type": {
+                "string_maxLength": 1000
+            }
+        },
+        {
+            "object_name": "Computation Software Usage",
+            "object_description": "Software languages and libraries used for simulations",
+            "object_required": true,
+            "object_type": {
+                "string_maxLength": 500
+            }
+        },
+        {
+            "object_name": "Model Inputs Count",
+            "object_description": "Number of inputs/parameters to the model",
+            "object_required": true,
+            "object_type": {
+                "integer_minimum": 1,
+                "integer_maximum": 1000,
+                "integer_unit": "count"
+            }
+        },
+        {
+            "object_name": "Parameter Determination Method",
+            "object_description": "Methodology used to determine the parameters for simulations (e.g., bibliography, calibration)",
+            "object_required": true,
+            "object_type": {
+                "enumeration_choices": [
+                    "bibliography",
+                    "calibration",
+                    "expert elicitation",
+                    "empirical estimation"
+                ]
+            }
+        },
+        {
+            "object_name": "Sampling Method",
+            "object_description": "Sampling technique used in the simulations",
+            "object_required": true,
+            "object_type": {
+                "string_maxLength": 250
+            }
+        },
+        {
+            "object_name": "Surrogate Models Description",
+            "object_description": "Short description of the surrogate models and their associated methodology",
+            "object_required": true,
+            "object_type": {
+                "string_maxLength": 1000
+            }
+        },
+        {
+            "object_name": "Mathematical Tools List",
+            "object_description": "List of mathematical tools/models used for sensitivity analysis, uncertainty quantification, and surrogate model",
+            "object_required": true,
+            "object_type": {
+                "string_maxLength": 1000
+            }
+        },
+        {
+            "object_name": "Meta Model Type",
+            "object_description": "Type of meta-model used for simulations (e.g., agent-based, multiphysics, FEM)",
+            "object_required": true,
+            "object_type": {
+                "enumeration_choices": [
+                    "agent-based",
+                    "multiphysics",
+                    "Finite Element Method",
+                    "Monte Carlo"
+                ]
+            }
+        },
+        {
+            "object_name": "Total Simulations Count",
+            "object_description": "Total number of simulations executed",
+            "object_required": true,
+            "object_type": {
+                "integer_minimum": 1,
+                "integer_maximum": 1000000,
+                "integer_unit": "simulations"
+            }
+        },
+        {
+            "object_name": "Sensitivity Analysis Tools",
+            "object_description": "Computing software languages and libraries used for sensitivity analysis, uncertainty quantification, and surrogate model",
+            "object_required": true,
+            "object_type": {
+                "string_maxLength": 500
+            }
+        }
+    ]
+}
