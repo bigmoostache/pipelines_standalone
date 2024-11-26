@@ -22,10 +22,11 @@ from custom_types.GRID.type import wraped as GRIDWrapped
 from custom_types.TINY_BIB.type import wraped as TINY_BIBWrapped
 from custom_types.SOTA.type import wraped as SOTAWrapped
 from custom_types.EXTRACTION.type import wraped as EXTRACTIONWrapped
+from custom_types.XTRK.type import wraped as XTRKWrapped
 from custom_types.SELECT.type import wraped as SELECTWrapped
 from custom_types.KONEKT.type import wraped_result as KONEKTWrapped, wraped_generic as KONEKTWrappedGeneric
 
-all_types = [URL2Wrapped, KONEKTWrapped, KONEKTWrappedGeneric, NBIBWrapped, SELECTWrapped, EXTRACTIONWrapped, SOTAWrapped, TINY_BIBWrapped, GRIDWrapped, RAWrapped, PDICTWrapped, RAWrapped, URLWrapped,PDFWrapped,BIBWrapped,HTMLWrapped,PUBMEDWrapped,PROMPTWrapped, XLSXWrapped,JSONWrapped,JSONLWrapped, TXTWrapped, BYTESWrapped, FLOATWrapped, INTWrapped, BOOLWrapped, NEWSLETTERWrapped]
+all_types = [XTRKWrapped, URL2Wrapped, KONEKTWrapped, KONEKTWrappedGeneric, NBIBWrapped, SELECTWrapped, EXTRACTIONWrapped, SOTAWrapped, TINY_BIBWrapped, GRIDWrapped, RAWrapped, PDICTWrapped, RAWrapped, URLWrapped,PDFWrapped,BIBWrapped,HTMLWrapped,PUBMEDWrapped,PROMPTWrapped, XLSXWrapped,JSONWrapped,JSONLWrapped, TXTWrapped, BYTESWrapped, FLOATWrapped, INTWrapped, BOOLWrapped, NEWSLETTERWrapped]
 _allowed_inputs = {_.extension : list(set([_.extension] + [__.extension for __ in all_types if _.extension in __.additional_converters])) for _ in all_types}
 _ext_to_class = {_.extension:_.customclass for _ in all_types}
 _class_to_ext = {v:k for k,v in _ext_to_class.items()}

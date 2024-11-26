@@ -1,0 +1,117 @@
+{
+    "entries": [
+        {
+            "name": "DEVICE_NAME",
+            "description": "The name of the specific prosthesis or device used in the study",
+            "examples": [
+                "Aequalis Ascend Flex",
+                "Humelock Reversed®"
+            ],
+            "value": "str",
+            "multiple": "Single",
+            "unit": "na"
+        },
+        {
+            "name": "TYPE_OF_ARTHROPLASTY",
+            "description": "The type of procedure performed",
+            "examples": [
+                "RSA",
+                "TSA",
+                "HA"
+            ],
+            "value": "str",
+            "multiple": "Single",
+            "unit": "na"
+        },
+        {
+            "name": "INDICATIONS",
+            "description": "The medical conditions or diagnoses that warranted the procedure",
+            "examples": [
+                "Trauma",
+                "Cuff Tear Arthropathy",
+                "Osteoarthritis"
+            ],
+            "value": "str",
+            "multiple": "List",
+            "unit": "na"
+        },
+        {
+            "name": "COHORT_SIZE",
+            "description": "The number of patients involved in the study or cohort",
+            "examples": [
+                "50",
+                "100",
+                "36"
+            ],
+            "value": "int",
+            "multiple": "Single",
+            "unit": "na"
+        },
+        {
+            "name": "BASELINE_FOLLOWUP",
+            "description": "Whether the data represents baseline measurements or follow-up assessments, and specify the follow-up period",
+            "examples": [
+                "Baseline",
+                "Follow-up"
+            ],
+            "value": "str",
+            "multiple": "Single",
+            "unit": "na"
+        },
+        {
+            "name": "FOLLOWUP_PERIOD",
+            "description": "The duration of the follow-up period if it's for follow-up",
+            "examples": [
+                "2 years",
+                "61 months"
+            ],
+            "value": "duration",
+            "multiple": "Single",
+            "unit": "na"
+        },
+        {
+            "name": "COMPLICATIONS",
+            "description": "A summary of any reported complications or adverse events",
+            "examples": [
+                "Revision rate of 5%",
+                "Infection in 2 cases"
+            ],
+            "value": "str",
+            "multiple": "Single",
+            "unit": "na"
+        },
+        {
+            "name": "CLINICAL_SCORE",
+            "description": "Clinical performance scores such as Constant Score or PROMS",
+            "examples": [
+                "Constant Score improved from 50 to 80"
+            ],
+            "value": "str",
+            "multiple": "Single",
+            "unit": "na"
+        },
+        {
+            "name": "PAIN_ASSESSMENT",
+            "description": "Pain assessments or scores",
+            "examples": [
+                "VAS pain: reduced from 7.2 to 1.9"
+            ],
+            "value": "str",
+            "multiple": "Single",
+            "unit": "na"
+        },
+        {
+            "name": "REFERENCE",
+            "description": "Reference to the source article in the format 'firstauthor-publication_date'",
+            "examples": [
+                "Claro-2024"
+            ],
+            "value": "str",
+            "multiple": "Single",
+            "unit": "na"
+        }
+    ],
+    "one_entry_per_document_justification": false,
+    "one_entry_only_per_document": false,
+    "entry_definition": "Each row constitutes a unique combination of retrieved data points from multiple articles, characterized by Device Name, Type of Arthroplasty, Indications, and other reported outcomes. Follow these metrics to extract entries wherever possible, especially focusing on discrepancies in Cohort Size, Follow-up practices, Complications reported and clinical interpretations such as scores and pain markers. Diversify within such exposures and consider differences across distinct articles being analyzed. Ensure to classify each source accurately by maintaining coherence in entry descriptions and ensure continuity within following columns by considering dynamic parameters and contrasting data points for other associated information."
+}
