@@ -27,26 +27,26 @@ class DataStructure(BaseModel):
     
 def rep(s): return __import__('re').sub(r'[^a-z0-9_]', '', __import__('unicodedata').normalize('NFKD', s.lower().replace(' ', '_')).encode('ascii', 'ignore').decode('ascii'))
 
-def _create_model(name, x):
-    def v2t(f):
+def _create_model(name: str, x: DataStructure):
+    def v2t(f: Fields):
         def required(_):
             if f.object_required:
                 return _
             return Union[_, None]
         if isinstance(f.object_type, Integer):
-            return int, Field(..., description = f.object_description)
+            return required(int), Field(..., description = f.object_description)
         elif isinstance(f.object_type, Number):
-            return float, Field(..., description = f.object_description)
+            return required(float), Field(..., description = f.object_description)
         elif isinstance(f.object_type, String):
-            return str, Field(..., description = f.object_description)
+            return required(str), Field(..., description = f.object_description)
         elif isinstance(f.object_type, Enumeration):
-            return str, Field(..., description=f"{f.object_description}. Allowed values: {f.object_type.enumeration_choices}")
+            return required(str), Field(..., description=f"{f.object_description}. Allowed values: {f.object_type.enumeration_choices}")
         elif isinstance(f.object_type, Date):
-            return str, Field(..., description=f"{f.object_description}. Date format: {f.object_type.date_format}")
+            return required(str), Field(..., description=f"{f.object_description}. Date format: {f.object_type.date_format}")
         else:
             return List[_create_model(rep(f.object_name), f.object_type)], Field(..., description = f.object_description)
     dictionary = {}
-    for f in x:
+    for f in x.fields:
         dictionary[rep(f.object_name)] = v2t(f)
     return create_model(name, **dictionary)
 
