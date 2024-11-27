@@ -44,7 +44,7 @@ def _create_model(name: str, x: DataStructure):
         elif isinstance(f.object_type, Date):
             return required(str), Field(..., description=f"{f.object_description}. Date format: {f.object_type.date_format}")
         else:
-            return List[_create_model(rep(f.object_name), f.object_type)], Field(..., description = f.object_description)
+            return List[_create_model(rep(f.object_name), DataStructure(fields = f.object_type))], Field(..., description = f.object_description)
     dictionary = {}
     for f in x.fields:
         dictionary[rep(f.object_name)] = v2t(f)
