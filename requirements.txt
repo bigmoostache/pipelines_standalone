@@ -28,3 +28,4 @@ lxml_html_clean
 pdfkit
 gnews==0.3.6
 newspaper3k
+XlsxWriter
