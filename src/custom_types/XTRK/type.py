@@ -35,6 +35,8 @@ def _create_model(name: str, x: DataStructure):
             return Union[_, None]
         if isinstance(f.object_type, Integer):
             return required(int), Field(..., description = f.object_description)
+        elif isinstance(f.object_type, bool):
+            return required(bool), Field(..., description = f.object_description)
         elif isinstance(f.object_type, Number):
             return required(float), Field(..., description = f.object_description)
         elif isinstance(f.object_type, String):
