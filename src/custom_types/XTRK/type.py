@@ -3,27 +3,36 @@ from pydantic import BaseModel, Field, create_model
 from typing import List, Union, Literal
 
 class Integer(BaseModel):
+    integer: Literal['integer']
     integer_minimum: Union[None, int]
     integer_maximum: Union[None, int]
     integer_unit: Union[None, str]
 class Number(BaseModel):
+    _float : Literal['_float']
     number_minimum: Union[None, float]
     number_maximum: Union[None, float]
     number_unit: Union[None, str]
 class String(BaseModel):
+    string : Literal['string']
     string_maxLength: Union[None, int]
 class Enumeration(BaseModel):
+    enum : Literal['enum']
     enumeration_choices: List[str]
 class Date(BaseModel):
+    date : Literal['date']
     date_format: Literal['AAAA-MM-JJTHH:MM:SS,ss-/+FF:ff', 'AAAA-MM-JJ', 'AAAA-MM-JJ']
+class Boolean(BaseModel):
+    boolean : Literal['boolean']
+class DataStructure(BaseModel):
+    object_list : Literal['object_list']
+    fields : List['Fields']
+    
 class Fields(BaseModel):
     object_name: str = Field(...)
     object_description: str = Field(...)
     object_required: bool = Field(...)
-    object_type: Union[bool, Integer, Number, String, Enumeration, Date, List['Fields']] = Field(...)
+    object_type: Union[Boolean, Integer, Number, String, Enumeration, Date, DataStructure] = Field(...)
     
-class DataStructure(BaseModel):
-    fields : List[Fields]
     
 def rep(s): return __import__('re').sub(r'[^a-z0-9_]', '', __import__('unicodedata').normalize('NFKD', s.lower().replace(' ', '_')).encode('ascii', 'ignore').decode('ascii'))
 
@@ -35,7 +44,7 @@ def _create_model(name: str, x: DataStructure):
             return Union[_, None]
         if isinstance(f.object_type, Integer):
             return required(int), Field(..., description = f.object_description)
-        elif isinstance(f.object_type, bool):
+        elif isinstance(f.object_type, Boolean):
             return required(bool), Field(..., description = f.object_description)
         elif isinstance(f.object_type, Number):
             return required(float), Field(..., description = f.object_description)
@@ -46,7 +55,8 @@ def _create_model(name: str, x: DataStructure):
         elif isinstance(f.object_type, Date):
             return required(str), Field(..., description=f"{f.object_description}. Date format: {f.object_type.date_format}")
         else:
-            return List[_create_model(rep(f.object_name), DataStructure(fields = f.object_type))], Field(..., description = f.object_description)
+            # required makes no sense for DataStructure: it can always be an empty fields list
+            return List[_create_model(rep(f.object_name), f.object_type)], Field(..., description = f.object_description)
     dictionary = {}
     for f in x.fields:
         dictionary[rep(f.object_name)] = v2t(f)
