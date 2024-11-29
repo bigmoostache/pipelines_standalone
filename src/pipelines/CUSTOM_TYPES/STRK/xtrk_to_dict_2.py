@@ -34,8 +34,8 @@ class Pipeline:
         reflexive_response = client.chat.completions.create(
             model = self.reflexive_model,
             messages = [
-                {"role": "user", "content": {'type': 'text', 'text': text}}, 
-                {"role": "user", "content": {'type': 'text', 'text': prompt}}
+                {"role": "user", "content": [{'type': 'text', 'text': text}]}, 
+                {"role": "user", "content": [{'type': 'text', 'text': prompt}]}
             ]
         )
         reflexive_response = reflexive_response.choices[0].message.content
