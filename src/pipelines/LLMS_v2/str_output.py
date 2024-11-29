@@ -3,8 +3,6 @@ import openai
 from utils.booleans import to_bool
 from custom_types.PROMPT.type import PROMPT
 
-
-
 class Pipeline:
     __env__ = ["openai_api_key"]
 
@@ -13,7 +11,7 @@ class Pipeline:
                  base_url : str = "https://api.openai.com/v1",
                  json_format : bool = False,
                  temperature : int =0, 
-                 max_tokens : int =3500, 
+                 max_tokens : int = 3500, 
                  top_p : int =1, 
                  frequency_penalty : float =0, 
                  presence_penalty : float=0):
