@@ -4,17 +4,17 @@ from typing import List, Union, Literal
 
 class Integer(BaseModel):
     integer: Literal['integer']
-    integer_minimum: Union[None, int]
-    integer_maximum: Union[None, int]
-    integer_unit: Union[None, str]
+    integer_minimum: Union[None, int] = None
+    integer_maximum: Union[None, int] = None
+    integer_unit: Union[None, str] = None
 class Number(BaseModel):
     _float : Literal['_float']
-    number_minimum: Union[None, float]
-    number_maximum: Union[None, float]
-    number_unit: Union[None, str]
+    number_minimum: Union[None, float] = None
+    number_maximum: Union[None, float] = None
+    number_unit: Union[None, str] = None
 class String(BaseModel):
     string : Literal['string']
-    string_maxLength: Union[None, int]
+    string_maxLength: Union[None, int] = None
 class Enumeration(BaseModel):
     enum : Literal['enum']
     enumeration_choices: List[str]
