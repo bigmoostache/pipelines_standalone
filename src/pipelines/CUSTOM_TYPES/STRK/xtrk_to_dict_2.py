@@ -21,7 +21,8 @@ class Pipeline:
                  schema : DataStructure
                  ) -> dict:
         encoding              = tiktoken.encoding_for_model(self.reflexive_model)
-        prompt                = f'Please extract data from the article above, as a json dictionary, using the schema description below.\n\n{json.dumps(schema, indent = 1)}'
+        dumped_schema         = schema.model_dump_json(indent = 1)
+        prompt                = f'Please extract data from the article above, as a json dictionary, using the schema description below.\n\n{dumped_schema}'
         n_text_tokens         = len(encoding.encode(text))
         n_prompt_tokens       = len(encoding.encode(prompt))
         n_allowed_text_tokens = self.max_tokens - n_prompt_tokens
