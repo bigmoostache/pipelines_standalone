@@ -11,12 +11,11 @@ class Pipeline:
         def process(name, dics : List[dict], parent_df = None, id_col = None):
             id_column = f'{name}_id'
             sheet_keys = list(set([k for dic in dics for k,v in dic.items() if isinstance(v, list)]))
-            if len(sheet_keys) > 0:
-                for i,d in enumerate(dics):
-                    d[id_column] = i
-                    for sheet in sheet_keys:
-                        for _ in d[sheet]:
-                            _[id_column] = i
+            for i,d in enumerate(dics):
+                d[id_column] = i
+                for sheet in sheet_keys:
+                    for _ in d[sheet]:
+                        _[id_column] = i
             direct_keys = list(set([k for dic in dics for k,v in dic.items() if not isinstance(v, list)]))
             main_df = pd.DataFrame([{k:v for k,v in d.items() if k in direct_keys} for d in dics])
             if parent_df is not None:
