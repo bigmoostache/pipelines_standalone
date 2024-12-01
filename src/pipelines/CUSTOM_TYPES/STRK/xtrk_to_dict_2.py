@@ -10,21 +10,46 @@ class Pipeline:
     def __init__(self, 
                  reflexive_model : str = "o1-preview",
                  formatter_model : str = "gpt-4o",
-                 max_tokens : int = 32000
+                 max_tokens : int = 32000,
+                 simpler_model_if_no_list : bool = True
                  ):
         self.reflexive_model = reflexive_model
         self.formatter_model = formatter_model
         self.max_tokens = max_tokens
+        self.simpler_model_if_no_list = simpler_model_if_no_list
         
-    def __call__(self, 
+    def simple_call(self, 
+                 text : str,
+                 schema : DataStructure
+                 ) -> dict:
+        encoding              = tiktoken.encoding_for_model(self.reflexive_model)
+        dumped_schema         = schema.model_dump_json(indent = 1)
+        prompt                = f'Please extract data from the article above, using the schema description below.\n\n{dumped_schema}'
+        n_text_tokens, n_prompt_tokens         = len(encoding.encode(text)), len(encoding.encode(prompt))
+        n_allowed_text_tokens = self.max_tokens - n_prompt_tokens
+        if n_allowed_text_tokens < 1000:
+            raise ValueError(f"Text too long: {n_text_tokens} tokens. Maximum allowed text length: {n_allowed_text_tokens} tokens.")
+        p = min(1, n_allowed_text_tokens/n_text_tokens*0.9)
+        text = text[:int(len(text) * p)]
+        client = openai.OpenAI(api_key=os.environ.get("openai_api_key"))
+        formatted_response = client.beta.chat.completions.parse(
+            model=self.formatter_model,
+            messages = [
+                {"role": "user", "content": [{'type': 'text', 'text': text}]}, 
+                {"role": "user", "content": [{'type': 'text', 'text': prompt}]}
+            ],
+            response_format=_create_model('ExtractedData', schema)
+        )
+        return formatted_response.choices[0].message.parsed.model_dump()
+        
+    def complicated_call(self, 
                  text : str,
                  schema : DataStructure
                  ) -> dict:
         encoding              = tiktoken.encoding_for_model(self.reflexive_model)
         dumped_schema         = schema.model_dump_json(indent = 1)
         prompt                = f'Please extract data from the article above, as a json dictionary, using the schema description below.\n\n{dumped_schema}'
-        n_text_tokens         = len(encoding.encode(text))
-        n_prompt_tokens       = len(encoding.encode(prompt))
+        n_text_tokens, n_prompt_tokens         = len(encoding.encode(text)), len(encoding.encode(prompt))
         n_allowed_text_tokens = self.max_tokens - n_prompt_tokens
         if n_allowed_text_tokens < 1000:
             raise ValueError(f"Text too long: {n_text_tokens} tokens. Maximum allowed text length: {n_allowed_text_tokens} tokens.")
@@ -47,5 +72,12 @@ class Pipeline:
             ],
             response_format=_create_model('ExtractedData', schema)
         )
-        formatted_response = formatted_response.choices[0].message.parsed.model_dump()
-        return formatted_response
+        return formatted_response.choices[0].message.parsed.model_dump()
+    
+    def __call__(self, 
+                 text : str,
+                 schema : DataStructure
+                 ) -> dict:
+        if self.simpler_model_if_no_list and not schema.at_least_one_field_is_a_data_structure():
+            return self.simple_call(text, schema)
+        return self.complicated_call(text, schema)

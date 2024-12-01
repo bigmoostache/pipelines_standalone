@@ -33,6 +33,8 @@ class Fields(BaseModel):
     object_required: bool = Field(...)
     object_type: Union[Boolean, Integer, Number, String, Enumeration, Date, DataStructure] = Field(...)
     
+    def at_least_one_field_is_a_data_structure(self):
+        return any(hasattr(f.object_type, 'object_list') for f in self.fields)
     
 def rep(s): return __import__('re').sub(r'[^a-z0-9_]', '', __import__('unicodedata').normalize('NFKD', s.lower().replace(' ', '_')).encode('ascii', 'ignore').decode('ascii'))
 
