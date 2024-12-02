@@ -8,7 +8,7 @@ class Pipeline:
     def __call__(self, 
                  dicts : List[dict]
                  ) -> XLSX:
-        def process(name, dics : List[dict], parent_df = None, id_col = None):
+        def process(name, dics : List[dict], parent_df = None, id_col = None, sheet_number : int = 1):
             id_column = f'{name}_id'
             sheet_keys = list(set([k for dic in dics for k,v in dic.items() if isinstance(v, list)]))
             for i,d in enumerate(dics):
@@ -20,10 +20,11 @@ class Pipeline:
             main_df = pd.DataFrame([{k:v for k,v in d.items() if k in direct_keys} for d in dics])
             if parent_df is not None:
                 main_df = parent_df.merge(main_df, left_on=id_col, right_on=id_col, how='left', suffixes=('', f'_{name}'))
-            res = {name : main_df}
+            res = {f'{sheet_number}_{name}' : main_df}
+            sheet_number += 1
             for k in sheet_keys:
                 lines = [_ for __ in dics for _ in __[k]]
-                sheets = process(k, lines, main_df, id_column)
+                sheet_number, sheets = process(k, lines, main_df, id_column, sheet_number)
                 res = {**res, **sheets}
-            return res
-        return XLSX(sheets = process('Sheet1', dicts))
+            return sheet_number, res
+        return XLSX(sheets = process('Sheet1', dicts)[1])
