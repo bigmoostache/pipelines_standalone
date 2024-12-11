@@ -18,7 +18,9 @@ class Converter:
     @staticmethod
     def str_preview(ent: JSONL) -> str:
         return "\n".join([json.dumps(x, indent=4, cls=BytesEncoder) for x in ent.lines])
-
+    @staticmethod
+    def len(ent : JSONL) -> int:
+        return len(ent.lines)
 
 from custom_types.wrapper import TYPE
 wraped = TYPE(

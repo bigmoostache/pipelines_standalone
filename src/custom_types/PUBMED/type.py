@@ -89,6 +89,9 @@ class Converter:
     def str_preview(pubmed : PUBMED_BIBS) -> str:
         return '\n\n'.join(json.dumps(_.__dict__, indent = 1) for _ in pubmed.entries[:10])
 
+    @staticmethod
+    def len(pubmed : PUBMED_BIBS) -> int:
+        return len(pubmed.entries)
 
 from custom_types.wrapper import TYPE
 from custom_types.JSONL.type import JSONL

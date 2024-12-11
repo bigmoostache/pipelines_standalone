@@ -25,6 +25,11 @@ class Converter:
     def str_preview(p: PROMPT) -> str:
         return json.dumps(p.messages, indent = 2)
     
+    @staticmethod
+    def len(p : PROMPT) -> int:
+        # in K words
+        return sum*([len(x['content'].split()) for x in p.messages]) // 1000
+    
 from custom_types.wrapper import TYPE
 wraped = TYPE(
     extension='prompt',

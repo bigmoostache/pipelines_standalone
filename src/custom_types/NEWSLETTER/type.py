@@ -72,7 +72,9 @@ class Converter:
     def from_bytes(b: bytes) -> NEWSLETTER:
         loaded_str = b.decode('utf-8')
         return NEWSLETTER(**json.loads(loaded_str, object_hook=bytes_decoder))
-
+    @staticmethod
+    def len(full_report : NEWSLETTER) -> int:
+        return len(full_report.articles)
     
 from custom_types.wrapper import TYPE
 wraped = TYPE(

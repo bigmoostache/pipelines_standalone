@@ -33,6 +33,10 @@ class Converter:
     def from_bytes(obj : bytes) -> 'GRID':
         return GRID.parse_obj(json.loads(obj.decode('utf-8')))
     
+    @staticmethod
+    def len(obj : GRID) -> int:
+        return 1
+    
 from custom_types.wrapper import TYPE
 wraped = TYPE(
     extension='grid',

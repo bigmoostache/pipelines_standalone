@@ -292,10 +292,12 @@ class ConverterResult:
     @staticmethod
     def to_bytes(obj : Result) -> bytes:
         return obj.model_dump_json(indent=2).encode('utf-8')
-         
     @staticmethod
     def from_bytes(b : bytes) -> Result:
         return Result.parse_obj(json.loads(b.decode('utf-8')))
+    @staticmethod
+    def len(obj : Result) -> int:
+        return 1
     
 from custom_types.wrapper import TYPE
 wraped_result = TYPE(

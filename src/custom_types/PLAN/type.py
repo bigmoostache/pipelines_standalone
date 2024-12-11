@@ -71,6 +71,9 @@ class Converter:
     def str_preview(article : Plan) -> str:
         return json.dumps(asdict(article), cls=BytesEncoder, indent = 1)
     
+    @staticmethod
+    def len(article : Plan) -> int:
+        return 1
     
 from custom_types.wrapper import TYPE
 wraped = TYPE(

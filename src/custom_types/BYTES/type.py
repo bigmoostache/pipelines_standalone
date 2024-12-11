@@ -10,6 +10,10 @@ class Converter:
     @staticmethod
     def str_preview(b: bytes) -> str:
         return f"File of {len(b)} bytes"
+    @staticmethod
+    def len(b: bytes) -> int:
+        # in MB
+        return max(1, len(b) // 1048576)
     
 from custom_types.wrapper import TYPE
 wraped = TYPE(

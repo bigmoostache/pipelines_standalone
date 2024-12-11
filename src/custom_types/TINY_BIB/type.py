@@ -19,6 +19,10 @@ class Converter:
     def from_bytes(b: bytes) -> TINY_BIB:
         return TINY_BIB.model_validate(json.loads(b.decode('utf-8')))
     
+    @staticmethod
+    def len(bib : TINY_BIB) -> int:
+        return 1
+    
 from custom_types.wrapper import TYPE
 wraped = TYPE(
     extension='tiny_bib',

@@ -32,6 +32,9 @@ class Converter:
     @staticmethod
     def str_preview(dic: dict) -> str:
         return json.dumps(dic, cls=BytesEncoder, indent = 1)
+    @staticmethod
+    def len(dic : dict) -> int:
+        return 1
     
 from custom_types.wrapper import TYPE
 wraped = TYPE(

@@ -61,6 +61,10 @@ class Converter:
     def str_preview(url : RA) -> str:
         return json.dumps(url.__dict__, indent = 1)
     
+    @staticmethod
+    def len(ra : RA) -> int:
+        return 1
+    
 from custom_types.wrapper import TYPE
 wraped = TYPE(
     extension='ra',

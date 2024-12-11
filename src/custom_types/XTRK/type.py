@@ -74,6 +74,10 @@ class Converter:
     def from_bytes(obj : bytes) -> 'DataStructure':
         return DataStructure.parse_obj(json.loads(obj.decode('utf-8')))
     
+    @staticmethod
+    def len(obj : DataStructure) -> int:
+        return 1
+    
 from custom_types.wrapper import TYPE
 wraped = TYPE(
     extension='xtrk',

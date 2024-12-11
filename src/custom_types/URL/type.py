@@ -30,6 +30,9 @@ class Converter:
     @staticmethod
     def str_preview(url : URL) -> str:
         return json.dumps(url.__dict__, indent = 1)
+    @staticmethod
+    def len(url : URL) -> int:
+        return max(1, len(url.text) // 1048576)
     
 from custom_types.wrapper import TYPE
 wraped = TYPE(

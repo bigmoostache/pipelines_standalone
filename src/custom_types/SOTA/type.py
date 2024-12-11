@@ -518,6 +518,10 @@ class Converter:
     @staticmethod
     def str_preview(doc: SOTA) -> str:
         return doc.model_dump_json(indent=2)[:10000]
+    @staticmethod
+    def len(doc: SOTA) -> int:
+        # number of pipelines to run
+        return sum([len(doc.information[_].ai_pipelines_to_run) for _ in doc.information])
     
 from custom_types.wrapper import TYPE
 wraped = TYPE(

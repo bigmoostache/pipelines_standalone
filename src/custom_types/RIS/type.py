@@ -183,6 +183,9 @@ class Converter:
     @staticmethod
     def str_preview(ris : RisBibs) -> str:
         return ''
+    @staticmethod
+    def len(ris: RisBibs) -> int:
+        return len(ris.entries)
 
 
 from custom_types.wrapper import TYPE

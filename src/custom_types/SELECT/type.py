@@ -126,6 +126,10 @@ class Converter:
     def from_bytes(obj : bytes) -> 'SELECT':
         return SELECT.parse_obj(json.loads(obj.decode('utf-8')))
     
+    @staticmethod
+    def len(obj : SELECT) -> int:
+        return 1
+    
 from custom_types.wrapper import TYPE
 wraped = TYPE(
     extension='select',

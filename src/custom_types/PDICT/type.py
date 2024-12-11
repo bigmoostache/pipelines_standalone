@@ -62,6 +62,9 @@ class PDICT:
 
     def to_bytes(self):
         return bytes(json.dumps(self.to_dict(), indent = 2), 'utf-8')
+    
+    def len(self):
+        return len(self.entries)
 
     @classmethod
     def new(cls):
@@ -91,6 +94,7 @@ class PDICT:
         for entry in self.entries:
             if entry.required and entry.name not in dic:
                 raise ValueError(f"Required key '{entry.name}' is missing")
+            
     @classmethod
     def instructions(cls):
         vals = [f'"{x}"' for x in list(Entry.supported_types)]

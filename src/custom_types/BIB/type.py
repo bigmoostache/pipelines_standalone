@@ -30,6 +30,10 @@ class Converter:
     def str_preview(url : BIB) -> str:
         return json.dumps(url.__dict__, indent = 1)
     
+    @staticmethod
+    def len(bib : BIB) -> int:
+        return 1
+    
 from custom_types.wrapper import TYPE
 wraped = TYPE(
     extension='bib',

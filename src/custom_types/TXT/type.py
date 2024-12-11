@@ -11,6 +11,10 @@ class Converter:
     def str_preview(txt: str) -> str:
         return txt
     
+    @staticmethod
+    def len(txt : str) -> int:
+        return max(1, len(txt) // 1048576)
+    
 from custom_types.wrapper import TYPE
 wraped = TYPE(
     extension='txt',

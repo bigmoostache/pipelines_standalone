@@ -31,6 +31,11 @@ class Converter:
         sheets = {sheet_name: excel_file.parse(sheet_name) for sheet_name in excel_file.sheet_names}
         return XLSX(sheets=sheets)
     
+    @staticmethod
+    def len(df: XLSX) -> int:
+        # total number of rows
+        return sum([len(sheet) for sheet in df.sheets.values()])
+    
 from custom_types.wrapper import TYPE
 wraped = TYPE(
     extension='xlsx',

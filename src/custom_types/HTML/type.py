@@ -16,6 +16,10 @@ class Converter:
     @staticmethod
     def str_preview(html : HTML) -> str:
         return html.html
+    @staticmethod
+    def len(html : HTML) -> int:
+        # in MB
+        return max(1, len(html.html) // 1048576)
     
 from custom_types.wrapper import TYPE
 wraped = TYPE(

@@ -9,7 +9,6 @@ class AUTHOR:
     affiliations: Optional[List[str]]
     h_index: Optional[int]
 
-
 class Converter:
     @staticmethod
     def to_bytes(url : AUTHOR) -> bytes:
@@ -23,6 +22,10 @@ class Converter:
     @staticmethod
     def str_preview(url : AUTHOR) -> str:
         return json.dumps(url.__dict__, indent = 1)
+    
+    @staticmethod
+    def len(author : AUTHOR) -> int:
+        return 1
     
 from custom_types.wrapper import TYPE
 wraped = TYPE(

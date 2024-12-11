@@ -9,6 +9,9 @@ class Converter:
     @staticmethod
     def str_preview(integer: int) -> str:
         return str(integer)
+    @staticmethod
+    def len(integer : int) -> int:
+        return 1
     
 from custom_types.wrapper import TYPE
 wraped = TYPE(
