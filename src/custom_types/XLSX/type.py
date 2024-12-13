@@ -42,4 +42,5 @@ wraped = TYPE(
     _class = XLSX,
     converter = Converter,
     icon="/icons/xlsx.svg"
+    visualiser = "https://visualizations.croquo.com/xlsx",
 )
