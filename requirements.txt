@@ -21,7 +21,7 @@ markdown
 markdown2
 beautifulsoup4
 python-multipart
-pypdf
+pypdf==4.3.1
 google-api-python-client
 python-Levenshtein
 lxml_html_clean
