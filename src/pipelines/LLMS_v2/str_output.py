@@ -30,17 +30,24 @@ class Pipeline:
         api_key = os.environ.get("openai_api_key")
         client = openai.OpenAI(api_key=api_key, base_url=self.base_url)
         messages = p.messages
-        response = client.chat.completions.create(
-            model=self.model,
-            messages=messages,
-            temperature=self.temperature,
-            max_tokens=self.max_tokens,
-            top_p=self.top_p,
-            frequency_penalty=self.frequency_penalty,
-            presence_penalty=self.presence_penalty,
-            response_format= {"type": "json_object"} if self.json_format else None
-        )
-        
+        if 'o1' not in self.model:
+            response = client.chat.completions.create(
+                model=self.model,
+                messages=messages,
+                temperature=self.temperature,
+                max_tokens=self.max_tokens,
+                top_p=self.top_p,
+                frequency_penalty=self.frequency_penalty,
+                presence_penalty=self.presence_penalty,
+                response_format= {"type": "json_object"} if self.json_format else None
+            )
+        else:
+            response = client.chat.completions.create(
+                model=self.model,
+                messages=messages,
+                temperature=self.temperature,
+                max_completion_tokens=self.max_tokens,
+            )
         res = response.choices[0].message.content
         return res
 
