@@ -45,7 +45,6 @@ class Pipeline:
             response = client.chat.completions.create(
                 model=self.model,
                 messages=messages,
-                temperature=self.temperature,
                 max_completion_tokens=self.max_tokens,
             )
         res = response.choices[0].message.content
