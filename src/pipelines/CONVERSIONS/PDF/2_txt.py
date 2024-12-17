@@ -23,7 +23,7 @@ class Pipeline:
                 "force_ocr": (None, False),
                 "paginate": (None, False)
             }
-            headers = {"X-Api-Key": os.environ.get("surya_api_key ")}
+            headers = {"X-Api-Key": os.environ.get("surya_api_key")}
             response = requests.post(self.surya_url, files=form_data, headers=headers)
             data = response.json()
             max_polls = 300
