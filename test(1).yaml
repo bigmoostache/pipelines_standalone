@@ -1,24 +1,53 @@
+Please analyse the article above, notating it, following the yaml format below.
+Your output will be automatically parsed from your yaml
+
+```yaml
 evaluation:
   device-type-and-intended-use:
-    device-type-specificity:
-      analysis: "The article focuses on identifying and analyzing risk factors for postoperative delirium in elderly patients following hip fracture surgery. There is no mention of cerclage devices, whether non-metallic or metallic, nor any discussion related to orthopedic hardware such as prostheses, nails, plates, or screws. The study centers solely on patient outcomes and does not address any specific medical devices or their materials. Therefore, the article does not provide any evidence related to cerclage devices intended for orthopedic procedures."
-      value: 0
+    device-type-specificity:         
+      # Evaluate the article for explicit discussion of non-metallic cerclage devices or their direct metallic counterparts. The article must provide clear evidence that the devices under study are intended for cerclage procedures in conjunction with orthopedic hardware such as prostheses, nails, plates, or screws. Articles discussing unrelated devices or lacking specificity must be scored as non-compliant.
+      # 0 is assigned if the article discusses devices unrelated to cerclage or fails to mention device materials (non-metallic or metallic).
+      # 1 is assigned if the article mentions cerclage devices but does not specify the material or discusses devices only tangentially related to cerclage.
+      # 2 is assigned if the article explicitly focuses on non-metallic cerclage devices or directly compares them to metallic cerclage devices.        
+      analysis: <string: VERY detailed analysis of which is the most fitting value for this criteria to give. If you fail to deliver at least a full paragraph of analysis, you will fail at this task. You analysis should weight different possibilities, and only then decide for a final value.>        
+      value: <integer, 0, 1 or 2>
   target-population:
-    adult-population-focus:
-      analysis: "The study exclusively involves elderly patients undergoing hip fracture surgery, with ages defined as 60 years and older. This population falls entirely outside the specified adult age range of 18 to 65 years. The focus on elderly individuals, many of whom are significantly older than 65, means that the study does not strictly adhere to the target demographic of 18-65 years old. Consequently, the population includes participants outside the defined adult range, impacting the applicability to the intended user demographic for non-metallic cerclage devices aimed at adults."
-      value: 0
+    adult-population-focus:         
+      # Confirm that the study's population is exclusively adults, as defined by the age range of 18 to 65 years old. Studies including populations outside this range or failing to define the age of participants must be scored as non-compliant. The criterion is critical to ensure the study's applicability to the intended user demographic for the non-metallic cerclage device.
+      # 0 is assigned if the study population is outside the 18-65 age range or if the age range is not defined.
+      # 1 is assigned if the study includes adults but also includes participants outside the 18-65 age range or if the age range is ambiguously defined.
+      # 2 is assigned if the study population is strictly within the 18-65 age range and is clearly defined as such.        
+      analysis: <string: VERY detailed analysis of which is the most fitting value for this criteria to give. If you fail to deliver at least a full paragraph of analysis, you will fail at this task. You analysis should weight different possibilities, and only then decide for a final value.>        
+      value: <integer, 0, 1 or 2>
   scientific-rigor-and-regulatory-compliance:
-    study-design-rigor:
-      analysis: "The article is a systematic review and meta-analysis that synthesizes data from 24 observational studies to identify risk factors for delirium after hip surgery. While meta-analyses are considered high levels of evidence due to their comprehensive nature, the underlying studies are predominantly observational rather than randomized controlled trials (RCTs). The methodology follows standard protocols for systematic reviews, including quality assessment using the Newcastle–Ottawa Scale and statistical analyses to pool data. However, the absence of RCTs means the study design does not achieve the highest level of rigor associated with experimental studies."
-      value: 1
-    ethical-standards-adherence:
-      analysis: "The article explicitly states that it does not involve any new studies with human participants performed by the authors, implying that ethical approval and informed consent were handled in the original studies reviewed. However, there is no detailed discussion regarding ethical considerations, such as specific ethics committee approvals or informed consent procedures for the meta-analysis itself. The lack of explicit detail on ethical safeguards in the context of the systematic review means that while ethical standards are implicitly acknowledged, they are not comprehensively addressed."
-      value: 1
+    study-design-rigor:         
+      # Scrutinize the study design for methodological soundness, with a focus on randomized controlled trials (RCTs) or equivalent high-quality designs. Non-randomized, uncontrolled, or poorly described study designs must be scored as non-compliant. This criterion ensures that the study's conclusions regarding the safety and efficacy of the device are based on the highest level of scientific evidence.
+      # 0 is assigned if the study design is non-randomized, uncontrolled, anecdotal, or not described.
+      # 1 is assigned if the study design is observational or non-randomized but with some controls in place.
+      # 2 is assigned if the study is an RCT or employs a design of equivalent rigor, with clear description and methodology.        
+      analysis: <string: VERY detailed analysis of which is the most fitting value for this criteria to give. If you fail to deliver at least a full paragraph of analysis, you will fail at this task. You analysis should weight different possibilities, and only then decide for a final value.>        
+      value: <integer, 0, 1 or 2>
+    ethical-standards-adherence:         
+      # Verify that the study meets all ethical requirements, including informed consent and ethics committee approval. Any study lacking explicit mention of these ethical safeguards or evidence of ethical breaches must be scored as non-compliant. This criterion is non-negotiable to ensure the integrity of the research and the protection of study participants.
+      # 0 is assigned if the study does not mention ethical considerations or if there is evidence of ethical breaches.
+      # 1 is assigned if the study mentions ethical considerations but lacks detail on informed consent or ethics committee approval.
+      # 2 is assigned if the study provides detailed accounts of ethical considerations, including informed consent and ethics committee approval.        
+      analysis: <string: VERY detailed analysis of which is the most fitting value for this criteria to give. If you fail to deliver at least a full paragraph of analysis, you will fail at this task. You analysis should weight different possibilities, and only then decide for a final value.>        
+      value: <integer, 0, 1 or 2>
   clinical-relevance-and-performance:
-    outcome-measures-relevance:
-      analysis: "The primary outcome measures in the study are the identification and quantification of risk factors for postoperative delirium in elderly hip fracture patients. These outcomes are directly related to patient health and the management of postoperative complications rather than to the performance or safety of non-metallic cerclage devices. The study does not evaluate any metrics pertaining to the efficacy, safety, or technological performance of cerclage devices, making the outcome measures irrelevant to the clinical performance and safety assessment of such devices."
-      value: 0
+    outcome-measures-relevance:         
+      # Ensure that the outcome measures reported are directly relevant to the performance and safety of non-metallic cerclage devices. Studies must include specific metrics related to the efficacy and safety of cerclage procedures. Studies with vague, unrelated, or absent outcome measures must be scored as non-compliant. This criterion is essential to determine the clinical impact of the device.
+      # 0 is assigned if the study's outcome measures are unrelated to cerclage device performance and safety, or if outcome measures are not reported.
+      # 1 is assigned if the study's outcome measures are only partially relevant or indirectly related to cerclage device performance and safety.
+      # 2 is assigned if the study's outcome measures are directly and explicitly related to the performance and safety of cerclage devices.        
+      analysis: <string: VERY detailed analysis of which is the most fitting value for this criteria to give. If you fail to deliver at least a full paragraph of analysis, you will fail at this task. You analysis should weight different possibilities, and only then decide for a final value.>        
+      value: <integer, 0, 1 or 2>
   technological-and-clinical-comparability:
-    device-technological-similarity:
-      analysis: "The article does not discuss any medical devices, including cerclage devices, nor does it compare technological characteristics, material properties, or design features of any orthopedic hardware. There is no mention of device-specific technology or any form of technological assessment that could be related to non-metallic cerclage devices. As such, the study lacks any basis for evaluating technological similarity or comparability with non-metallic cerclage devices."
-      value: 0
+    device-technological-similarity:         
+      # Assess the technological characteristics of the device in the article for a direct match with non-metallic cerclage devices. The article must provide a detailed comparison of material properties, design features, and intended orthopedic use. Any study lacking a direct comparison or detailed technological assessment must be scored as non-compliant. This criterion ensures that the study's findings are technologically transferable to the non-metallic cerclage device.
+      # 0 is assigned if the study does not compare technological characteristics or if the device is technologically dissimilar.
+      # 1 is assigned if the study provides a partial comparison of technological characteristics with some similarities noted.
+      # 2 is assigned if the study provides a detailed and direct comparison of technological characteristics, confirming similarity to non-metallic cerclage devices.        
+      analysis: <string: VERY detailed analysis of which is the most fitting value for this criteria to give. If you fail to deliver at least a full paragraph of analysis, you will fail at this task. You analysis should weight different possibilities, and only then decide for a final value.>        
+      value: <integer, 0, 1 or 2>
+```

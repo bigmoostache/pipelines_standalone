@@ -3,6 +3,7 @@ from pypdf import PdfReader
 from typing import Literal
 import io
 import os
+import json
 import requests
 import time
 
@@ -26,6 +27,8 @@ class Pipeline:
             response = requests.post(self.surya_url, files=form_data, headers=headers)
             data = response.json()
             max_polls = 300
+            x = json.dumps(data, indent=4)
+            raise ValueError(f"Data: {x}")
             check_url = data["request_check_url"]
 
             for i in range(max_polls):
