@@ -1,0 +1,184 @@
+# Node.js
+node_modules/
+.next
+.next/
+.git
+.idea/
+.vscode/
+.DS_Store
+__pycache__/
+venv
+lib64
+.ipynb_checkpoints
+*.pyc
+
+# Misc
+.env
+coverage/
+logs/
+
+# Image formats
+*.jpg
+*.jpeg
+*.png
+*.gif
+*.bmp
+*.tiff
+*.webp
+*.svg
+*.ico
+*.heif
+*.heic
+
+# Video formats
+*.mp4
+*.mov
+*.avi
+*.mkv
+*.wmv
+*.flv
+*.webm
+*.m4v
+*.3gp
+*.3g2
+
+# Audio formats
+*.mp3
+*.wav
+*.aac
+*.flac
+*.ogg
+*.m4a
+*.wma
+*.opus
+*.amr
+
+# Other binary/non-text formats
+*.pdf
+*.zip
+*.tar
+*.yaml
+*.gz
+*.rar
+*.7z
+*.iso
+*.exe
+*.dll
+*.so
+*.dmg
+*.bin
+*.img
+*.db
+*.sqlite
+*.ttf
+*.otf
+*.eot
+*.woff
+*.woff2
+
+# Other potential non-readable formats
+*.swf
+*.psd
+*.ai
+*.sketch
+*.blend
+*.fbx
+*.obj
+*.stl
+*.3ds
+*.cad
+*.step
+*.iges
+
+# Git ignores for classic project types
+# Python
+*.py[cod]
+*.egg
+*.egg-info/
+dist/
+build/
+.eggs/
+
+# Java
+*.class
+*.jar
+*.war
+*.ear
+*.log
+*.project
+*.classpath
+*.settings/
+
+# Ruby
+*.gem
+*.rvmrc
+*.bundle/
+vendor/bundle/
+log/
+tmp/
+
+# C/C++
+*.o
+*.out
+*.a
+*.so
+*.exe
+*.dll
+*.dylib
+
+# Go
+*.exe
+*.test
+*.out
+*.log
+
+dist/
+
+# PHP
+*.phar
+
+# Objective-C/Swift
+*.xcodeproj/
+*.xcworkspace/
+*.xcuserdata/
+*.swiftpm/
+.build/
+DerivedData/
+
+# Android
+*.apk
+*.apks
+*.keystore
+
+# iOS
+*.ipa
+Pods/
+
+# .NET
+*.csproj
+*.vbproj
+*.suo
+*.user
+*.dbmdl
+*.log
+
+# Frontend/JavaScript
+node_modules/
+bower_components/
+*.log
+
+# General binary/compiled artifacts
+*.obj
+*.pch
+*.pdb
+*.lib
+*.dll
+*.a
+*.so
+*.class
+*.jar
+*.war
+*.ear
+*.swp
+
+examples
