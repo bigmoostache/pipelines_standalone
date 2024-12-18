@@ -47,27 +47,80 @@ class SELECT(BaseModel):
                  messages,
                  *,
                  openai_api_key : str,
-                 model : str, 
-                 rerolls : int = 1
+                 model : str
                 ):
         client = openai.OpenAI(api_key=openai_api_key)
-        events = [
-            client.beta.chat.completions.parse(
+        
+        # First two calls
+        events = []
+        for _ in tqdm(range(2)):
+            completion = client.beta.chat.completions.parse(
                 model=model,
                 messages=messages,
                 response_format=self.get_model()
-            ).choices[0].message.parsed
-            for _ in tqdm(range(rerolls))
-        ]
+            )
+            events.append(completion.choices[0].message.parsed)
+        
+        # Check if a tie-break is needed
+        # We will do that by checking if for any criterion there is a conflict that cannot be resolved by just picking a majority.
+        
+        # Let's gather all decisions for all criteria
+        all_decisions = {}
+        for criteria in self.selection_criteria:
+            decisions = [event.__dict__[criteria.name].decision for event in events]
+            all_decisions[criteria.name] = decisions
+        
+        # Determine if there's a conflict that requires a third call
+        # A "conflict" here means a tie that cannot be resolved between the two initial calls.
+        need_third_call = False
+        for criteria in self.selection_criteria:
+            decisions = all_decisions[criteria.name]
+            # If there are exactly 2 calls, a conflict would be a direct contradiction:
+            # For ExclusionCriteria: one says EXCLUDE and the other says KEEP or EXCL_MAYBE (i.e., no agreement)
+            # For InclusionCriteria: one says INCLUDE and the other says NO_INCLUDE or INCL_MAYBE (i.e., no agreement)
+            # Or any scenario where they differ.
+            
+            if len(set(decisions)) > 1:
+                # More than one unique decision across the two calls means no unanimous agreement.
+                # We will perform a tie-break by making a third call.
+                need_third_call = True
+                break
+        
+        # If needed, make a third call
+        if need_third_call:
+            completion = client.beta.chat.completions.parse(
+                model=model,
+                messages=messages,
+                response_format=self.get_model()
+            )
+            events.append(completion.choices[0].message.parsed)
+        
+        # Now determine the final decisions
+        # If we called three times, we have at most a 3-way vote.
+        # If we have only two calls, we have a 2-way decision.
+        
         res = {}
         for criteria in self.selection_criteria:
-            # Extract all decisions for the current criteria
-            decisions = [event.__dict__[criteria.name].decision for event in events]
-            decision_counts = {}
-            for decision in decisions:
-                decision_counts[decision] = decision_counts.get(decision, 0) + 1
+            if isinstance(criteria, ExclusionCriteria):
+                decision_field = "decision"
+                justification_field = "e_justification"
+                unsure_decision = EXCL_MAYBE
+            else:
+                decision_field = "decision"
+                justification_field = "i_justification"
+                unsure_decision = INCL_MAYBE
             
-            # Sort decisions by count in descending order
+            decisions = [event.__dict__[criteria.name].decision for event in events]
+            
+            # Count the occurrences of each decision
+            decision_counts = {}
+            for d in decisions:
+                decision_counts[d] = decision_counts.get(d, 0) + 1
+            
+            # If we did not go for third call, we have 2 votes, otherwise 3.
+            total_calls = len(events)
+            
+            # Sort decisions by their count
             sorted_decisions = sorted(decision_counts.items(), key=lambda x: x[1], reverse=True)
             
             if len(sorted_decisions) == 0:
@@ -77,78 +130,64 @@ class SELECT(BaseModel):
             elif len(sorted_decisions) == 1:
                 # Only one unique decision
                 final_decision, count = sorted_decisions[0]
-                score = (count / rerolls) * 100
+                score = (count / total_calls) * 100
             else:
+                # There are multiple different decisions
                 top_decision, top_count = sorted_decisions[0]
                 second_decision, second_count = sorted_decisions[1]
                 
                 if top_count > second_count:
                     # Clear winner
                     final_decision = top_decision
-                    score = (top_count / rerolls) * 100
-                elif top_count == second_count:
-                    # Tie between top two decisions
-                    # Determine the 'unsure' decision based on criteria type
-                    if isinstance(criteria, ExclusionCriteria):
-                        unsure_decision = EXCL_MAYBE
-                    else:
-                        unsure_decision = INCL_MAYBE
-                    
-                    # Calculate the probability of 'unsure'
-                    unsure_count = decision_counts.get(unsure_decision, 0)
-                    unsure_probability = unsure_count / rerolls
-                    
-                    # Decide based on probability
-                    if random.random() < unsure_probability:
-                        final_decision = unsure_decision
-                        score = unsure_probability * 100
-                    else:
-                        # If not choosing 'unsure', randomly choose between the tied decisions
-                        final_decision = random.choice([top_decision, second_decision])
-                        score = (top_count / rerolls) * 100
+                    score = (top_count / total_calls) * 100
                 else:
-                    # More than two decisions with different counts
-                    final_decision = top_decision
-                    score = (top_count / rerolls) * 100
+                    # If there's still a tie even after the third call, we resort to the unsure logic.
+                    # If uncertain, default to the "maybe" decision.
+                    final_decision = unsure_decision
+                    score = (top_count / total_calls) * 100
             
             # Compile justification strings
-            if isinstance(criteria, ExclusionCriteria):
-                justification = special_join([f'Decision: {event.__dict__[criteria.name].decision} - {event.__dict__[criteria.name].e_justification}' for event in events])
-            else:
-                justification = special_join([f'Decision: {event.__dict__[criteria.name].decision} - {event.__dict__[criteria.name].i_justification}' for event in events])
+            justification = special_join([
+                f'Decision: {event.__dict__[criteria.name].decision} - {event.__dict__[criteria.name].__dict__[justification_field]}' 
+                for event in events
+            ])
             
             # Populate the results
             res[f'{criteria.name}'] = final_decision
             res[f'{criteria.name}_score'] = score
             res[f'{criteria.name}_justification'] = justification
             
-        inclusion_decisions = [_ for _ in self.selection_criteria if isinstance(_, InclusionCriteria)]
-        exclusion_decisions = [_ for _ in self.selection_criteria if isinstance(_, ExclusionCriteria)]
-        
         inclusion_decisions = [res[c.name] for c in self.selection_criteria if isinstance(c, InclusionCriteria)]
         exclusion_decisions = [res[c.name] for c in self.selection_criteria if isinstance(c, ExclusionCriteria)]
         
+        # Determine overall inclusion/exclusion flags
         if any(_==INCLUDE for _ in inclusion_decisions):
             res['at_least_one_inclusion_criteria_is_respected'] = 'true'
-        elif all(_==INCL_MAYBE for _ in inclusion_decisions):
+        elif all(_==INCL_MAYBE for _ in inclusion_decisions) and len(inclusion_decisions) > 0:
             res['at_least_one_inclusion_criteria_is_respected'] = UNSURE
         else:
             res['at_least_one_inclusion_criteria_is_respected'] = 'false'
             
-        if all(_==INCLUDE for _ in inclusion_decisions):
-            res['all_inclusion_criteria_are_respected'] = 'true'
-        elif any(_==NO_INCLUDE for _ in inclusion_decisions):
-            res['all_inclusion_criteria_are_respected'] = 'false'
+        if len(inclusion_decisions) > 0:
+            if all(_==INCLUDE for _ in inclusion_decisions):
+                res['all_inclusion_criteria_are_respected'] = 'true'
+            elif any(_==NO_INCLUDE for _ in inclusion_decisions):
+                res['all_inclusion_criteria_are_respected'] = 'false'
+            else:
+                res['all_inclusion_criteria_are_respected'] = UNSURE
         else:
-            res['all_inclusion_criteria_are_respected'] = UNSURE
+            # If no inclusion criteria, default to false (no criteria to respect)
+            res['all_inclusion_criteria_are_respected'] = 'false'
         
         if any(_==EXCLUDE for _ in exclusion_decisions):
             res['at_least_one_exclusion_criteria_is_respected'] = 'true'
-        elif any(_==EXCL_MAYBE for _ in exclusion_decisions):
+        elif any(_==EXCL_MAYBE for _ in exclusion_decisions) and len(exclusion_decisions) > 0:
             res['at_least_one_exclusion_criteria_is_respected'] = UNSURE
         else:
             res['at_least_one_exclusion_criteria_is_respected'] = 'false'
+        
         return res
+
             
 class Converter:
     @staticmethod
