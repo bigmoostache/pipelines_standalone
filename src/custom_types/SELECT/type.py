@@ -61,15 +61,64 @@ class SELECT(BaseModel):
         ]
         res = {}
         for criteria in self.selection_criteria:
-            results = [_.__dict__[criteria.name] for _ in events]
-            decisions = [_.decision for _ in results]
-            value = max(set(decisions), key = decisions.count)
-            score = decisions.count(value) / len(decisions) * 100
-            if isinstance(criteria, ExclusionCriteria):
-                justification = special_join([f'Decision: {_.decision} - {_.e_justification}' for _ in results])
+            # Extract all decisions for the current criteria
+            decisions = [event.__dict__[criteria.name].decision for event in events]
+            decision_counts = {}
+            for decision in decisions:
+                decision_counts[decision] = decision_counts.get(decision, 0) + 1
+            
+            # Sort decisions by count in descending order
+            sorted_decisions = sorted(decision_counts.items(), key=lambda x: x[1], reverse=True)
+            
+            if len(sorted_decisions) == 0:
+                # No decisions made; default to 'unsure'
+                final_decision = UNSURE
+                score = 0
+            elif len(sorted_decisions) == 1:
+                # Only one unique decision
+                final_decision, count = sorted_decisions[0]
+                score = (count / rerolls) * 100
             else:
-                justification = special_join([f'Decision: {_.decision} - {_.i_justification}' for _ in results])
-            res[f'{criteria.name}'] = value
+                top_decision, top_count = sorted_decisions[0]
+                second_decision, second_count = sorted_decisions[1]
+                
+                if top_count > second_count:
+                    # Clear winner
+                    final_decision = top_decision
+                    score = (top_count / rerolls) * 100
+                elif top_count == second_count:
+                    # Tie between top two decisions
+                    # Determine the 'unsure' decision based on criteria type
+                    if isinstance(criteria, ExclusionCriteria):
+                        unsure_decision = EXCL_MAYBE
+                    else:
+                        unsure_decision = INCL_MAYBE
+                    
+                    # Calculate the probability of 'unsure'
+                    unsure_count = decision_counts.get(unsure_decision, 0)
+                    unsure_probability = unsure_count / rerolls
+                    
+                    # Decide based on probability
+                    if random.random() < unsure_probability:
+                        final_decision = unsure_decision
+                        score = unsure_probability * 100
+                    else:
+                        # If not choosing 'unsure', randomly choose between the tied decisions
+                        final_decision = random.choice([top_decision, second_decision])
+                        score = (top_count / rerolls) * 100
+                else:
+                    # More than two decisions with different counts
+                    final_decision = top_decision
+                    score = (top_count / rerolls) * 100
+            
+            # Compile justification strings
+            if isinstance(criteria, ExclusionCriteria):
+                justification = special_join([f'Decision: {event.__dict__[criteria.name].decision} - {event.__dict__[criteria.name].e_justification}' for event in events])
+            else:
+                justification = special_join([f'Decision: {event.__dict__[criteria.name].decision} - {event.__dict__[criteria.name].i_justification}' for event in events])
+            
+            # Populate the results
+            res[f'{criteria.name}'] = final_decision
             res[f'{criteria.name}_score'] = score
             res[f'{criteria.name}_justification'] = justification
             
