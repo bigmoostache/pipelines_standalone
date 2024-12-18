@@ -65,7 +65,10 @@ class SELECT(BaseModel):
             decisions = [_.decision for _ in results]
             value = max(set(decisions), key = decisions.count)
             score = decisions.count(value) / len(decisions) * 100
-            justification = special_join([f'Decision: {_.decision} - {_.e_justification}' for _ in results])
+            if isinstance(criteria, ExclusionCriteria):
+                justification = special_join([f'Decision: {_.decision} - {_.e_justification}' for _ in results])
+            else:
+                justification = special_join([f'Decision: {_.decision} - {_.i_justification}' for _ in results])
             res[f'{criteria.name}'] = value
             res[f'{criteria.name}_score'] = score
             res[f'{criteria.name}_justification'] = justification
