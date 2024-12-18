@@ -47,7 +47,8 @@ class SELECT(BaseModel):
                  messages,
                  *,
                  openai_api_key : str,
-                 model : str
+                 model : str,
+                 reroll : int = 1 # deprecated
                 ):
         client = openai.OpenAI(api_key=openai_api_key)
         
