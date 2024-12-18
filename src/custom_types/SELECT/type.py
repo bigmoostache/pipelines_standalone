@@ -61,19 +61,14 @@ class SELECT(BaseModel):
         ]
         res = {}
         for criteria in self.selection_criteria:
+            results = [_.__dict__[criteria.name] for _ in events]
+            decisions = [_.decision for _ in results]
+            value = max(set(decisions), key = decisions.count)
+            score = decisions.count(value) / len(decisions) * 100
             justification = special_join([f'Decision: {_.decision} - {_.e_justification}' for _ in results])
-            if len(list(set([_.decision for _ in events]))) == 3:
-                res[f'{criteria.name}'] = UNSURE
-                res[f'{criteria.name}_score'] = 100 / 3
-                res[f'{criteria.name}_justification'] = justification
-            else:
-                results = [_.__dict__[criteria.name] for _ in events]
-                decisions = [_.decision for _ in results]
-                value = max(set(decisions), key = decisions.count)
-                score = decisions.count(value) / len(decisions) * 100
-                res[f'{criteria.name}'] = value
-                res[f'{criteria.name}_score'] = score
-                res[f'{criteria.name}_justification'] = justification
+            res[f'{criteria.name}'] = value
+            res[f'{criteria.name}_score'] = score
+            res[f'{criteria.name}_justification'] = justification
             
         inclusion_decisions = [_ for _ in self.selection_criteria if isinstance(_, InclusionCriteria)]
         exclusion_decisions = [_ for _ in self.selection_criteria if isinstance(_, ExclusionCriteria)]
