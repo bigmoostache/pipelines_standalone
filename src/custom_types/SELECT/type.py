@@ -6,18 +6,20 @@ from tqdm.auto import tqdm
 EXCLUDE = 'exclude'
 KEEP = 'keep'
 EXCL_MAYBE = 'unsure, so keep for now'
+EXL_TOGETHER = f'"{EXCLUDE}". "{KEEP}" or "{EXCL_MAYBE}"'
 
 INCLUDE = 'include'
 NO_INCLUDE = 'do not include'
 INCL_MAYBE = 'unsure, so include for now'
+INCL_TOGETHER = f'"{INCLUDE}". "{NO_INCLUDE}" or "{INCL_MAYBE}"'
 
 UNSURE = 'unsure'
 
 class EXCLUSION(BaseModel):
-    e_justification  : str = Field(..., description = 'Analyse the article to determine whether or not it should be excluded.')
+    e_justification  : str = Field(..., description = f'Analyse the article to determine whether or not it should be excluded. Your analysis should be highly detailed and precise: at least a full paragraph, weighing the pros and cons of whether or not the article should be excluded based on this specific criteria only. Only at THE END of your justification should you state your final decision. If you fail to deliver a complete and detailed justification, or that your decision comes at the beginning of your justification, you will be heavily penalized and will be required to redo the task. Possible decisions are {EXL_TOGETHER}.')
     decision       : Literal[EXCLUDE, KEEP, EXCL_MAYBE] = Field(..., description = 'Your final action. Inconsistency with the justification above would lead to dramatic consequences and heavily penalized notation of your response, so make sure your answer fits the justification you provided.')
 class INCLUSION(BaseModel):
-    i_justification : str = Field(..., description = 'Analyse the article to determine whether or not it verifies this inclusion criteria.')
+    i_justification : str = Field(..., description = f'Analyse the article to determine whether or not it verifies this inclusion criteria. Your analysis should be highly detailed and precise: at least a full paragraph, weighing the pros and cons of whether or not the article should be included based on this specific criteria only. Only at THE END of your justification should you state your final decision. If you fail to deliver a complete and detailed justification, or that your decision comes at the beginning of your justification, you will be heavily penalized and will be required to redo the task. Possible decisions are {INCL_TOGETHER}.')
     decision      : Literal[INCLUDE, NO_INCLUDE, INCL_MAYBE] = Field(..., description = 'Your final decision.  Inconsistency with the justification above would lead to dramatic consequences and heavily penalized notation of your response, so make sure your answer fits the justification you provided.')
 
 class ExclusionCriteria(BaseModel):
@@ -31,12 +33,14 @@ class InclusionCriteria(BaseModel):
     name                           : str = Field(..., description = "The name of the selection criteria. Should be upper, no special characters, spaces replaced by underscores and no numbers.")
     def get_tuple(self):
         return (INCLUSION, Field(..., description = self.inclusion_criteria_description))
-        
+
+def special_join(vals : List[str]) -> str:
+    return '- ' + '\n- '.join(vals)
+   
 class SELECT(BaseModel):
     selection_criteria : List[Union[ExclusionCriteria, InclusionCriteria]] = Field(..., description = "List of selection criteria") 
     
     def get_model(self):
-        random.shuffle(self.selection_criteria)
         return create_model("Data", **{e.name : e.get_tuple() for e in self.selection_criteria})
     
     def __call__(self, 
@@ -49,7 +53,7 @@ class SELECT(BaseModel):
         client = openai.OpenAI(api_key=openai_api_key)
         events = [
             client.beta.chat.completions.parse(
-                model='gpt-4o',
+                model=model,
                 messages=messages,
                 response_format=self.get_model()
             ).choices[0].message.parsed
@@ -57,38 +61,20 @@ class SELECT(BaseModel):
         ]
         res = {}
         for criteria in self.selection_criteria:
-            results = [_.__dict__[criteria.name] for _ in events]
-            decisions = [_.decision for _ in results]
-            if isinstance(criteria, ExclusionCriteria):
-                if len(list(set(decisions))) == 1:
-                    value, justification, score = decisions[0], results[0].e_justification, 100
-                elif EXCLUDE in decisions and KEEP in decisions:
-                    value, justification, score = UNSURE, 'Conflicting choices', 0
-                else:
-                    unsures = [_ for _ in results if _.decision == EXCL_MAYBE]
-                    sures =  [_ for _ in results if _.decision != EXCL_MAYBE]
-                    assert len(unsures) + len(sures) == len(results)
-                    if len(unsures) > len(sures):
-                        value, justification, score = UNSURE, unsures[0].e_justification, 0
-                    else:
-                        value, justification, score = sures[0].decision, sures[0].e_justification, len(sures) * 100. / len(results) 
+            justification = special_join([f'Decision: {_.decision} - {_.e_justification}' for _ in results])
+            if len(list(set([_.decision for _ in events]))) == 3:
+                res[f'{criteria.name}'] = UNSURE
+                res[f'{criteria.name}_score'] = 100 / 3
+                res[f'{criteria.name}_justification'] = justification
             else:
-                if len(list(set(decisions))) == 1:
-                    value, justification, score = decisions[0], results[0].i_justification, 100
-                elif INCLUDE in decisions and NO_INCLUDE in decisions:
-                    value, justification, score = UNSURE, 'Conflicting choices', 0
-                else:
-                    unsures = [_ for _ in results if _.decision == INCL_MAYBE]
-                    sures =  [_ for _ in results if _.decision != INCL_MAYBE]
-                    assert len(unsures) + len(sures) == len(results)
-                    if len(unsures) > len(sures):
-                        value, justification, score = UNSURE, unsures[0].i_justification, 0
-                    else:
-                        value, justification, score = sures[0].decision, sures[0].i_justification, len(sures) * 100. / len(results) 
-            res[f'{criteria.name}'] = value
-            res[f'{criteria.name}_score'] = score
-            res[f'{criteria.name}_justification'] = justification
-        
+                results = [_.__dict__[criteria.name] for _ in events]
+                decisions = [_.decision for _ in results]
+                value = max(set(decisions), key = decisions.count)
+                score = decisions.count(value) / len(decisions) * 100
+                res[f'{criteria.name}'] = value
+                res[f'{criteria.name}_score'] = score
+                res[f'{criteria.name}_justification'] = justification
+            
         inclusion_decisions = [_ for _ in self.selection_criteria if isinstance(_, InclusionCriteria)]
         exclusion_decisions = [_ for _ in self.selection_criteria if isinstance(_, ExclusionCriteria)]
         
