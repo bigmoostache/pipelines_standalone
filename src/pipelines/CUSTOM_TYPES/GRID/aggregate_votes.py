@@ -18,11 +18,17 @@ class Pipeline:
             return yaml.safe_load(text)
         dicts = [get_dic(_)['evaluation'] for _ in texts]
         final = {}
+        total = 0
         for group in dicts[0].keys():
+            sum = 0
             for criteria_name in dicts[0][group].keys():
                 values = [_[group][criteria_name]['value'] for _ in dicts]
                 tuples = [(_[group][criteria_name]['value'], _[group][criteria_name]['analysis']) for _ in dicts]
                 justification = '\n '.join(f'{k} - {v}' for k,v in tuples)
-                final[criteria_name] = np.mean(values)
+                final[criteria_name] = int(np.round(np.mean(values)))
+                sum += final[criteria_name]
                 final[f'{criteria_name} - justification'] = justification
+            final[f'TOTAL - {group}'] = sum
+            total += sum
+        final['TOTAL'] = total
         return final
