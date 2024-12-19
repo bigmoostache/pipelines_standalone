@@ -16,11 +16,8 @@ class Pipeline:
                 for sheet in sheet_keys:
                     for _ in d[sheet]:
                         _[id_column] = i
-            direct_keys = list(set([key for dic in dics for key,value in dic.items() if not isinstance(value, list)]))
-            if parent_df is not None and id_col not in direct_keys:
-                # Ensure the id_col is always present to avoid KeyError
-                direct_keys.append(id_col)
-            main_df = pd.DataFrame([{key:value for key,value in d.items() if key in direct_keys} for d in dics])
+            direct_keys = list(set([k for dic in dics for k,v in dic.items() if not isinstance(v, list)]))
+            main_df = pd.DataFrame([{k:v for k,v in d.items() if k in direct_keys} for d in dics])
             if parent_df is not None:
                 main_df = parent_df.merge(main_df, left_on=id_col, right_on=id_col, how='left', suffixes=('', f'_{name}'))
             res = {f'{sheet_number}_{name}' : main_df}
