@@ -9,7 +9,6 @@ class Pipeline:
                  dicts : List[dict]
                  ) -> XLSX:
         def process(name, dics : List[dict], parent_df = None, parent_id_col = None, sheet_number : int = 1):
-            my_id_column = f'{name}_id'
             sheet_keys = list(set([k for dic in dics for k,v in dic.items() if isinstance(v, list)]))
             # Check if parent_id_col is in all dicts
             if parent_df is not None:
@@ -17,6 +16,7 @@ class Pipeline:
                     assert parent_id_col in d, f'parent_id_col {parent_id_col} not in dict {d}'
             # Add id column to all dicts and subdicts in order to allow merge in recursive calls
             if len(sheet_keys) > 0:
+                my_id_column = f'{name}_id'
                 for i,d in enumerate(dics):
                     d[my_id_column] = i
                     for sheet in sheet_keys:
@@ -46,4 +46,4 @@ class Pipeline:
                 sheet_number, sheets = process(k, lines, main_df, my_id_column, sheet_number)
                 res = {**res, **sheets}
             return sheet_number, res
-        return XLSX(sheets = process('Sheet1', dicts, parent_df = None, id_col = None)[1])
+        return XLSX(sheets = process('Sheet1', dicts, parent_df = None, parent_id_col = None)[1])
