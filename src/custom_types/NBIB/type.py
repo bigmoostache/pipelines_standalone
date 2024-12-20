@@ -103,5 +103,5 @@ wraped = TYPE(
         'jsonl':lambda x : JSONL([_.__dict__ for _ in x.entries])
         },
     icon='/icons/pubmed.svg',
-    visualiser='https://visualizations.croquo.com/txt'
+    visualiser='https://vis.deepdocs.net/txt'
 )

@@ -23,6 +23,6 @@ wraped = TYPE(
     additional_converters={
         'json':lambda x : {'__text__':x}
         },
-    visualiser = "https://visualizations.croquo.com/txt",
+    visualiser = "https://vis.deepdocs.net/txt",
     icon='/icons/txt.svg'
 )

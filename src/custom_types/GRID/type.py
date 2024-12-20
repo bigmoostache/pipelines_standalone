@@ -46,5 +46,5 @@ wraped = TYPE(
         'json':lambda x : x.to_dict()
         },
     icon='/micons/deepsource.svg',
-    visualiser = "https://visualizations.croquo.com/grid",
+    visualiser = "https://vis.deepdocs.net/grid",
 )

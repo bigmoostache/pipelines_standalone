@@ -528,7 +528,7 @@ wraped = TYPE(
     extension='sota',
     _class = SOTA,
     converter = Converter,
-    visualiser = "https://sota.croquo.com",
+    visualiser = "https://sota2.deepdocs.net",
     icon='/icons/ai.svg'
 )
 

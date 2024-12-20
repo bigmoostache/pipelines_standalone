@@ -86,6 +86,6 @@ wraped = TYPE(
     additional_converters={
         'json':lambda x : x.model_dump()
         },
-    visualiser = "https://visualizations.croquo.com/xtrk",
+    visualiser = "https://vis.deepdocs.net/xtrk",
     icon = '/micons/pnpm_light.svg'
 )
