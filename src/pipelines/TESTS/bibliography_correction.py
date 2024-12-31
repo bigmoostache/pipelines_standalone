@@ -152,5 +152,7 @@ class Pipeline:
 
         updated_and_final_markdown = updated_markdown_content.split("## Bibliography")[0] + "## Bibliography\n" + updated_biblio_markdown
 
+        updated_and_final_markdown += "\n## **Unused References**\n\n" + unused_biblio_markdown
+        
         return updated_and_final_markdown
 
