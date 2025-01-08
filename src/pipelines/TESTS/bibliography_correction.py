@@ -283,7 +283,7 @@ class Pipeline:
         # prompt: Create a line at the top named "##Unused Sources", skip a line and in unused_ref_number_and_ref_after_biblio_v1 only keep the value of ref_after_biblio_v1 and strucuture it like this: - value of ref_after_biblio_v1. Store all of it in unused_ref_number_and_ref_after_biblio_v2
         
         unused_ref_number_and_ref_after_biblio_v2 = ""
-        unused_ref_number_and_ref_after_biblio_v2 += "##Unused Sources\n\n"
+        unused_ref_number_and_ref_after_biblio_v2 += "## Unused Sources\n\n"
         for ref in unused_ref_number_and_ref_after_biblio_v1:
             unused_ref_number_and_ref_after_biblio_v2 += f"- {ref['ref_after_biblio_v1']}\n"
         unused_ref_number_and_ref_after_biblio_v2
