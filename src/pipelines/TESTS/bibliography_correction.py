@@ -4,10 +4,11 @@ class Pipeline:
     def __init__(self):
         pass
         
-    def __call__(self, txt_markdown_v1 : str) -> str:
+    def __call__(self, markdown_content : str) -> str:
 
         # 1.Split text before and after the Bibliography
         # Split the txt_markdown_v1 string at "## Bibliography"
+        txt_markdown_v1 = markdown_content
         split_index = txt_markdown_v1.find("## Bibliography")
         
         if split_index != -1:
