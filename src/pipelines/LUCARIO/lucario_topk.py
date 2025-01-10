@@ -53,9 +53,9 @@ class Pipeline:
 
         json_out = [
                 {
-                    'parent_file_id': item['parent_file_id'],
+                    'reference_id': item['parent_file_id'], # Is actully parent_file_id!!
                     'text': item['text'],
-                    'file_id': item['file_id'],
+                    'chunk_code': item['file_id'], # Chunk
                     'raw_url': item['raw_url']
 
                 } for item in json_out
