@@ -86,27 +86,3 @@ class Pipeline:
             error_message = traceback.format_exc()
             print(error_message)
             raise Exception(error_message)
-
-
-instance = Pipeline('test_edgargnanou')
-
-
-queries = [{"query": "Analyse des états financiers pour évaluer la performance d'une entreprise"},
-{"query": "Utilisation des ratios financiers pour mesurer la rentabilité et la liquidité"},
-{"query": "Techniques de valorisation des entreprises : méthodes et application"},
-{"query": "Évaluation de la performance financière : comparaison de méthodes et d'indicateurs"},
-{"query": "Flux de trésorerie comme indicateur de santé financière des entreprises"},
-{"query": "Impact de l'endettement sur la performance financière d'une entreprise"},
-{"query": "Importance des ratios de liquidité et de solvabilité dans l'analyse financière"},
-{"query": "Benchmarking financier : comparaison de la performance d'une entreprise avec ses concurrents"},
-{"query": "Évaluation du seuil de rentabilité pour les entreprises : concepts et calculs"},
-{"query": "Approches de notation financière et scoring pour la mesure de solvabilité"}]
-
-queries = JSONL(queries)
-print('code executed')
-
-res = instance.__call__(queries)
-
-print('this is the res:',res)
-
-
