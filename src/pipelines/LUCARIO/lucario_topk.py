@@ -51,6 +51,16 @@ class Pipeline:
         
         json_out = [chunk for _ in top_k_response.json()['top_k_documents'] for chunk in _['chunks']]
 
+        json_out = [
+                {
+                    'reference_id': item['parent_file_id'], # Is actully parent_file_id!!
+                    'text': item['text'],
+                    'chunk_code': item['file_id'], # Chunk
+                    'raw_url': item['raw_url']
+
+                } for item in json_out
+            ]
+
 
         return JSONL(json_out)
         

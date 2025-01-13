@@ -5,7 +5,7 @@ import os
 import requests
 import json
 from custom_types.JSONL.type import JSONL
-
+import traceback
 
 
 class Pipeline:
@@ -24,7 +24,7 @@ class Pipeline:
     def __init__(self,
                  project_id : str, # Project name to retrieve data using Lucario
                  k : int = 10, # Number of k chunks returned for similarity
-                 max_per_information : int = 3 # Max number of indexed chunks per documnet that can be returned
+                 max_per_information : int = 3, # Max number of indexed chunks per documnet that can be returned
                  ):
         
         self.project_id = project_id
@@ -36,48 +36,77 @@ class Pipeline:
 
         super_chunk_list = []
          
-        for query in [line['query'] for line in queries.lines]:
-        
-            json_payload = {
-                "project_id": self.project_id,
-                "query_text": query,
-                "k": self.k,
-                #"file_uuids": uuids,
-                "max_per_information": self.max_per_information
-                }
-            
-            top_k_response = requests.post(url ='https://lucario.croquo.com/top_k', json=json_payload)
-            if top_k_response.status_code != 200:
-                raise Exception(f'Unsuccessful response: {top_k_response}')
-            # extract the chunks retrieved by topk
-            super_chunk_list.extend([chunk for _ in top_k_response.json()['top_k_documents'] for chunk in _['chunks']])
+        try:
 
-        # delete duplicate chunks
+            for query in [line['query'] for line in queries.lines]:
 
-        super_chunk_list_no_dups = []
-        for item in super_chunk_list:
-            # Calculate number of current ids in list 
-            current_ids = [item['file_id'] for item in super_chunk_list_no_dups]
+                json_payload = {
+                    "project_id": self.project_id,
+                    "query_text": query,
+                    "k": self.k,
+                    #"file_uuids": uuids,
+                    "max_per_information": self.max_per_information
+                    }
+                
+                top_k_response = requests.post(url ='https://lucario.croquo.com/top_k', json=json_payload)
+                if top_k_response.status_code != 200:
+                    raise Exception(f'Unsuccessful response: {top_k_response}')
+                # extract the chunks retrieved by topk
+                super_chunk_list.extend([chunk for _ in top_k_response.json()['top_k_documents'] for chunk in _['chunks']])
 
-            if item['file_id'] not in current_ids:
-                super_chunk_list_no_dups.append(item)
-            else:
-                pass
+            # delete duplicate chunks
 
-        # Select fields to retrieve from lucario
-        # TODO: Retrieve here metadata
+            super_chunk_list_no_dups = []
+            for item in super_chunk_list:
+                # Calculate number of current ids in list 
+                current_ids = [item['file_id'] for item in super_chunk_list_no_dups]
+
+                if item['file_id'] not in current_ids:
+                    super_chunk_list_no_dups.append(item)
+                else:
+                    pass
+
+            # Select fields to retrieve from lucario
+            # TODO: Retrieve here metadata
 
 
-        # Save only the fields we want
-        json_out = [
-            {
-                'file_id': item['file_id'],
-                'parent_file_id': item['parent_file_id'],
-                'raw_url': item['raw_url'],
-                'text': item['text']
+            # Save only the fields we want
+            json_out = [
+                {
+                    'reference_id': item['parent_file_id'], # Is actully parent_file_id!!
+                    'text': item['text'],
+                    'chunk_code': item['file_id'], # Chunk
+                    'raw_url': item['raw_url']
 
-            } for item in super_chunk_list_no_dups
-        ]
+                } for item in super_chunk_list_no_dups
+            ]
 
-        return JSONL(json_out)
-        
+            return JSONL(json_out)
+        except:
+            error_message = traceback.format_exc()
+            print(error_message)
+            raise Exception(error_message)
+
+
+instance = Pipeline('test_edgargnanou')
+
+
+queries = [{"query": "Analyse des états financiers pour évaluer la performance d'une entreprise"},
+{"query": "Utilisation des ratios financiers pour mesurer la rentabilité et la liquidité"},
+{"query": "Techniques de valorisation des entreprises : méthodes et application"},
+{"query": "Évaluation de la performance financière : comparaison de méthodes et d'indicateurs"},
+{"query": "Flux de trésorerie comme indicateur de santé financière des entreprises"},
+{"query": "Impact de l'endettement sur la performance financière d'une entreprise"},
+{"query": "Importance des ratios de liquidité et de solvabilité dans l'analyse financière"},
+{"query": "Benchmarking financier : comparaison de la performance d'une entreprise avec ses concurrents"},
+{"query": "Évaluation du seuil de rentabilité pour les entreprises : concepts et calculs"},
+{"query": "Approches de notation financière et scoring pour la mesure de solvabilité"}]
+
+queries = JSONL(queries)
+print('code executed')
+
+res = instance.__call__(queries)
+
+print('this is the res:',res)
+
+
