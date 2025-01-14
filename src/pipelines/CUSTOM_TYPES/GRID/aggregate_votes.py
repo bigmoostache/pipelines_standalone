@@ -4,6 +4,7 @@ import pandas as pd
 import yaml
 import numpy as np
 import Levenshtein
+import re
 
 def robust_safe_load(yaml_text):
     """
