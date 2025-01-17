@@ -55,7 +55,7 @@ class SELECT(BaseModel):
         if use_azure:
             client = openai.AzureOpenAI(
                 api_key=openai_api_key,  
-                api_version="2024-07-01-preview",
+                api_version="2024-08-01-preview",
                 azure_endpoint=azure_endpoint
             )
         else:

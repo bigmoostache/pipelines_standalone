@@ -33,7 +33,7 @@ class Pipeline:
         text = text[:int(len(text) * p)]
         client = AzureOpenAI(
             api_key=os.getenv("AZURE_OPENAI_API_KEY"),  
-            api_version="2024-07-01-preview",
+            api_version="2024-08-01-preview",
             azure_endpoint=os.getenv("AZURE_OPENAI_ENDPOINT")
         )
         formatted_response = client.beta.chat.completions.parse(
@@ -61,7 +61,7 @@ class Pipeline:
         text = text[:int(len(text) * p)]
         client = AzureOpenAI(
             api_key=os.getenv("AZURE_OPENAI_API_KEY"),  
-            api_version="2024-07-01-preview",
+            api_version="2024-08-01-preview",
             azure_endpoint=os.getenv("AZURE_OPENAI_ENDPOINT")
         )
         reflexive_response = client.chat.completions.create(
