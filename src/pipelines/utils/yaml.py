@@ -1,28 +1,5 @@
 import re, yaml
-
-replacements = {
-  "U+00A0": " ",    # Non-breaking space
-  "U+2000": " ",    # En quad
-  "U+2001": " ",    # Em quad
-  "U+2002": " ",    # En space
-  "U+2003": " ",    # Em space
-  "U+2004": " ",    # Three-per-em space
-  "U+2005": " ",    # Four-per-em space
-  "U+2006": " ",    # Six-per-em space
-  "U+2007": " ",    # Figure space
-  "U+2008": " ",    # Punctuation space
-  "U+2009": " ",    # Thin space
-  "U+200A": " ",    # Hair space
-  "U+202F": " ",    # Narrow no-break space
-  "U+205F": " ",    # Medium mathematical space
-  "U+3000": " ",    # Ideographic space
-  "U+0009": "\t",   # Horizontal tab
-  "U+200B": "",     # Zero-width space (remove entirely)
-  "U+200C": "",     # Zero-width non-joiner (remove entirely)
-  "U+200D": "",     # Zero-width joiner (remove entirely)
-  "U+FEFF": ""      # Zero-width no-break space (BOM, remove entirely)
-}
-
+from pipelines.utils.useless import Pipeline
 
 def robust_safe_load(yaml_text):
     """
@@ -35,12 +12,7 @@ def robust_safe_load(yaml_text):
         Parsed Python object (dict, list, etc.) if successful, otherwise raises.
     """
     # replace weird unicode characters that break yaml parser
-    for k,v in replacements.items():
-        yaml_text = yaml_text.replace(k, v)
-        k2 = k.replace("U+", "\\u")
-        yaml_text = yaml_text.replace(k2, v)
-        k3 = k2.lower()
-        yaml_text = yaml_text.replace(k3, v)
+    yaml_text = yaml_text.replace(' ', ' ').replace(' ', ' ')
     try:
         # First attempt: just parse directly
         return yaml.safe_load(yaml_text)

@@ -1,7 +1,7 @@
 from typing import List
 from custom_types.GRID.type import GRID, GRID_SECTION, NOTATION_CRITERIA, POSSIBLE_VALUE
 import pandas as pd
-from utils.yaml import robust_safe_load
+from pipelines.utils.yaml import robust_safe_load
     
 class Pipeline:
     def __init__(self):

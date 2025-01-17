@@ -3,7 +3,7 @@ from typing import List
 import pandas as pd
 import numpy as np
 import Levenshtein
-from utils.yaml import robust_safe_load
+from pipelines.utils.yaml import robust_safe_load
 
 # If you do not have a Levenshtein library installed, you can use:
 # pip install python-Levenshtein

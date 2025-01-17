@@ -1,3 +1,5 @@
+from pipelines.utils.useless import Pipeline
+
 def to_bool(val):
     if isinstance(val, bool):
         return val
