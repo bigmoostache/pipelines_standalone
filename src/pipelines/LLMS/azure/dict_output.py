@@ -1,15 +1,14 @@
 import os
 from custom_types.PROMPT.type import PROMPT
-import openai
+from openai import AzureOpenAI
 from pipelines.CONVERSIONS.txt_2_dict import Pipeline as TXT2DICT
 
 class Pipeline:
-    __env__ = ["openai_api_key"]
+    __env__ = ['AZURE_OPENAI_API_KEY', 'AZURE_OPENAI_ENDPOINT']
 
     def __init__(self, 
                  verify : str,
                  model : str = "gpt-4-turbo", 
-                 base_url : str = "https://api.openai.com/v1",
                  temperature : int = 1, 
                  retries : int =3, 
                  max_tokens : int =3500, 
@@ -27,7 +26,6 @@ class Pipeline:
         self.frequency_penalty = frequency_penalty
         self.presence_penalty = presence_penalty
         self.retries = retries
-        self.base_url = base_url
         
     def __call__(self, 
                  p : PROMPT
@@ -43,8 +41,11 @@ class Pipeline:
     def retry__call__(self, 
                  p : PROMPT
                  ) -> dict:
-        api_key = os.environ.get("openai_api_key")
-        client = openai.OpenAI(api_key=api_key, base_url=self.base_url)
+        client = AzureOpenAI(
+            api_key=os.getenv("AZURE_OPENAI_API_KEY"),  
+            api_version="2024-07-01-preview",
+            azure_endpoint=os.getenv("AZURE_OPENAI_ENDPOINT")
+        )
         messages = p.messages
         response = client.chat.completions.create(
             model=self.model,

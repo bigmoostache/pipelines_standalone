@@ -48,9 +48,18 @@ class SELECT(BaseModel):
                  *,
                  openai_api_key : str,
                  model : str,
+                 use_azure: bool = False,
+                 azure_endpoint : str = None,
                  rerolls : int = 1 # deprecated
                 ):
-        client = openai.OpenAI(api_key=openai_api_key)
+        if use_azure:
+            client = openai.AzureOpenAI(
+                api_key=openai_api_key,  
+                api_version="2024-07-01-preview",
+                azure_endpoint=azure_endpoint
+            )
+        else:
+            client = openai.OpenAI(api_key=openai_api_key)
         
         # First two calls
         events = []
