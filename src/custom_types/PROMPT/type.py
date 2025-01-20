@@ -7,7 +7,7 @@ class PROMPT:
     def add(self, message : str, 
             role : Literal["user", "system", "assistant"] = "user"):
         self.messages.append({"role" : role, "content" : message})
-    def truncate(self, max_chars: int = 480000 ):
+    def truncate(self, max_chars: int = 300000 ):
         """
         Truncates messages to ensure the total character count is below max_chars.
         Algorithm:
