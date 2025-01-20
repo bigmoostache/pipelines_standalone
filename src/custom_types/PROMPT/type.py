@@ -7,6 +7,40 @@ class PROMPT:
     def add(self, message : str, 
             role : Literal["user", "system", "assistant"] = "user"):
         self.messages.append({"role" : role, "content" : message})
+    def truncate(self, max_chars: int):
+        """
+        Truncates messages to ensure the total character count is below max_chars.
+        Algorithm:
+        - Truncate the longest message first
+        - If that is not enough, move to the next longest message
+        """
+        total_length = sum(len(msg['content']) for msg in self.messages)
+
+        if total_length <= max_chars:
+            return  # Already under the limit
+
+        # Keep track of original indexes
+        indexed_messages = list(enumerate(self.messages))
+
+        # Sort messages by the length of their content (descending)
+        indexed_messages.sort(key=lambda item: len(item[1]['content']), reverse=True)
+
+        for index, msg in indexed_messages:
+            if total_length <= max_chars:
+                break
+
+            # Calculate how much we need to truncate
+            excess = total_length - max_chars
+
+            # Truncate the current message content
+            current_length = len(msg['content'])
+            truncate_length = min(current_length, excess)
+            self.messages[index]['content'] = msg['content'][:current_length - truncate_length]
+
+            # Update total length
+            total_length -= truncate_length
+
+        # No need to restore order as we only modified the original list using indexes
         
 class Converter:
     extension = 'prompt'

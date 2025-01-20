@@ -25,6 +25,7 @@ class Pipeline:
     def __call__(self, 
                  p : PROMPT,
                  ) -> GRID:
+        p.truncate()
         api_key = os.environ.get("openai_api_key")
         client = openai.OpenAI(api_key=api_key, base_url=self.base_url)
         completion = client.beta.chat.completions.parse(

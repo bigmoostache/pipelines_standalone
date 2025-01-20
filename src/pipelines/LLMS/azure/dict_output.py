@@ -30,7 +30,7 @@ class Pipeline:
     def __call__(self, 
                  p : PROMPT
                  ) -> dict:
-        
+        p.truncate()
         for _ in range(self.retries -1):
             try:
                 return self.retry__call__(p)

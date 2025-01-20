@@ -43,6 +43,7 @@ class Pipeline:
     def retry__call__(self, 
                  p : PROMPT
                  ) -> dict:
+        p.truncate()
         api_key = os.environ.get("openai_api_key")
         client = openai.OpenAI(api_key=api_key, base_url=self.base_url)
         messages = p.messages

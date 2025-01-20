@@ -12,5 +12,6 @@ class Pipeline:
                  p : PROMPT,
                  gt : GenericType
                  ) -> Result:
+        p.truncate()
         api_key = os.environ.get("openai_api_key")
         return GET_RESULT_FROM_LLM(api_key, gt, self.model, p)

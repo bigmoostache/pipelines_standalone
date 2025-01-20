@@ -41,6 +41,7 @@ class Pipeline:
              p : PROMPT,
              e : Entries
              ) -> List[dict]:
+        p.truncate()
         for k in range(3):
             success, result = self.try_call(p, e)
             if success:

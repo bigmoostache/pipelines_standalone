@@ -81,6 +81,7 @@ class Pipeline:
                  p : PROMPT,
                  grid : GRID
                  ) -> dict:
+        p.truncate()
         api_key = os.environ.get("openai_api_key")
         MyBaseModel = grid_to_BM(grid, self.with_justifications)
         client = openai.OpenAI(api_key=api_key, base_url=self.base_url)

@@ -15,6 +15,7 @@ class Pipeline:
              p : PROMPT,
              e : SELECT
              ) -> dict:
+        p.truncate()
         azure_endpoint = os.getenv("AZURE_OPENAI_ENDPOINT")
         api_key = os.getenv("AZURE_OPENAI_API_KEY")
         return e(p.messages, openai_api_key=api_key, model=self.model, rerolls=self.rerolls, use_azure=True, azure_endpoint=azure_endpoint)

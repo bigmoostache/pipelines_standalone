@@ -81,6 +81,7 @@ class Pipeline:
                  p : PROMPT,
                  grid : GRID
                  ) -> dict:
+        p.truncate()
         MyBaseModel = grid_to_BM(grid, self.with_justifications)
         client = AzureOpenAI(
             api_key=os.getenv("AZURE_OPENAI_API_KEY"),  

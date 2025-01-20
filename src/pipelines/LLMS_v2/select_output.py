@@ -21,6 +21,7 @@ class Pipeline:
              p : PROMPT,
              e : SELECT
              ) -> dict:
+        p.truncate()
         client = openai.OpenAI(
             api_key=os.environ.get("openai_api_key"), 
             base_url=self.base_url)

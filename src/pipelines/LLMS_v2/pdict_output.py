@@ -33,6 +33,7 @@ class Pipeline:
                  p : PROMPT
                  ) -> PDICT:
         
+        p.truncate()
         for _ in range(self.retries -1):
             try:
                 return self.retry__call__(p)

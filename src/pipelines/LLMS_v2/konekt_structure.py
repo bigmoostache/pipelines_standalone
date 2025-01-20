@@ -10,5 +10,6 @@ class Pipeline:
     def __call__(self, 
                  p : PROMPT
                  ) -> GenericType:
+        p.truncate()
         api_key = os.environ.get("openai_api_key")
         return GET_STRUCTURE_FROM_LLM(p, api_key, self.model)

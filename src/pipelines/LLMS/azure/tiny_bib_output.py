@@ -22,6 +22,7 @@ class Pipeline:
     def __call__(self, 
                  p : PROMPT,
                  ) -> TINY_BIB:
+        p.truncate()
         client = AzureOpenAI(
             api_key=os.getenv("AZURE_OPENAI_API_KEY"),  
             api_version="2024-08-01-preview",

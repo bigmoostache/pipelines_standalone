@@ -33,7 +33,7 @@ class Pipeline:
                  p : PROMPT,
                  structure : PDICT
                  ) -> dict:
-        
+        p.truncate()
         for _ in range(self.retries -1):
             try:
                 return self.retry__call__(p, structure)

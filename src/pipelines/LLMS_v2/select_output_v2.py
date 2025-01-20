@@ -15,4 +15,5 @@ class Pipeline:
              p : PROMPT,
              e : SELECT
              ) -> dict:
+        p.truncate()
         return e(p.messages, openai_api_key=os.environ.get("openai_api_key"), model=self.model, rerolls=self.rerolls)
