@@ -24,7 +24,7 @@ class Pipeline:
             azure_endpoint=os.getenv("AZURE_OPENAI_ENDPOINT")
         )
         completion = client.beta.chat.completions.parse(
-            model="gpt-4o-2024-08-06",
+            model=self.model,
             messages=p.messages,
             temperature=self.temperature,
             top_p=self.top_p,
