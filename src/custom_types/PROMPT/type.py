@@ -7,7 +7,7 @@ class PROMPT:
     def add(self, message : str, 
             role : Literal["user", "system", "assistant"] = "user"):
         self.messages.append({"role" : role, "content" : message})
-    def truncate(self, max_chars: int):
+    def truncate(self, max_chars: int = 480000 ):
         """
         Truncates messages to ensure the total character count is below max_chars.
         Algorithm:
@@ -20,12 +20,13 @@ class PROMPT:
             return  # Already under the limit
 
         # Keep track of original indexes
-        indexed_messages = list(enumerate(self.messages))
+        indexed_messages = list(range(len(self.messages)))
 
         # Sort messages by the length of their content (descending)
-        indexed_messages.sort(key=lambda item: len(item[1]['content']), reverse=True)
+        indexed_messages.sort(key=lambda item: len(self.messages[item]['content']), reverse=True)
 
-        for index, msg in indexed_messages:
+        for index in indexed_messages:
+            msg = self.messages[index]
             if total_length <= max_chars:
                 break
 
