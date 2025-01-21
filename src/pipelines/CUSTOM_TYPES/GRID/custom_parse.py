@@ -41,9 +41,9 @@ class Pipeline:
         text = text[i0 + len(s):]
         text = text[:text.find(e)]
         dic = robust_safe_load(text)
+        context = dic['grid'].get('context', '')
         dic = dic['grid']['sections']
         rows = []
-        context = dic['grid'].get('context', '')
         for section in dic:
             name = section['name']
             criteria = []
