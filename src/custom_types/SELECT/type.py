@@ -1,5 +1,5 @@
 from pydantic import BaseModel, Field, create_model
-from typing import Literal, List, Any, Union
+from typing import Literal, List, Any, Union, Optional
 import random, json, openai
 from tqdm.auto import tqdm
 
@@ -38,6 +38,7 @@ def special_join(vals : List[str]) -> str:
     return '- ' + '\n- '.join(vals)
    
 class SELECT(BaseModel):
+    context: Optional[str] = ''
     selection_criteria : List[Union[ExclusionCriteria, InclusionCriteria]] = Field(..., description = "List of selection criteria") 
     
     def get_model(self):
