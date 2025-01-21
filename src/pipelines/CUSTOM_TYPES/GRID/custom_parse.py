@@ -2,7 +2,35 @@ from typing import List
 from custom_types.GRID.type import GRID, GRID_SECTION, NOTATION_CRITERIA, POSSIBLE_VALUE
 import pandas as pd
 from pipelines.utils.yaml import robust_safe_load
-    
+""" 
+```yaml
+grid:
+  context: define thoroughly any global context that could be useful to an examiner or user of this grid.
+  sections:
+    - name: section1
+      criteria:
+        - name: criterion1
+          definition: define quickly the criteria and its purpose
+          possible-values:
+            - value: 0
+              description: 0 means blablabla
+            - value: 1
+              description: 1 means blablabla
+            - value: 2
+              description: 2 means blablabla
+        - name: criterion2
+          definition: define quickly the criteria and its purpose
+          possible-values:
+            - value: 0
+              description: 0 means blablabla
+            - value: 1
+              description: 1 means blablabla
+            - value: 2
+              description: 2 means blablabla
+    - name: section2
+    # ...
+```
+"""
 class Pipeline:
     def __init__(self):
         pass
@@ -15,6 +43,7 @@ class Pipeline:
         dic = robust_safe_load(text)
         dic = dic['grid']['sections']
         rows = []
+        context = dic['grid'].get('context', '')
         for section in dic:
             name = section['name']
             criteria = []
@@ -25,4 +54,4 @@ class Pipeline:
                     possible_values = [POSSIBLE_VALUE(value = pv['value'], definition = pv['description']) for pv in _criteria['possible-values']]
                 ))
             rows.append(GRID_SECTION(name = name, rows = criteria))
-        return GRID(rows = rows)
+        return GRID(context = context, rows = rows)
