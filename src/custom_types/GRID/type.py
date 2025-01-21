@@ -1,5 +1,5 @@
-from typing import List, Dict, Any
-from pydantic import BaseModel
+from typing import List, Dict, Any, Optional
+from pydantic import BaseModel, Field
 import json
 
 class POSSIBLE_VALUE(BaseModel):
@@ -16,6 +16,7 @@ class GRID_SECTION(BaseModel):
     rows: List[NOTATION_CRITERIA]
     
 class GRID(BaseModel):
+    context: Optional[str] = Field('', title="Context", description="Additional information about the grid")
     rows: List[GRID_SECTION]
     def to_dict(self):
         return self.dict()
