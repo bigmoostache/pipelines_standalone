@@ -9,6 +9,7 @@ class TINY_BIB(BaseModel):
     date : Optional[str] = Field(..., description = "Publication Date, format DD-MM-YYYY")
     journal : Optional[str] = Field(..., description = "Article journal")
     authors : List[str] = Field(..., description = "Article authors")
+    reference: Optional[str] = Field('', description = "Article reference, APA format. As complete as possible")
     
 class Converter:
     @staticmethod
