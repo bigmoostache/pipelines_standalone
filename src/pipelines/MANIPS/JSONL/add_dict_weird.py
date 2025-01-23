@@ -1,5 +1,5 @@
 
-from custom_types.JSONL.type import JSONL    
+from custom_types.JSONL.type import JSONL
 class Pipeline:
     def __init__(self, jsonl_param:str, new_param_name : str):
         self.jsonl_param = jsonl_param
