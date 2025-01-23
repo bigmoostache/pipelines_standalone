@@ -2,6 +2,8 @@ import re, string
 from typing import List
 
 def simplify(text : str) -> str:
+    if not isinstance(text, str):
+        return text
     # lower, remove punctuation, remove multiple spaces, strip, remove accents
     res = re.sub(r'\s+', ' ', text.lower().translate(str.maketrans('', '', string.punctuation))).strip()
     # accents -> convert to same character without accent using re

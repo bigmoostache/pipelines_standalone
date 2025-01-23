@@ -3,6 +3,8 @@ from custom_types.JSONL.type import JSONL
 
 
 def simplify(text : str) -> str:
+    if not isinstance(text, str):
+        return text
     if not text:
         return text
     # lower, remove punctuation, remove multiple spaces, strip, remove accents
