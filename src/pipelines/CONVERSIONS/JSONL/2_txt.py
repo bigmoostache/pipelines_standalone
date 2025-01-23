@@ -36,15 +36,30 @@ class Pipeline:
     def __init__(self,
                  formatting : str,
                  sort_by : str = None,
-                 joiner:str = "\n"
+                 joiner:str = "\n",
+                 grouped: bool = False,
+                 group_by: str = None,
+                 group_format: str = None,
+                 group_joiner: str = "\n"
                  ):
         self.format = formatting
         self.joiner = joiner
         self.sort_by = sort_by
+        self.grouped = grouped
+        self.group_by = group_by
+        self.group_header_format = group_format
+        self.group_joiner = group_joiner
         
     def __call__(self, jsonl : JSONL) -> str:
         lines = jsonl.lines
         if self.sort_by:
             lines = sorted(lines, key=lambda x: x.get(self.sort_by, 0))
-        x = [execute_and_replace(_, self.format) for _ in lines]
+        if not self.grouped:
+            x = [execute_and_replace(_, self.format) for _ in lines]
+        else:
+            _groups = list(set([_[self.group_by] for _ in lines]))
+            groups = {g:[_ for _ in lines if _[self.group_by] == g] for g in _groups}
+            groups_headers = [execute_and_replace(groups[g][0], self.group_header_format) for g in _groups]
+            groupds_lines = [self.group_joiner.join([execute_and_replace(_, self.format) for _ in groups[g]]) for g in _groups]
+            x = [f"{groups_headers[i]}\n{groupds_lines[i]}" for i in range(len(groups))]
         return self.joiner.join(x)

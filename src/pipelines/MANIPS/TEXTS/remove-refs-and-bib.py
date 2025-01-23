@@ -34,6 +34,7 @@ def process(text):
 
 def remove_refs(text):
     text = re.sub(r'\[\s*\d+\s*\]', '', text)
+    text = re.sub(r'\[\s*\d+(?:\s*,\s*\d+)*\s*\]', '', text)
     return text
 
 class Pipeline:
