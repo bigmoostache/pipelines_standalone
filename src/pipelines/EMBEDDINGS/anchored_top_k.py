@@ -91,6 +91,7 @@ class Pipeline:
                 elements_per_group : int = 1,
                 min_elements_per_list : int = 1,
                 assigned_to_key : str = 'assigned_to',
+                max_total_assignments : int = 0,
                 **kwargs : dict
                 ):
         self.__dict__.update(locals())
@@ -147,6 +148,11 @@ class Pipeline:
         )
         for chunk in _chunks.lines:
             chunk[self.assigned_to_key] = None
+        if self.max_total_assignments > 0:
+            # only keep the ones with max affinity
+            scores = [result_matrix[assignment['chunk_id']][assignment['group_id']] for assignment in assignments['assignments']]
+            sorted_indexes = np.argsort(scores)[::-1][:self.max_total_assignments]
+            assignments['assignments'] = [assignments['assignments'][i] for i in sorted_indexes]
         for assignment in assignments['assignments']:
             _chunks.lines[assignment['chunk_id']][self.assigned_to_key] = assignment['group_id']
             _chunks.lines[assignment['chunk_id']][self.assigned_to_key+'_score'] = result_matrix[assignment['chunk_id']][assignment['group_id']]
