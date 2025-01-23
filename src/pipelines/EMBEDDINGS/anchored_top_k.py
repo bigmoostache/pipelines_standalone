@@ -99,7 +99,7 @@ class Pipeline:
     def __call__(self, 
                 sections : JSONL,
                 chunks : JSONL
-                ) -> dict:
+                ) -> JSONL:
         _chunks = chunks # Save the original chunks
         # Client and utility functions
         client = openai.OpenAI(api_key=os.environ.get("openai_api_key"))
