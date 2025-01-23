@@ -37,6 +37,6 @@ class Pipeline:
         else:
             res = [d for d in jsonl.lines if simplify(d.get(self.jsonl_param, "")) != self.jsonl_value]
         if self.remove_nans:
-            res = [d for d in jsonl.lines if d.get(self.jsonl_param, None)]
+            res = [d for d in jsonl.lines if d.get(self.jsonl_param, None) is not None]
         return JSONL(lines = res)
         
