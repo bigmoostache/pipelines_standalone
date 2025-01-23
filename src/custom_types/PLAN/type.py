@@ -1,76 +1,29 @@
 import json
 import base64
-from dataclasses import dataclass, field, asdict, fields
-from typing import List, Optional, Any, Dict
-from custom_types.JSON.type import BytesEncoder, bytes_decoder
-@dataclass
-class Reference:
-    source_id    : str
-    start        : int
-    end          : int
-    comment      : str
-    score        : int # sur 100
-    user_frozen  : bool
-    
-@dataclass
-class Source:
-    id                  : str
-    title               : str
-    full_text           : str
-    citation            : str
-    figures             : List['Figure']
-    penalization_factor : int
+from typing import List, Optional, Union, Literal
+from pydantic import BaseModel, Field
 
-@dataclass
-class Figure:
-    title              : str
-    comment            : str
-    source_id          : str
-    source_is_internal : bool                  # If internal, source_id should be the id of one of the sources
-    contents           : Optional[bytes]
-    user_feedback      : Optional[str]         # If set title and comment will be iterated. Context will be taken into account.
+class Leaf(BaseModel):
+    leaf_bullet_points     : List[str] = Field(..., description = 'Bullet points of topics covered. Provide at least 10, or you will fail at this task.')
+class Node(BaseModel):
+    subsections : List['Plan'] = Field(..., description = 'Subsections of this node')
+class Plan(BaseModel):
+    prefix                 : str = Field(..., description = 'Title prefix, which has to follow one of the following regex expression: Regex(#) (for root), Regex(## [A-Z]\.) (for depth = 1, example: ## A.), or Regex(### [A-Z]\.\d+\.)" (depth = 2, example: ### A.1.) or Regex(#### [A-Z]\.\d+\.[a-z]\.) (depth = 3. example: #### A.1.a.) or Regex(##### [A-Z]\.\d+\.[a-z]\.\d+\)) (depth = 4, example: #### A.1.a.1)), etc. If you fail at following this exact pattern, you will fail at this task and receive a grade of zero.')
+    title                  : str = Field(..., description = 'Title for this section. Do not re-specify the prefix.')
+    abstract               : str = Field(..., description = 'Short abstract of the sections\'s expected content')
+    section_type           : Literal['root', 'node', 'leaf'] = Field(..., description = 'root if root of the whole document, leaf if this section is meant to have subsections, and leaf otherwise.')
+    contents               : Union[Leaf, Node] = Field(..., description = 'leaf bullet points if section type = leaf, and subsections if section type = node or root')
 
-
-@dataclass
-class Section:
-    title                  : str
-    title_feedback         : Optional[str] # If set, title will be iterated 
-
-    abstract               : str
-    abstract_feedback      : Optional[str] # If set, abstract will be iterated
-
-    themes                 : List[str]
-    themes_feedback        : Optional[str] # If set, themes will be iterated
-
-    references             : List[Reference]
-    references_feedback    : Optional[str] # If set, references will be recalculated
-
-    redaction_directives   : Optional[str]
-    full_text              : Optional[str]
-
-    figures                : List[Figure]
-
-    subsections_feedback   : str           # BE CAREFUL, IF SET, WILL OVERWRITE THE SUBSECTIONS WITH A NEW AI-GENERATED PROPOSITION
-    subsections            : List['Section'] = field(default_factory=list)
-    
-@dataclass
-class Plan:
-    contents  : Section
-    sources   : List[Source]
 
 class Converter:
     @staticmethod
     def to_bytes(article : Plan) -> bytes:
-        return bytes(json.dumps(asdict(article), cls=BytesEncoder), 'utf-8')
+        return bytes(json.dumps(article.to_dict()), encoding = 'utf-8')
 
     @staticmethod
     def from_bytes(b: bytes) -> Plan:
-        loaded_str = b.decode('utf-8')
-        return Plan(**json.loads(loaded_str, object_hook=bytes_decoder))
-    @staticmethod
-    def str_preview(article : Plan) -> str:
-        return json.dumps(asdict(article), cls=BytesEncoder, indent = 1)
-    
+        return Plan.parse_obj(json.loads(b.decode('utf-8')))
+
     @staticmethod
     def len(article : Plan) -> int:
         return 1
@@ -80,5 +33,5 @@ wraped = TYPE(
     extension='plan',
     _class = Plan,
     converter = Converter,
-    icon="roadmap"
+    icon='/micons/deepsource.svg'
 )
