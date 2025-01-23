@@ -14,6 +14,9 @@ class Plan(BaseModel):
     section_type           : Literal['root', 'node', 'leaf'] = Field(..., description = 'root if root of the whole document, leaf if this section is meant to have subsections, and leaf otherwise.')
     contents               : Union[Leaf, Node] = Field(..., description = 'leaf bullet points if section type = leaf, and subsections if section type = node or root')
 
+    def aggregate_bullet_points(self, path = ()) -> List[str]:
+        return [{'bullets':[_ for _ in self.contents.leaf_bullet_points], 'path':path}] if self.section_type == 'leaf' else [__ for i,_ in enumerate(self.contents.subsections) for __ in _.aggregate_bullet_points(path + (i,))]
+    
 class Converter:
     @staticmethod
     def to_bytes(article : Plan) -> bytes:
