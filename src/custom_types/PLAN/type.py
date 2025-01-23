@@ -1,6 +1,6 @@
 import json
 import base64
-from typing import List, Optional, Union, Literal
+from typing import List, Union, Literal
 from pydantic import BaseModel, Field
 
 class Leaf(BaseModel):

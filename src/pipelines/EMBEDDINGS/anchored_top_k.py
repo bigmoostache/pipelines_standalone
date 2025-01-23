@@ -64,7 +64,13 @@ def solve_affinity_assignment(affinity_matrix, list_of_elements, M, N, P):
         for i in range(num_elements):
             for j in range(m):
                 if pulp.value(x[(i, j)]) == 1:
-                    chosen_assignments.append((i, j))
+                    chosen_assignments.append(
+                        {
+                            'chunk_id' : i,
+                            'group_id' : j,
+                            'document_id' : list_of_elements[i]
+                        }
+                    )
     
     return {
         "status": status_str,
@@ -84,6 +90,7 @@ class Pipeline:
                 max_groups_per_element : int = 1,
                 elements_per_group : int = 1,
                 min_elements_per_list : int = 1,
+                assigned_to_key : str = 'assigned_to',
                 **kwargs : dict
                 ):
         self.__dict__.update(locals())
@@ -93,6 +100,7 @@ class Pipeline:
                 sections : JSONL,
                 chunks : JSONL
                 ) -> dict:
+        _chunks = chunks # Save the original chunks
         # Client and utility functions
         client = openai.OpenAI(api_key=os.environ.get("openai_api_key"))
         def get_embeddings_in_chunks(texts, model, chunk_size=1024):
@@ -105,8 +113,8 @@ class Pipeline:
                     response = client.embeddings.create(input=['no data here'] * len(chunk), model=model).data
                 embeddings.extend(response)
             return np.array([x.embedding for x in embeddings])
-        
         # Embedding the chunks
+        document_indexes = [_[self.chunk_document_id_key] for _ in chunks.lines]
         chunks = [e[self.chunk_key] for e in chunks.lines]
         embeddings = get_embeddings_in_chunks(chunks, self.embedding_model)
         
@@ -118,27 +126,28 @@ class Pipeline:
         ]
         embeddings_bullet_points = get_embeddings_in_chunks([e[1] for e in elements], self.embedding_model)
         dot_product_matrix = np.dot(embeddings, embeddings_bullet_points.T)
-        bullet_points_matrix = dot_product_matrix.mean(axis = 1)
-        
-        # Building the affinity matrix
-        bullet_points_idx = [e[0] for e in elements]
-        bullet_points_idx = np.array(bullet_points_idx)
+        bullet_points_idx = [_[0] for _ in elements]
         unique_groups = np.unique(bullet_points_idx)
         n_groups = len(unique_groups)
-        affinity_matrix = np.zeros((dot_product_matrix.shape[0], n_groups))
+        result_matrix = np.zeros((dot_product_matrix.shape[0], n_groups))
 
         # Aggregate by taking the mean for each group
         for i, group in enumerate(unique_groups):
             group_mask = (bullet_points_idx == group)  # Mask for columns belonging to the current group
             group_mean = dot_product_matrix[:, group_mask].mean(axis=1)
-            affinity_matrix[:, i] = group_mean
-            
+            result_matrix[:, i] = group_mean
+
         # Solving the assignment problem
         assignments = solve_affinity_assignment(
-            affinity_matrix, 
-            list_of_elements=bullet_points_idx,
+            result_matrix, 
+            list_of_elements=document_indexes,
             M=self.max_groups_per_element,
             N=self.elements_per_group,
             P=self.min_elements_per_list
         )
-        return assignments
+        for chunk in _chunks.lines:
+            chunk[self.assigned_to_key] = None
+        for assignment in assignments['assignments']:
+            _chunks.lines[assignment['chunk_id']][self.assigned_to_key] = assignment['group_id']
+            _chunks.lines[assignment['chunk_id']][self.assigned_to_key+'_score'] = result_matrix[assignment['chunk_id']][assignment['group_id']]
+        return _chunks
