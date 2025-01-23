@@ -117,5 +117,5 @@ class Pipeline:
                     _chunks[-1] = _chunks[-1][::-1]
 
         chunks = [(' '.join(_)).replace('  ', ' ').replace('\n ', '\n') for _  in _chunks[::-1]]
-        return JSONL(lines=[{'text': _} for _ in chunks])
+        return JSONL(lines=[{'text': _, 'chunk_id':i} for i,_ in enumerate(chunks)])
         
