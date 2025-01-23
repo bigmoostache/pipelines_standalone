@@ -1,42 +1,34 @@
-feature-1:
-  type: integer
-  required: true
-  description: some description
-feature-2:
-  type: string # possible types: string, integer, float, boolean, enum or list. The type object is not allowed. The type object IS NOT A VALID TYPE
-  required: false # use required ONLY if the field is mandatory, used to uniquely identify the feature, or if it is 99% sure to be found in the document
-  description: some description
-example-enumeration:
-  type: enum
-  required: true
-  description: some description
-  values: # list accepted values
-    - value1
-    - value2
-    - value3
-example-list:
-  type: list
-  required: true # lists are always required
-  description: some description
-  features:
-    - feature-1:
-        type: integer
-        required: true # the 1st feature is should always be required, as it shall identify the object
-        description: some description
-    - feature-2:
-        type: string
-        required: false
-        description: some description
-    - example-nested-list: # lists can be nested. The same rules apply
-        type: list
-        required: true
-        description: some description
-        features:
-          - feature-1:
-              type: integer
-              required: true
-              description: some description
-          - feature-2:
-              type: string
-              required: false
-              description: some description
+document:
+  prefix: '#'
+  title: 'Some title'
+  abstract: '...'
+  type: branch # branches have sections, but no bullet-points
+  sections:
+  - prefix: '##'
+    title: 'Some title, like "Introduction"'
+    abstract: '...'
+    type: leaf # and leaves have bullet-points, but no sections
+    bullet-points:
+    - '...'
+    - '...'
+  - prefix: '## 1.'
+    title: 'Subsection title'
+    abstract: <content of the section>
+    type: branch
+    sections:
+    - prefix: '### a.'
+      title: '...'
+      abstract: '...'
+      type: leaf
+      bullet-points:
+      - '...'
+      - '...'
+  # ... and so on
+  - prefix: '##'
+    title: 'Conclusion'
+    abstract: '...'
+    type: leaf
+    bullet-points:
+    - '...'
+    - '...'
+    - '...'

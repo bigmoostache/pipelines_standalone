@@ -14,11 +14,10 @@ class Plan(BaseModel):
     section_type           : Literal['root', 'node', 'leaf'] = Field(..., description = 'root if root of the whole document, leaf if this section is meant to have subsections, and leaf otherwise.')
     contents               : Union[Leaf, Node] = Field(..., description = 'leaf bullet points if section type = leaf, and subsections if section type = node or root')
 
-
 class Converter:
     @staticmethod
     def to_bytes(article : Plan) -> bytes:
-        return bytes(json.dumps(article.to_dict()), encoding = 'utf-8')
+        return bytes(json.dumps(article.dict()), encoding = 'utf-8')
 
     @staticmethod
     def from_bytes(b: bytes) -> Plan:
