@@ -31,3 +31,4 @@ newspaper3k
 XlsxWriter
 tiktoken
 pyyaml
+pulp

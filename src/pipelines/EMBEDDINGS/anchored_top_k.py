@@ -1,0 +1,144 @@
+from typing import List 
+import openai, os, numpy as np
+from custom_types.JSONL.type import JSONL
+import pulp
+
+def solve_affinity_assignment(affinity_matrix, list_of_elements, M, N, P):
+    """
+    Solve the assignment problem:
+    
+    - affinity_matrix: 2D list (or NumPy array) of shape [num_elements, m_groups].
+    - list_of_elements: 1D list of length num_elements indicating which list each element is in.
+    - M: max number of groups each element can be assigned to.
+    - N: number of elements each group must receive.
+    - P: minimum total assignments required from each list.
+    
+    Returns:
+        A dictionary with:
+          - 'status': solver status (str)
+          - 'objective_value': maximum total affinity (float)
+          - 'assignments': list of (i, j) pairs where x_{i j} = 1
+    """
+    num_elements = len(affinity_matrix)
+    if num_elements == 0:
+        return {"status": "NoData", "objective_value": 0, "assignments": []}
+    
+    m = len(affinity_matrix[0])  # number of groups
+    
+    # Create PuLP problem
+    problem = pulp.LpProblem("AffinityAssignment", pulp.LpMaximize)
+    
+    # Decision variables: x[i,j] in {0,1}
+    x = {}
+    for i in range(num_elements):
+        for j in range(m):
+            x[(i, j)] = pulp.LpVariable(name=f"x_{i}_{j}", cat=pulp.LpBinary)
+    
+    # Objective: maximize sum of a_{i j} * x_{i j}
+    problem += pulp.lpSum(affinity_matrix[i][j] * x[(i, j)]
+                          for i in range(num_elements)
+                          for j in range(m)), "TotalAffinity"
+    
+    # 1) Each element i can be assigned to at most M groups
+    for i in range(num_elements):
+        problem += pulp.lpSum(x[(i, j)] for j in range(m)) <= M, f"ElementMaxGroups_{i}"
+    
+    # 2) Each group j must have exactly N elements
+    for j in range(m):
+        problem += pulp.lpSum(x[(i, j)] for i in range(num_elements)) == N, f"GroupSize_{j}"
+    
+    # 3) Each list k must have at least P assigned elements
+    all_lists = set(list_of_elements)
+    for k in all_lists:
+        indices_in_list_k = [i for i in range(num_elements) if list_of_elements[i] == k]
+        problem += pulp.lpSum(x[(i, j)] for i in indices_in_list_k for j in range(m)) >= P, f"ListAtLeastP_{k}"
+    
+    # Solve
+    solver = pulp.PULP_CBC_CMD(msg=0)
+    result_status = problem.solve(solver)
+    status_str = pulp.LpStatus[result_status]
+    
+    objective_value = pulp.value(problem.objective)
+    chosen_assignments = []
+    if status_str in ("Optimal", "Feasible"):
+        for i in range(num_elements):
+            for j in range(m):
+                if pulp.value(x[(i, j)]) == 1:
+                    chosen_assignments.append((i, j))
+    
+    return {
+        "status": status_str,
+        "objective_value": objective_value,
+        "assignments": chosen_assignments
+    }
+
+
+class Pipeline:
+    __env__ = ["openai_api_key"]
+    def __init__(self,
+                embedding_model : str = 'text-embedding-3-large',
+                anchor_key : str = 'anchors',
+                anchor_expect_lists : bool = True,
+                chunk_key : str = 'text',
+                chunk_document_id_key : str = 'document_id',
+                max_groups_per_element : int = 1,
+                elements_per_group : int = 1,
+                min_elements_per_list : int = 1,
+                **kwargs : dict
+                ):
+        self.__dict__.update(locals())
+        self.__dict__.pop("self")
+
+    def __call__(self, 
+                sections : JSONL,
+                chunks : JSONL
+                ) -> dict:
+        # Client and utility functions
+        client = openai.OpenAI(api_key=os.environ.get("openai_api_key"))
+        def get_embeddings_in_chunks(texts, model, chunk_size=1024):
+            embeddings = []
+            for i in range(0, len(texts), chunk_size):
+                chunk = texts[i:i + chunk_size]
+                try:
+                    response = client.embeddings.create(input=chunk, model=model).data
+                except:
+                    response = client.embeddings.create(input=['no data here'] * len(chunk), model=model).data
+                embeddings.extend(response)
+            return np.array([x.embedding for x in embeddings])
+        
+        # Embedding the chunks
+        chunks = [e[self.chunk_key] for e in chunks.lines]
+        embeddings = get_embeddings_in_chunks(chunks, self.embedding_model)
+        
+        # Embedding the sections
+        elements = [
+            (i, e)
+            for i,_ in enumerate(sections.lines)
+            for e in _.get(self.anchor_key, [])
+        ]
+        embeddings_bullet_points = get_embeddings_in_chunks([e[1] for e in elements], self.embedding_model)
+        dot_product_matrix = np.dot(embeddings, embeddings_bullet_points.T)
+        bullet_points_matrix = dot_product_matrix.mean(axis = 1)
+        
+        # Building the affinity matrix
+        bullet_points_idx = [e[0] for e in elements]
+        bullet_points_idx = np.array(bullet_points_idx)
+        unique_groups = np.unique(bullet_points_idx)
+        n_groups = len(unique_groups)
+        affinity_matrix = np.zeros((dot_product_matrix.shape[0], n_groups))
+
+        # Aggregate by taking the mean for each group
+        for i, group in enumerate(unique_groups):
+            group_mask = (bullet_points_idx == group)  # Mask for columns belonging to the current group
+            group_mean = dot_product_matrix[:, group_mask].mean(axis=1)
+            affinity_matrix[:, i] = group_mean
+            
+        # Solving the assignment problem
+        assignments = solve_affinity_assignment(
+            affinity_matrix, 
+            list_of_elements=bullet_points_idx,
+            M=self.max_groups_per_element,
+            N=self.elements_per_group,
+            P=self.min_elements_per_list
+        )
+        return assignments
