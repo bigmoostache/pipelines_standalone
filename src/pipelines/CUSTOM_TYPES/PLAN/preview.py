@@ -20,8 +20,6 @@ class Pipeline:
                     bullets = '\t- ' + '\n\t- '.join(plan.contents.leaf_bullet_points)
                 else:
                     bullets = ''
-                abstract = plan.abstract
-                title = plan.title
                 r = f'{plan.prefix} {plan.title}\n\t{plan.abstract}\n{bullets}'
                 if not isfocus:
                     return r

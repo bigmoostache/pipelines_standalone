@@ -2,7 +2,7 @@ import openai
 from typing import List
 import os 
 from custom_types.PROMPT.type import PROMPT
-from custom_types.PLAN.type import Plan
+from custom_types.PLAN.type import Plan, PlanForLLM
 
 class Pipeline:
     __env__ = ["openai_api_key"]
@@ -29,6 +29,6 @@ class Pipeline:
             messages=p.messages,
             temperature=self.temperature,
             top_p=self.top_p,
-            response_format=Plan
+            response_format=PlanForLLM
         )
         return completion.choices[0].message.parsed

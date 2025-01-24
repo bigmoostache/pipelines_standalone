@@ -1,5 +1,5 @@
 import json
-from typing import List, Union, Literal
+from typing import List, Union, Literal, Optional
 from pydantic import BaseModel, Field
 from uuid import uuid4
 
@@ -7,7 +7,7 @@ class Leaf(BaseModel):
     leaf_bullet_points     : List[str] = Field(..., description = 'Bullet points of topics covered. Provide at least 10, or you will fail at this task.')
 class Node(BaseModel):
     subsections : List['Plan'] = Field(..., description = 'Subsections of this node')
-class Plan(BaseModel):
+class PlanForLLM(BaseModel):
     section_id             : str = Field(..., description = 'Unique identifier for this plan. It can be anything, as long as it is unique within the document.')
     prefix                 : str = Field(..., description = 'Title prefix, examples: "#", "## 1.", "### 1.1.", etc. It can be letters, numbers, or nothing at all, as long as it is consistent throughout the document. Do not include the title itself.')
     title                  : str = Field(..., description = 'Title for this section. Do not re-specify the prefix.')
@@ -18,19 +18,19 @@ class Plan(BaseModel):
     def get_leaves(self) -> List['Plan']:
         return [self] if self.section_type == 'leaf' else [__ for _ in self.contents.subsections for __ in _.get_leaves()]
     def aggregate_bullet_points(self, path = ()) -> List[dict]:
-        leaves = self.get_leaves()
-        leaves = [_ for _ in leaves if _.section_type == 'leaf']
+        leaves = [_ for _ in self.get_leaves() if _.section_type == 'leaf']
         leaves = [_.dict() for _ in leaves]
         for _ in leaves:
             _['bullets'] = _['contents']['leaf_bullet_points']
         return leaves
-    def set_ids_to_unique_uuids(self) -> 'Plan':
+    def set_ids_to_unique_uuids(self):
         self.section_id = str(uuid4())
-        if self.section_type == 'leaf':
-            return
-        for i, _ in enumerate(self.contents.subsections):
-            _.set_ids_to_unique_uuids()
-        return self
+        if self.section_type != 'leaf':
+            for _ in self.contents.subsections:
+                _.set_ids_to_unique_uuids()
+
+class Plan(PlanForLLM):
+    feedback : Optional[str] = Field(None, description = 'Feedback from the reviewer')
     
 class Converter:
     @staticmethod
