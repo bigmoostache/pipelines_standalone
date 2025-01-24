@@ -92,6 +92,7 @@ class Pipeline:
                 min_elements_per_list : int = 1,
                 assigned_to_key : str = 'assigned_to',
                 max_total_assignments : int = 0,
+                additional_id_key : str = None, 
                 **kwargs : dict
                 ):
         self.__dict__.update(locals())
@@ -153,7 +154,12 @@ class Pipeline:
             scores = [result_matrix[assignment['chunk_id']][assignment['group_id']] for assignment in assignments['assignments']]
             sorted_indexes = np.argsort(scores)[::-1][:self.max_total_assignments]
             assignments['assignments'] = [assignments['assignments'][i] for i in sorted_indexes]
+        
         for assignment in assignments['assignments']:
-            _chunks.lines[assignment['chunk_id']][self.assigned_to_key] = assignment['group_id']
-            _chunks.lines[assignment['chunk_id']][self.assigned_to_key+'_score'] = result_matrix[assignment['chunk_id']][assignment['group_id']]
+            chunk_id = assignment['chunk_id']
+            group_id = assignment['group_id']
+            _chunks.lines[chunk_id][self.assigned_to_key] = group_id
+            _chunks.lines[chunk_id][self.assigned_to_key+'_score'] = result_matrix[chunk_id][group_id]
+            if self.additional_id_key:
+                _chunks.lines[chunk_id][self.additional_id_key] = sections.lines[group_id][self.additional_id_key]
         return _chunks
