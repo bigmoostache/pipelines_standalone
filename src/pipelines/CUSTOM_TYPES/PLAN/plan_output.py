@@ -3,8 +3,8 @@ from typing import List
 import os 
 from custom_types.PROMPT.type import PROMPT
 from custom_types.PLAN.type import Plan
-from pydantic import BaseModel, Field, Literal, Union
-from typing import List
+from typing import List, Union, Literal, Optional
+from pydantic import BaseModel, Field
 
 class Leaf(BaseModel):
     leaf_bullet_points     : List[str] = Field(..., description = 'Bullet points of topics covered. Provide at least 10, or you will fail at this task.')
