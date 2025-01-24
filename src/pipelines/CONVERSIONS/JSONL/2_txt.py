@@ -37,6 +37,7 @@ class Pipeline:
                  formatting : str,
                  sort_by : str = None,
                  joiner:str = "\n",
+                 
                  grouped: bool = False,
                  group_by: str = None,
                  group_format: str = None,

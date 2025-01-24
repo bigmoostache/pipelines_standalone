@@ -51,5 +51,8 @@ wraped = TYPE(
     extension='plan',
     _class = Plan,
     converter = Converter,
+    additional_converters={
+        'json': lambda x: x.dict()
+        },
     icon='/micons/deepsource.svg'
 )
