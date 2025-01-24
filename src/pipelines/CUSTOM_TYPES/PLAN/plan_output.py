@@ -2,7 +2,22 @@ import openai
 from typing import List
 import os 
 from custom_types.PROMPT.type import PROMPT
-from custom_types.PLAN.type import Plan, PlanForLLM
+from custom_types.PLAN.type import Plan
+from pydantic import BaseModel, Field, Literal, Union
+from typing import List
+
+class Leaf(BaseModel):
+    leaf_bullet_points     : List[str] = Field(..., description = 'Bullet points of topics covered. Provide at least 10, or you will fail at this task.')
+class Node(BaseModel):
+    subsections : List['Plan'] = Field(..., description = 'Subsections of this node')
+class PlanForLLM(BaseModel):
+    section_id             : str = Field(..., description = 'Unique identifier for this plan. It can be anything, as long as it is unique within the document.')
+    prefix                 : str = Field(..., description = 'Title prefix, examples: "#", "## 1.", "### 1.1.", etc. It can be letters, numbers, or nothing at all, as long as it is consistent throughout the document. Do not include the title itself.')
+    title                  : str = Field(..., description = 'Title for this section. Do not re-specify the prefix.')
+    abstract               : str = Field(..., description = 'Short abstract of the sections\'s expected content')
+    section_type           : Literal['root', 'node', 'leaf'] = Field(..., description = 'root if root of the whole document, leaf if this section is meant to have subsections, and leaf otherwise.')
+    contents               : Union[Leaf, Node] = Field(..., description = 'leaf bullet points if section type = leaf, and subsections if section type = node or root')
+
 
 class Pipeline:
     __env__ = ["openai_api_key"]
