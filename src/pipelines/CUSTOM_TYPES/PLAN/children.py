@@ -1,3 +1,4 @@
+from typing import List
 from custom_types.JSONL.type import JSONL
 from custom_types.PLAN.type import Plan
 
@@ -8,5 +9,5 @@ class Pipeline:
     
     def __call__(self, 
             p : Plan
-            ) -> JSONL:
-        return JSONL(lines = p.aggregate_bullet_points())
+            ) -> List[Plan]:
+        return p.get_leaves()

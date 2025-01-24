@@ -2,12 +2,14 @@ import json
 import base64
 from typing import List, Union, Literal
 from pydantic import BaseModel, Field
+from uuid import uuid4
 
 class Leaf(BaseModel):
     leaf_bullet_points     : List[str] = Field(..., description = 'Bullet points of topics covered. Provide at least 10, or you will fail at this task.')
 class Node(BaseModel):
     subsections : List['Plan'] = Field(..., description = 'Subsections of this node')
 class Plan(BaseModel):
+    id                     : str = Field(..., description = 'Unique identifier for this plan. It can be anything, as long as it is unique within the document.')
     prefix                 : str = Field(..., description = 'Title prefix, examples: "#", "## 1.", "### 1.1.", etc. It can be letters, numbers, or nothing at all, as long as it is consistent throughout the document. Do not include the title itself.')
     title                  : str = Field(..., description = 'Title for this section. Do not re-specify the prefix.')
     abstract               : str = Field(..., description = 'Short abstract of the sections\'s expected content')
@@ -16,6 +18,15 @@ class Plan(BaseModel):
 
     def aggregate_bullet_points(self, path = ()) -> List[str]:
         return [{'bullets':[_ for _ in self.contents.leaf_bullet_points], 'path':path}] if self.section_type == 'leaf' else [__ for i,_ in enumerate(self.contents.subsections) for __ in _.aggregate_bullet_points(path + (i,))]
+    def get_leaves(self) -> List['Plan']:
+        return [self] if self.section_type == 'leaf' else [__ for _ in self.contents.subsections for __ in _.get_leaves()]
+    def set_ids_to_unique_uuids(self) -> 'Plan':
+        self.id = str(uuid4())
+        if self.section_type == 'leaf':
+            return
+        for i, _ in enumerate(self.contents.subsections):
+            _.set_ids_to_unique_uuids()
+        return self
     
 class Converter:
     @staticmethod
