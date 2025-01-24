@@ -8,7 +8,7 @@ class Leaf(BaseModel):
 class Node(BaseModel):
     subsections : List['Plan'] = Field(..., description = 'Subsections of this node')
 class Plan(BaseModel):
-    prefix                 : str = Field(..., description = 'Title prefix, examples: "#", "##", "###", "####", # 1.", "# 2.", "# 3.", "# 4.", etc. Do not include the title itself.')
+    prefix                 : str = Field(..., description = 'Title prefix, examples: "#", "## 1.", "### 1.1.", etc. It can be letters, numbers, or nothing at all, as long as it is consistent throughout the document. Do not include the title itself.')
     title                  : str = Field(..., description = 'Title for this section. Do not re-specify the prefix.')
     abstract               : str = Field(..., description = 'Short abstract of the sections\'s expected content')
     section_type           : Literal['root', 'node', 'leaf'] = Field(..., description = 'root if root of the whole document, leaf if this section is meant to have subsections, and leaf otherwise.')
