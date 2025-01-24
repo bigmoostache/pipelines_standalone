@@ -11,6 +11,10 @@ def robust_safe_load(yaml_text):
     Returns:
         Parsed Python object (dict, list, etc.) if successful, otherwise raises.
     """
+    # Remove code block markers if present
+    if '```yaml' in yaml_text:
+        yaml_text = yaml_text[yaml_text.find('```yaml')+7:]
+        yaml_text = yaml_text[:yaml_text.find('\n```')]
     # replace weird unicode characters that break yaml parser
     yaml_text = yaml_text.replace(' ', ' ').replace(' ', ' ')
     try:
