@@ -148,7 +148,11 @@ class Pipeline:
             P=self.min_elements_per_list
         )
         for chunk in _chunks.lines:
-            chunk[self.assigned_to_key] = None
+            chunk[self.assigned_to_key] = []
+            chunk[self.assigned_to_key+'_score'] = []
+            if self.additional_id_key:
+                chunk[self.additional_id_key] = []
+                
         if self.max_total_assignments > 0:
             # only keep the ones with max affinity
             scores = [result_matrix[assignment['chunk_id']][assignment['group_id']] for assignment in assignments['assignments']]
@@ -158,8 +162,8 @@ class Pipeline:
         for assignment in assignments['assignments']:
             chunk_id = assignment['chunk_id']
             group_id = assignment['group_id']
-            _chunks.lines[chunk_id][self.assigned_to_key] = group_id
-            _chunks.lines[chunk_id][self.assigned_to_key+'_score'] = result_matrix[chunk_id][group_id]
+            _chunks.lines[chunk_id][self.assigned_to_key].append(group_id)
+            _chunks.lines[chunk_id][self.assigned_to_key+'_score'].append(result_matrix[chunk_id][group_id])
             if self.additional_id_key:
-                _chunks.lines[chunk_id][self.additional_id_key] = sections.lines[group_id][self.additional_id_key]
+                _chunks.lines[chunk_id][self.additional_id_key].append(sections.lines[group_id][self.additional_id_key])
         return _chunks

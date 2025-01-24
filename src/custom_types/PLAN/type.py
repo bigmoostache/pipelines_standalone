@@ -18,7 +18,7 @@ class Plan(BaseModel):
 
     def get_leaves(self) -> List['Plan']:
         return [self] if self.section_type == 'leaf' else [__ for _ in self.contents.subsections for __ in _.get_leaves()]
-    def aggregate_bullet_points(self, path = ()) -> List[str]:
+    def aggregate_bullet_points(self, path = ()) -> List[dict]:
         leaves = self.get_leaves()
         leaves = [_ for _ in leaves if _.section_type == 'leaf']
         leaves = [_.dict() for _ in leaves]
