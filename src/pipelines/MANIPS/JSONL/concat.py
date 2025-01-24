@@ -13,5 +13,5 @@ class Pipeline:
         if not self.add_id:
             all_lines = [y for x in jsonl for y in x.lines]
         else:
-            all_lines = [{**y, self.id_column: i} for i, x in enumerate(jsonl) for y in x.lines]
+            all_lines = [{**y, self.id_column: i+1} for i, x in enumerate(jsonl) for y in x.lines]
         return JSONL(all_lines)
