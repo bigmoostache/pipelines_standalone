@@ -16,10 +16,15 @@ class Plan(BaseModel):
     section_type           : Literal['root', 'node', 'leaf'] = Field(..., description = 'root if root of the whole document, leaf if this section is meant to have subsections, and leaf otherwise.')
     contents               : Union[Leaf, Node] = Field(..., description = 'leaf bullet points if section type = leaf, and subsections if section type = node or root')
 
-    def aggregate_bullet_points(self, path = ()) -> List[str]:
-        return [{'bullets':[_ for _ in self.contents.leaf_bullet_points], 'path':path}] if self.section_type == 'leaf' else [__ for i,_ in enumerate(self.contents.subsections) for __ in _.aggregate_bullet_points(path + (i,))]
     def get_leaves(self) -> List['Plan']:
         return [self] if self.section_type == 'leaf' else [__ for _ in self.contents.subsections for __ in _.get_leaves()]
+    def aggregate_bullet_points(self, path = ()) -> List[str]:
+        leaves = self.get_leaves()
+        leaves = [_ for _ in leaves if _.section_type == 'leaf']
+        leaves = [_.dict() for _ in leaves]
+        for _ in leaves:
+            _['bullets'] = _['contents']['leaf_bullet_points']
+        return leaves
     def set_ids_to_unique_uuids(self) -> 'Plan':
         self.section_id = str(uuid4())
         if self.section_type == 'leaf':
