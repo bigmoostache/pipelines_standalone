@@ -9,7 +9,7 @@ class Leaf(BaseModel):
 class Node(BaseModel):
     subsections : List['Plan'] = Field(..., description = 'Subsections of this node')
 class Plan(BaseModel):
-    id                     : str = Field(..., description = 'Unique identifier for this plan. It can be anything, as long as it is unique within the document.')
+    section_id             : str = Field(..., description = 'Unique identifier for this plan. It can be anything, as long as it is unique within the document.')
     prefix                 : str = Field(..., description = 'Title prefix, examples: "#", "## 1.", "### 1.1.", etc. It can be letters, numbers, or nothing at all, as long as it is consistent throughout the document. Do not include the title itself.')
     title                  : str = Field(..., description = 'Title for this section. Do not re-specify the prefix.')
     abstract               : str = Field(..., description = 'Short abstract of the sections\'s expected content')
