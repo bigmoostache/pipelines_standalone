@@ -46,6 +46,7 @@ class Pipeline:
         self.format = formatting
         self.joiner = joiner
         self.sort_by = sort_by
+        
         self.grouped = grouped
         self.group_by = group_by
         self.group_header_format = group_format

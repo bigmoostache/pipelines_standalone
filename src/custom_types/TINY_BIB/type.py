@@ -10,6 +10,7 @@ class TINY_BIB(BaseModel):
     journal : Optional[str] = Field(..., description = "Article journal")
     authors : List[str] = Field(..., description = "Article authors")
     reference: Optional[str] = Field(..., description = "Article reference, APA format. As complete as possible")
+    context: Optional[str] = Field(..., description = "Article context, a brief summary of the article: its objectives, methods, and results. Max 3 sentences.")
     
 class Converter:
     @staticmethod

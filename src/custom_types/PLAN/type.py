@@ -1,5 +1,4 @@
 import json
-import base64
 from typing import List, Union, Literal
 from pydantic import BaseModel, Field
 from uuid import uuid4
