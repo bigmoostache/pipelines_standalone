@@ -29,9 +29,15 @@ class PlanForLLM(BaseModel):
             for _ in self.contents.subsections:
                 _.set_ids_to_unique_uuids()
 
+class Reference(BaseModel):
+    document_hash : str = Field(..., description = 'Hash of the document, to avoid storing the same document multiple times')
+    reference_id : int = Field(..., description = 'Unique identifier for this reference.')
+    citation : str = Field(..., description = 'Citation for the reference')
+
 class Plan(PlanForLLM):
     feedback : Optional[str] = Field(None, description = 'Feedback from the reviewer')
     text : Optional[str] = Field(None, description = 'Text of the section')
+    references : List[Reference] = Field([], description = 'References for the section')
     
 class Converter:
     @staticmethod
