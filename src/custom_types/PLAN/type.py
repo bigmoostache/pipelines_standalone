@@ -21,7 +21,7 @@ class Plan(BaseModel):
     def get_leaves(self) -> List['Plan']:
         return [self] if self.section_type == 'leaf' else [__ for _ in self.contents.subsections for __ in _.get_leaves()]
     def set_ids_to_unique_uuids(self) -> 'Plan':
-        self.id = str(uuid4())
+        self.section_id = str(uuid4())
         if self.section_type == 'leaf':
             return
         for i, _ in enumerate(self.contents.subsections):

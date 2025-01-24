@@ -1,87 +1,87 @@
 {
-    "section_id": "1",
-    "prefix": "",
-    "title": "ABR: State-of-the-art Analysis of ACL and PCL Injuries and Treatment Methods",
-    "abstract": "This comprehensive article delves into the anatomy, pathophysiology, and modern treatment options of ACL and PCL injuries, emphasizing both conservative and surgical interventions. It extensively discusses various fixation methods, including suspension devices, interference screws, and alternatives, addressing both historical perspectives and innovative techniques. The document is structured to cover all critical aspects, catering to researchers, medical professionals, and students.",
+    "section_id": "id-0",
+    "prefix": "#",
+    "title": "Proposed State-of-the-Art Plan",
+    "abstract": "This document will explore the clinical background, historical development, and present-day treatment scenarios for ACL and PCL injuries. Emphasis will be placed on fixation methods, comparing suspension devices and other alternatives. The objective is to give a comprehensive analysis of diagnosis, treatment approaches, and innovative strategies used in knee ligament reconstructions.",
     "section_type": "root",
     "contents": {
         "subsections": [
             {
-                "section_id": "1.1",
-                "prefix": "",
-                "title": "Clinical Background of Knee Ligament Injuries",
-                "abstract": "Understanding the basic anatomy, pathophysiology, and conditions necessitating ligament reconstruction is crucial. This section gives an overview of the knee structure and delves into the specificities of ACL and PCL injuries\u2014highlighting their similarities, differences, and the physiological implications for the knee.",
+                "section_id": "id-1",
+                "prefix": "##",
+                "title": "CLINICAL BACKGROUND KNEE REPLACEMENT",
+                "abstract": "This section introduces the essential anatomy of the knee, including relevant pathophysiology for ligament injuries. It outlines clinical considerations for ACL and PCL reconstructions, providing an overview of knee structures and their functional significance.",
                 "section_type": "node",
                 "contents": {
                     "subsections": [
                         {
-                            "section_id": "1.1.1",
-                            "prefix": "",
-                            "title": "Anatomy and Pathophysiology",
-                            "abstract": "This section explores the intricate anatomy and physiology of the knee, emphasizing the role of the ACL and PCL in maintaining knee stability and function.",
+                            "section_id": "id-1-1",
+                            "prefix": "###",
+                            "title": "Anatomy and pathophysiology",
+                            "abstract": "This subsection describes the knee joint structure, focusing on ligaments, menisci, and their biomechanical roles. It highlights key pathophysiological changes related to ligament tears.",
                             "section_type": "leaf",
                             "contents": {
                                 "leaf_bullet_points": [
-                                    "The anterior cruciate ligament (ACL) stabilizes anterior knee movement.",
-                                    "The posterior cruciate ligament (PCL) prevents the tibia from moving backward.",
-                                    "Interplay between ligaments ensures knee joint stability.",
-                                    "Meniscus and collateral ligaments support the ACL and PCL.",
-                                    "ACL injuries prevalent in athletic activities due to dynamic motions.",
-                                    "PCL injuries often result from direct blows to the knee.",
-                                    "Age and physical activity level affect susceptibility to knee injuries.",
-                                    "Bone bruises and cartilage damage often accompany ligament tears.",
-                                    "Key anatomical distinctions between hamstring and patellar tendon graft sites.",
-                                    "Vascular supply and nerve innervation impact healing processes."
+                                    "Overview of femoral, tibial, and patellar anatomy",
+                                    "Cruciate ligaments as primary stabilizers of the knee",
+                                    "Role of menisci and their relation to ligament function",
+                                    "Blood supply within the ligament environment",
+                                    "Synovial fluid dynamics and ligament nourishment",
+                                    "Common mechanisms leading to ACL or PCL stress",
+                                    "Correlation between high-impact sports and ligament injuries",
+                                    "Tissue degeneration post-injury, including cartilage wear",
+                                    "Neuromuscular feedback loops influencing knee stability",
+                                    "Summary of how pathology of ligaments impairs normal biomechanics"
                                 ]
                             }
                         },
                         {
-                            "section_id": "1.1.2",
-                            "prefix": "",
-                            "title": "Medical Conditions for Ligament Reconstruction",
-                            "abstract": "Outlining the clinical scenarios where ACL and PCL reconstruction become pertinent, this section presents symptoms, causes, and the need for intervention.",
+                            "section_id": "id-1-2",
+                            "prefix": "###",
+                            "title": "Medical conditions for ligament reconstruction of the knee",
+                            "abstract": "This subsection addresses the common clinical scenarios that necessitate knee ligament reconstruction. It also touches upon population demographics most at risk for ACL and PCL ruptures.",
                             "section_type": "node",
                             "contents": {
                                 "subsections": [
                                     {
-                                        "section_id": "1.1.2.1",
-                                        "prefix": "",
-                                        "title": "Anterior Cruciate Ligament Injury",
-                                        "abstract": "Details on ACL injury mechanisms, prevalence, and clinical manifestations provide a comprehensive understanding of its significance in orthopedic medicine.",
+                                        "section_id": "id-1-2-1",
+                                        "prefix": "####",
+                                        "title": "Anterior cruciate ligament injury",
+                                        "abstract": "Focuses on the scope of ACL injury, including risk factors, typical scenarios, and associated pathologies. Identifies how ACL tears can result in long-term disability without proper intervention.",
                                         "section_type": "leaf",
                                         "contents": {
                                             "leaf_bullet_points": [
-                                                "ACL injuries are common in sports involving rapid turns.",
-                                                "Symptoms include knee instability and 'pop' sound during injuries.",
-                                                "Non-contact mechanisms are frequent, involving sudden deceleration.",
-                                                "Higher incidence in females due to biomechanics.",
-                                                "Grading severity: Partial tear to complete ligament rupture.",
-                                                "Increased anterior tibial translation in ACL-deficient knees.",
-                                                "Concurrent injuries: meniscus tears and cartilage lesions.",
-                                                "Prevalence of osteoarthritis post-ACL injury diagnosis.",
-                                                "Risk factors: BMI, muscle weakness, and joint laxity.",
-                                                "Importance of prompt injury diagnosis and intervention."
+                                                "Common sports-related traumas leading to ACL tears",
+                                                "Pivot-shift mechanism and its effect on the ACL",
+                                                "Contact vs. non-contact ACL injuries",
+                                                "Prevalence of ACL injury in female athletes",
+                                                "Typical functional deficits (instability, giving-way episodes)",
+                                                "Association with meniscal tears and cartilage damage",
+                                                "Long-term risks of osteoarthritis post-ACL rupture",
+                                                "Imaging modalities commonly used for ACL injuries",
+                                                "Importance of early diagnosis for optimal outcomes",
+                                                "Clinical assessments (Lachman test, pivot-shift) in ACL tear detection"
                                             ]
                                         }
                                     },
                                     {
-                                        "section_id": "1.1.2.2",
-                                        "prefix": "",
-                                        "title": "Posterior Cruciate Ligament Injury",
-                                        "abstract": "This part explores lesser-known PCL injuries, including their rarity, causes, and impact on knee health.",
+                                        "section_id": "id-1-2-2",
+                                        "prefix": "####",
+                                        "title": "Posterior cruciate ligament injury",
+                                        "abstract": "Explores the etiology, mechanisms, and presentation of PCL injuries, emphasizing similarities and differences with ACL tears.",
                                         "section_type": "leaf",
                                         "contents": {
                                             "leaf_bullet_points": [
-                                                "PCL injuries represent a small percentage of knee injuries.",
-                                                "Frequently result from direct impact, like a car dashboard injury.",
-                                                "Symptoms include mild to moderate disability and posterior knee pain.",
-                                                "Involvement with other knee injuries like collateral ligament tears.",
-                                                "Loss of posterior tibial support in PCL deficiency.",
-                                                "Chronic PCL injuries can lead to joint instability over time.",
-                                                "Biomechanical implications differ from ACL injuries.",
-                                                "Often underdiagnosed due to subtle symptom presentation.",
-                                                "Functional limitations impact daily activities extensively.",
-                                                "Lower incidence of post-PCL injury osteoarthritis compared to ACL."
+                                                "High-energy trauma as a common cause of PCL ruptures",
+                                                "Dashboard injury mechanism in vehicular accidents",
+                                                "Chronic PCL insufficiency and residual posterolateral instability",
+                                                "Clinical signs and physical examinations for PCL tears",
+                                                "Diagnostic imaging strategies for PCL injuries (MRI, stress X-rays)",
+                                                "Secondary effect on other knee structures (meniscus, cartilage)",
+                                                "Role of quadriceps vs. hamstring strength in PCL-deficient knees",
+                                                "Concomitant ligament injuries impacting PCL reconstruction approach",
+                                                "Functional outcomes after isolated vs. combined PCL injuries",
+                                                "PCL reconstructions vs. conservative approaches in low-demand patients"
                                             ]
                                         }
                                     }
@@ -89,52 +89,52 @@
                             }
                         },
                         {
-                            "section_id": "1.1.3",
-                            "prefix": "",
+                            "section_id": "id-1-3",
+                            "prefix": "###",
                             "title": "Diagnosis",
-                            "abstract": "Accurate diagnosis of ACL and PCL injuries is essential for effective treatment strategies. This section discusses the latest diagnostic methods, including physical assessments and imaging technologies.",
+                            "abstract": "Provides an overview of primary diagnostic strategies and evaluations for cruciate ligament tears. Covers physical examination maneuvers, imaging protocols, and decision-making processes.",
                             "section_type": "node",
                             "contents": {
                                 "subsections": [
                                     {
-                                        "section_id": "1.1.3.1",
-                                        "prefix": "",
-                                        "title": "Diagnosis of ACL Injuries",
-                                        "abstract": "An overview of both traditional and modern diagnostic techniques for ACL tears, with an emphasis on specificity and sensitivity.",
+                                        "section_id": "id-1-3-1",
+                                        "prefix": "####",
+                                        "title": "Diagnosis ACL injuries",
+                                        "abstract": "Introduces clinical and imaging techniques used to diagnose ACL ruptures. Summarizes the role of MRI, arthroscopy, and specific stress tests.",
                                         "section_type": "leaf",
                                         "contents": {
                                             "leaf_bullet_points": [
-                                                "Physical exams: Lachman, Pivot shift, and Anterior drawer tests.",
-                                                "MRI as the gold standard for ACL injury diagnosis.",
-                                                "3D MRI provides detailed anatomical resolution.",
-                                                "Ultrasound for real-time assessment, although less used.",
-                                                "High sensitivity in detecting concomitant meniscal injuries.",
-                                                "Arthroscopy confirms diagnosis, but is invasive.",
-                                                "New AI-driven diagnostic tools emerging for precision.",
-                                                "Dynamic stress MRI assesses functional instability.",
-                                                "Emerging biomarkers may aid in future ACL injury predictions.",
-                                                "Role of clinical history in conclusive diagnosis."
+                                                "Lachman test as the gold standard for clinical screening",
+                                                "Pivot-shift test specificity for chronic ACL instability",
+                                                "KT-1000 arthrometer for objective measurement of side-to-side differences",
+                                                "MRI findings (discontinuity, abnormal signal, bone bruises)",
+                                                "Use of 3D and 2D MRI, significance in planning reconstruction",
+                                                "Differential diagnosis to exclude other ligament involvement",
+                                                "Role of arthroscopy in equivocal cases",
+                                                "Timing of imaging post-injury for optimal clarity",
+                                                "Importance of patient history and mechanism of injury",
+                                                "Combined knee instability patterns that mimic ACL rupture"
                                             ]
                                         }
                                     },
                                     {
-                                        "section_id": "1.1.3.2",
-                                        "prefix": "",
-                                        "title": "Diagnosis of PCL Injuries",
-                                        "abstract": "Highlighting evaluation methods tailored for PCL injuries, accounting for their subtleness and potential overlap with other conditions.",
+                                        "section_id": "id-1-3-2",
+                                        "prefix": "####",
+                                        "title": "Diagnosis PCL injuries",
+                                        "abstract": "Discusses specific tests, imaging nuances, and diagnostic complexities related to PCL tears, including combined ligament involvement.",
                                         "section_type": "leaf",
                                         "contents": {
                                             "leaf_bullet_points": [
-                                                "Recumbent test and Posterior drawer test for initial screenings.",
-                                                "MRI: Key to detailed visualize PCL injury topology.",
-                                                "Ultrasound limitations in differentiating PCL from other injuries.",
-                                                "Dynamic tests evaluate posterior tibial sweep motion.",
-                                                "Stress radiographs: determining posterior tibial sag.",
-                                                "Evaluating collateral ligament involvement in complex injuries.",
-                                                "Emerging trends in 4D dynamic MRIs for knee assessments.",
-                                                "Detection of tibial and femoral bone contusions via X-rays.",
-                                                "Arthroscopy: Definitive assessment for surgical planning.",
-                                                "Differential diagnosis in multi-ligament knee injuries."
+                                                "Posterior drawer test to estimate PCL laxity grade",
+                                                "Quadriceps active test for subtle PCL injuries",
+                                                "MRI identifiers for PCL tears (signal changes, avulsion fractures)",
+                                                "Evaluation of posterolateral corner injuries in conjunction with PCL",
+                                                "Use of stress radiography to quantify posterior tibial translation",
+                                                "Algorithm for differentiating partial vs. complete PCL tears",
+                                                "Clinical examination pitfalls and subtle injuries",
+                                                "Occult injuries identified only by advanced imaging or arthroscopy",
+                                                "Chronic PCL injuries and degenerative joint changes",
+                                                "Significance of a thorough contralateral knee comparison"
                                             ]
                                         }
                                     }
@@ -145,152 +145,311 @@
                 }
             },
             {
-                "section_id": "1.2",
-                "prefix": "",
-                "title": "Historical, Current, and Alternative Treatment",
-                "abstract": "The section traces surgical and non-surgical treatment advances, analyzing present practices and future directions in ACL and PCL patient care.",
+                "section_id": "id-2",
+                "prefix": "##",
+                "title": "HISTORICAL, CURRENT, AND ALTERNATIVE TREATMENT",
+                "abstract": "This section evaluates the evolution of ligament reconstruction techniques. It reviews conservative measures and explains modern surgical methods for ACL and PCL injuries.",
                 "section_type": "node",
                 "contents": {
                     "subsections": [
                         {
-                            "section_id": "1.2.1",
-                            "prefix": "",
+                            "section_id": "id-2-1",
+                            "prefix": "###",
                             "title": "History",
-                            "abstract": "Exploring the historical perspective in knee ligament repair, building an understanding of how past experiences shape current medical treatments.",
+                            "abstract": "Focuses on key developments in knee ligament surgery, from early surgical experiments to present-day best practices. Emphasizes milestones in fixation and graft science.",
                             "section_type": "leaf",
                             "contents": {
                                 "leaf_bullet_points": [
-                                    "ACL treatment dates back to the early 20th century.",
-                                    "Initial treatments: Simple suturing of the torn ligament.",
-                                    "Evolution towards grafting techniques in the late 1900s.",
-                                    "Influence of biomechanics understanding on treatment evolution.",
-                                    "PCL surgeries historically seen as complex and risky.",
-                                    "Development in arthroscopic surgeries increasing procedural success.",
-                                    "Rehabilitation focus shifts as integral to recovery.",
-                                    "Parallel advances in imaging and surgical techniques.",
-                                    "Influence of historical data on current ACL procedural success.",
-                                    "Trends indicating a more conservative approach for PCL."
+                                    "Early operative approaches involving open knee arthrotomies",
+                                    "Transition from suture repair to modern reconstruction techniques",
+                                    "Historical reliance on patellar tendon grafts as the \u201cgold standard\u201d",
+                                    "Emergence of arthroscopic surgeries in the 1980s",
+                                    "Evolution of instrumented laxity assessments",
+                                    "Advent of meniscal-sparing approaches",
+                                    "Development of suspensory devices and bioabsorbable screws",
+                                    "Influence of biomechanical studies on graft position protocols",
+                                    "Increase in female sports participation driving technique refinements",
+                                    "Shift toward individualized, anatomy-based reconstructions"
                                 ]
                             }
                         },
                         {
-                            "section_id": "1.2.2",
-                            "prefix": "",
+                            "section_id": "id-2-2",
+                            "prefix": "###",
                             "title": "Treatment",
-                            "abstract": "Insights into varied treatment strategies, from conservative to surgical, focusing on their adaptability to ACL and PCL injuries.",
+                            "abstract": "Underlines both conservative and operative pathways for ACL and PCL injuries, including modern trends in combined ligament surgeries. Highlights the importance of individualized patient considerations.",
                             "section_type": "node",
                             "contents": {
                                 "subsections": [
                                     {
-                                        "section_id": "1.2.2.1",
-                                        "prefix": "",
-                                        "title": "Conservative Treatment",
-                                        "abstract": "Conservative management strategies for patients with partial or less severe ACL and PCL injuries or for those preferring non-operative management.",
+                                        "section_id": "id-2-2-1",
+                                        "prefix": "####",
+                                        "title": "Conservative treatment",
+                                        "abstract": "Explores clinical scenarios where non-surgical management is recommended. Discusses bracing, rehabilitation exercises, and patient selection criteria.",
                                         "section_type": "leaf",
                                         "contents": {
                                             "leaf_bullet_points": [
-                                                "Inactivity and RICE (Rest, Ice, Compression, Elevation).",
-                                                "Short-term bracing to stabilize joint movement.",
-                                                "Rehabilitation focuses on strength and proprioception exercises.",
-                                                "Alternative therapies such as PRP injections.",
-                                                "Weight management through lifestyle alterations.",
-                                                "Progressive physical therapy focuses on joint stability.",
-                                                "Monitoring inflammatory response and managing pain post-injury.",
-                                                "Minimal invasive techniques for pain alleviation.",
-                                                "Increasing strength of surrounding muscle groups.",
-                                                "Patient education on lifestyle modification and injury prevention."
+                                                "Indications for opting out of surgery",
+                                                "Controlled rehabilitation regimens focusing on quadriceps strengthening",
+                                                "Use of functional bracing for PCL injuries in lower-demand patients",
+                                                "Potential delay of osteoarthritic changes in mild instabilities",
+                                                "Role of proprioceptive training in ligament-deficient knees",
+                                                "Activity modifications to prevent repeated injury",
+                                                "Long-term follow-up for early signs of joint degeneration",
+                                                "Integration of pain management strategies (NSAIDs, injections)",
+                                                "Risks of progressive instability if patient remains active",
+                                                "Criteria for converting conservative care to surgical intervention"
                                             ]
                                         }
                                     },
                                     {
-                                        "section_id": "1.2.2.2",
-                                        "prefix": "",
-                                        "title": "Surgical Treatment",
-                                        "abstract": "Exploration of surgical interventions offering a bridge from structural repair to functional recovery in ACL and PCL injuries.",
+                                        "section_id": "id-2-2-2",
+                                        "prefix": "####",
+                                        "title": "Surgical treatment",
+                                        "abstract": "Summarizes common surgical methods for repairing or reconstructing cruciate ligaments, including graft harvesting and intra-operative considerations.",
                                         "section_type": "node",
                                         "contents": {
                                             "subsections": [
                                                 {
-                                                    "section_id": "1.2.2.2.1",
-                                                    "prefix": "",
-                                                    "title": "ACL Reconstruction",
-                                                    "abstract": "Specific techniques for ACL surgical repair including recent advancements and their contributions to patient outcomes.",
+                                                    "section_id": "id-2-2-2-1",
+                                                    "prefix": "#####",
+                                                    "title": "ACL reconstruction",
+                                                    "abstract": "Details the standard approach for reconstructing the ACL using diverse graft options. Highlights pearls and pitfalls in tunnel placement.",
                                                     "section_type": "leaf",
                                                     "contents": {
                                                         "leaf_bullet_points": [
-                                                            "Patellar tendon autografts yield strong fixation bonds.",
-                                                            "Hamstring tendon autografts reduce knee pain and morbidity.",
-                                                            "Synthetic grafts used occasionally due to higher failure rates.",
-                                                            "Role of 'All-Inside technique' in reducing fracture risks.",
-                                                            "Increasing use of double-bundle techniques for stability.",
-                                                            "Innovations like press-fit fixation being explored.",
-                                                            "Rapid rehabilitation protocols post-surgery for better recovery.",
-                                                            "Advantages of early intervention in optimizing outcomes.",
-                                                            "Importance of anatomical reconstruction for knee biomechanics.",
-                                                            "Complications: Infection risk and hardware failure concerns."
+                                                            "Diagnostic arthroscopy to assess joint condition",
+                                                            "Graft selection: BPTB, hamstring, quadriceps tendon, allografts",
+                                                            "Double-bundle vs. single-bundle technique in ACLR",
+                                                            "All-inside approach with minimal bone removal",
+                                                            "Tunnel drilling strategies: AM portal vs. outside-in",
+                                                            "Fixation devices (suspensory vs. aperture) on the femoral side",
+                                                            "Tensioning the graft and preventing cyclops lesion",
+                                                            "Post-operative bracing and rehabilitation protocols",
+                                                            "Risk of tunnel widening and graft elongation",
+                                                            "Outcomes and return-to-sports timeline"
                                                         ]
                                                     }
                                                 },
                                                 {
-                                                    "section_id": "1.2.2.2.2",
-                                                    "prefix": "",
-                                                    "title": "ACL Repair",
-                                                    "abstract": "Discussing alternative or refined methods for ACL repair, aimed at preserving the native anatomy and function.",
+                                                    "section_id": "id-2-2-2-2",
+                                                    "prefix": "#####",
+                                                    "title": "ACL repair",
+                                                    "abstract": "Focuses on modern repair techniques, including internal bracing and augmentation. Contrasts repair outcomes with reconstruction.",
                                                     "section_type": "leaf",
                                                     "contents": {
                                                         "leaf_bullet_points": [
-                                                            "Emerging trend of repair in select cases of proximal tears.",
-                                                            "Advantage in preserving knee proprioception and stability.",
-                                                            "Lower rate of graft incorporation failures recognized.",
-                                                            "Use of ligament preservation techniques high in demand.",
-                                                            "Restoring native ACL footprint critical for joint function.",
-                                                            "Exploration of minimal invasive repair methodologies.",
-                                                            "Monitoring post-operative outcomes such as joint laxity.",
-                                                            "Balancing biomechanical integrity with surgical intrusions.",
-                                                            "Patient preference steering towards options with minimal recovery.",
-                                                            "Potential for integration with biological enhancements."
+                                                            "Emergence of primary ACL repair vs. historical failure rates",
+                                                            "Ligament augmentation with synthetic or biological scaffolds",
+                                                            "Patient selection (proximal tear location, tissue quality)",
+                                                            "Internal brace concept to protect early healing",
+                                                            "Comparison of repair stability vs. reconstruction",
+                                                            "Potential for quicker recovery in partial tears",
+                                                            "Surgical complexity when dealing with multiligament injuries",
+                                                            "Long-term durability of repair constructs",
+                                                            "Use of MRI to monitor ligament healing progress",
+                                                            "Implications for future revisions if repair fails"
                                                         ]
                                                     }
                                                 },
                                                 {
-                                                    "section_id": "1.2.2.2.3",
-                                                    "prefix": "",
-                                                    "title": "PCL Reconstruction",
-                                                    "abstract": "Analyzing techniques aimed at addressing the complexities inherent in PCL reconstruction surgeries.",
+                                                    "section_id": "id-2-2-2-3",
+                                                    "prefix": "#####",
+                                                    "title": "PCL reconstruction",
+                                                    "abstract": "Covers the known techniques for reconstructing the PCL, emphasizing fixation strategies and potential for combined ligament surgeries.",
                                                     "section_type": "leaf",
                                                     "contents": {
                                                         "leaf_bullet_points": [
-                                                            "Challenging anatomical location influences surgical choice.",
-                                                            "Single-bundle reconstruction versus double-bundle approaches.",
-                                                            "Outline the debatable use of PCL augmentation techniques.",
-                                                            "Nailing positioning critical for functional return.",
-                                                            "Focus on posterior tibial tunnel creation in surgery.",
-                                                            "Long-term outcomes influenced by surgical model precision.",
-                                                            "Emergence of new techniques such as inlay reconstruction.",
-                                                            "Complexity introduced with multi-ligament injuries.",
-                                                            "Enhanced rehabilitation processes to prevent re-injuries.",
-                                                            "Innovations expected in hardware and biologics in coming years."
+                                                            "Tibial-inlay vs. transtibial tunnel approach",
+                                                            "Assessment of posterior laxity using stress radiographs",
+                                                            "Graft options and double-bundle reconstruction for complex tears",
+                                                            "Addressing posterolateral corner deficiency concurrently",
+                                                            "Fixation at high flexion angles to replicate native tension",
+                                                            "Rehabilitation challenges and prolonged bracing",
+                                                            "Risks of neurovascular injury in the popliteal fossa",
+                                                            "Long-term functional outcomes and residual laxity",
+                                                            "Comparisons of autograft vs. allograft in PCL repairs",
+                                                            "Strategies to reduce graft failure in multi-ligament scenarios"
                                                         ]
                                                     }
                                                 },
                                                 {
-                                                    "section_id": "1.2.2.2.4",
-                                                    "prefix": "",
-                                                    "title": "Reconstruction of Associated Ligament Injuries",
-                                                    "abstract": "Considering interrelated injuries that necessitate comprehensive treatment plans for simultaneous ACL and PCL tears.",
+                                                    "section_id": "id-2-2-2-4",
+                                                    "prefix": "#####",
+                                                    "title": "Reconstruction of associated ligament injuries",
+                                                    "abstract": "Discussion on multiligamentous knee injuries, including the MCL, LCL, and posterolateral corner, and their reconstruction timing with ACL/PCL.",
                                                     "section_type": "leaf",
                                                     "contents": {
                                                         "leaf_bullet_points": [
-                                                            "Concurrent MCL, LCL, and meniscus injuries seen commonly.",
-                                                            "Emphasis on synchronized ligament reconstruction protocol.",
-                                                            "Multimodal treatment approaches for enhanced knee stability.",
-                                                            "Improved surgical outcomes with tailored rehabilitation plans.",
-                                                            "Integration of ACLR with lateral extra-articular techniques.",
-                                                            "Reduction of distal femoral rotational deformity in combined injuries.",
-                                                            "Understanding timeline control in multiligament knee reconstruction.",
-                                                            "Acute combined ruptures require immediate surgical attention.",
-                                                            "Deciding order of ligament restoration based on urgency.",
-                                                            "Outlook: advances pushing for more holistic treatment models."
+                                                            "Identification of combined injuries during arthroscopy",
+                                                            "Priorities in addressing cruciate vs. collateral ligament tears",
+                                                            "High risk of instability with unrepaired side structures",
+                                                            "Staged vs. single-stage approach in multi-ligament repair",
+                                                            "Use of allografts when multiple ligaments need reconstruction",
+                                                            "Impact on joint alignment and rotational stability",
+                                                            "Longer rehabilitation time and use of external fixation braces",
+                                                            "Intra-operative stress testing to confirm stability",
+                                                            "Differences in healing capacity among various ligament structures",
+                                                            "Expected functional outcomes with complex knee injuries"
+                                                        ]
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    },
+                                    {
+                                        "section_id": "id-2-2-3",
+                                        "prefix": "####",
+                                        "title": "Biological augmentation",
+                                        "abstract": "Reviews the latest biological additives, scaffolds, and growth factors used to enhance knee ligament healing and incorporate tissue-engineering strategies.",
+                                        "section_type": "leaf",
+                                        "contents": {
+                                            "leaf_bullet_points": [
+                                                "Platelet-rich plasma (PRP) application in ligament repairs",
+                                                "Stem cell therapy for enhancing tendon\u2013bone healing",
+                                                "Bioactive scaffolds integrated within the graft structure",
+                                                "Gene therapy potentials to accelerate tissue remodeling",
+                                                "Collagen-based implants to promote fibroblast infiltration",
+                                                "Early vs. late application of biological augmentations",
+                                                "Regulatory considerations and clinical evidence so far",
+                                                "Concerns about cost-effectiveness and reproducibility",
+                                                "Long-term viability and imaging-based follow-up protocols",
+                                                "Future directions for personalized regenerative medicine"
+                                            ]
+                                        }
+                                    }
+                                ]
+                            }
+                        },
+                        {
+                            "section_id": "id-2-3",
+                            "prefix": "###",
+                            "title": "Graft fixation",
+                            "abstract": "Provides a comparative look at various graft fixation strategies for ACL and PCL reconstructions. Focuses on biomechanical strengths, weaknesses, and clinical outcomes.",
+                            "section_type": "node",
+                            "contents": {
+                                "subsections": [
+                                    {
+                                        "section_id": "id-2-3-1",
+                                        "prefix": "####",
+                                        "title": "Overview graft fixation methods",
+                                        "abstract": "Sets the stage for in-depth discussion by categorizing the main groups of fixation techniques used in knee ligament surgery.",
+                                        "section_type": "leaf",
+                                        "contents": {
+                                            "leaf_bullet_points": [
+                                                "Aperture fixation vs. cortical suspension",
+                                                "Interference screws as the earliest gold standard",
+                                                "Soft-tissue graft fixation considerations",
+                                                "Bone\u2013patellar tendon\u2013bone graft fixation approach",
+                                                "Hybrid methods combining screws and suspensory devices",
+                                                "All-inside techniques reducing hardware prominence",
+                                                "Biomechanical studies comparing ultimate load-to-failure",
+                                                "Influence of tunnel length on fixation choice",
+                                                "Progressive tensioning and tunnel widening concerns",
+                                                "Significance of graft\u2013bone healing timeline"
+                                            ]
+                                        }
+                                    },
+                                    {
+                                        "section_id": "id-2-3-2",
+                                        "prefix": "####",
+                                        "title": "Suspension devices",
+                                        "abstract": "Looks closely at cortical suspensory implants, divided into fixed-loop and adjustable-loop designs. Analyzes biomechanical data, pros, and cons.",
+                                        "section_type": "node",
+                                        "contents": {
+                                            "subsections": [
+                                                {
+                                                    "section_id": "id-2-3-2-1",
+                                                    "prefix": "#####",
+                                                    "title": "Fixed-loop suspension devices",
+                                                    "abstract": "Covers first-generation cortical buttons and their associated outcomes. Addresses loop length stability and potential tunnel enlargement.",
+                                                    "section_type": "leaf",
+                                                    "contents": {
+                                                        "leaf_bullet_points": [
+                                                            "Historical perspective on the inception of cortical buttons",
+                                                            "Single, fixed loop length and requirement for accurate tunnel sizing",
+                                                            "Clinical data suggesting strong initial fixation strength",
+                                                            "Bungee effect from small graft motion in the tunnel",
+                                                            "Potential for tunnel widening over time",
+                                                            "Simplicity of surgical implementation",
+                                                            "Compatibility with single-bundle and double-bundle ACLR",
+                                                            "Failure modes involving loop or suture breakage",
+                                                            "Comparisons to adjustable-loop devices in various trials",
+                                                            "Relevance in revision scenarios needing stable fixation"
+                                                        ]
+                                                    }
+                                                },
+                                                {
+                                                    "section_id": "id-2-3-2-2",
+                                                    "prefix": "#####",
+                                                    "title": "Adjustable-loop suspension devices",
+                                                    "abstract": "Highlights new-generation cortical suspensory implants, describing retensioning techniques to reduce graft laxity. Summarizes controversies over loop lengthening.",
+                                                    "section_type": "leaf",
+                                                    "contents": {
+                                                        "leaf_bullet_points": [
+                                                            "Advancements allowing re-tensioning after graft positioning",
+                                                            "Theoretical reduction in the bungee/windshield-wiper effect",
+                                                            "Biomechanical tests showing decreased elongation with knot tying",
+                                                            "Concerns about suture slippage and loop lengthening in some studies",
+                                                            "Clinical equivalence to fixed-loop devices regarding stability",
+                                                            "Ease of graft insertion and minimal measurement error",
+                                                            "Possible improvement in early rehabilitation protocols",
+                                                            "Early patient outcomes: no significant differences vs. fixed-loop",
+                                                            "Influence on tunnel enlargement when combined with certain grafts",
+                                                            "Recommendations for usage in partial or double-bundle techniques"
+                                                        ]
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    },
+                                    {
+                                        "section_id": "id-2-3-3",
+                                        "prefix": "####",
+                                        "title": "Alternatives to suspension devices",
+                                        "abstract": "Analyzes other fixation types, including expansion devices and interference screw options, comparing results and highlighting practical use cases.",
+                                        "section_type": "node",
+                                        "contents": {
+                                            "subsections": [
+                                                {
+                                                    "section_id": "id-2-3-3-1",
+                                                    "prefix": "#####",
+                                                    "title": "Expansion devices",
+                                                    "abstract": "Examines lesser-used, specialized methods where local expansion or plugging technology is used for graft fixation.",
+                                                    "section_type": "leaf",
+                                                    "contents": {
+                                                        "leaf_bullet_points": [
+                                                            "Mechanisms of expansion-based or plug devices",
+                                                            "Potential for uniform radial compression around the graft",
+                                                            "Compatibility with different tunnel diameters",
+                                                            "Reported lower incidence of micro-motion in short tunnels",
+                                                            "Challenges in removal or revision surgery",
+                                                            "Limited but promising clinical data on failure rates",
+                                                            "Applicability to complex revision scenarios with bone loss",
+                                                            "Comparison with standard interference screws",
+                                                            "Potential synergy with biologic augmentations",
+                                                            "Expected future research directions"
+                                                        ]
+                                                    }
+                                                },
+                                                {
+                                                    "section_id": "id-2-3-3-2",
+                                                    "prefix": "#####",
+                                                    "title": "Interference screws",
+                                                    "abstract": "Reviews the classic method of direct graft compression in the tunnel, focusing on materials (metallic, bioabsorbable, PEEK) and outcomes.",
+                                                    "section_type": "leaf",
+                                                    "contents": {
+                                                        "leaf_bullet_points": [
+                                                            "Metallic vs. bioabsorbable vs. PEEK interference screws",
+                                                            "Error margin in screw placement and graft damage",
+                                                            "Pull-out strength differences in cortical vs. cancellous bone",
+                                                            "Long-term tunnel changes from screw resorption or breakage",
+                                                            "Tendon\u2013bone integration aided by compression at the aperture",
+                                                            "Postoperative imaging artifacts with metal screws",
+                                                            "Concern of cyst formation with some bioabsorbable screws",
+                                                            "Hybrid fixations combining interference screws with suspension buttons",
+                                                            "Relevance in PCL reconstruction with wedge or inlay technique",
+                                                            "Complications observed in revision procedures"
                                                         ]
                                                     }
                                                 }
@@ -301,161 +460,23 @@
                             }
                         },
                         {
-                            "section_id": "1.2.3",
-                            "prefix": "",
-                            "title": "Graft Fixation",
-                            "abstract": "Delving into the importance of secure graft fixation, this section evaluates methods ranging from suspension devices to alternative techniques like screws, unveiling innovative approaches in the process.",
-                            "section_type": "node",
-                            "contents": {
-                                "subsections": [
-                                    {
-                                        "section_id": "1.2.3.1",
-                                        "prefix": "",
-                                        "title": "Overview of Graft Fixation Methods",
-                                        "abstract": "Providing a detailed look at current fixation techniques used in ligament reconstruction including their applications and any associated limitations.",
-                                        "section_type": "leaf",
-                                        "contents": {
-                                            "leaf_bullet_points": [
-                                                "Key techniques used for ACL and PCL graft positioning.",
-                                                "History: initial sutures and evolution to screws and devices.",
-                                                "Standardization for success: tibial versus femoral focus.",
-                                                "Pros and cons of well-established fixation methodologies.",
-                                                "Need for reliable tools in assisting fixation placement.",
-                                                "Challenges with graft tension consistency during fixation.",
-                                                "Fixation method's impact on bone tunnel integrity.",
-                                                "Concerns linked to graft micro-motion post-fixation.",
-                                                "Evolution due to changes in patient demands and surgical tools.",
-                                                "Impact on patient outcomes: stabilization versus mobility balance."
-                                            ]
-                                        }
-                                    },
-                                    {
-                                        "section_id": "1.2.3.2",
-                                        "prefix": "",
-                                        "title": "Suspension Devices",
-                                        "abstract": "Focuses on the role that suspension devices such as loops play in graft fixation, noting their benefits and potential shortcomings.",
-                                        "section_type": "node",
-                                        "contents": {
-                                            "subsections": [
-                                                {
-                                                    "section_id": "1.2.3.2.1",
-                                                    "prefix": "",
-                                                    "title": "Fixed-loop Suspension Devices",
-                                                    "abstract": "An analysis of the well-established fixed-loop suspension systems with insights from current studies.",
-                                                    "section_type": "leaf",
-                                                    "contents": {
-                                                        "leaf_bullet_points": [
-                                                            "Fixed-loop devices offer simplicity and ease of use.",
-                                                            "Provide stable fixation due to uniform tension distribution.",
-                                                            "Less concerned with loop elongation issues compared to adjustable.",
-                                                            "Preferred when predictable outcomes desired in uniform patients.",
-                                                            "Varied biomechanical outcomes in patients based on age or activity.",
-                                                            "Significant historical role in traditional ACL fixation.",
-                                                            "Comparative studies highlight consistency in load bearing.",
-                                                            "Adaptations in different techniques and geographies.",
-                                                            "Reduced tissue irritation when utilized with biosynthetic devices.",
-                                                            "Potential limitations: Less flexible in addressing joint variance."
-                                                        ]
-                                                    }
-                                                },
-                                                {
-                                                    "section_id": "1.2.3.2.2",
-                                                    "prefix": "",
-                                                    "title": "Adjustable-loop Suspension Devices",
-                                                    "abstract": "Unpacks the innovation underlying adjustable-loop devices, examining their advancements over traditional approaches.",
-                                                    "section_type": "leaf",
-                                                    "contents": {
-                                                        "leaf_bullet_points": [
-                                                            "Greater adaptability in accommodating bone tunnel lengths.",
-                                                            "Adjustable loops allow for post-surgical graft tensioning.",
-                                                            "Evidence suggests reduced bone tunnel widening potential.",
-                                                            "Concerns over durability with suture-slippage documented.",
-                                                            "Growing popularity due to adaptability and flexibility.",
-                                                            "Micromovement minimization benefits through retensioning techniques.",
-                                                            "Comparisons to fixed-loop suggest better postoperative outcomes.",
-                                                            "Reported issues of loop lengthening over time.",
-                                                            "Innovative systems incorporating braided tape for added stability.",
-                                                            "Cost, complexity, and technical expertise considerations."
-                                                        ]
-                                                    }
-                                                }
-                                            ]
-                                        }
-                                    },
-                                    {
-                                        "section_id": "1.2.3.3",
-                                        "prefix": "",
-                                        "title": "Alternatives to Suspension Devices",
-                                        "abstract": "Exploration of alternative fixation strategies like expansion devices and interference screws, juxtaposing their roles against suspension techniques.",
-                                        "section_type": "node",
-                                        "contents": {
-                                            "subsections": [
-                                                {
-                                                    "section_id": "1.2.3.3.1",
-                                                    "prefix": "",
-                                                    "title": "Expansion Devices",
-                                                    "abstract": "Detailing the applications of expansion devices, emphasizing their uniqueness in maintaining graft position without surface alteration.",
-                                                    "section_type": "leaf",
-                                                    "contents": {
-                                                        "leaf_bullet_points": [
-                                                            "Expansion devices retain graft length with internal pressures.",
-                                                            "Minimal tissue disruption compares to other fixation methods.",
-                                                            "Potential for increased blood circulation facilitating healing.",
-                                                            "Temporarily maintained structure till complete integration.",
-                                                            "Reduces need for additional support post-integration.",
-                                                            "Commonly used with biologic augmentations.",
-                                                            "Innovative methods facilitate wider acceptance in knee surgeries.",
-                                                            "Limited applicability in conjunction with adjustable loops.",
-                                                            "Replaced interference screws in several surgical algorithms.",
-                                                            "Concerns raised around long-term viability post-integration."
-                                                        ]
-                                                    }
-                                                },
-                                                {
-                                                    "section_id": "1.2.3.3.2",
-                                                    "prefix": "",
-                                                    "title": "Interference Screws",
-                                                    "abstract": "A critical look at interference screws, their pronged evolution, and why they remain indispensable in many ACL surgical procedures.",
-                                                    "section_type": "leaf",
-                                                    "contents": {
-                                                        "leaf_bullet_points": [
-                                                            "Provide immediate robust fixation through bone compression.",
-                                                            "Biodegradable screws reduce concerns regarding material breakdown.",
-                                                            "Concerns about the potential for tunnel enlargement.",
-                                                            "Biological integration influences usage preference.",
-                                                            "Susceptible to complications including breakage and loosening.",
-                                                            "Improvements in design yielding promising results recently.",
-                                                            "Merging of biodegradable polymers enhancing healing dynamics.",
-                                                            "Occasions calling for integration with novel hybrid methods.",
-                                                            "Influence on rehabilitation timelines following integration.",
-                                                            "Deepened insights based on early degradation studies."
-                                                        ]
-                                                    }
-                                                }
-                                            ]
-                                        }
-                                    }
-                                ]
-                            }
-                        },
-                        {
-                            "section_id": "1.2.4",
-                            "prefix": "",
-                            "title": "Degree of Innovation",
-                            "abstract": "Concluding the treatment review with a focus on recent innovations and emerging techniques promising to transform knee ligament reconstruction.",
+                            "section_id": "id-2-4",
+                            "prefix": "###",
+                            "title": "Degree of innovation",
+                            "abstract": "Presents current frontiers in ACL and PCL fixation and outlines developing strategies for improved clinical and biomechanical outcomes. Also covers emerging materials.",
                             "section_type": "leaf",
                             "contents": {
                                 "leaf_bullet_points": [
-                                    "Influence of technological advances in determining treatment courses.",
-                                    "Predictive analysis tools suggesting intervention methodologies.",
-                                    "Use of growth factors in biological augmentations post-surgery.",
-                                    "Integration of robotics in surgical settings for precision.",
-                                    "Innovative graft materials widening patient demographic reach.",
-                                    "Adoption of AI in tailoring patient-centered rehabilitation plans.",
-                                    "Emerging concerns over cost and access to innovative solutions.",
-                                    "Multidimensional approaches integrating physical and technological elements.",
-                                    "Revolutionized diagnostic imaging guiding procedural choices.",
-                                    "Evolution of patient recovery experiences enabled by technology."
+                                    "Use of 3D-printed implants for patient-specific fit",
+                                    "Nanofiber-based sutures enhancing tissue ingrowth",
+                                    "Smart implants embedding sensors for graft tension monitoring",
+                                    "Incorporation of growth factors in the device design",
+                                    "Biodegradable metals (magnesium alloys) for temporary support",
+                                    "Bioactive surface coatings to promote osteointegration",
+                                    "Potential synergy with gene therapy or biologics",
+                                    "Computer-assisted drilling for improved tunnel placement",
+                                    "Robotic surgery and AR-based navigation systems",
+                                    "Multi-center clinical trials evaluating advanced designs"
                                 ]
                             }
                         }
@@ -463,23 +484,23 @@
                 }
             },
             {
-                "section_id": "1.3",
-                "prefix": "",
+                "section_id": "id-3",
+                "prefix": "##",
                 "title": "Conclusion",
-                "abstract": "Synthesizing the significant discussions in the document, the conclusion projects future trends and identifies key areas for continued research and clinical application.",
+                "abstract": "This final section synthesizes the main points across the paper, offering perspectives on the future of ligament reconstruction and fixation methods.",
                 "section_type": "leaf",
                 "contents": {
                     "leaf_bullet_points": [
-                        "Significant strides transforming ACL and PCL treatment landscape.",
-                        "Influence of historical practices on modern interventions.",
-                        "Surgical techniques optimizing outcomes in younger cohorts.",
-                        "Importance of adaptive techniques aligning with patient needs.",
-                        "Evolving fixation methods appealing to diverse orthopedic specialties.",
-                        "Outcomes improved by critical diagnostic frameworks pre-surgery.",
-                        "Understanding anatomical challenges central to complex reconstructions.",
-                        "Recognition of earlier treatment phases in performance outcomes.",
-                        "Integrated methodologies favoring patient-centered recovery programs.",
-                        "Prospective technological implications streamlining procedural efficacy."
+                        "Restatement of the significance of proper diagnosis and treatment planning",
+                        "Importance of individualized approach in cruciate ligament surgery",
+                        "Key advantages and limitations among different fixation techniques",
+                        "Ongoing need for high-quality comparative studies",
+                        "Role of emerging technologies in reducing revision rates",
+                        "Biological augmentation as a future direction for improved healing",
+                        "Collaboration between surgeons, engineers, and researchers",
+                        "Enhanced imaging and biomechanical research to guide technique selection",
+                        "Patient-specific factors remain paramount for optimal decisions",
+                        "Evolving practice guidelines and implications for sports medicine"
                     ]
                 }
             }
