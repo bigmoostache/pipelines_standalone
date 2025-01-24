@@ -8,7 +8,7 @@ class Leaf(BaseModel):
 class Node(BaseModel):
     subsections : List['Plan'] = Field(..., description = 'Subsections of this node')
 class Plan(BaseModel):
-    prefix                 : str = Field(..., description = 'Title prefix, which has to follow one of the following regex expression: Regex(#) (for root), Regex(## [A-Z]\.) (for depth = 1, example: ## A.), or Regex(### [A-Z]\.\d+\.)" (depth = 2, example: ### A.1.) or Regex(#### [A-Z]\.\d+\.[a-z]\.) (depth = 3. example: #### A.1.a.) or Regex(##### [A-Z]\.\d+\.[a-z]\.\d+\)) (depth = 4, example: #### A.1.a.1)), etc. If you fail at following this exact pattern, you will fail at this task and receive a grade of zero.')
+    prefix                 : str = Field(..., description = 'Title prefix, examples: "#", "##", "###", "####", # 1.", "# 2.", "# 3.", "# 4.", etc. Do not include the title itself.')
     title                  : str = Field(..., description = 'Title for this section. Do not re-specify the prefix.')
     abstract               : str = Field(..., description = 'Short abstract of the sections\'s expected content')
     section_type           : Literal['root', 'node', 'leaf'] = Field(..., description = 'root if root of the whole document, leaf if this section is meant to have subsections, and leaf otherwise.')
