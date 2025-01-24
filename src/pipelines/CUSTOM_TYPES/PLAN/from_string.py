@@ -20,6 +20,7 @@ class Pipeline:
             ) -> Plan:
         try:
             dico = robust_safe_load(t)
+            dico = dico['document']
             return Plan.parse_obj(dico)
         except:
             return LLMPlanOutputPipeline(
