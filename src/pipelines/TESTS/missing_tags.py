@@ -12,7 +12,7 @@ class Pipeline:
                 prompt: PROMPT,
                 dico: dict
                 ) -> dict:
-        simple_pattern = r"<ref (\d+) *: *(\d+)>"
+        simple_pattern = r"<ref (\d+) *\/>"
         double_pattern = r"<ref (\d+) *: *(\d+) *\/?>"
         simple_refs = re.findall(simple_pattern, references)
         double_refs = re.findall(double_pattern, references)
