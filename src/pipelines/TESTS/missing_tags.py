@@ -37,6 +37,6 @@ class Pipeline:
         
         res = f'Missing tags: {missing_tags}'
         if invented:
-            res += f'\n\nInvented tags TO ABSOLUTELY REMOVE: {invented}''
+            res += f'\n\nInvented tags TO ABSOLUTELY REMOVE: {invented}'
         dico[self.new_param] = res
         return dico
