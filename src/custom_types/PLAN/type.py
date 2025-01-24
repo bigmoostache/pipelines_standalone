@@ -31,6 +31,7 @@ class PlanForLLM(BaseModel):
 
 class Plan(PlanForLLM):
     feedback : Optional[str] = Field(None, description = 'Feedback from the reviewer')
+    text : Optional[str] = Field(None, description = 'Text of the section')
     
 class Converter:
     @staticmethod
