@@ -39,7 +39,7 @@ class Plan(BaseModel):
             for _ in self.contents.subsections:
                 _.set_ids_to_unique_uuids()
 
-    
+ 
     def to_markdown(self, depth = 1):
         if self.section_type == 'leaf':
             r = f"{self.prefix} {self.title}\n{self.text}"
@@ -50,7 +50,7 @@ class Plan(BaseModel):
             # Add references
             r+= "\n\n## References"
             for _ in self.references:
-                r += f"\n- <ref {_.reference_id}/> __REF_{_.reference_id}__" # This is a placeholder, we will edit the html later
+                r += f"\n- <ref {_.reference_id}/> <REF_{_.reference_id}>" # This is a placeholder, we will edit the html later
         return r
     
     
