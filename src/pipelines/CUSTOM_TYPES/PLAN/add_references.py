@@ -16,5 +16,5 @@ class Pipeline:
             if _['document_id'] not in refs:
                 refs[_['document_id']] = _['reference']
         for k,v in refs.items():
-            p.references.append(Reference(document_hash=k, reference_id=k, citation=v))
+            p.references.append(Reference(document_hash=str(k), reference_id=k, citation=v))
         return p
