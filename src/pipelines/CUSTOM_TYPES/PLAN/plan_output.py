@@ -2,7 +2,7 @@ import openai
 from typing import List
 import os 
 from custom_types.PROMPT.type import PROMPT
-from custom_types.PLAN.type import Plan, PlanForLLM
+from custom_types.PLAN.type import Plan
 
 from typing import List, Union, Literal
 from pydantic import BaseModel, Field
