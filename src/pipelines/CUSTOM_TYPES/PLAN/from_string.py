@@ -31,4 +31,4 @@ class Pipeline:
                 base_url=self.base_url,
                 temperature=self.temperature,
                 top_p=self.top_p
-            )(t)
+            )(prompt)
