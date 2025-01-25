@@ -10,10 +10,6 @@ def count_leading_hashes(s):
             break
     return count
 
-# Example usage:
-input_string = "###This is a test"
-print("Number of leading #:", count_leading_hashes(input_string))
-
 class Pipeline:
     def __init__(self, 
                  add_lead_hashes : bool = False,

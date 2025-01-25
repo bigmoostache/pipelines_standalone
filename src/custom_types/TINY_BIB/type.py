@@ -4,13 +4,13 @@ from pydantic import BaseModel, Field
 from typing import Optional
 
 class TINY_BIB(BaseModel):
-    title: Optional[str] = Field(..., description = "Article title")
+    title: str = Field(..., description = "Article title")
+    reference: str = Field(..., description = "Article reference, APA format. As complete as possible.")
     doi : Optional[str] = Field(..., description = "Article doi")
     date : Optional[str] = Field(..., description = "Publication Date, format DD-MM-YYYY")
     journal : Optional[str] = Field(..., description = "Article journal")
     authors : List[str] = Field(..., description = "Article authors")
-    reference: Optional[str] = Field(..., description = "Article reference, APA format. As complete as possible")
-    context: Optional[str] = Field(..., description = "Article context, a brief summary of the article: its objectives, methods, and results. Max 3 sentences.")
+    context: str = Field(..., description = "Article context, a brief summary of the article: its objectives, methods, and results. Max 3 sentences.")
     
 class Converter:
     @staticmethod
