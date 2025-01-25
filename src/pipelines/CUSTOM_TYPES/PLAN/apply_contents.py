@@ -27,12 +27,12 @@ class Pipeline:
         sections = {_.section_id: _ for _ in sections}
         def process(_plan: Plan, depth = 1):
             if self.add_lead_hashes:
-                n_hashes = count_leading_hashes(_plan.title)
+                n_hashes = count_leading_hashes(_plan.prefix)
                 if n_hashes > depth:
                     n_to_remove = n_hashes - depth
-                    _plan.title = _plan.title[n_to_remove:]
+                    _plan.prefix = _plan.prefix[n_to_remove:]
                 elif n_hashes < depth:
-                    _plan.title = '#' * (depth - n_hashes) + _plan.title
+                    _plan.prefix = '#' * (depth - n_hashes) + _plan.prefix
                     
             if _plan.section_type != 'leaf':
                 for _ in _plan.contents.subsections:
