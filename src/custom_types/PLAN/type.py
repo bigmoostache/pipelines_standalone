@@ -53,6 +53,7 @@ class Plan(BaseModel):
                 r += f"\n- <ref {_.reference_id}/> __REF_{_.reference_id}__" # This is a placeholder, we will edit the html later
         return r
     
+    
     def to_html(self, template, css):
         markdown = self.to_markdown()
         html = markdown2.markdown(markdown) 
@@ -62,16 +63,18 @@ class Plan(BaseModel):
         simple_pattern = r"<ref (\d+) *\/>"
         double_pattern = r"<ref (\d+) *: *(\d+) *\/?>"
         simple_refs = re.findall(simple_pattern, markdown)
+        simple_refs = [int(_) for _ in simple_refs]
         double_refs = re.findall(double_pattern, markdown)
+        double_refs = [(int(_), int(__)) for _, __ in double_refs]
         all_refs = list(set(simple_refs + [_ for _, __ in double_refs]))
         all_plan_refs = [_.reference_id for _ in self.references]
         non_used_refs = set(all_plan_refs) - set(all_refs)
-        all_refs_renames = {ref_id: new_ref_id for new_ref_id, ref_id in enumerate(all_refs)}
+        all_refs_renames = {ref_id: new_ref_id+1 for new_ref_id, ref_id in enumerate(all_refs)}
         
         # Replace references
         def f(i, j, text):
             pattern = rf"<ref {i} *: *{j} *\/>"
-            replacement = f"<a href='#ref-{i}?chunk={j}'>[{all_refs_renames[i]}]</a>"
+            replacement = f"<a href='#ref-{i}'>[{all_refs_renames[i]}]</a>"
             return re.sub(pattern, replacement, text)
         def g(i, text):
             pattern = rf"<ref {i} *\/>"
@@ -85,7 +88,8 @@ class Plan(BaseModel):
         # Add references
         ref_dict = {_.reference_id: _ for _ in self.references}
         for ref in all_refs:
-            html = html.replace(f'__REF_{ref}__', ref_dict[ref].citation)
+            print(f'__REF_{ref}__')
+            html = html.replace(f'<REF_{ref}>', f'<span id="ref-{ref}">{ref_dict[ref].citation}</span>')
         for ref in non_used_refs:
             html = html.replace(f'<ref {ref}/>', '')
             html = html.replace(f'__REF_{ref}__', f'[NOT USED] {ref_dict[ref].citation}')
