@@ -39,7 +39,6 @@ class Pipeline:
                     process(_, depth + 1)
             else:
                 if _plan.section_id in sections:
-                    _plan = Plan.parse_obj(_plan.dict())
                     _plan.text = sections[_plan.section_id].text
         process(p)
         return p
