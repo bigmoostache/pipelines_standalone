@@ -1,6 +1,7 @@
 from custom_types.PLAN.type import Plan
 from pipelines.utils.yaml import robust_safe_load
 from pipelines.CUSTOM_TYPES.PLAN.plan_output import Pipeline as LLMPlanOutputPipeline
+from custom_types.PROMPT.type import PROMPT
 
 class Pipeline:
     __env__ = ["openai_api_key"]
@@ -23,6 +24,8 @@ class Pipeline:
             dico = dico['document']
             return Plan.parse_obj(dico)
         except:
+            prompt = PROMPT()
+            prompt.add(f'{t}\n\n Please rewrite this plan verbatim in the provided data structure.', 'user')
             return LLMPlanOutputPipeline(
                 model=self.model,
                 base_url=self.base_url,
