@@ -71,6 +71,11 @@ def solve_affinity_assignment(affinity_matrix, list_of_elements, M, N, P):
                             'document_id' : list_of_elements[i]
                         }
                     )
+    else:
+        n_groups = len(set(list_of_elements))
+        n_documents = len(set(list_of_elements))
+        smallest_document_length = min([len([_ for _ in list_of_elements if _ == i]) for i in set(list_of_elements)])
+        raise ValueError(f"Solver status: {status_str}, Max groups per element={M}, Elements per group={N}, Min elements per list={P}, n_groups={n_groups}, n_documents={n_documents}, smallest_document_length={smallest_document_length}")
     
     return {
         "status": status_str,
