@@ -1,5 +1,5 @@
 from typing import List 
-import openai, os, numpy as np
+import openai, os, numpy as np, math
 from custom_types.JSONL.type import JSONL
 import pulp
 
@@ -40,10 +40,12 @@ def solve_affinity_assignment(affinity_matrix, list_of_elements, M, N, P):
                           for j in range(m)), "TotalAffinity"
     
     # 1) Each element i can be assigned to at most M groups
+    M = min(m, M) # Feasibility: You cannot assign more groups than there are... obviously
     for i in range(num_elements):
         problem += pulp.lpSum(x[(i, j)] for j in range(m)) <= M, f"ElementMaxGroups_{i}"
     
     # 2) Each group j must have exactly N elements
+    N = math.floor(min(N, 0.75 * num_elements * M / m))  # Feasibility: This ensures there are enough elements to assign. The 0.75 factor is arbitrary.
     for j in range(m):
         problem += pulp.lpSum(x[(i, j)] for i in range(num_elements)) == N, f"GroupSize_{j}"
     
@@ -51,7 +53,9 @@ def solve_affinity_assignment(affinity_matrix, list_of_elements, M, N, P):
     all_lists = set(list_of_elements)
     for k in all_lists:
         indices_in_list_k = [i for i in range(num_elements) if list_of_elements[i] == k]
-        problem += pulp.lpSum(x[(i, j)] for i in indices_in_list_k for j in range(m)) >= P, f"ListAtLeastP_{k}"
+        n_elements_in_list_k = len(indices_in_list_k)
+        Pk = min(P, n_elements_in_list_k * M) # Feasibility: This ensures there are enough elements to assign
+        problem += pulp.lpSum(x[(i, j)] for i in indices_in_list_k for j in range(m)) >= Pk, f"ListAtLeastP_{k}"
     
     # Solve
     solver = pulp.PULP_CBC_CMD(msg=0)
