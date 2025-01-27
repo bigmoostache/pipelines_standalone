@@ -88,11 +88,14 @@ Please analyse the changes from the new document, extracting the changes in the 
             c['old_formulation_chunk_id'] = (c['old_formulation_chunk_id'] or '').lower().replace('chunk ', '')
             c['importance_of_change'] = c['importance_of_change'].name
             if c['old_formulation_chunk_id']:
-                chunk_id = int(c['old_formulation_chunk_id'])
-                chunk = old[chunk_id]
-                c['old_formulation_page_start'] = chunk['page_start']
-                c['old_formulation_page_end'] = chunk['page_end']
-                c['old_formulation_local_index'] = chunk['local_index']
-                c['old_formulation_raw'] = chunk['text']
+                try:
+                    chunk_id = int(c['old_formulation_chunk_id'])
+                    chunk = old[chunk_id]
+                    c['old_formulation_page_start'] = chunk['page_start']
+                    c['old_formulation_page_end'] = chunk['page_end']
+                    c['old_formulation_local_index'] = chunk['local_index']
+                    c['old_formulation_raw'] = chunk['text']
+                except ValueError:
+                    pass
             c.update(work)
         return JSONL(lines=changes)
