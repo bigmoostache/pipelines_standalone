@@ -11,10 +11,10 @@ class Pipeline:
         concatenated.lines = [{k:v.get(k, None) for k in column_order} for v in concatenated.lines]
         # increase all page numbers by 1 to match the page numbers in the pdf
         for line in concatenated.lines:
-            line['page_start'] = str(int(line['page_start']) + 1)
-            line['page_end'] = str(int(line['page_end']) + 1)
-            line['old_formulation_page_start'] = str(int(line['old_formulation_page_start']) + 1)
-            line['old_formulation_page_end'] = str(int(line['old_formulation_page_end']) + 1)
+            line['page_start'] = str(int(line['page_start']) + 1) if line['page_start'] is not None else None
+            line['page_end'] = str(int(line['page_end']) + 1) if line['page_end'] is not None else None
+            line['old_formulation_page_start'] = str(int(line['old_formulation_page_start']) + 1) if line['old_formulation_page_start'] is not None else None
+            line['old_formulation_page_end'] = str(int(line['old_formulation_page_end']) + 1) if line['old_formulation_page_end'] is not None else None
         # rename columns to more human-readable names
         renames = {
             'page_start': 'Page Start',
