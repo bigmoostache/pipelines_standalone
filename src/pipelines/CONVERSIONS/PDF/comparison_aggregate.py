@@ -5,6 +5,7 @@ from pydantic import BaseModel, Field
 from typing import Optional, List
 from enum import Enum
 from openai import OpenAI
+from pydantic_core._pydantic_core import ValidationError
 
 class ChangeType(Enum):
     ADDITION = 'change: addition'
@@ -69,17 +70,24 @@ Please analyse the changes from the new document, extracting the changes in the 
 
 """
         client = OpenAI(api_key=os.environ.get("openai_api_key"))
+        changes = None
+        for retry in range(3):
+            try:
+                completion = client.beta.chat.completions.parse(
+                    model="gpt-4o",
+                    messages=[
+                        {"role": "system", "content": "You are a helpful assistant that NEVER makes any mistakes"},
+                        {"role": "user", "content": prompt}
+                    ],
+                    response_format=Changes,
+                )
 
-        completion = client.beta.chat.completions.parse(
-            model="gpt-4o",
-            messages=[
-                {"role": "system", "content": "You are a helpful assistant that NEVER makes any mistakes"},
-                {"role": "user", "content": prompt}
-            ],
-            response_format=Changes,
-        )
-
-        changes = completion.choices[0].message.parsed
+                changes = completion.choices[0].message.parsed
+                break
+            except ValidationError:
+                continue
+        if changes is None:
+            raise Exception("Could not parse the changes")
         del work['old']
         changes = changes.dict()['changes']
         for i,c in enumerate(changes):
