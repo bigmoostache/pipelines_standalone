@@ -84,7 +84,7 @@ Please analyse the changes from the new document, extracting the changes in the 
 
                 changes = completion.choices[0].message.parsed
                 break
-            except ValidationError:
+            except ValidationError as e:
                 continue
         if changes is None:
             raise Exception("Could not parse the changes")

@@ -1,744 +1,639 @@
 {
-    "section_id": "8c8cfcb5-645e-4311-bca0-bbc4f17354dc",
-    "prefix": "#",
-    "title": "#State-of-the-Art on ACL and PCL Injuries with a Focus on Fixation Methods",
-    "abstract": "This document outlines the clinical background of knee ligament injuries, particularly ACL and PCL lesions. It explores both conservative and surgical treatment options, highlights historical and modern approaches, and emphasizes graft fixation techniques for improved patient outcomes.",
-    "section_type": "root",
-    "contents": {
-        "subsections": [
-            {
-                "section_id": "f2e43026-3aa2-4240-8ec7-f74fb9157a28",
-                "prefix": "##",
-                "title": "##CLINICAL BACKGROUND KNEE REPLACEMENT",
-                "abstract": "Provides an overview of the knee anatomy, pathophysiology, and common medical conditions leading to ligament reconstruction of the knee.",
-                "section_type": "node",
-                "contents": {
-                    "subsections": [
-                        {
-                            "section_id": "e7d0defb-1644-4f08-83a4-bed7c78a9c6f",
-                            "prefix": "###",
-                            "title": "###Anatomy and pathophysiology",
-                            "abstract": "Covers the structural and biomechanical background of key stabilizers, such as ACL, PCL, and the anterolateral ligament.",
-                            "section_type": "leaf",
-                            "contents": {
-                                "leaf_bullet_points": [
-                                    "Functional roles of the ACL, PCL, and anterolateral ligament (ALL) in stabilizing the knee joint",
-                                    "Effects of tibial internal rotation on ACL length and the influence of rotational stability",
-                                    "Significance of associated structures, including menisci, for load distribution",
-                                    "Consequences of ACL or PCL deficiency on joint kinematics, such as persistent instability",
-                                    "Characteristic patterns of combined ACL/ALL injuries and pivot shift phenomenon",
-                                    "Impact of bone morphology (femoral condyles, tibial plateau) on ligament tension",
-                                    "Potential for graft laxity when rotational constraints (i.e., ALL) are compromised"
-                                ]
-                            },
-                            "feedback": null,
-                            "text": "\nThe anterior cruciate ligament (ACL), posterior cruciate ligament (PCL), and anterolateral ligament (ALL) are essential stabilizers of the knee joint, each contributing uniquely to joint stability and function. The ACL primarily resists anterior tibial translation and rotational forces, while the PCL prevents posterior tibial translation, playing a crucial role in maintaining knee stability during dynamic activities. The ALL, although less prominent, acts as a secondary stabilizer, particularly in controlling internal tibial rotation and providing additional support to the ACL, especially in cases of high-grade injuries where rotational stability is compromised <ref 12:2 />.\n\nTibial internal rotation significantly affects ACL length, with studies demonstrating a linear increase in ACL length as tibial internal rotation increases from 0 to 30 degrees. This relationship underscores the importance of rotational stability in preventing ACL injuries and ensuring the integrity of reconstructed grafts <ref 10:2 />. The menisci, particularly the lateral meniscus, play a crucial role in load distribution across the knee joint, acting as shock absorbers and stabilizers. The posterior horn of the lateral meniscus provides essential support to the lateral femoral condyle, preventing excessive anterior translation and internal rotation of the tibia <ref 17:2 />.\n\nDeficiencies in the ACL or PCL can lead to persistent joint instability, characterized by increased anterior or posterior tibial translation and rotational laxity. This instability is often exacerbated by associated injuries to the ALL, which can result in a pivot shift phenomenon\u2014a hallmark of combined ACL/ALL injuries. The pivot shift is indicative of anterolateral rotatory instability, where the tibia subluxates anteriorly and rotates internally, often leading to further joint damage and compromised function <ref 38:7 />. The study by Boden and Sheehan further emphasizes that non-contact ACL injuries, which are prevalent, often occur due to a combination of axial compressive forces and disrupted motor control patterns, underscoring the need for preventive strategies <ref 1:4 />.\n\nBone morphology, including the shape and slope of the femoral condyles and tibial plateau, significantly impacts ligament tension and joint stability. Variations in these structures can alter the mechanical environment of the knee, influencing the risk of ligament injuries and the success of surgical reconstructions. For instance, a steeper posterior tibial slope has been associated with increased ACL strain and a higher risk of injury <ref 39:7 />. The study by Moon et al. highlights how different ACL graft trajectories, such as those achieved through trans-portal versus modified trans-tibial techniques, can affect stress patterns around the femoral tunnel, potentially influencing ligament tension and stability <ref 21:3 />.\n\nGenetic factors also play a role in ACL injury risk, as demonstrated by studies on both humans and canines. Genetic predispositions can influence ligament matrix properties, potentially affecting ligament strength and stability. This is particularly relevant in the context of graft laxity, where compromised rotational constraints, such as those provided by the ALL, can undermine the stability of reconstructed ligaments and lead to suboptimal clinical outcomes <ref 48:9 />.\n\nIn summary, the intricate interplay between the ACL, PCL, ALL, and associated structures underscores the complexity of knee joint biomechanics. Understanding these relationships is crucial for developing effective treatment strategies and improving surgical outcomes for patients with ligament injuries.",
-                            "references": []
-                        },
-                        {
-                            "section_id": "508f1c8e-96eb-4f25-9c5f-48457a5ef936",
-                            "prefix": "###",
-                            "title": "###Medical conditions for ligament reconstruction of the knee",
-                            "abstract": "Focuses on the range of clinical presentations requiring surgical intervention, with a specific focus on ACL and PCL injuries.",
-                            "section_type": "node",
-                            "contents": {
-                                "subsections": [
-                                    {
-                                        "section_id": "7c337e95-0dea-4ed0-9358-db4bbcf9acd6",
-                                        "prefix": "####",
-                                        "title": "####Anterior cruciate ligament injury",
-                                        "abstract": "Introduces clinical features, risk factors, and combined ACL and high-grade ALL tears.",
-                                        "section_type": "leaf",
-                                        "contents": {
-                                            "leaf_bullet_points": [
-                                                "Likely causes: pivoting sports, trauma, hyperextension, or contact injuries",
-                                                "Signs: sense of instability, limited range of motion, potential meniscal tears",
-                                                "Combined lesions of ACL and anterolateral ligament leading to rotational laxity",
-                                                "Discussion of associated risk factors (e.g., femoral notch width, neuromuscular control)",
-                                                "High-grade ALL deficiency as a predictor of increased static tibial internal rotation",
-                                                "Clinical consequences: persistent pivot shift, poor return to pre-injury level",
-                                                "Imaging methods using MRI or 3D CT-based approaches for detailed lesion assessment"
-                                            ]
-                                        },
-                                        "feedback": null,
-                                        "text": "Anterior cruciate ligament (ACL) injuries are prevalent in athletes, particularly those involved in pivoting sports such as soccer, basketball, and skiing. These injuries often result from sudden changes in direction, hyperextension, or direct contact, leading to a sense of instability and limited range of motion in the knee joint. Clinical signs frequently include swelling, pain, and potential meniscal tears, which can exacerbate the instability and complicate the injury <ref 1:3 />. The prevalence of ACL injuries is notably higher in females, attributed to anatomical and hormonal differences, with studies indicating a higher risk of rupture due to factors such as a larger quadriceps angle and increased knee abduction moments <ref 48:9 />.\n\nA significant concern in ACL injuries is the combined lesion with the anterolateral ligament (ALL), which can lead to increased rotational laxity. High-grade ALL deficiencies are particularly problematic, as they are associated with increased static tibial internal rotation, further compromising knee stability <ref 10:8 />. This rotational instability often results in a persistent pivot shift, making it challenging for athletes to return to their pre-injury performance levels <ref 17:9 />. The presence of high-grade impression fractures of the posterolateral tibial plateau can exacerbate this instability, leading to increased translational and anterolateral rotational instability in ACL-deficient knees <ref 17:11 />. The anterolateral complex (ALC) plays a crucial role in stabilizing knee movement, and injuries to this structure may necessitate lateral extra-articular augmentation procedures to address residual instability <ref 38:3 />.\n\nSeveral risk factors contribute to the likelihood of ACL injuries. Anatomical factors such as a narrow femoral notch width and a high posterior tibial slope can predispose individuals to ACL tears <ref 5:9 />. Neuromuscular control is also critical; deficits in this area can increase the risk of injury by affecting the dynamic stability of the knee <ref 48:9 />. Additionally, the degree of tibial internal rotation has been shown to correlate with the severity of ALL injuries, highlighting the importance of addressing these factors in prevention strategies <ref 10:7 />. Understanding these risk factors is essential for developing targeted prevention strategies.\n\nImaging plays a crucial role in the assessment and management of ACL injuries. Magnetic resonance imaging (MRI) and 3D computed tomography (CT) are commonly used to provide detailed views of the knee's internal structures, allowing for accurate diagnosis and assessment of the extent of the injury <ref 6:2 />. MRI findings can reveal the degree of graft integration and tunnel widening, which are critical for evaluating surgical outcomes and planning further interventions <ref 23:7 />. The graft insertion length in the femoral tunnel, although not significantly affecting surgical outcomes, is negatively correlated with tunnel widening, emphasizing the importance of precise imaging assessments <ref 20:5 />. These imaging techniques are invaluable for planning surgical interventions and monitoring post-operative recovery, ensuring that any associated lesions, such as those involving the ALL, are adequately addressed <ref 39:4 />. Furthermore, the use of advanced imaging methods can help identify the presence of soft tissue interposition, which may affect the stability and success of ACL reconstructions <ref 9:8 />.\n\nIn conclusion, ACL injuries, particularly when combined with ALL tears, present significant challenges in terms of diagnosis, treatment, and rehabilitation. A comprehensive understanding of the risk factors and the use of advanced imaging techniques are essential for effective management and improving outcomes for affected individuals. The integration of these insights into clinical practice can aid in the development of more effective prevention and treatment strategies, ultimately enhancing patient care and recovery <ref 43:8 />.",
-                                        "references": []
-                                    },
-                                    {
-                                        "section_id": "9a566e97-b8c2-4905-b4a2-302d3152afbf",
-                                        "prefix": "####",
-                                        "title": "####Posterior cruciate ligament injury",
-                                        "abstract": "Summarizes main causes, functional significance, as well as difficulty in diagnosing PCL tears.",
-                                        "section_type": "leaf",
-                                        "contents": {
-                                            "leaf_bullet_points": [
-                                                "Typical mechanism: direct impact to anterior tibia or hyperflexion events",
-                                                "Symptoms: posterior knee instability, less frequent pivot complaints, subtle exam findings",
-                                                "Differences from ACL tears in terms of clinical test reliability (posterior drawer test)",
-                                                "Often combined with collateral ligaments or meniscal injuries (multiligament patterns)",
-                                                "Imaging strategy: MRI with focus on the tibial inlay portion of the PCL",
-                                                "Relevance of radiographic or diagnostic arthroscopy to confirm PCL involvement",
-                                                "Periods of conservative vs. surgical approach based on functional demands"
-                                            ]
-                                        },
-                                        "feedback": null,
-                                        "text": "\nPosterior cruciate ligament (PCL) injuries, though less common than anterior cruciate ligament (ACL) injuries, present unique challenges in diagnosis and management. The typical mechanisms of PCL injury include direct impact to the anterior tibia, often seen in traffic accidents, or hyperflexion events during sports activities <ref 33:3 />. These injuries can lead to posterior knee instability, characterized by subtle clinical findings and less frequent pivot complaints compared to ACL injuries <ref 26:3 />. The posterior drawer test is a key diagnostic tool, but its reliability can vary, necessitating a comprehensive clinical evaluation <ref 6:4 />. Unlike ACL injuries, PCL injuries often present with less obvious symptoms, making clinical tests like the posterior drawer test crucial yet sometimes challenging to interpret <ref 17:3 />.\n\nPCL injuries frequently occur alongside other ligamentous or meniscal injuries, forming complex multiligament patterns that complicate diagnosis and treatment <ref 45:3 />. Imaging plays a crucial role in the assessment of PCL injuries, with MRI being the preferred modality due to its ability to focus on the tibial inlay portion of the PCL and detect associated injuries <ref 6:5 />. Radiographic evaluation and diagnostic arthroscopy are also valuable in confirming PCL involvement and planning surgical interventions <ref 26:4 />. Advanced imaging techniques, such as those discussed in <ref 39:7 />, highlight the importance of detailed MRI analysis in understanding the structural changes associated with PCL injuries. Additionally, the use of arthroscopic visualization to confirm ligament involvement can reduce the need for postoperative imaging, as demonstrated in ACL studies <ref 15:6 />.\n\nThe management of PCL injuries varies based on the severity and functional demands of the patient. Conservative treatment may be appropriate for low-grade injuries or patients with low functional demands, focusing on rehabilitation to restore knee stability <ref 33:3 />. However, surgical intervention is often required for high-grade injuries or when conservative measures fail to restore function. Surgical techniques have evolved from open procedures to minimally invasive arthroscopic methods, which offer the advantages of reduced trauma and faster recovery <ref 26:3 />. Recent advancements in fixation techniques, such as the use of suspensory devices, have shown promising results in achieving stable fixation and satisfactory clinical outcomes <ref 28:1 />. Studies like <ref 36:2 /> emphasize the efficacy of arthroscopic high-intensity suture binding combined with button plate suspension fixation, highlighting its minimally invasive nature and successful clinical outcomes.\n\nIn terms of fixation methods, the choice between suspensory devices and interference screws is critical. Suspensory devices, such as those discussed in <ref 7:9 />, offer the advantage of adjustable tensioning, which can be beneficial in reducing graft slippage. However, studies have shown that these devices may lead to greater tibial tunnel widening compared to interference screws <ref 50:6 />. This is an important consideration in surgical planning, as tunnel widening can impact long-term stability and outcomes. The comparison of different fixation methods, including hybrid techniques, further underscores the need for tailored approaches based on individual patient anatomy and injury characteristics <ref 43:8 />.\n\nBiomechanical studies, such as those comparing canine and human ACL ruptures, provide valuable insights into the progression and management of ligament injuries <ref 48:11 />. These studies highlight the importance of maintaining the structural integrity of the knee joint to prevent long-term complications such as osteoarthritis <ref 1:14 />. The integration of innovative fixation methods and a thorough understanding of the biomechanical implications of PCL injuries, as highlighted in <ref 14:3 />, are essential for optimizing patient care. By leveraging these insights, clinicians can better tailor treatment strategies to the specific needs of each patient, improving outcomes and reducing the risk of re-injury.",
-                                        "references": []
-                                    }
-                                ]
-                            },
-                            "feedback": null,
-                            "text": null,
-                            "references": []
-                        }
-                    ]
-                },
-                "feedback": null,
-                "text": null,
-                "references": []
-            },
-            {
-                "section_id": "2dbf5bea-2afd-49fc-99c0-1bae07412a7a",
-                "prefix": "##",
-                "title": "##HISTORICAL, CURRENT, AND ALTERNATIVE TREATMENT",
-                "abstract": "Discusses the historical evolution of knee ligament surgery and the different strategies for both ACL and PCL management, culminating in fixation methods.",
-                "section_type": "node",
-                "contents": {
-                    "subsections": [
-                        {
-                            "section_id": "24b4d509-d3ec-4c22-9417-8b00ad670e86",
-                            "prefix": "###",
-                            "title": "###History",
-                            "abstract": "Traces the evolution of knee ligament reconstruction from early open techniques to arthroscopic approaches.",
-                            "section_type": "leaf",
-                            "contents": {
-                                "leaf_bullet_points": [
-                                    "Initial ligament repair attempts using open methods and direct suturing",
-                                    "Shifts to arthroscopic surgery, focusing on less morbidity and faster recovery",
-                                    "Adoption of bone-patellar tendon-bone (BPTB) as a classical standard for ACL reconstruction",
-                                    "Emergence of hamstring autografts and quadriceps tendon autografts for more versatile usage",
-                                    "Early recognition of secondary restraints like the anterolateral structures in advanced cases",
-                                    "Parallel advancement in imaging (MRI) simplifying diagnosis and planning",
-                                    "Evolution from direct repair to reconstruction with specialized fixation devices"
-                                ]
-                            },
-                            "feedback": null,
-                            "text": "The evolution of knee ligament reconstruction has been marked by significant advancements, transitioning from early open surgical techniques to modern arthroscopic approaches. Initially, ligament repair attempts were characterized by open methods and direct suturing, which, while effective to some extent, often resulted in high morbidity and prolonged recovery times. These early techniques laid the groundwork for more refined methods, as surgeons sought to minimize invasiveness and improve patient outcomes <ref 18:2 />.\n\nThe shift to arthroscopic surgery represented a major milestone in knee ligament reconstruction. This approach, which gained popularity in the late 20th century, offered the advantages of reduced surgical trauma and faster recovery, making it a preferred choice for both patients and surgeons <ref 36:8 />. The adoption of bone-patellar tendon-bone (BPTB) grafts became a classical standard for anterior cruciate ligament (ACL) reconstruction during this period, providing a reliable option for restoring knee stability <ref 3:3 />. However, the need for more versatile graft options led to the emergence of hamstring and quadriceps tendon autografts. These alternatives offered reduced donor site morbidity and have since become integral to ACL and posterior cruciate ligament (PCL) surgeries <ref 8:5 />, <ref 44:3 />.\n\nAs surgical techniques evolved, there was an early recognition of the importance of secondary restraints, such as the anterolateral structures, particularly in cases of rotational instability. This understanding prompted the development of more comprehensive reconstruction strategies that addressed these additional stabilizers <ref 32:1 />. Concurrently, advancements in imaging technology, particularly magnetic resonance imaging (MRI), revolutionized the diagnosis and planning of knee ligament surgeries. MRI provided detailed insights into the extent of ligament damage and facilitated precise surgical interventions, thereby enhancing the overall success rates of reconstructive procedures <ref 23:1 />.\n\nThe evolution from direct repair to reconstruction with specialized fixation devices marked another significant advancement in knee ligament surgery. The introduction of suspensory fixation devices, such as fixed-loop and adjustable-loop cortical devices, provided surgeons with more reliable options for securing grafts. These devices addressed issues of graft migration and soft tissue interposition, which were common challenges in earlier techniques <ref 15:2 />, <ref 47:2 />. The ongoing refinement of these devices continues to improve surgical outcomes, underscoring the dynamic nature of knee ligament reconstruction and its adaptation to emerging clinical insights and technological innovations.\n\nIn recent years, the all-inside technique has gained traction, offering benefits such as decreased postoperative pain and minimal hardware use. This method, which involves the use of bone sockets and suspensory fixation, has shown promising results in both ACL and PCL reconstructions <ref 22:1 />, <ref 34:4 />. Studies have demonstrated that this approach can lead to better healing outcomes and reduced tunnel widening compared to traditional methods <ref 52:5 />, <ref 4:4 />. Additionally, the use of intraosseous suspensory fixation techniques has been introduced, providing closer fixation to the joint and demonstrating safety and effectiveness in both pediatric and adult patients <ref 25:2 />.\n\nThe integration of advanced imaging techniques, such as MRI, has further enhanced the precision of surgical planning and execution. These advancements have allowed for more accurate assessments of graft integration and tunnel widening, contributing to improved clinical outcomes <ref 13:1 />, <ref 28:4 />. Moreover, the development of remnant-preserving techniques in PCL reconstruction has highlighted the importance of preserving existing ligament fibers to enhance graft stability and sensory function <ref 33:5 />.\n\nRecent studies have also emphasized the importance of direct arthroscopic confirmation of femoral button deployment to prevent soft tissue interposition, a common issue in ACL reconstruction. This technique ensures proper seating of the femoral button, reducing the risk of complications and improving surgical outcomes <ref 35:1 />. Furthermore, the use of adjustable-loop fixation methods has been shown to provide significant postoperative improvements, as evidenced by single-leg hop test results in athletes, demonstrating the effectiveness of these techniques in restoring knee function <ref 41:3 />.\n\nOverall, the history of knee ligament reconstruction reflects a continuous pursuit of innovation and improvement, driven by a deeper understanding of knee biomechanics and the development of advanced surgical techniques and technologies. As research continues to evolve, the focus remains on optimizing patient outcomes through minimally invasive approaches and effective fixation methods <ref 14:6 />, <ref 26:5 />, <ref 46:4 />.",
-                            "references": []
-                        },
-                        {
-                            "section_id": "a74bc347-e24b-47a3-bda5-a8ee92cbb80a",
-                            "prefix": "###",
-                            "title": "###Treatment",
-                            "abstract": "Describes both conservative and surgical approaches, elaborating on established and emerging techniques.",
-                            "section_type": "node",
-                            "contents": {
-                                "subsections": [
-                                    {
-                                        "section_id": "cef1ad44-8519-4f30-b14b-bfa73bcd69e7",
-                                        "prefix": "####",
-                                        "title": "####Conservative treatment",
-                                        "abstract": "Summarizes non-surgical options and indications in specific patient populations.",
-                                        "section_type": "leaf",
-                                        "contents": {
-                                            "leaf_bullet_points": [
-                                                "Rehabilitation focusing on muscle strengthening and neuromuscular training",
-                                                "Indications: partial tears, low-demand patients, or minimal functional instability",
-                                                "Use of braces, limiting pivot activities, and neuromuscular exercises",
-                                                "Therapy emphasis on quadriceps and hamstrings co-contraction strategies",
-                                                "Time-based outcomes: period of protective weight bearing vs. early mobilization",
-                                                "Monitoring for progressive instability or meniscus damage over time",
-                                                "Potential progression to surgical approach if daily life remains impacted"
-                                            ]
-                                        },
-                                        "feedback": null,
-                                        "text": "Conservative treatment for anterior cruciate ligament (ACL) and posterior cruciate ligament (PCL) injuries is a viable option for specific patient populations, particularly those with partial tears, low-demand lifestyles, or minimal functional instability. This approach emphasizes rehabilitation, focusing on muscle strengthening and neuromuscular training to enhance joint stability and function. Key components include exercises targeting quadriceps and hamstrings co-contraction, which are crucial for maintaining knee stability and preventing further injury <ref 1:11 />. The use of braces is integral, as they help limit pivot activities and protect the joint during the healing process <ref 5:11 />. Additionally, neuromuscular exercises, such as single-leg hop tests, are employed to assess and improve functional performance, ensuring a comprehensive rehabilitation strategy <ref 41:4 />.\n\nThe indications for conservative management are typically based on the severity of the injury and the patient's activity level. Partial tears or injuries in patients with lower physical demands may be managed effectively without surgery, provided there is no significant instability or risk of further damage <ref 7:11 />. In military personnel, for instance, non-surgical options are often considered to maintain operational readiness, as immediate surgery may not always be feasible <ref 40:4 />. In these cases, a structured rehabilitation program can lead to satisfactory outcomes, allowing patients to return to their daily activities without significant limitations <ref 9:6 />. The early functional outcomes of conservative treatment have been shown to be comparable to surgical approaches in certain cases, with patient-reported outcomes indicating high levels of satisfaction and functional recovery <ref 42:7 />.\n\nTime-based outcomes are an important consideration in conservative treatment. Initially, a period of protective weight bearing is recommended to allow the injured ligament to heal. This is followed by early mobilization to restore range of motion and prevent joint stiffness <ref 11:3 />. Rehabilitation protocols often include quadriceps-strengthening and closed-chain exercises, which are initiated soon after injury to promote recovery <ref 46:5 />. The progression of rehabilitation is closely monitored, with adjustments made based on the patient's response to therapy and any signs of progressive instability or meniscus damage <ref 16:5 />. Regular assessments help determine whether the conservative approach remains viable or if surgical intervention becomes necessary due to persistent instability or functional impairment <ref 20:8 />. Imaging techniques, such as MRI, play a crucial role in assessing joint stability and detecting any changes that may necessitate surgical intervention <ref 39:12 />.\n\nMonitoring for potential progression to surgical treatment is a critical aspect of conservative management. Patients are evaluated for signs of instability or functional limitations that may impact their quality of life. If conservative measures fail to provide adequate stability or if the patient experiences recurrent episodes of instability, surgical options may be considered to restore knee function and prevent further damage <ref 23:4 />. This decision is typically based on a combination of clinical assessments, patient-reported outcomes, and imaging studies <ref 26:8 />. The use of hybrid fixation techniques in surgical interventions has been shown to provide effective outcomes, with studies indicating no significant difference in bone tunnel enlargement or clinical outcomes compared to traditional methods <ref 51:5 />. Furthermore, the integration of pharmacological interventions, such as doxycycline, offers potential benefits in reducing the risk of posttraumatic osteoarthritis, thereby enhancing the conservative management of these injuries <ref 49:4 />.\n\nIn summary, conservative treatment for ACL and PCL injuries offers a viable option for select patients, focusing on rehabilitation and careful monitoring to achieve optimal outcomes. The approach requires a tailored rehabilitation program and regular evaluations to ensure that the treatment plan remains effective and that any progression to surgical intervention is timely and appropriate <ref 31:4 />. By incorporating advanced rehabilitation techniques and pharmacological strategies, conservative management can be optimized to provide satisfactory clinical outcomes with minimal complications <ref 36:6 />.",
-                                        "references": []
-                                    },
-                                    {
-                                        "section_id": "bacc2f08-4d65-41c8-8d02-03744b4d7926",
-                                        "prefix": "####",
-                                        "title": "####Surgical treatment",
-                                        "abstract": "Explores the different surgical options, from ACL reconstruction techniques to combined procedures.",
-                                        "section_type": "node",
-                                        "contents": {
-                                            "subsections": [
-                                                {
-                                                    "section_id": "8b9b0127-365b-468c-9e45-c7afe16df6f5",
-                                                    "prefix": "#####",
-                                                    "title": "#####ACL reconstruction",
-                                                    "abstract": "Details single-bundle approaches and combined ACL/ALL reconstruction for high-grade tears.",
-                                                    "section_type": "leaf",
-                                                    "contents": {
-                                                        "leaf_bullet_points": [
-                                                            "Single-bundle approach as gold standard in sports-related ACL injury",
-                                                            "Graft choices: hamstrings, quadriceps tendon, or BPTB autograft",
-                                                            "All-inside technique vs. full tibial tunnel approach (e.g., TFSF, tibial screw fixation)",
-                                                            "Lengthening of up to 2% per 5\u00b0 tibial rotation: clinical relevance and over-tensioning risk",
-                                                            "Indication for combined ACL/ALL reconstruction in anterolateral instability",
-                                                            "Influence of concomitant meniscal repairs for joint stability and function",
-                                                            "Postoperative protocols: early mobilization vs. restricted weight bearing"
-                                                        ]
-                                                    },
-                                                    "feedback": null,
-                                                    "text": "In the realm of anterior cruciate ligament (ACL) reconstruction, the single-bundle approach is widely recognized as the gold standard, particularly for sports-related injuries. This method is favored for its ability to effectively restore knee stability, utilizing various graft choices such as hamstrings, quadriceps tendon, or bone-patellar tendon-bone (BPTB) autografts. Each graft type offers distinct advantages; for instance, the quadriceps tendon is noted for its strength and reduced donor-site morbidity compared to BPTB, which, despite its popularity, carries risks of patellar fracture and anterior knee pain <ref 8:3 />, <ref 24:6 />. The choice of graft is crucial, as it influences both the surgical outcome and the patient's recovery trajectory.\n\nThe surgical technique employed in ACL reconstruction significantly impacts clinical outcomes. The all-inside technique, which utilizes suspensory cortical button fixation, is often compared to the traditional full tibial tunnel approach. The all-inside method is praised for its ability to preserve bone and reduce tunnel widening, a common concern in ACL surgeries <ref 24:2 />, <ref 50:4 />. However, studies indicate that while the all-inside technique allows for a thicker graft and potentially less postoperative pain, it does not show significant superiority in functional outcomes or knee stability compared to the full tibial tunnel method <ref 24:6 />, <ref 24:11 />. The choice between these techniques often depends on the surgeon's preference and the specific clinical scenario. Additionally, the use of short grafts in ACL reconstruction has been shown to reduce pain and preserve strength, offering another viable option for certain patients <ref 32:7 />.\n\nA critical consideration in ACL reconstruction is the potential for graft lengthening due to tibial rotation, which can lead to over-tensioning and subsequent complications. Research suggests that grafts can lengthen by up to 2% per 5\u00b0 of tibial rotation, highlighting the importance of precise surgical technique and postoperative management to mitigate this risk <ref 14:7 />. In cases of anterolateral instability, a combined ACL and anterolateral ligament (ALL) reconstruction may be indicated to enhance joint stability and prevent rotational laxity <ref 24:12 />. The modified double-bundle ACLR technique, which avoids implants on the tibial side, has shown improved outcomes in terms of knee stability and function, offering an alternative approach for specific cases <ref 3:3 />.\n\nThe role of concomitant meniscal repairs in ACL reconstruction cannot be overstated, as they contribute significantly to joint stability and function. Meniscal repairs, when performed alongside ACL reconstruction, have been shown to improve clinical outcomes and reduce the risk of osteoarthritis <ref 51:5 />. Postoperative protocols also play a vital role in recovery, with early mobilization being favored to promote joint function and reduce stiffness, although some cases may require restricted weight bearing to protect the repair <ref 27:9 />. Rehabilitation strategies, such as those outlined in <ref 7:8 />, emphasize the importance of a tailored approach to each patient's unique circumstances, ensuring optimal recovery and return to activity.\n\nComparative studies, such as those by Xu et al. <ref 4:3 /> and Kulshrestha et al. <ref 42:3 />, have highlighted the differences in clinical outcomes between the all-inside and standard techniques, with findings suggesting that the all-inside approach may offer better knee stability and less tibial tunnel widening. However, the anteromedial portal technique remains a viable option, particularly in cases where hyperflexion is not a concern <ref 42:3 />. Furthermore, the use of hybrid tibial fixation methods, as explored by Lai et al. <ref 43:5 />, offers additional insights into optimizing surgical outcomes and minimizing complications such as tunnel widening.\n\nThe study by de Geofroy et al. <ref 40:3 /> provides further context by comparing the STG and ST4E techniques in military personnel, highlighting faster muscle recovery and better sports results with the ST4E procedure. This underscores the importance of selecting the appropriate surgical technique based on the patient's specific needs and activity level. Additionally, Yang et al. <ref 34:5 /> discuss the advantages of the all-inside technique in reducing surgical trauma and preserving muscle strength, which can be particularly beneficial for patients with high demands for knee joint movement.\n\nIn conclusion, ACL reconstruction is a complex procedure that requires careful consideration of graft choices, surgical techniques, and postoperative protocols. By integrating insights from various studies and adapting to the specific needs of each patient, surgeons can enhance the success of ACL reconstruction and improve long-term outcomes.",
-                                                    "references": []
-                                                },
-                                                {
-                                                    "section_id": "2a868260-5db7-459e-8c32-1ed2f8fad659",
-                                                    "prefix": "#####",
-                                                    "title": "#####ACL repair",
-                                                    "abstract": "Covers direct suture repair in rare indications and potential use of internal bracing.",
-                                                    "section_type": "leaf",
-                                                    "contents": {
-                                                        "leaf_bullet_points": [
-                                                            "Less common approach compared to reconstruction, mostly in proximal tears",
-                                                            "Biological augmentation with scaffolds or internal brace reinforcement",
-                                                            "Higher re-rupture rates vs. standard reconstruction in mid-substance tears",
-                                                            "Potential fast return-to-sport in carefully selected acute tears",
-                                                            "Suture anchor usage or advanced bridging scaffolds",
-                                                            "Still under debate, with ongoing registry data needed",
-                                                            "Possibility of bridging partial tears in well-vascularized contexts"
-                                                        ]
-                                                    },
-                                                    "feedback": null,
-                                                    "text": "ACL repair, while less common than reconstruction, is primarily considered in specific cases such as proximal tears where direct suture repair may be feasible. This approach is often debated due to its higher re-rupture rates compared to standard reconstruction, particularly in mid-substance tears <ref 40:9 />. However, in carefully selected acute tears, ACL repair can offer the advantage of a faster return to sport, making it an attractive option for athletes and active individuals <ref 38:12 />. The potential for rapid recovery is contingent upon the tear's location and the patient's overall knee health, emphasizing the need for precise patient selection.\n\nBiological augmentation plays a crucial role in enhancing the outcomes of ACL repair. Techniques such as the use of scaffolds or internal brace reinforcement are employed to support the healing process and improve the structural integrity of the repaired ligament <ref 44:2 />. These methods aim to provide additional support to the repaired tissue, potentially reducing the risk of re-rupture. Despite these advancements, the use of biological augmentation remains under investigation, with ongoing registry data needed to fully understand its long-term benefits and limitations <ref 44:10 />. Studies have shown that the integration of biological materials can enhance the healing environment, although the variability in outcomes suggests that further research is necessary to optimize these techniques <ref 2:3 />.\n\nSuture anchor usage and advanced bridging scaffolds are integral to the ACL repair process, offering mechanical stability to the repaired ligament. These devices are designed to secure the ligament in place, allowing for natural healing and integration with the surrounding tissue <ref 52:2 />. The choice of fixation method is critical, as it influences the repair's success and the patient's recovery trajectory. While suture anchors provide a reliable means of fixation, the development of advanced scaffolds offers new possibilities for bridging partial tears, particularly in well-vascularized contexts where natural healing potential is higher <ref 44:9 />. Recent innovations in fixation techniques, such as the use of adjustable-loop devices, have shown promise in reducing graft slippage and improving overall stability <ref 27:3 />.\n\nThe debate surrounding ACL repair continues, with proponents highlighting its potential benefits in specific scenarios and critics pointing to the higher re-rupture rates compared to reconstruction. As research progresses, the accumulation of registry data will be essential in determining the viability of ACL repair as a standard treatment option. The possibility of bridging partial tears in well-vascularized contexts presents an exciting avenue for future exploration, potentially expanding the indications for ACL repair and improving patient outcomes <ref 52:2 />. Comparative studies have demonstrated that while ACL repair can be effective in certain cases, the choice between repair and reconstruction should be guided by individual patient factors and the specific characteristics of the tear <ref 30:6 />.\n\nIn conclusion, ACL repair remains a viable option for certain patients, particularly those with proximal tears and a high potential for natural healing. The integration of biological augmentation and advanced fixation techniques continues to evolve, offering new opportunities to enhance repair outcomes. However, the decision to pursue ACL repair should be made on a case-by-case basis, considering the specific clinical context and the latest evidence from ongoing research <ref 23:8 />. As the field advances, continued investigation into the long-term outcomes and optimal techniques for ACL repair will be crucial in refining this approach and expanding its applicability <ref 34:9 />.\n\nTo further enhance this section, the following references should be integrated:\n\n1. **<ref 7 />**: This article discusses the safety and effectiveness of different fixation devices. It could be included in the paragraph discussing the choice of fixation methods, comparing the outcomes of different devices.\n\n2. **<ref 36 />**: This study on PCL tibial avulsion fractures could be referenced in the discussion on suture anchor usage, highlighting the effectiveness of high-intensity suture binding.\n\n3. **<ref 25 />**: The intraosseous suspensory fixation technique could be mentioned in the section on advanced fixation techniques, providing an example of innovative approaches in ligament repair.\n\n4. **<ref 35 />**: This article on femoral button deployment could be used to discuss the importance of proper fixation to prevent complications, aligning with the section on suture anchor usage.\n\n5. **<ref 32 />**: The review on short graft ACL reconstruction could be referenced when discussing the potential for fast return-to-sport, comparing it to traditional methods.\n\n6. **<ref 43 />**: This study on hybrid tibial fixations could be included in the discussion on fixation methods, providing data on the effectiveness of different hybrid techniques.\n\n7. **<ref 33 />**: The remnant-preserving PCL reconstruction technique could be mentioned in the context of biological augmentation, highlighting the importance of preserving existing fibers.\n\n8. **<ref 18 />**: The AIIMS technique for ACL avulsion fracture fixation could be referenced in the section on suture anchor usage, providing an example of innovative suture techniques.\n\n9. **<ref 26 />**: The article on PCL avulsion fracture fixation could be used to discuss the challenges and innovations in ligament repair, particularly in the context of suture techniques.\n\n10. **<ref 28 />**: This study on suspensory fixation for PCL avulsion fractures could be included in the discussion on fixation methods, comparing it to other techniques.\n\n11. **<ref 3 />**: The article on modified double-bundle ACL reconstruction could be referenced in the section on advanced scaffolds, discussing the benefits of novel graft placement techniques.\n\n12. **<ref 22 />**: The all-inside ACL reconstruction technique could be mentioned in the context of innovative approaches, comparing it to traditional methods.\n\n13. **<ref 24 />**: The systematic review on ACL reconstruction techniques could be used to provide a broader context for the discussion on ACL repair, highlighting the ongoing debate in the field.",
-                                                    "references": []
-                                                },
-                                                {
-                                                    "section_id": "aab5e049-33d7-4715-afef-d4d8eaaa26dd",
-                                                    "prefix": "#####",
-                                                    "title": "#####PCL reconstruction",
-                                                    "abstract": "Outlines typical approach for symptomatic PCL injuries, emphasizing graft selection and tibial fixation techniques.",
-                                                    "section_type": "leaf",
-                                                    "contents": {
-                                                        "leaf_bullet_points": [
-                                                            "Reserved for chronic or high-grade tears with notable posterior laxity",
-                                                            "Possible single-bundle vs. double-bundle technique focusing on anterolateral and posteromedial bundles",
-                                                            "Fixation on tibia with inlay or trans-tibial methods; femoral fixation with suspensory devices or interference screws",
-                                                            "Careful management of posterior sag through bracing and protective physiotherapy",
-                                                            "Frequent association with posterolateral corner reinforcement",
-                                                            "Indications to treat combined PCL and collateral injuries for comprehensive stability",
-                                                            "Slower rehab progression due to risk of posterior subluxation"
-                                                        ]
-                                                    },
-                                                    "feedback": null,
-                                                    "text": "Posterior cruciate ligament (PCL) reconstruction is primarily indicated for chronic or high-grade tears that result in significant posterior laxity, often leading to functional instability of the knee. Surgical intervention is typically reserved for cases where conservative management has failed or when there is a need to restore knee stability in active individuals. The reconstruction process involves careful consideration of the surgical technique, graft selection, and fixation methods to optimize outcomes and minimize complications.\n\nSurgical techniques for PCL reconstruction can be broadly categorized into single-bundle and double-bundle approaches, each targeting the anterolateral and posteromedial bundles of the PCL. Single-bundle reconstruction is generally simpler and may suffice for many cases, while double-bundle reconstruction aims to more closely replicate the native anatomy and biomechanics of the PCL, potentially offering superior rotational stability <ref 14:1 />. Fixation methods on the tibial side include inlay and trans-tibial techniques, with the latter being more commonly employed due to its minimally invasive nature and effectiveness in achieving stable fixation <ref 33:2 />. On the femoral side, suspensory devices, such as adjustable-loop cortical suspensory fixation, and interference screws are frequently used, each offering distinct advantages in terms of graft tensioning and stability <ref 50:4 />. The use of suspensory fixation has been shown to result in satisfactory outcomes, including good knee stability and fracture union, making it a reliable alternative to other surgical methods <ref 28:1 />.\n\nPostoperative management is crucial in PCL reconstruction to prevent complications such as posterior sag and to ensure successful rehabilitation. The use of a dynamic PCL brace is recommended to mitigate posterior forces on the tibia during the early phases of graft incorporation <ref 14:6 />. Rehabilitation protocols typically involve a slower progression compared to anterior cruciate ligament (ACL) reconstruction, with an emphasis on protecting the graft from excessive stress and allowing for gradual restoration of range of motion and strength. This cautious approach is necessary due to the inherent risk of posterior subluxation, which can compromise the surgical outcome if not adequately addressed <ref 26:9 />. The integration of these surgical strategies, along with meticulous postoperative care, is vital for optimizing patient outcomes and facilitating a return to pre-injury levels of activity.\n\nIn many cases, PCL reconstruction is performed in conjunction with reinforcement of the posterolateral corner, especially when there is associated instability in this region. Addressing combined PCL and collateral ligament injuries is essential for achieving comprehensive knee stability and preventing recurrent instability <ref 5:11 />. The use of innovative techniques, such as the modified suture pullout technique, can enhance fixation strength and stability, particularly in cases with small or comminuted fragments <ref 18:2 />. Additionally, the clinical efficacy of arthroscopic techniques for PCL injuries has been demonstrated, highlighting their minimally invasive nature and successful clinical outcomes with minimal complications <ref 36:2 />. The importance of precise tunnel positioning and its impact on clinical outcomes is also emphasized, as demonstrated by the fovea landmark technique, which ensures optimal tunnel configuration and stability <ref 45:3 />.\n\nRecent advancements in arthroscopic techniques, such as the direct anterior-to-posterior suture suspension fixation, have shown promise in treating PCL tibial avulsion fractures. This method, which utilizes a single tibial tunnel, offers improved clinical outcomes and shorter operative times compared to traditional screw-suture fixation <ref 26:2 />. Moreover, the integration of endobutton-suture fixation provides a reliable method for securing avulsion fragments of any size, further enhancing the versatility of arthroscopic approaches <ref 26:3 />. These innovations underscore the ongoing evolution of PCL reconstruction techniques, aimed at improving patient outcomes and expanding the range of treatable conditions.\n\nBy incorporating these advanced techniques and comprehensive management strategies, PCL reconstruction can achieve favorable outcomes, restoring knee function and stability while minimizing the risk of complications. The continued refinement of surgical methods and postoperative protocols will likely lead to even greater success in the management of PCL injuries.",
-                                                    "references": []
-                                                },
-                                                {
-                                                    "section_id": "460977fe-f434-44ae-80db-1d3803a87d51",
-                                                    "prefix": "#####",
-                                                    "title": "#####Reconstruction of associated ligament injuries",
-                                                    "abstract": "Discusses necessity of addressing the ALL or secondary restraints in rotationally unstable knees.",
-                                                    "section_type": "leaf",
-                                                    "contents": {
-                                                        "leaf_bullet_points": [
-                                                            "High-grade ALL tear correlated with increased internal tibial rotation in acute ACL injuries",
-                                                            "ALC/ALL reconstructions or extra-articular tenodesis indicated for persistent pivot shift",
-                                                            "Segond fracture as a hallmark sign of high-grade ALL tear on imaging",
-                                                            "Biomechanical rationale for combined ACL-ALL reconstruction for controlling tibial rotation",
-                                                            "Detailed imaging technique, MRI or 3D to detect ALL tears (Van Dyck classification)",
-                                                            "Potential synergy with PCL reconstruction if posterolateral rotational laxity is present",
-                                                            "Goals: reduce re-injury risk, improve pivot-shift outcomes, enhance stability"
-                                                        ]
-                                                    },
-                                                    "feedback": null,
-                                                    "text": "In the context of reconstructing associated ligament injuries, particularly in rotationally unstable knees, addressing the anterolateral ligament (ALL) and other secondary restraints is crucial. High-grade ALL tears are significantly correlated with increased internal tibial rotation in acute anterior cruciate ligament (ACL) injuries, necessitating a comprehensive approach to treatment <ref 10:2 />. The presence of a Segond fracture, often visible on imaging, serves as a hallmark sign of a high-grade ALL tear, indicating the need for surgical intervention <ref 12:9 />.\n\nReconstruction of the anterolateral complex (ALC) or ALL, or the use of extra-articular tenodesis, is indicated for patients experiencing persistent pivot shift, a common symptom of rotational instability <ref 38:6 />. The biomechanical rationale for combining ACL and ALL reconstruction lies in the ability to better control tibial rotation, thereby enhancing knee stability and reducing the risk of re-injury <ref 12:2 />. Studies have demonstrated that combined ACL-ALL reconstruction can significantly improve outcomes by providing additional rotational stability, which is not always achievable with isolated ACL reconstruction <ref 12:14 />. This is supported by findings that show a reduction in graft failure rates and improved patient-reported outcomes when ALL reconstruction is performed alongside ACL reconstruction <ref 12:1 />.\n\nAdvanced imaging techniques, such as MRI or 3D imaging, are essential for accurately detecting ALL tears and assessing the extent of injury. The Van Dyck classification is a useful tool in this context, providing a detailed framework for evaluating ALL injuries and guiding surgical decision-making <ref 10:4 />. These imaging modalities allow for precise identification of ligamentous damage, facilitating targeted interventions that address both ACL and ALL deficiencies <ref 39:4 />. MRI has been shown to be effective in evaluating graft integration and healing, which is critical for assessing the success of reconstruction procedures <ref 23:7 />.\n\nThere is also potential synergy between ACL and posterior cruciate ligament (PCL) reconstructions, particularly in cases where posterolateral rotational laxity is present. Addressing both ACL and PCL injuries concurrently can lead to improved stability and functional outcomes, as the combined approach targets multiple axes of instability <ref 14:1 />. The importance of maintaining the integrity of the tibial plateau is highlighted in studies showing that high-grade posterolateral tibial plateau fractures exacerbate instability in ACL-deficient knees, further emphasizing the need for comprehensive reconstruction strategies <ref 17:9 />.\n\nDevice selection plays a critical role in the success of these procedures. The use of adjustable cortical suspension devices, such as the Endobutton, has been shown to influence clinical outcomes and graft stability <ref 9:10 />. Comparative studies have demonstrated the non-inferiority of certain devices, such as Delta Medical's products, in ACL reconstruction, underscoring the importance of choosing appropriate fixation methods to enhance surgical outcomes <ref 7:9 />. The overarching goals of these reconstructive strategies are to reduce the likelihood of re-injury, improve pivot-shift outcomes, and enhance overall knee stability, ultimately leading to better long-term patient satisfaction and function <ref 12:14 />.\n\nAdditionally, the protective effect of anterior closed-wedge high tibial osteotomy (ACW-HTO) on ACL reconstruction in patients with high posterior tibial slope should be considered. This procedure has been shown to improve knee stability and reduce graft failure, making it a viable option for enhancing the outcomes of ACL reconstruction in specific patient populations <ref 5:3 />. Integrating ACW-HTO with ACL and ALL reconstruction could further optimize rotational control and stability, providing a comprehensive approach to managing complex knee injuries.",
-                                                    "references": []
-                                                },
-                                                {
-                                                    "section_id": "ca08a2d3-8719-46ae-95e1-4664e281c03d",
-                                                    "prefix": "#####",
-                                                    "title": "#####Biological augmentation",
-                                                    "abstract": "Describes interest in adjuvant biologics (PRP, BMAC) to improve knee ligament healing.",
-                                                    "section_type": "leaf",
-                                                    "contents": {
-                                                        "leaf_bullet_points": [
-                                                            "Rationale for improved healing potential with autologous growth factors",
-                                                            "Platelet-Rich Plasma (PRP) injection for tendon-bone interface",
-                                                            "Bone Marrow Aspirate Concentrate (BMAC) as a source of progenitor cells",
-                                                            "Potential synergy in partial tears or after direct repair approaches",
-                                                            "Controversy on cost-effectiveness and reproducible clinical outcomes",
-                                                            "Advanced scaffolds with living cells or exogenous growth factors",
-                                                            "Need for prospective randomized trials for robust evidence"
-                                                        ]
-                                                    },
-                                                    "feedback": null,
-                                                    "text": "Biological augmentation in anterior cruciate ligament (ACL) and posterior cruciate ligament (PCL) reconstruction has gained attention for its potential to enhance healing and improve clinical outcomes. The use of autologous growth factors, such as those found in platelet-rich plasma (PRP) and bone marrow aspirate concentrate (BMAC), is based on their ability to promote tissue regeneration and repair. PRP, rich in growth factors, is injected at the tendon-bone interface to accelerate healing by enhancing cellular proliferation and matrix synthesis <ref 11:3 />. BMAC, a source of progenitor cells, offers the potential to differentiate into various cell types, thereby supporting tissue regeneration and repair processes <ref 49:1 />.\n\nThe synergy of these biological agents is particularly promising in cases of partial tears or when used in conjunction with direct repair approaches. Studies have shown that PRP can improve tendon-to-bone healing, while BMAC may enhance the integration of grafts by providing a rich source of cells capable of differentiating into ligamentous tissue <ref 29:3 />. However, the cost-effectiveness and reproducibility of these outcomes remain controversial. While some studies report improved healing rates and reduced recovery times, others highlight the variability in clinical outcomes and the high costs associated with these treatments <ref 51:11 />. For instance, a study comparing different fixation methods found no significant difference in clinical outcomes, suggesting that the benefits of biological augmentation may not always justify the costs <ref 52:3 />.\n\nAdvanced scaffolds incorporating living cells or exogenous growth factors represent another frontier in biological augmentation. These scaffolds aim to provide a conducive environment for cell growth and differentiation, potentially leading to more robust and durable repairs <ref 44:5 />. The integration of these scaffolds with techniques such as the all-inside ACL reconstruction has shown potential in reducing surgical trauma and improving cosmetic outcomes <ref 34:16 />. Despite the promising potential of these technologies, there is a pressing need for prospective randomized trials to establish robust evidence of their efficacy and safety. Current literature suggests that while initial results are encouraging, long-term studies are necessary to confirm the benefits and address any potential risks associated with these advanced therapies <ref 52:9 />.\n\nComparative studies have highlighted the importance of understanding the biomechanical and clinical implications of different fixation methods. For example, the use of adjustable suspensory fixation (ASF) has been shown to result in less tibial tunnel widening and cyst formation compared to hybrid fixation techniques, which may influence the choice of biological augmentation strategies <ref 52:10 />. Additionally, the orientation of bone plugs and grafts can affect the coverage of the native ACL footprint, emphasizing the need for precise surgical techniques to maximize anatomical restoration <ref 37:3 />.\n\nIn conclusion, while biological augmentation offers exciting possibilities for enhancing ligament healing, further research is essential to validate these approaches and optimize their application in clinical practice. The integration of biologics into ACL and PCL reconstruction protocols must be guided by evidence-based practices to ensure the best possible outcomes for patients <ref 51:14 />. Additionally, the use of animal models, such as canine models, can provide valuable insights into the mechanisms of action and potential benefits of biological augmentation, further informing clinical applications <ref 48:3 />.",
-                                                    "references": []
-                                                }
-                                            ]
-                                        },
-                                        "feedback": null,
-                                        "text": null,
-                                        "references": []
-                                    }
-                                ]
-                            },
-                            "feedback": null,
-                            "text": null,
-                            "references": []
-                        },
-                        {
-                            "section_id": "806f6078-339a-41f0-804b-9a66ac249997",
-                            "prefix": "###",
-                            "title": "###Graft fixation",
-                            "abstract": "A summary of frequently utilized methods in the modern era of ACL and PCL reconstructive surgery, including synergy with anterolateral structures.",
-                            "section_type": "node",
-                            "contents": {
-                                "subsections": [
-                                    {
-                                        "section_id": "4818d411-a015-4008-8434-ed49806d9caf",
-                                        "prefix": "####",
-                                        "title": "####Overview graft fixation methods",
-                                        "abstract": "Captures the broad classification into suspensory, expansion, and interference-based approaches.",
-                                        "section_type": "leaf",
-                                        "contents": {
-                                            "leaf_bullet_points": [
-                                                "General principle of stable graft anchorage to provide robust initial fixation strength",
-                                                "Choice depends on graft type (hamstring vs. BPTB vs. quadriceps tendon) and surgeon preference",
-                                                "Minimizing micro-motion and tunnel widening by precise fit of the device",
-                                                "Controversies around single-loop vs. double-loop suspensory devices for femoral fixation",
-                                                "Key factor: restoring appropriate tension to avoid graft laxity or over-constraint",
-                                                "Tunnel geometry and reamer diameter influencing final fixation strategy",
-                                                "Imaging-based approach to evaluate device placement and potential migration"
-                                            ]
-                                        },
-                                        "feedback": null,
-                                        "text": "#### Overview of Graft Fixation Methods\n\nGraft fixation in anterior cruciate ligament (ACL) and posterior cruciate ligament (PCL) reconstruction is a critical component that influences the stability and success of the surgical outcome. The primary goal of graft fixation is to provide robust initial fixation strength, which is essential for the integration of the graft into the bone tunnels and for minimizing micro-motion that can lead to tunnel widening. The choice of fixation method often depends on the type of graft used\u2014hamstring, bone-patellar tendon-bone (BPTB), or quadriceps tendon\u2014and the surgeon's preference <ref 2 />, <ref 4 />, <ref 8 />.\n\nSuspensory fixation devices, which include both fixed-loop and adjustable-loop cortical suspension devices, are widely used due to their ability to provide strong fixation with minimal invasiveness. Fixed-loop devices, such as the EndoButton, have a predetermined loop length and require precise tunnel preparation to ensure proper tensioning and minimize the \"bungee-cord effect\" and \"windshield-wiper effect\" that can lead to tunnel widening <ref 2:2 />, <ref 4:10 />, <ref 27:4 />. Adjustable-loop devices, on the other hand, allow for repeated tensioning, which can potentially decrease graft slippage and improve seating within the tunnel. However, concerns about loop lengthening under cyclic loading remain, necessitating careful consideration of device choice and surgical technique <ref 2:5 />, <ref 44:13 />, <ref 50:10 />. The use of adjustable-loop devices has been shown to reduce tunnel widening compared to fixed-loop devices, although some studies report greater tibial tunnel widening with adjustable-loop fixations <ref 50:3 />, <ref 51:11 />.\n\nInterference screws, another popular fixation method, provide aperture fixation by compressing the graft within the tunnel. This method is often favored for its ability to reduce micro-movements compared to suspensory fixation, although it may lead to tunnel widening due to the mechanical properties of the screws and their interaction with the bone <ref 50:3 />, <ref 51:11 />. The choice between suspensory and interference fixation often involves a trade-off between ease of use, fixation strength, and the potential for tunnel widening, with some studies suggesting that hybrid fixation methods may offer a balance between these factors <ref 52:3 />, <ref 52:4 />. A study comparing hybrid tibial fixations found that the use of adjustable suspensory devices with interference screws resulted in less tibial tunnel widening and lower post-operative functional scores compared to cortical screws with interference screws <ref 43:3 />.\n\nImaging-based approaches, such as intraoperative fluoroscopy, are increasingly used to evaluate device placement and ensure optimal positioning against the bone cortex, thereby reducing the risk of device migration and improving fixation outcomes <ref 47:2 />, <ref 47:6 />. Direct arthroscopic control of femoral button deployment has also been shown to prevent improper deployment and soft tissue interposition, further enhancing fixation reliability <ref 35:3 />, <ref 15:3 />. The geometry of the tunnel and the diameter of the reamer also play crucial roles in the final fixation strategy, as they influence the fit of the device and the potential for graft laxity or over-constraint <ref 20:3 />, <ref 34:10 />. Studies have shown that the orientation of the graft within the tunnel can affect the coverage of the native ACL footprint, emphasizing the importance of precise tunnel preparation and graft positioning <ref 37:5 />, <ref 45:5 />.\n\nAlternative fixation methods, such as intraosseous suspensory fixation techniques, offer additional options for graft fixation. These methods utilize devices like PEEK cages to achieve closer fixation to the joint, which can be particularly beneficial in pediatric and adult patients <ref 25:3 />, <ref 14:5 />. The use of tape-reinforced graft suturing and retensioning of adjustable-loop cortical buttons has been shown to improve graft biomechanics, reducing elongation and increasing stiffness compared to conventional methods <ref 44:13 />, <ref 32:5 />. Additionally, the core bone engaged length has been identified as a factor influencing fixation strength, highlighting the importance of considering both mechanical and biological factors in fixation strategy <ref 19:5 />, <ref 29:7 />.\n\nBy carefully considering these factors and utilizing a combination of advanced fixation techniques and imaging modalities, surgeons can optimize graft fixation to enhance the success of ACL and PCL reconstructions. This comprehensive approach ensures that the fixation method is tailored to the specific needs of the patient and the characteristics of the graft, ultimately improving clinical outcomes and reducing the risk of complications.",
-                                        "references": []
-                                    },
-                                    {
-                                        "section_id": "f28c35ba-ae50-4b26-a56a-ae55e969806a",
-                                        "prefix": "####",
-                                        "title": "####Suspension devices",
-                                        "abstract": "Explains the difference between fixed-loop and adjustable-loop cortical devices, referencing phenomena of migration and soft tissue interposition.",
-                                        "section_type": "node",
-                                        "contents": {
-                                            "subsections": [
-                                                {
-                                                    "section_id": "f1d0bc1a-8fa0-4366-9dd7-cd2fd87122a3",
-                                                    "prefix": "#####",
-                                                    "title": "#####Fixed-loop suspension devices",
-                                                    "abstract": "Typically earlier generation Endobutton type, with a set loop length.",
-                                                    "section_type": "leaf",
-                                                    "contents": {
-                                                        "leaf_bullet_points": [
-                                                            "Reliability in providing stable cortical anchoring; clinically validated (e.g. Smith & Nephew Endobutton)",
-                                                            "Risk of Endobutton migration with soft tissue interposition >2 mm hinder outcomes",
-                                                            "Studies featuring high revision rates if the device is not flush with cortical bone (G\u00fcrp\u0131nar et al.)",
-                                                            "Importance of correct loop length to avoid large interposition or displacement",
-                                                            "Linear effect of tibial internal rotation on tensioning after ACL reconstruction (0.7 mm per 5\u00b0) observed in 3D modeling (Hodel et al.)",
-                                                            "Partial bridging with cortical bone allows strong graft hold unless big mismatch occurs",
-                                                            "Rare complications: button lock failure or local tissue abrasive phenomena"
-                                                        ]
-                                                    },
-                                                    "feedback": null,
-                                                    "text": "Fixed-loop suspension devices, such as the Smith & Nephew Endobutton, are widely recognized for their reliability in providing stable cortical anchoring during anterior cruciate ligament (ACL) reconstruction. These devices, characterized by a set loop length, offer consistent tensioning and fixation, which is crucial for maintaining graft stability and reducing the risk of slippage <ref 9:3 />. The clinical validation of these devices is well-documented, with studies highlighting their effectiveness in maintaining graft stability and reducing the risk of slippage <ref 9:3 />. However, the choice of fixation method remains a topic of debate, as studies comparing different methods, such as those by Gao et al., have shown no significant differences in functionality and complications between various devices, underscoring the importance of device selection based on specific clinical scenarios <ref 7:14 />.\n\nOne of the primary concerns with fixed-loop devices is the risk of migration, particularly when there is soft tissue interposition greater than 2 mm between the device and the cortical bone. This interposition can hinder surgical outcomes, as demonstrated by G\u00fcrp\u0131nar et al., who reported high revision rates when the Endobutton was not flush with the cortical bone <ref 9:2 />. The importance of correct loop length cannot be overstated, as improper sizing can lead to significant interposition or displacement, compromising the integrity of the reconstruction <ref 9:7 />. Intraoperative techniques, such as the use of fluoroscopy, have been shown to significantly reduce suboptimal device positioning, as highlighted by Balldin et al., who found that confirmatory imaging can enhance device accuracy and reduce complications <ref 47:3 />. Additionally, Guy et al. emphasized the role of arthroscopic confirmation in preventing soft tissue interposition, which is crucial for ensuring proper device deployment and minimizing postoperative complications <ref 35:2 />.\n\nThe mechanical behavior of fixed-loop devices is also influenced by tibial internal rotation, which can affect tensioning post-ACL reconstruction. Studies have shown a linear effect, with a 0.7 mm change in tension per 5\u00b0 of tibial rotation, highlighting the need for precise surgical technique and device placement <ref 20:3 />. Despite these challenges, partial bridging with cortical bone allows for a strong graft hold, provided there is no significant mismatch between the device and the bone <ref 23:11 />. The use of arthroscopic visualization, as discussed by Matassi et al., can further ensure proper seating of the femoral button, reducing the risk of soft tissue interposition and enhancing procedural outcomes <ref 15:8 />.\n\nWhile rare, complications such as button lock failure or local tissue abrasive phenomena have been reported. These issues underscore the necessity for careful surgical planning and execution to minimize potential adverse effects <ref 24:9 />. Additionally, studies by Mayr et al. have shown that fixed-loop devices can result in less tibial tunnel widening compared to other fixation methods, such as interference screws, which is a significant consideration in the context of revision surgeries <ref 16:7 />. In contrast, Lee et al. reported greater tibial tunnel widening with adjustable-loop fixations, suggesting that fixed-loop devices may offer an advantage in maintaining tunnel integrity <ref 50:11 />. Overall, fixed-loop suspension devices remain a reliable option for ACL reconstruction, but their success is heavily dependent on meticulous attention to detail in device selection and placement. The ongoing development of hybrid fixation methods, as explored by Lin et al., may offer a promising alternative by combining the advantages of both cortical suspension and compression fixation, potentially reducing bone tunnel enlargement and improving clinical outcomes <ref 51:4 />.",
-                                                    "references": []
-                                                },
-                                                {
-                                                    "section_id": "4cbf6918-013c-4e30-ab48-cacabf6855ab",
-                                                    "prefix": "#####",
-                                                    "title": "#####Adjustable-loop suspension devices",
-                                                    "abstract": "Describes the mechanical principle enabling repeated tensioning to potentially decrease graft slippage.",
-                                                    "section_type": "leaf",
-                                                    "contents": {
-                                                        "leaf_bullet_points": [
-                                                            "Tightening advantage after initial loading cycles to reduce slack in the graft",
-                                                            "Popular devices: GraftMax, TightRope, and alternatives with adjustable loops",
-                                                            "Reports of retightening the loop if micro-lengthening occurs post-cycling (Boden et al., Sheehan et al.)",
-                                                            "Better adaptation in short tendon harvest or an \u201call-inside\u201d approach (Greif et al.)",
-                                                            "Potential lower profile on cortical side, but risk of incomplete tendon docking if not retightened (Choi et al.)",
-                                                            "Criticism for potential loop elongation over time under cyclical loads",
-                                                            "Growing usage in anatomic single-bundle or double-bundle reconstructions"
-                                                        ]
-                                                    },
-                                                    "feedback": null,
-                                                    "text": "Adjustable-loop suspension devices have emerged as a significant advancement in anterior cruciate ligament (ACL) reconstruction, offering a mechanical principle that allows for repeated tensioning to potentially decrease graft slippage. These devices, such as the GraftMax and TightRope, are designed to tighten the graft after initial loading cycles, thereby reducing slack and improving the stability of the reconstruction <ref 44:10 />. This feature is particularly advantageous in scenarios involving short tendon harvests or when employing an \"all-inside\" approach, as it allows for better adaptation and fit within the bone tunnels <ref 27:4 />. The adaptability of these devices is further supported by their use in posterior cruciate ligament (PCL) reconstructions, where they facilitate precise graft placement and tensioning <ref 14:5 />.\n\nThe ability to retighten the loop if micro-lengthening occurs post-cycling is a notable benefit of adjustable-loop devices. Studies have reported that retensioning can mitigate the risk of incomplete tendon docking, which is a potential issue if the loop is not adequately tightened <ref 2:5 />. However, there is criticism regarding the potential for loop elongation over time under cyclical loads, which could lead to graft laxity and compromise the surgical outcome <ref 50:2 />. Despite these concerns, the adjustable-loop design offers a lower profile on the cortical side, which can be beneficial in reducing the risk of soft tissue irritation <ref 46:3 />. The versatility of these devices is highlighted by their growing usage in anatomic single-bundle and double-bundle reconstructions, where they provide reliable fixation and adaptability <ref 27:2 />.\n\nQuantitative data from various studies underscore the effectiveness of adjustable-loop devices. For instance, MRI evidence has demonstrated significant graft integration and healing, with a low failure rate, supporting their clinical efficacy <ref 23:3 />. Additionally, comparisons with fixed-loop devices reveal that adjustable loops can reduce the risk of tunnel widening, a common concern in ACL reconstruction <ref 51:4 />. This is particularly relevant in the context of all-inside techniques, where the ability to adjust the loop length can minimize the bungee-cord and windshield-wiper effects, thereby preserving bone integrity <ref 34:10 />. A study by Mayr et al. found that adjustable-length loop cortical button fixation results in less tibial tunnel widening compared to interference screw fixation, further supporting the use of these devices in reducing tunnel-related complications <ref 16:5 />.\n\nFurthermore, a systematic review and meta-analysis by Fu et al. indicated that while the all-inside ACLR technique using suspensory cortical button fixation does not show clinical superiority in functional outcomes or knee stability, it allows for a thicker graft and results in less tibial tunnel widening <ref 24:11 />. This aligns with findings from Moon et al., who noted that while graft insertion length in the femoral tunnel does not significantly impact surgical outcomes, it is negatively correlated with tunnel widening, suggesting that adjustable-loop devices could mitigate this issue by allowing for optimal graft placement <ref 20:14 />.\n\nIn conclusion, while adjustable-loop suspension devices offer several advantages in ACL reconstruction, including adaptability and improved tensioning, it is essential to be aware of their limitations and address potential issues through careful surgical technique and postoperative management. The continued evolution and refinement of these devices are likely to enhance their role in knee ligament surgeries. Moreover, studies comparing all-inside and standard techniques have shown that adjustable-loop devices can achieve similar or superior outcomes, further validating their use in modern surgical practice <ref 4:10 />. As research progresses, these devices may become the standard for achieving optimal graft fixation and patient outcomes in ACL and PCL reconstructions <ref 32:5 />.",
-                                                    "references": []
-                                                }
-                                            ]
-                                        },
-                                        "feedback": null,
-                                        "text": null,
-                                        "references": []
-                                    },
-                                    {
-                                        "section_id": "9d5255b3-5b88-4f3a-954d-24b31cae851a",
-                                        "prefix": "####",
-                                        "title": "####Alternatives to suspension devices",
-                                        "abstract": "Surveys other frequently used fixation systems, highlighting limitations and contraindications.",
-                                        "section_type": "node",
-                                        "contents": {
-                                            "subsections": [
-                                                {
-                                                    "section_id": "e28345bc-680b-45e5-b0c4-03517f33279d",
-                                                    "prefix": "#####",
-                                                    "title": "#####Expansion devices",
-                                                    "abstract": "Describes intratunnel or extratunnel expansions, typically requiring specialized anchors.",
-                                                    "section_type": "leaf",
-                                                    "contents": {
-                                                        "leaf_bullet_points": [
-                                                            "Less commonly used, rely on friction or radial expansion within the bone tunnel",
-                                                            "Potential bone microfractures in osteoporotic bone or short tunnels",
-                                                            "In vitro tests: load-to-failure may approach that of interference screws in healthy bone",
-                                                            "Complex instrumentation may hamper adoption",
-                                                            "Rarely indicated except for revision or salvage scenarios",
-                                                            "Minimal evidence in PCL or ALL reconstructions to date",
-                                                            "Possible synergy with a cortical button backup anchor in revision ACL"
-                                                        ]
-                                                    },
-                                                    "feedback": null,
-                                                    "text": "\nExpansion devices, though less commonly used than other fixation methods, offer a unique approach to graft fixation in knee ligament reconstruction. These devices rely on friction or radial expansion within the bone tunnel to secure the graft, which can be advantageous in certain clinical scenarios. However, their application is often limited due to the potential for bone microfractures, particularly in osteoporotic bone or when used in short tunnels. In vitro tests have shown that the load-to-failure strength of expansion devices can approach that of interference screws in healthy bone, suggesting their potential efficacy in specific cases <ref 19:3 />.\n\nDespite their mechanical potential, the adoption of expansion devices is hampered by the complexity of the required instrumentation. This complexity can deter surgeons from using these devices, especially when simpler and more familiar methods are available. As a result, expansion devices are rarely indicated except in revision or salvage scenarios where other fixation methods may not be suitable <ref 29:6 />. The minimal evidence supporting their use in posterior cruciate ligament (PCL) or anterolateral ligament (ALL) reconstructions further limits their application in routine practice <ref 14:7 />.\n\nOne potential area where expansion devices could see increased use is in synergy with cortical button backup anchors during revision anterior cruciate ligament (ACL) surgeries. This combination could provide enhanced fixation strength and stability, particularly in cases where previous fixation methods have failed. However, more research is needed to fully understand the benefits and limitations of this approach <ref 16:2 />. The ACLip\u00ae technique, for instance, offers an alternative approach that avoids some of the complexities of expansion devices by using a PEEK cage system for closer fixation to the joint, which could be considered in similar contexts <ref 25:5 />.\n\nThe use of intraoperative fluoroscopy, as discussed in the context of femoral-sided cortical suspensory fixation, could also be beneficial for ensuring the proper placement of expansion devices, thereby reducing the risk of complications such as improper deployment or soft tissue interposition <ref 47:1 />. This is particularly relevant given the potential for tunnel widening, a common concern with various fixation methods, including expansion devices <ref 50:11 />. Studies have shown that while tunnel widening does not always correlate with poor clinical outcomes, it can complicate revision surgeries <ref 24:12 />.\n\nIn addition, the correlation between tunnel changes and graft maturation, as explored in studies using MRI, highlights the importance of understanding the mechanical and biological interactions at play <ref 31:11 />. The potential for expansion devices to influence these interactions warrants further investigation, particularly in light of findings that suggest no significant difference in bone tunnel enlargement and clinical outcomes between different fixation methods <ref 51:10 />.\n\nFurthermore, the comparison of adjustable suspensory fixation and hybrid fixation techniques provides insights into the potential advantages of expansion devices in terms of reducing tunnel widening and cyst formation <ref 52:9 />. This is supported by evidence that suggests a reduction in tunnel widening with certain fixation methods, which could be applicable to expansion devices as well <ref 23:10 />.\n\nIn conclusion, while expansion devices offer a promising alternative to traditional fixation methods, their use is currently limited by several factors. The potential for bone microfractures, the complexity of instrumentation, and the lack of extensive clinical evidence all contribute to their limited adoption. Future research and technological advancements may help overcome these challenges, allowing expansion devices to play a more significant role in knee ligament reconstruction <ref 34:11 />.",
-                                                    "references": []
-                                                },
-                                                {
-                                                    "section_id": "f8a7a2f0-f0c1-4373-b345-833928389db0",
-                                                    "prefix": "#####",
-                                                    "title": "#####Interference screws",
-                                                    "abstract": "Shows popularity as aperture fixation technique for both ACL and PCL, contrasting to suspensory methods.",
-                                                    "section_type": "leaf",
-                                                    "contents": {
-                                                        "leaf_bullet_points": [
-                                                            "Metal or resorbable materials (e.g. poly-L-lactic acid, polyether ether ketone/PEEK)",
-                                                            "Direct compression of graft in tibial or femoral tunnel for strong immediate stability",
-                                                            "Risk of tunnel widening or osteolysis with bioabsorbable screws if resorption is inconsistent",
-                                                            "Chosen widely for aperture fixation in PCL reconstruction (tibial side inlay technique)",
-                                                            "Potential risk of graft slippage if suboptimal screw length or diameter",
-                                                            "Combining interference screw with U-staple or backup device in hamstring graft fixations (G\u00fcrp\u0131nar et al.)",
-                                                            "Preferred by surgeons seeking stable aperture fixation in a single incision approach"
-                                                        ]
-                                                    },
-                                                    "feedback": null,
-                                                    "text": "Interference screws are a widely utilized method for graft fixation in anterior cruciate ligament (ACL) and posterior cruciate ligament (PCL) reconstructions, offering a robust aperture fixation technique that contrasts with suspensory methods. These screws are available in both metal and resorbable materials, such as poly-L-lactic acid and polyether ether ketone (PEEK). Metal screws provide strong immediate stability due to their rigidity, while resorbable screws, like those made from PEEK, offer the benefit of gradual integration into the bone, potentially reducing long-term complications associated with permanent implants <ref 7 />, <ref 24:4 />, <ref 51:3 />.\n\nThe primary advantage of interference screws lies in their ability to directly compress the graft within the tibial or femoral tunnel, providing immediate and strong fixation. This direct compression is crucial for maintaining graft stability during the early phases of healing and rehabilitation <ref 19:3 />, <ref 50:2 />. However, the use of bioabsorbable screws can present risks, such as tunnel widening or osteolysis, particularly if the resorption process is inconsistent. This phenomenon has been observed in some studies, where the degradation of the screw material led to inflammatory responses and subsequent bone tunnel enlargement <ref 16:3 />, <ref 50:10 />, <ref 51:3 />.\n\nInterference screws are particularly favored in PCL reconstruction, especially for the tibial side inlay technique, due to their ability to provide stable fixation in a single incision approach. However, there is a potential risk of graft slippage if the screw length or diameter is not optimally matched to the graft and tunnel dimensions. This risk necessitates careful surgical planning and execution to ensure proper fixation <ref 9:3 />, <ref 45:6 />. In some cases, interference screws are combined with U-staples or backup devices to enhance fixation strength, particularly in hamstring graft fixations, as noted by G\u00fcrp\u0131nar et al. <ref 9:3 />, <ref 36:4 />.\n\nSurgeons often prefer interference screws for their ability to provide stable aperture fixation, which is critical for successful outcomes in ligament reconstruction surgeries. Despite the potential complications, when used appropriately, interference screws offer a reliable method for securing grafts, facilitating early rehabilitation, and ultimately improving patient outcomes <ref 29:3 />, <ref 52:2 />. The combination of interference screws with other fixation methods, such as adjustable suspensory devices, has been explored to mitigate some of the risks associated with each method individually. For instance, hybrid fixation techniques have shown promise in reducing tibial tunnel widening and improving graft stability <ref 43:2 />, <ref 52:4 />.\n\nRecent studies have compared interference screws with other fixation methods, such as adjustable-loop devices and suspensory fixation techniques. These comparisons highlight the unique benefits and challenges of each method. For example, adjustable-loop devices may offer flexibility in tensioning but can lead to increased tunnel widening due to micro-movements at the bone-tendon interface <ref 2 />, <ref 50:1 />. In contrast, interference screws provide a more rigid fixation, which can be advantageous in certain clinical scenarios <ref 8:9 />, <ref 34:7 />.\n\nIn conclusion, interference screws remain a popular choice for graft fixation in ACL and PCL reconstructions due to their ability to provide strong, immediate stability. While there are risks associated with their use, particularly with bioabsorbable materials, careful surgical planning and the potential combination with other fixation methods can help mitigate these risks and improve patient outcomes <ref 25:5 />, <ref 27:3 />, <ref 46:4 />. As surgical techniques and materials continue to evolve, ongoing research and clinical trials will be essential to further refine these methods and optimize results for patients <ref 28:8 />, <ref 26:12 />.",
-                                                    "references": []
-                                                }
-                                            ]
-                                        },
-                                        "feedback": null,
-                                        "text": null,
-                                        "references": []
-                                    }
-                                ]
-                            },
-                            "feedback": null,
-                            "text": null,
-                            "references": []
-                        },
-                        {
-                            "section_id": "bfd3eedc-beeb-4bd2-9022-b1aeccab1b2d",
-                            "prefix": "###",
-                            "title": "###Degree of innovation",
-                            "abstract": "Outlines the evolving direction of knee ligament treatments as gleaned from the modern literature references.",
-                            "section_type": "leaf",
-                            "contents": {
-                                "leaf_bullet_points": [
-                                    "Increasing recognition of concomitant lateral structures (ALL) and the pivot-shift phenomenon",
-                                    "Refined 3D imaging protocols to measure static tibial internal rotation and potential internal rotation >13.3\u00b0 sign of high-grade ALL tear (Hodel et al.)",
-                                    "Technological improvements in adjustable-loop devices to reduce early graft loosening",
-                                    "Emergence of all-soft tissue quadriceps autografts for single-bundle ACL reconstruction (Greif et al.)",
-                                    "Potential for augmented repairs in partial tears with advanced biologics",
-                                    "Refinement of minimal incision harvesting to mitigate donor site morbidity (Choi et al.)",
-                                    "Progress of computational modeling (CASPA, Mimics) to predict knee kinematics changes"
-                                ]
-                            },
-                            "feedback": null,
-                            "text": "\nRecent advancements in knee ligament treatments have significantly enhanced our understanding and management of anterior cruciate ligament (ACL) and posterior cruciate ligament (PCL) injuries. A key area of innovation is the increasing recognition of the role of concomitant lateral structures, such as the anterolateral ligament (ALL), in stabilizing knee movement and addressing the pivot-shift phenomenon. Studies have shown that incorporating lateral extra-articular procedures (LEAP) can improve rotational stability, particularly in cases of high-grade ALL tears <ref 38:10 />. This has led to a more comprehensive approach to ACL reconstruction, where addressing both the ACL and ALL is crucial for restoring native knee kinematics.\n\nTechnological advancements in imaging protocols have also played a pivotal role in refining surgical techniques. The development of 3D imaging protocols allows for precise measurement of static tibial internal rotation, with internal rotation greater than 13.3\u00b0 potentially indicating a high-grade ALL tear <ref 38:10 />. These imaging techniques provide surgeons with detailed anatomical insights, enabling more accurate diagnosis and tailored surgical interventions. Additionally, computational modeling tools, such as CASPA and Mimics, are being utilized to predict changes in knee kinematics, further enhancing preoperative planning and postoperative outcomes <ref 21:4 />.\n\nIn terms of graft fixation, there have been significant improvements in adjustable-loop devices, which have been shown to reduce early graft loosening. These devices allow for repeated tensioning, which can decrease graft slippage and improve overall stability <ref 2:1 />. The emergence of all-soft tissue quadriceps autografts for single-bundle ACL reconstruction is another notable innovation. Studies have demonstrated that these autografts offer comparable clinical outcomes to traditional methods, with the added benefit of reduced donor site morbidity <ref 8:1 />. This approach is particularly advantageous for younger, active patients who require robust grafts with minimal complications.\n\nFurthermore, the potential for augmented repairs in partial tears using advanced biologics, such as platelet-rich plasma (PRP) and bone marrow aspirate concentrate (BMAC), is being explored. These biologics have shown promise in enhancing graft healing and integration, potentially reducing recovery times and improving long-term outcomes <ref 34:2 />. Additionally, the refinement of minimal incision harvesting techniques, as highlighted by Choi et al., has been instrumental in mitigating donor site morbidity, allowing for quicker recovery and less postoperative pain <ref 2:1 />.\n\nThe use of MRI to evaluate graft integration and tunnel changes has become increasingly important. Studies have shown that MRI can effectively assess the maturation of the graft and the morphology of the femoral tunnel, providing valuable insights into the healing process <ref 31:3 />. This is complemented by the use of radial-section MRI, which offers a more accurate visualization of circumferential structures, aiding in the assessment of tunnel enlargement and graft integration <ref 31:12 />. Additionally, the long-term stability of bone tunnels in ACL reconstruction using dual suspensory fixation has been demonstrated, showing no significant tunnel enlargement over time <ref 13:1 />.\n\nComparative studies have also highlighted the benefits of different fixation methods. For instance, the use of cortical suspension and hybrid femoral fixation has been shown to result in similar clinical outcomes, with no significant difference in bone tunnel enlargement <ref 51:8 />. This suggests that both methods can be effectively used in ACL reconstruction, depending on the specific clinical scenario. Furthermore, the reduced tibial tunnel widening with adjustable-length loop cortical button fixation has been noted, offering a potential advantage over traditional methods <ref 16:1 />.\n\nThe all-inside ACL reconstruction technique, which utilizes bone sockets and suspensory fixation, has gained popularity due to its reduced surgical trauma and improved cosmetic outcomes <ref 22:1 />. This technique is particularly beneficial for preserving bone stock and minimizing periosteal irritation, which can lead to less postoperative pain and faster recovery <ref 32:18 />. Additionally, the use of tape-reinforced graft suturing has been shown to improve the biomechanical properties of the graft, reducing elongation and increasing stiffness <ref 44:1 />.\n\nDirect arthroscopic control of femoral button deployment has been shown to prevent improper deployment and soft tissue interposition, further enhancing surgical outcomes <ref 35:5 />. This technique, along with the effectiveness of arthroscopic visualization in confirming femoral button placement, underscores the importance of precision in surgical procedures <ref 15:5 />. Moreover, the comparison of adjustable-loop versus fixed-loop suspensory fixation methods has demonstrated similar stability and clinical results, with fewer saphenous nerve lesions associated with the adjustable-loop method <ref 27:2 />.\n\nOverall, these innovations represent a significant shift towards more precise, effective, and patient-centered approaches in knee ligament reconstruction. By integrating advanced imaging, refined surgical techniques, and biologic enhancements, the field continues to evolve, offering improved outcomes for patients with ACL and PCL injuries. The modified double-bundle ACL reconstruction technique, which avoids implants on the tibial side, has also shown improved clinical outcomes, further contributing to the evolving landscape of knee ligament treatments <ref 3:4 />. Additionally, the ten-year outcomes of ACL reconstruction with hamstring tendon autograft have demonstrated satisfactory clinical results, despite a significant incidence of osteoarthritis, highlighting the need for ongoing innovation and improvement in treatment strategies <ref 30:3 />.",
-                            "references": []
-                        }
-                    ]
-                },
-                "feedback": null,
-                "text": null,
-                "references": []
-            },
-            {
-                "section_id": "3952ccf8-d28e-4559-89e5-8b44be41c72e",
-                "prefix": "##",
-                "title": "##Conclusion",
-                "abstract": "Final reflections on surgical recommendations and future directions in combined ACL and PCL management.",
-                "section_type": "leaf",
-                "contents": {
-                    "leaf_bullet_points": [
-                        "ACL injuries remain a key challenge in orthopedic sports medicine, with up to 30% of residual instability",
-                        "High-grade ALL tears significantly affect tibial internal rotation potentially leading to increased ACL graft stress",
-                        "Suboptimal Endobutton positioning (>2 mm soft tissue gap) can predispose to graft migration and inferior outcomes",
-                        "Complex injuries (ACL + PCL or ACL + ALL) require robust detection on MRI, possibly aided by 3D reconstructions",
-                        "Choice of fixation device\u2014interference screw vs. suspensory\u2014must be tailored to anatomy, graft type, and associated pathologies",
-                        "Hybrid or combined reconstruction strategies (ACL + anterolateral/lateral extra-articular tenodesis) may improve pivoting stability",
-                        "Further research, including prospective randomized trials, is suggested to confirm best practice in tackling complex ligament reconstructions"
-                    ]
-                },
-                "feedback": null,
-                "text": "In the realm of orthopedic sports medicine, anterior cruciate ligament (ACL) injuries continue to pose significant challenges, with residual instability reported in up to 30% of cases post-reconstruction <ref 10:3 />. This persistent instability underscores the necessity for precise surgical techniques and effective fixation methods. High-grade anterolateral ligament (ALL) tears, which frequently accompany ACL injuries, exacerbate this issue by significantly affecting tibial internal rotation, thereby increasing stress on the ACL graft <ref 12:4 />. Addressing these complex injuries requires comprehensive detection methods, such as advanced MRI and potentially 3D reconstructions, to accurately assess the extent of ligament damage and guide surgical planning <ref 51:13 />.\n\nThe choice of fixation device is crucial in the success of ACL reconstruction. Interference screws and suspensory devices each offer distinct advantages, and their selection should be tailored to the patient's specific anatomy, graft type, and any associated pathologies <ref 34:2 />. Suboptimal positioning of devices, such as the Endobutton, can lead to graft migration and inferior outcomes if there is more than a 2 mm gap due to soft tissue interposition <ref 9:10 />. Intraoperative fluoroscopy has been shown to significantly reduce the incidence of suboptimal device positioning, ensuring optimal placement and potentially improving outcomes <ref 47:1 />. Furthermore, studies comparing different medical devices used in ACL reconstruction have affirmed the non-inferiority of certain products, suggesting that device choice can be flexible without compromising outcomes <ref 7:15 />.\n\nIn cases of complex injuries, such as combined ACL and PCL or ACL and ALL tears, hybrid or combined reconstruction strategies may offer improved outcomes. Techniques that incorporate anterolateral or lateral extra-articular tenodesis have shown promise in enhancing pivoting stability and reducing graft failure rates <ref 38:11 />. These strategies highlight the importance of a multifaceted approach to knee ligament reconstruction, where addressing both primary and secondary stabilizers can lead to better functional outcomes <ref 12:14 />. Additionally, the use of adjustable-loop devices has been associated with fewer saphenous nerve lesions and similar stability compared to fixed-loop methods, suggesting a potential advantage in certain patient populations <ref 27:9 />.\n\nThe long-term success of ACL reconstruction is also influenced by the choice of graft and fixation method. Studies have shown that the use of hamstring tendon autografts with cortical suspension can result in satisfactory outcomes, although the risk of osteoarthritis remains a concern <ref 30:6 />. Furthermore, the use of hybrid fixation methods, combining suspensory devices with interference screws, has been associated with reduced tibial tunnel widening and improved initial graft strength <ref 43:2 />. These findings suggest that a tailored approach, considering both the mechanical properties of the graft and the fixation method, is essential for optimizing patient outcomes. The modified double-bundle ACL reconstruction technique, which avoids implants on the tibial side, has demonstrated improved outcomes compared to single-bundle techniques, further supporting the potential benefits of innovative surgical approaches <ref 3:7 />.\n\nIn military populations, where physical demands are high, ACL reconstruction techniques using short grafts with adjustable fixation have shown to allow a return to duty equivalent to traditional methods, with faster recovery and better sports performance <ref 40:10 />. This highlights the importance of selecting appropriate techniques for high-demand individuals. Additionally, the combination of ACL reconstruction with high tibial osteotomy has been suggested to improve knee stability and reduce graft failure in patients with high posterior tibial slope, indicating the potential benefits of combined procedures <ref 5:3 />.\n\nLooking forward, further research, including prospective randomized trials, is essential to establish best practices in managing complex ligament reconstructions. Such studies will help refine surgical techniques, optimize fixation methods, and ultimately improve patient outcomes in the challenging landscape of ACL and PCL injuries <ref 38:16 />. By continuing to advance our understanding and application of these techniques, we can enhance the stability and functionality of reconstructed knees, allowing patients to return to their pre-injury levels of activity with confidence.",
-                "references": []
-            }
-        ]
+    "entrypoints": {
+        "ID:Knowledge": "SINGLE",
+        "ID:Prompt": "SINGLE"
     },
-    "feedback": null,
-    "text": null,
-    "references": [
-        {
-            "document_hash": "1",
-            "reference_id": 1,
-            "citation": "Boden, B. P., & Sheehan, F. T. (2022). Mechanism of Non-Contact ACL Injury. J Orthop Res, 40(3), 531\u2013540. doi:10.1002/jor.25257."
+    "inputs": {
+        "ID:Knowledge": {
+            "NAME": "ID:Knowledge",
+            "URL_SAFE_NAME": "Knowledge",
+            "DESC": "Knowledge",
+            "TYPE": "SINGLE",
+            "EXT": "jsonl",
+            "COST": 0.0
         },
-        {
-            "document_hash": "2",
-            "reference_id": 2,
-            "citation": "Choi, N.-H., Lee, S.-J., Oh, W.-K., & Victoroff, B. N. (2019). Hamstring Anterior Cruciate Ligament Reconstruction Using an Adjustable-Loop Cortical Suspension Device: Immediate Postoperative Magnetic Resonance Imaging. J Knee Surg, (Date: May 5, 2019). DOI: https://doi.org/10.1055/s-0039-1692648"
-        },
-        {
-            "document_hash": "3",
-            "reference_id": 3,
-            "citation": "Sinha, S., Naik, A. K., Kumar, A., Jacob, T., & Kar, S. (2020). Analysis of modified double-bundle anterior cruciate ligament reconstruction with implantless fixation on tibial side. Chinese Journal of Traumatology, doi: 10.1016/j.cjtee.2020.04.007"
-        },
-        {
-            "document_hash": "4",
-            "reference_id": 4,
-            "citation": "Xu, J., Jia, Y., Zhang, B., Wang, X., & Sun, R. (2024). Comparison of the Clinical Outcomes between All-inside and Standard Technique in Anterior Cruciate Ligament Reconstruction with 6-strand Hamstring Tendon Autograft. Orthopaedic Surgery, 16, 1034\u20131041. doi:10.1111/os.13982"
-        },
-        {
-            "document_hash": "5",
-            "reference_id": 5,
-            "citation": "Bosco, F., Giustra, F., Via, R. G., Lavia, A. D., Capella, M., Sabatini, L., Risitano, S., Cacciola, G., Vezza, D., & Mass\u00e8, A. (2022). Could anterior closed-wedge high tibial osteotomy be a viable option in patients with high posterior tibial slope who undergo anterior cruciate ligament reconstruction? A systematic review and meta-analysis. Published online Date: 29 October 2022."
-        },
-        {
-            "document_hash": "6",
-            "reference_id": 6,
-            "citation": "None"
-        },
-        {
-            "document_hash": "7",
-            "reference_id": 7,
-            "citation": "Gao, P., Yuan, M., Xu, Y., Wu, Y., Lin, X., Li, Y., Li, S., & Wang, J. (2022). The safety and effectiveness comparison of Delta Medical's PEEK interface screw and Endobutton and that of Smith & Nephew's in arthroscopic anterior cruciate ligament reconstruction: A multicenter prospective double-blind randomized controlled clinical trial. Frontiers in Public Health, 10, Article 1003591. https://doi.org/10.3389/fpubh.2022.1003591"
-        },
-        {
-            "document_hash": "8",
-            "reference_id": 8,
-            "citation": "Greif, D. N., Shallop, B. J., Allegra, P. R., Cade II, W. H., Minesinger, K. E., Luxenburg, D., Kaplan, L. D., & Baraga, M. G. (2020). A Comparison of Two-Year Anterior Cruciate Ligament Reconstruction Clinical Outcomes Using All-Soft Tissue Quadriceps Tendon Autograft With Femoral/Tibial Cortical Suspensory Fixation Versus Tibial Interference Screw Fixation. Arthroscopy Association of North America, https://doi.org/10.1016/j.arthro.2021.06.024"
-        },
-        {
-            "document_hash": "9",
-            "reference_id": 9,
-            "citation": "G\u00fcrp\u0131nar, T., Polat, B., Eren, M., \u00c7ark\u00e7\u0131, E., \u00d6zyalva\u00e7, O. N., & Erdog\u02d8an, S. (2020). The effect of soft tissue interposition of the Endobutton on clinical results and on its postoperative migration after single-bundle anterior cruciate ligament reconstruction. The Knee, https://doi.org/10.1016/j.knee.2020.10.008"
-        },
-        {
-            "document_hash": "10",
-            "reference_id": 10,
-            "citation": "Hodel, S., Torrez, C., Flury, A., Fritz, B., Steinwachs, M. R., Vlachopoulos, L., & Fucentese, S. F. (2022). Tibial internal rotation in combined anterior cruciate ligament and high-grade anterolateral ligament injury and its influence on ACL length. Open Access."
-        },
-        {
-            "document_hash": "11",
-            "reference_id": 11,
-            "citation": "Hunt, E. R., Villasanta\u2010Tezanos, A. G., Butterfield, T. A., Lattermann, C., & Jacobs, C. A. (2020). Upregulation of systemic inflammatory pathways following anterior cruciate ligament injury relates to both cartilage and muscular changes: A pilot study. Journal of Orthopaedic Research, 38(3), 387\u2013392. https://doi.org/10.1002/jor.24467"
-        },
-        {
-            "document_hash": "12",
-            "reference_id": 12,
-            "citation": "Littlefield, C. P., Belk, J. W., Houck, D. A., Kraeutler, M. J., LaPrade, R. F., Chahla, J., & McCarty, E. C. (2020). The anterolateral ligament of the knee: An updated systematic review of anatomy, biomechanics, and clinical outcomes. *Arthroscopy: The Journal of Arthroscopic & Related Surgery*, 36(12), 2921-2932."
-        },
-        {
-            "document_hash": "13",
-            "reference_id": 13,
-            "citation": "Devitt, B. M., Maes, M., Feller, J. A., & Webster, K. E. (2019). No long\u2011term tunnel enlargement following anterior cruciate ligament reconstruction using autograft hamstring tendon with dual suspensory fixation. European Society of Sports Traumatology, Knee Surgery, Arthroscopy (ESSKA)."
-        },
-        {
-            "document_hash": "14",
-            "reference_id": 14,
-            "citation": "Martin, R. K., Melugin, H. P., Freychet, B., Krych, A. J., Stuart, M. J., & Levy, B. A. (2020). Posterior Cruciate Ligament All-Inside Reconstruction. Sports Medicine and Arthroscopy Review, 28(1), 18\u201322."
-        },
-        {
-            "document_hash": "15",
-            "reference_id": 15,
-            "citation": "Matassi, F., Sani, G., Innocenti, M., Giabbani, N., & Civinini, R. (2020). Arthroscopic confirmation of femoral button deployment avoids post-operative X-ray in ACL reconstruction. The Physician and Sportsmedicine. https://doi.org/10.1080/00913847.2020.1796469"
-        },
-        {
-            "document_hash": "16",
-            "reference_id": 16,
-            "citation": "Mayr, R., Smekal, V., Koidl, C., Coppola, C., Eichinger, M., Rudisch, A., Kranewitter, C., & Attal, R. (2019). ACL reconstruction with adjustable-length loop cortical button fixation results in less tibial tunnel widening compared with interference screw fixation. European Society of Sports Traumatology, Knee Surgery, Arthroscopy (ESSKA). https://doi.org/10.1007/s00167-019-05642-9"
-        },
-        {
-            "document_hash": "17",
-            "reference_id": 17,
-            "citation": "Milinkovic, D.D., Kittl, C., Herbst, E., Fink, C., Greis, F., Raschke, M.J., \u015amigielski, R., & Herbort, M. (2023). The \"Bankart knee\": high-grade impression fractures of the posterolateral tibial plateau lead to increased translational and anterolateral rotational instability of the ACL-deficient knee. Journal of Biomechanics."
-        },
-        {
-            "document_hash": "18",
-            "reference_id": 18,
-            "citation": "Mittal, R., Digge, V., & Selvanayagam, R. (2019). Subintermeniscal Ligament Pullout Suture Technique for Anterior Cruciate Ligament Avulsion Fracture Fixation\u2014AIIMS Technique. J Knee Surg. https://doi.org/10.1055/s-0040-1709180"
-        },
-        {
-            "document_hash": "19",
-            "reference_id": 19,
-            "citation": "Moeinnia, H., Nourani, A., Mohseni, M., Borjali, A., Ghias, N., Korani, H., & Chizari, M. (2023). Effect of the core bone engaged length on the BASHTI fixation strength, an in-vitro study on bovine tendons using identical-density surrogate bones. [Journal Name], [Volume(Issue)], pages. DOI"
-        },
-        {
-            "document_hash": "20",
-            "reference_id": 20,
-            "citation": "Moon, H.-S., Choi, C.-H., Yoo, J.-H., Jung, M., Lee, T.-H., Choi, K.-H., & Kim, S.-H. (2021). The Graft Insertion Length in the Femoral Tunnel During Anterior Cruciate Ligament Reconstruction With Suspensory Fixation and Tibialis Anterior Allograft Does Not Affect Surgical Outcomes but Is Negatively Correlated With Tunnel Widening. Arthroscopy: The Journal of Arthroscopic and Related Surgery, [Volume], [Page numbers]. https://doi.org/10.1016/j.arthro.2021.03.072"
-        },
-        {
-            "document_hash": "21",
-            "reference_id": 21,
-            "citation": "Moon, H.-S., Song, S. Y., Oh, J. U., & Seo, Y.-J. (2022). Effects of Modified Trans-Tibial versus Trans-Portal Technique on Stress Patterns around the Femoral Tunnel in Anatomical Single-Bundle ACL Reconstruction with Different Knee Flexion Angles Using Finite Element Analysis. [Journal Name], [Volume number](Issue number), Pages. DOI if available."
-        },
-        {
-            "document_hash": "22",
-            "reference_id": 22,
-            "citation": "Nuelle, C. W., Balldin, B. C., & Slone, H. S. (2022). All-inside anterior cruciate ligament reconstruction. Arthroscopy, 2022. doi:10.1016/j.arthro.2022.06.001"
-        },
-        {
-            "document_hash": "23",
-            "reference_id": 23,
-            "citation": "Putnis, S., Neri, T., Grasso, S., Linklater, J., Fritsch, B., & Parker, D. (2019). ACL hamstring grafts fixed using adjustable cortical suspension in both the femur and tibia demonstrate healing and integration on MRI at one year. European Society of Sports Traumatology, Knee Surgery, Arthroscopy (ESSKA)."
-        },
-        {
-            "document_hash": "24",
-            "reference_id": 24,
-            "citation": "Fu, C.-W., Chen, W.-C., & Lu, Y.-C. (2020). Is all-inside with suspensory cortical button fixation a superior technique for anterior cruciate ligament reconstruction surgery? A systematic review and meta-analysis. BMC Musculoskeletal Disorders, 21, Article 445. https://doi.org/10.1186/s12891-020-03471-3"
-        },
-        {
-            "document_hash": "25",
-            "reference_id": 25,
-            "citation": "Siboni, R., Pioger, C., Mouton, C., & Seil, R. (2023). Presentation of an intraosseous suspensory fixation technique for pediatric and adult ACL reconstruction. Orthopaedics & Traumatology: Surgery & Research, 110, Article 103633. doi:10.1016/j.otsr.2023.103633"
-        },
-        {
-            "document_hash": "26",
-            "reference_id": 26,
-            "citation": "Tao, T., Yang, W., Tao, X., Li, Y., Zhang, K., Jiang, Y., & Gui, J. (2022). Arthroscopic Direct Anterior-to-Posterior Suture Suspension Fixation for the Treatment of Posterior Cruciate Ligament Tibial Avulsion Fracture. Orthopaedic Surgery, 14, 2031\u20132041. https://doi.org/10.1111/os.13401"
-        },
-        {
-            "document_hash": "27",
-            "reference_id": 27,
-            "citation": "Sch\u00fctzenberger, S., Keller, F., Grabner, S., Kontic, D., Schallmayer, D., Komjati, M., & Fialka, C. (2022). ACL reconstruction with femoral and tibial adjustable versus fixed-loop suspensory fixation: a retrospective cohort study. Retrieved from: sebastian.schuetzenberger@auva.at"
-        },
-        {
-            "document_hash": "28",
-            "reference_id": 28,
-            "citation": "Zheng, W., Hou, W., Zhang, Z., Li, P., Zhou, B., Li, H., & Pan, B. (2021). Results of Arthroscopic Treatment of Acute Posterior Cruciate Ligament Avulsion Fractures With Suspensory Fixation. Arthroscopy Association of North America, 10.1016/j.arthro.2021.01.044."
-        },
-        {
-            "document_hash": "29",
-            "reference_id": 29,
-            "citation": "Borjali, A., Nourani, A., Moeinnia, H., Mohseni, M., Korani, H., Ghias, N., & Chizari, M. (2021). Comparison of mechanical properties in interference screw fixation technique and organic anterior cruciate ligament reconstruction method: a biomechanical study. Open Access under a Creative Commons Attribution 4.0 International License."
-        },
-        {
-            "document_hash": "30",
-            "reference_id": 30,
-            "citation": "Senigagliesi, E., Farinelli, L., Aquili, A., Can\u00e8, P.P., Fravisini, M., Gigante, A.P. (2023). Ten-year outcomes of anterior cruciate ligament reconstruction with hamstring tendon autograft and femoral fixation with a cortico-cancellous screw suspension device. [Journal Name], [Volume(Issue)], [Page Range]."
-        },
-        {
-            "document_hash": "31",
-            "reference_id": 31,
-            "citation": "Zhang, S., Liu, S., Yang, L., Chen, S., Chen, S., & Chen, J. (2020). Morphological Changes of the Femoral Tunnel and Their Correlation With Hamstring Tendon Autograft Maturation up to 2 Years After Anterior Cruciate Ligament Reconstruction Using Femoral Cortical Suspension. The American Journal of Sports Medicine. https://doi.org/10.1177/0363546519898136"
-        },
-        {
-            "document_hash": "32",
-            "reference_id": 32,
-            "citation": "Thor, J., Han, D. Y. L., Tapasvi, S., & Beyzadeoglu, T. (2022). Short graft anterior cruciate ligament reconstruction: Current concepts. Journal of ISAKOS. https://doi.org/10.1016/j.jisako.2022.09.002"
-        },
-        {
-            "document_hash": "33",
-            "reference_id": 33,
-            "citation": "Xiong, Y., Su, C., Kuang, S., Zhao, X., Li, Y., Xiao, W., Zhu, H., Liu, W., & Gao, S. (2020). Remnant-Preserving Posterior Cruciate Ligament Reconstruction Over Remnant Fibers Using a Figure-of-Four Position and a Posterior Trans-Septal Portal. Orthopaedic Surgery, 12(6), 2018\u20132025. https://doi.org/10.1111/os.12755"
-        },
-        {
-            "document_hash": "34",
-            "reference_id": 34,
-            "citation": "Yang, Y., Cai, Z., He, M., Liu, D., Xie, W., Li, Y., & Xiao, W. (2022). All-Inside Anterior Cruciate Ligament Reconstruction: A Comprehensive Review of Surgical Techniques and Graft Selection. Frontiers in Bioscience (Landmark Edition), 27(3), 091. https://doi.org/10.31083/j.fbl2703091"
-        },
-        {
-            "document_hash": "35",
-            "reference_id": 35,
-            "citation": "Guy, S., Carrozzo, A., Ferreira, A., Vieira, T. D., Freychet, B., Thaunat, M., & Sonnery\u200e\u2011Cottet, B. (2021). Arthroscopic confirmation of femoral button deployment prevents soft tissue interposition in ACL reconstruction. European Society of Sports Traumatology, Knee Surgery, Arthroscopy (ESSKA). Published online: October 19, 2021."
-        },
-        {
-            "document_hash": "36",
-            "reference_id": 36,
-            "citation": "Zhang, P., Liu, W., Chen, P., Fei, W., Hu, H., & Wen, D. (2023). Clinical efficacy of arthroscopic high-intensity suture binding combined with button plate suspension fixation in the treatment of posterior cruciate ligament tibial avulsion fractures. Open Access Journal."
-        },
-        {
-            "document_hash": "37",
-            "reference_id": 37,
-            "citation": "Bedi A, Weber AE, Trasolini NA, Mayer EN, Bolia IK, Higgins J, Hamamoto J, Cole BJ, Bach BR, Verma NN (2020). Does Bone Plug and Graft Orientation (Inferior versus Posterior) Alter Native Femoral Footprint Coverage in Bone Patellar Tendon Bone Anterior Cruciate Ligament Reconstruction? Arthroscopy: The Journal of Arthroscopic and Related Surgery. https://doi.org/10.1016/j.arthro.2020.01.050."
-        },
-        {
-            "document_hash": "38",
-            "reference_id": 38,
-            "citation": "Devitt, B. M., Neri, T., & Fritsch, B. A. (2022). Combined anterolateral complex and anterior cruciate ligament injury: Anatomy, biomechanics, and management\u2014State-of-the-art. Journal of ISAKOS, 8, 37-46. https://doi.org/10.1016/j.jisako.2022.10.004"
-        },
-        {
-            "document_hash": "39",
-            "reference_id": 39,
-            "citation": "Eckstein, F., Wirth, W., & Culvenor, A.G. (2020). Osteoarthritis Year in Review 2020: Imaging. Osteoarthritis and Cartilage, X(X), XXX-XXX. Elsevier Ltd."
-        },
-        {
-            "document_hash": "40",
-            "reference_id": 40,
-            "citation": "de Geofroy, B., Ghabi, A., Jouvion, A.-X., Limouzin, J., & de Landevoisin, E. (2022). Return to duty in military personnel after ACL reconstruction: STG versus ST4 double adjustable-loop device. Orthopaedics & Traumatology: Surgery & Research. https://doi.org/10.1016/j.otsr.2022.103378"
-        },
-        {
-            "document_hash": "41",
-            "reference_id": 41,
-            "citation": "Kehribar, L., Y\u0131lmaz, A.K., Karaduman, E., Kabaday\u0131, M., Bostanc\u0131, \u00d6., S\u00fcr\u00fcc\u00fc, S., Ayd\u0131n, M., Mahiro \u02d8gullar\u0131, M. (2022). Post-Operative Results of ACL Reconstruction Techniques on Single-Leg Hop Tests in Athletes: Hamstring Autograft vs. Hamstring Grafts Fixed Using Adjustable Cortical Suspension in Both the Femur and Tibia. Medicina, 58, 435. https://doi.org/10.3390/medicina58030435"
-        },
-        {
-            "document_hash": "42",
-            "reference_id": 42,
-            "citation": "Kulshrestha, V., Sood, M., Kumar, S., & Kawale, A. (2021). Early patient\u2011reported functional outcome of all\u2011inside ACL reconstruction as compared to anteromedial portal technique. Springer-Verlag France SAS part of Springer Nature."
-        },
-        {
-            "document_hash": "43",
-            "reference_id": 43,
-            "citation": "Lai, P. J., Wong, C. C., Chang, W. P., Liaw, C. K., Chen, C. H., & Weng, P. W. (2022). Comparison of Two Different Types of Hybrid Tibial Fixations for Anterior Cruciate Ligament Reconstruction: A Prospective Comparative Cohort Study. *Journal Unknown*. [Add DOI if available]"
-        },
-        {
-            "document_hash": "44",
-            "reference_id": 44,
-            "citation": "Lamplot, J. D., Smith, B. L., Slone, H. S., Hauck, O. L., & Wijdicks, C. A. (2023). Tape-Reinforced Graft Suturing and Retensioning of Adjustable-Loop Cortical Buttons Improve Quadriceps Tendon Autograft Biomechanics in Anterior Cruciate Ligament Reconstruction: A Cadaveric Study. Arthroscopy, 39(2), 145-160."
-        },
-        {
-            "document_hash": "45",
-            "reference_id": 45,
-            "citation": "Lee, S. H., Kim, D. H., Lee, J. I., Kim, J. S., Kim, T. W., & Lee, Y. S. (2020). Outcomes of trans-tibial posterior cruciate ligament reconstruction using a fovea landmark technique in relation to tunnel position and serial tunnel configuration. The Knee, https://doi.org/10.1016/j.knee.2020.10.018."
-        },
-        {
-            "document_hash": "46",
-            "reference_id": 46,
-            "citation": "Kocazeybek, E., Meric, E., Ersin, M., Ekinci, M., Kizilkurt, T., Sahinkaya, T., & Polat, G. (2023). Clinical outcomes of three different techniques using adjustable-loop fixation in arthroscopic single-bundle anterior cruciate ligament reconstruction: A prospective randomized clinical trial. The Knee. https://doi.org/10.1016/j.knee.2023.06.015"
-        },
-        {
-            "document_hash": "47",
-            "reference_id": 47,
-            "citation": "Balldin, B. C., Nuelle, C. W., & DeBerardino, T. D. (2018). Is Intraoperative Fluoroscopy Necessary to Confirm Device Position for Femoral-Sided Cortical Suspensory Fixation during Anterior Cruciate Ligament Reconstruction? Journal of Knee Surgery. https://doi.org/10.1055/s-0039-1678523"
-        },
-        {
-            "document_hash": "48",
-            "reference_id": 48,
-            "citation": "None"
-        },
-        {
-            "document_hash": "49",
-            "reference_id": 49,
-            "citation": "Kraeutler, M. J., Aliberti, G. M., Scillia, A. J., McCarty, E. C., & Mulcahey, M. K. (2020). A Systematic Review of Basic Science and Animal Studies on the Use of Doxycycline to Reduce the Risk of Posttraumatic Osteoarthritis After Anterior Cruciate Ligament Rupture/Transection. The American Journal of Sports Medicine. https://doi.org/10.1177/0363546520965971"
-        },
-        {
-            "document_hash": "50",
-            "reference_id": 50,
-            "citation": "Lee, T.-J., Jang, K.-M., Kim, T.-J., Lee, S.-M., & Bae, J.-H. (2022). Adjustable-Loop Cortical Suspensory Fixation Results in Greater Tibial Tunnel Widening Compared to Interference Screw Fixation in Primary Anterior Cruciate Ligament Reconstruction. Medicina, 58, 1193. https://doi.org/10.3390/medicina58091193"
-        },
-        {
-            "document_hash": "51",
-            "reference_id": 51,
-            "citation": "Lin, Y., Zhang, L., Shen, S., Chen, Y., Xu, L., Ji, M., Guo, Y., Wei, J., Li, Y., Wu, X., & Lu, J. (2024). No Difference in Bone Tunnel Enlargement and Clinical Outcome between Cortical Suspension and Hybrid Femoral Fixation in Hamstring Anterior Cruciate Ligament Reconstruction. Orthopaedic Surgery, 16(4), 902\u2013911. https://doi.org/10.1111/os.14024"
-        },
-        {
-            "document_hash": "52",
-            "reference_id": 52,
-            "citation": "Putnis, S. E., Oshima, T., Klasan, A., Grasso, S., Fritsch, B. A., Coolican, M. R. J., & Parker, D. A. (2020). Adjustable suspension versus hybrid fixation in hamstring autograft anterior cruciate ligament reconstruction. The Knee. https://doi.org/10.1016/j.knee.2020.10.014"
+        "ID:Prompt": {
+            "NAME": "ID:Prompt",
+            "URL_SAFE_NAME": "Plan Description",
+            "DESC": "Plan Description",
+            "TYPE": "SINGLE",
+            "EXT": "txt",
+            "COST": 0.0
         }
-    ]
+    },
+    "factory": {
+        "ID:P1": {
+            "pipeline": "PROMPTING.initialize_raw",
+            "parameters": {
+                "role": "user",
+                "limit": 0
+            },
+            "entrypoints": {
+                "prompt": "ID:Prompt"
+            },
+            "description": "Initializing prompt sequence",
+            "scope": {
+                "0": "FACTORY"
+            },
+            "entrypoint_types": {
+                "prompt": "SINGLE"
+            },
+            "output_type": "SINGLE",
+            "step": 3,
+            "creates": [],
+            "unlocks": [],
+            "arrival_scope": {
+                "0": "FACTORY"
+            }
+        },
+        "ID:P2": {
+            "pipeline": "PROMPTING.add_static",
+            "parameters": {
+                "role": "user",
+                "prompt": "Based on the user's description of the article he wants to write, propose a draft plan for that article. It should be detailed, match the user's wishes. For leaf nodes, provide AT LEAST 6 bullet points, systematically.\n\n- You will be graded on the following criteria, and the resulting grade will be used to compare and rank your results with the results of other students. Your goal is to be in the top 10% of those goals. The criteria are:\n-> Followed user guidelines: 40 points\n-> Exhaustivity and recall (not forgetting sections and topics): 20 points\n-> Precision and relevance (not going off topic): 20 points\n-> Logic and spirit of synthesis (presenting things in a smart, logic and efficient way): 20 points"
+            },
+            "entrypoints": {
+                "p": "ID:P1"
+            },
+            "description": "Giving instructions",
+            "scope": {
+                "0": "FACTORY"
+            },
+            "entrypoint_types": {
+                "p": "SINGLE"
+            },
+            "output_type": "SINGLE",
+            "step": 4,
+            "creates": [],
+            "unlocks": [],
+            "arrival_scope": {
+                "0": "FACTORY"
+            }
+        },
+        "ID:Planv1": {
+            "pipeline": "CUSTOM_TYPES.PLAN.plan_output",
+            "parameters": {
+                "model": "gpt-4o",
+                "base_url": "https://api.openai.com/v1",
+                "temperature": 1,
+                "top_p": 1
+            },
+            "entrypoints": {
+                "p": "ID:P2"
+            },
+            "description": "Drafting a first plan",
+            "scope": {
+                "0": "FACTORY"
+            },
+            "entrypoint_types": {
+                "p": "SINGLE"
+            },
+            "output_type": "SINGLE",
+            "step": 5,
+            "creates": [],
+            "unlocks": [],
+            "arrival_scope": {
+                "0": "FACTORY"
+            }
+        },
+        "ID:BulletPoints": {
+            "pipeline": "CUSTOM_TYPES.PLAN.all_bullet_points",
+            "parameters": {},
+            "entrypoints": {
+                "p": "ID:Planv1"
+            },
+            "description": "Gathering bullet points",
+            "scope": {
+                "0": "FACTORY"
+            },
+            "entrypoint_types": {
+                "p": "SINGLE"
+            },
+            "output_type": "SINGLE",
+            "step": 6,
+            "creates": [],
+            "unlocks": [],
+            "arrival_scope": {
+                "0": "FACTORY"
+            }
+        },
+        "ID:Assignment": {
+            "pipeline": "EMBEDDINGS.anchored_top_k",
+            "parameters": {
+                "embedding_model": "text-embedding-3-large",
+                "anchor_key": "bullets",
+                "anchor_expect_lists": false,
+                "chunk_key": "text",
+                "chunk_document_id_key": "document_id",
+                "max_groups_per_element": 1,
+                "elements_per_group": 2,
+                "min_elements_per_list": 0,
+                "assigned_to_key": "assigned_to",
+                "max_total_assignments": 50
+            },
+            "entrypoints": {
+                "sections": "ID:BulletPoints",
+                "chunks": "ID:Knowledge"
+            },
+            "description": "Fetching relevant data",
+            "scope": {
+                "0": "FACTORY"
+            },
+            "entrypoint_types": {
+                "sections": "SINGLE",
+                "chunks": "SINGLE"
+            },
+            "output_type": "SINGLE",
+            "step": 7,
+            "creates": [],
+            "unlocks": [],
+            "arrival_scope": {
+                "0": "FACTORY"
+            }
+        },
+        "ID:Kept": {
+            "pipeline": "MANIPS.JSONL.filter",
+            "parameters": {
+                "jsonl_param": "assigned_to",
+                "jsonl_value": "XXX",
+                "equals": false,
+                "remove_nans": false
+            },
+            "entrypoints": {
+                "jsonl": "ID:Assignment"
+            },
+            "description": "Filtering text chunks",
+            "scope": {
+                "0": "FACTORY"
+            },
+            "entrypoint_types": {
+                "jsonl": "SINGLE"
+            },
+            "output_type": "SINGLE",
+            "step": 8,
+            "creates": [],
+            "unlocks": [],
+            "arrival_scope": {
+                "0": "FACTORY"
+            }
+        },
+        "ID:Built": {
+            "pipeline": "CONVERSIONS.JSONL.2_txt",
+            "parameters": {
+                "formatting": "{text}",
+                "sort_by": null,
+                "joiner": "\n\n====================== NEW ARTICLE ============================\n\n",
+                "grouped": true,
+                "group_by": "document_id",
+                "group_format": "{reference}\\n",
+                "group_joiner": "\n\n...\n\n"
+            },
+            "entrypoints": {
+                "jsonl": "ID:Kept"
+            },
+            "description": "RAG Prompt",
+            "scope": {
+                "0": "FACTORY"
+            },
+            "entrypoint_types": {
+                "jsonl": "SINGLE"
+            },
+            "output_type": "SINGLE",
+            "step": 9,
+            "creates": [],
+            "unlocks": [],
+            "arrival_scope": {
+                "0": "FACTORY"
+            }
+        },
+        "ID:Q1": {
+            "pipeline": "PROMPTING.initialize_raw",
+            "parameters": {
+                "role": "user",
+                "limit": 0
+            },
+            "entrypoints": {
+                "prompt": "ID:Built"
+            },
+            "description": "Initializing second prompt sequence",
+            "scope": {
+                "0": "FACTORY"
+            },
+            "entrypoint_types": {
+                "prompt": "SINGLE"
+            },
+            "output_type": "SINGLE",
+            "step": 10,
+            "creates": [],
+            "unlocks": [],
+            "arrival_scope": {
+                "0": "FACTORY"
+            }
+        },
+        "ID:Q2": {
+            "pipeline": "PROMPTING.add_dict",
+            "parameters": {
+                "role": "user",
+                "format": "# User guidelines\n\n{text}"
+            },
+            "entrypoints": {
+                "p": "ID:Q1",
+                "dic": "ID:Wrapped Prompt"
+            },
+            "description": "Feeding user input",
+            "scope": {
+                "0": "FACTORY"
+            },
+            "entrypoint_types": {
+                "p": "SINGLE",
+                "dic": "SINGLE"
+            },
+            "output_type": "SINGLE",
+            "step": 12,
+            "creates": [],
+            "unlocks": [],
+            "arrival_scope": {
+                "0": "FACTORY"
+            }
+        },
+        "ID:Wrapped Prompt": {
+            "pipeline": "CONVERSIONS.wrap_txt_in_dic",
+            "parameters": {
+                "param": "text"
+            },
+            "entrypoints": {
+                "text1": "ID:Prompt"
+            },
+            "description": "Describing swift badgers",
+            "scope": {
+                "0": "FACTORY"
+            },
+            "entrypoint_types": {
+                "text1": "SINGLE"
+            },
+            "output_type": "SINGLE",
+            "step": 11,
+            "creates": [],
+            "unlocks": [],
+            "arrival_scope": {
+                "0": "FACTORY"
+            }
+        },
+        "ID:Q3P": {
+            "pipeline": "PROMPTING.add_static",
+            "parameters": {
+                "role": "user",
+                "prompt": "Based on the user's instructions, propose a detailed and structured plan please!"
+            },
+            "entrypoints": {
+                "p": "ID:Q2"
+            },
+            "description": "Seeing fluffy wombats",
+            "scope": {
+                "0": "FACTORY"
+            },
+            "entrypoint_types": {
+                "p": "SINGLE"
+            },
+            "output_type": "SINGLE",
+            "step": 13,
+            "creates": [],
+            "unlocks": [],
+            "arrival_scope": {
+                "0": "FACTORY"
+            }
+        },
+        "ID:Q4P": {
+            "pipeline": "LLMS_v2.str_output",
+            "parameters": {
+                "model": "gpt-4o",
+                "base_url": "https://api.openai.com/v1",
+                "json_format": false,
+                "temperature": 0,
+                "max_tokens": 8000,
+                "top_p": 1,
+                "frequency_penalty": 0,
+                "presence_penalty": 0
+            },
+            "entrypoints": {
+                "p": "ID:Q3.3P"
+            },
+            "description": "Feeding majestic marmots",
+            "scope": {
+                "0": "FACTORY"
+            },
+            "entrypoint_types": {
+                "p": "SINGLE"
+            },
+            "output_type": "SINGLE",
+            "step": 18,
+            "creates": [],
+            "unlocks": [],
+            "arrival_scope": {
+                "0": "FACTORY"
+            }
+        },
+        "ID:Parsed o1 plan": {
+            "pipeline": "CUSTOM_TYPES.PLAN.from_string",
+            "parameters": {
+                "model": "gpt-4o",
+                "base_url": "https://api.openai.com/v1",
+                "temperature": 1,
+                "top_p": 1
+            },
+            "entrypoints": {
+                "t": "ID:Q4P"
+            },
+            "description": "Admiring swift pelicans",
+            "scope": {
+                "0": "FACTORY"
+            },
+            "entrypoint_types": {
+                "t": "SINGLE"
+            },
+            "output_type": "SINGLE",
+            "step": 19,
+            "creates": [],
+            "unlocks": [],
+            "arrival_scope": {
+                "0": "FACTORY"
+            }
+        },
+        "ID:Plan with references": {
+            "pipeline": "CUSTOM_TYPES.PLAN.add_references",
+            "parameters": {},
+            "entrypoints": {
+                "p": "ID:Parsed o1 plan",
+                "knowledge": "ID:Knowledge"
+            },
+            "description": "Approaching cuddly ducks",
+            "scope": {
+                "0": "FACTORY"
+            },
+            "entrypoint_types": {
+                "p": "SINGLE",
+                "knowledge": "SINGLE"
+            },
+            "output_type": "SINGLE",
+            "step": 20,
+            "creates": [],
+            "unlocks": [],
+            "arrival_scope": {
+                "0": "FACTORY"
+            }
+        },
+        "ID:And UUIDs": {
+            "pipeline": "CUSTOM_TYPES.PLAN.set_uuids",
+            "parameters": {},
+            "entrypoints": {
+                "p": "ID:Plan with references"
+            },
+            "description": "Sketching quiet meerkats",
+            "scope": {
+                "0": "FACTORY"
+            },
+            "entrypoint_types": {
+                "p": "SINGLE"
+            },
+            "output_type": "SINGLE",
+            "step": 21,
+            "creates": [],
+            "unlocks": [],
+            "arrival_scope": {
+                "0": "FACTORY"
+            }
+        },
+        "ID:Q3PP": {
+            "pipeline": "PROMPTING.add_static",
+            "parameters": {
+                "role": "user",
+                "prompt": "# Instructions\n\nBased on the user's description of the article he wants to write, propose a draft plan for that article. It should be detailed, match the user's wishes. Your answer should follow the structure below\n\n```your answer structure\n'# Some document title'\nsubsections:\n  - '## Some section title'\n    subsections:\n      - '### Some subsection title'\n        abstract: '...' # shot abstract of the subsection\n      - '### Some subsection title'\n        abstract: '...' # shot abstract of the subsection\n      - '### Some subsection decomposed in subsubsections'\n        subsections:\n          - '#### Som subsub section'\n          # etc.\n      # etc.\n  - title: '## Some title'\n    subsections:\n      - title: '### Some title'\n        abstract: '...'\n      # etc.\n```\n\n- You plan should be perfect: the perfect balance between granularity and synthetism. Not too long, not too short. You will be graded on the following criteria, and the resulting grade will be used to compare and rank your results with the results of other students. Your goal is to be in the top 10% of those goals. The criteria are:\n-> Followed user guidelines: 40 points\n-> Exhaustivity and recall (not forgetting sections and topics): 20 points\n-> Precision and relevance (not going off topic): 20 points\n-> Logic and spirit of synthesis (presenting things in a smart, logic and efficient way): 20 points"
+            },
+            "entrypoints": {
+                "p": "ID:Q2"
+            },
+            "description": "Mentioning cuddly pelicans",
+            "scope": {
+                "0": "FACTORY"
+            },
+            "entrypoint_types": {
+                "p": "SINGLE"
+            },
+            "output_type": "SINGLE",
+            "step": 14,
+            "creates": [],
+            "unlocks": [],
+            "arrival_scope": {
+                "0": "FACTORY"
+            }
+        },
+        "ID:Q4PP": {
+            "pipeline": "LLMS_v2.str_output",
+            "parameters": {
+                "model": "o1",
+                "base_url": "https://api.openai.com/v1",
+                "json_format": false,
+                "temperature": 0,
+                "max_tokens": 5000,
+                "top_p": 1,
+                "frequency_penalty": 0,
+                "presence_penalty": 0
+            },
+            "entrypoints": {
+                "p": "ID:Q3PP"
+            },
+            "description": "Sketching furry ostriches",
+            "scope": {
+                "0": "FACTORY"
+            },
+            "entrypoint_types": {
+                "p": "SINGLE"
+            },
+            "output_type": "SINGLE",
+            "step": 15,
+            "creates": [],
+            "unlocks": [],
+            "arrival_scope": {
+                "0": "FACTORY"
+            }
+        },
+        "ID:Q3.2P": {
+            "pipeline": "PROMPTING.add_raw",
+            "parameters": {
+                "role": "assistant"
+            },
+            "entrypoints": {
+                "p": "ID:Q3P",
+                "prompt": "ID:Q4PP"
+            },
+            "description": "Approaching lively armadillos",
+            "scope": {
+                "0": "FACTORY"
+            },
+            "entrypoint_types": {
+                "p": "SINGLE",
+                "prompt": "SINGLE"
+            },
+            "output_type": "SINGLE",
+            "step": 16,
+            "creates": [],
+            "unlocks": [],
+            "arrival_scope": {
+                "0": "FACTORY"
+            }
+        },
+        "ID:Q3.3P": {
+            "pipeline": "PROMPTING.add_static",
+            "parameters": {
+                "role": "user",
+                "prompt": "# Instructions\n\nGood, this plan seems to work well for me. I am going to need you to\n- detail it, adding abstracts to branch nodes and bullet points to leaf nodes\n- structure it using the yaml structure below\n\n```yaml\ndocument:\n  section_id: 'id-0'   # some id, unique across the document\n  prefix: '#'          # prefix for the section\n  title: 'Some title'  # title of the document, do not include the prefix\n  abstract: '...'      # abstract of the document. abstracts should be between 2 and 5 sentences long. It focuses rather on the objectives of that document rather than the content.\n  section_type: 'root' # can either be root, node or leaf. rot is only used for the root section, node for sections with subsections and leaf for sections without subsections\n  contents:            # list of sections\n    subsections:\n      - section_id: 'id-1'\n        prefix: '##'\n        title: 'Some title'\n        abstract: '...'\n        section_type: 'node'\n        contents: # this is a node, do contents will be a list of sections\n          subsections:\n            - section_id: 'id-2'\n              prefix: '###'\n              title: 'Some title'\n              abstract: '...'\n              type: branch\n              section_type: 'leaf'\n              contents: # this is a leaf, so contents will be a list of bullet points enumerating tackled points\n                leaf_bullet_points: # At least 7 bullet points are required\n                  - 'Some bullet point'\n                  - 'Another bullet point'\n                  - '...'\n                  - '...'\n                  - '...'\n                  - '...'\n                  - '...'\n          # etc.\n      - section_id: 'id-3'\n        prefix: '##'\n        title: 'Some title'\n        abstract: '...'\n        section_type: 'node'\n        contents:\n          subsections:\n            - section_id: 'id-4'\n              prefix: '###'\n              title: 'Some title'\n              abstract: '...'\n              type: branch\n              section_type: 'leaf'\n              contents:\n                leaf_bullet_points:\n                  - 'Some bullet point'\n                  - 'Another bullet point'\n                  - '...'\n                  - '...'\n                  - '...'\n                  - '...'\n                  - '...'\n          # etc.\n```\n\n- If you fail to follow this structure, your answer will not be parsed by the system and you will receive a grade of zero\n- Keep the EXACT structure of the plan you proposed before. Your sole and only purpose is to enrich and structure properly!!! If you fail to transpose the EXACT same plan structure, it will be absolutely CATASTROPHIC!!!"
+            },
+            "entrypoints": {
+                "p": "ID:Q3.2P"
+            },
+            "description": "Studying sleek badgers",
+            "scope": {
+                "0": "FACTORY"
+            },
+            "entrypoint_types": {
+                "p": "SINGLE"
+            },
+            "output_type": "SINGLE",
+            "step": 17,
+            "creates": [],
+            "unlocks": [],
+            "arrival_scope": {
+                "0": "FACTORY"
+            }
+        },
+        "ID:Preview": {
+            "pipeline": "CUSTOM_TYPES.PLAN.preview_jules",
+            "parameters": {},
+            "entrypoints": {
+                "plan": "ID:And UUIDs"
+            },
+            "description": "Building Plan Text Preview",
+            "scope": {
+                "0": "FACTORY"
+            },
+            "entrypoint_types": {
+                "plan": "SINGLE"
+            },
+            "output_type": "SINGLE",
+            "step": 22,
+            "creates": [],
+            "unlocks": [],
+            "arrival_scope": {
+                "0": "FACTORY"
+            }
+        },
+        "ID:Knowledge@@metadata": {
+            "pipeline": "_single_feed_pipeline",
+            "parameters": {},
+            "entrypoints": {},
+            "scope": {
+                "0": "FACTORY"
+            },
+            "step": 0,
+            "entrypoint_types": {},
+            "output_type": "SINGLE",
+            "creates": [],
+            "unlocks": [],
+            "arrival_scope": {
+                "0": "FACTORY"
+            },
+            "description": "Watching spotted ostriches"
+        },
+        "ID:Knowledge": {
+            "pipeline": "_SFP_jsonl",
+            "parameters": {},
+            "entrypoints": {
+                "metadata": "ID:Knowledge@@metadata"
+            },
+            "scope": {
+                "0": "FACTORY"
+            },
+            "step": 1,
+            "entrypoint_types": {
+                "metadata": "SINGLE"
+            },
+            "output_type": "SINGLE",
+            "creates": [],
+            "unlocks": [],
+            "arrival_scope": {
+                "0": "FACTORY"
+            },
+            "description": "Hearing colorful beavers"
+        },
+        "ID:Prompt@@metadata": {
+            "pipeline": "_single_feed_pipeline",
+            "parameters": {},
+            "entrypoints": {},
+            "scope": {
+                "0": "FACTORY"
+            },
+            "step": 0,
+            "entrypoint_types": {},
+            "output_type": "SINGLE",
+            "creates": [],
+            "unlocks": [],
+            "arrival_scope": {
+                "0": "FACTORY"
+            },
+            "description": "Recording curious kangaroos"
+        },
+        "ID:Prompt": {
+            "pipeline": "_SFP_txt",
+            "parameters": {},
+            "entrypoints": {
+                "metadata": "ID:Prompt@@metadata"
+            },
+            "scope": {
+                "0": "FACTORY"
+            },
+            "step": 2,
+            "entrypoint_types": {
+                "metadata": "SINGLE"
+            },
+            "output_type": "SINGLE",
+            "creates": [],
+            "unlocks": [],
+            "arrival_scope": {
+                "0": "FACTORY"
+            },
+            "description": "Recording graceful badgers"
+        }
+    },
+    "output": {
+        "ID:Plan": "ID:And UUIDs",
+        "ID:Preview": "ID:Preview"
+    },
+    "outputs": {
+        "ID:Plan": {
+            "NAME": "ID:And UUIDs",
+            "URL_SAFE_NAME": "Plan",
+            "DESC": "Plan",
+            "TYPE": "SINGLE",
+            "EXT": "plan"
+        },
+        "ID:Preview": {
+            "NAME": "ID:Preview",
+            "URL_SAFE_NAME": "Preview",
+            "DESC": "Preview",
+            "TYPE": "SINGLE",
+            "EXT": "txt"
+        }
+    },
+    "version": 0,
+    "factoryName": "2. Plan",
+    "description": "# Plan\nis an AI-driven pipeline designed to take user-provided bullet points as input and expand on them using information from the knowledge base.  \nIt enriches the points with detailed explanations, context, and relevant data, making the initial outline more comprehensive and actionable.\n\n------\n\nBy leveraging a knowledge base to elaborate on each bullet point, **Plan* allows for efficient transformation of simple outlines into fully developed, detailed plans.  \nThis pipeline aids users in systematically refining their initial ideas, providing structured enhancements and valuable insights from various sources.\n\n\n> MAJ 27-01-2025",
+    "benchmarks": "",
+    "costs": "",
+    "active_inputs": {},
+    "active_outputs": {},
+    "env": [
+        "openai_api_key"
+    ],
+    "grade": -1,
+    "priority": -1
 }

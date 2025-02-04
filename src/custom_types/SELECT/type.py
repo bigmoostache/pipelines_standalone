@@ -38,7 +38,7 @@ def special_join(vals : List[str]) -> str:
     return '- ' + '\n- '.join(vals)
    
 class SELECT(BaseModel):
-    context: Optional[str] = ''
+    context: Optional[str] = Field(..., description = "Additional context to help the annotator make a decision.")
     selection_criteria : List[Union[ExclusionCriteria, InclusionCriteria]] = Field(..., description = "List of selection criteria") 
     
     def get_model(self):
