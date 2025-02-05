@@ -14,4 +14,4 @@ class Pipeline:
             doc = l.post_file(pdf.file_as_bytes, 'document.pdf')
             l.add_document(doc)
         l.update()
-        return l
+        return l 
