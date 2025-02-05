@@ -10,7 +10,7 @@ class Pipeline:
     
     def __call__(self, 
                  pdfs: List[PDF]) -> LUCARIO:
-        l = LUCARIO.get_new(lucario_url)
+        l = LUCARIO.get_new(self.lucario_url)
         for pdf in pdfs:
             doc = l.post_file(pdf.file_as_bytes, 'document.pdf')
             l.add_document(doc)
