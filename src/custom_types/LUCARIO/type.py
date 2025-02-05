@@ -1,5 +1,5 @@
 from pydantic import BaseModel, Field, create_model
-from typing import Literal, List, Any, Union, Optional
+from typing import Literal, List, Any, Union, Optional, Dict
 from datetime import datetime
 from enum import Enum
 import json
