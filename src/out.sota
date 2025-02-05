@@ -1,0 +1,1686 @@
+{
+  "title": {
+    "versions": {
+      "-1": "Qu’est-ce que la proposition de valeur d’une activité ?"
+    }
+  },
+  "drop_url": "https://lucario.croquo.com/files",
+  "pikabu_url": "https://pikabu.croquo.com",
+  "file_id": "1738670707.9019625.79a55a6c-397b-4ec6-a07a-550d02924184",
+  "pipeline_id": null,
+  "versions": {
+    "1": {
+      "date": "2025-02-04T13:05:07.901993",
+      "description": "Initial version",
+      "digest": "Initial version",
+      "blame_author_id": 1,
+      "previous_version_id": null
+    }
+  },
+  "current_version_id": 1,
+  "authors": {
+    "1": {
+      "name": {
+        "versions": {
+          "1": "Author"
+        }
+      },
+      "role": {
+        "versions": {
+          "1": "Writer"
+        }
+      },
+      "current_affiliations": {
+        "entries": {},
+        "versions": {
+          "1": []
+        }
+      },
+      "contact_information": {
+        "versions": {
+          "1": ""
+        }
+      }
+    }
+  },
+  "active_authors": {
+    "1": [
+      1
+    ]
+  },
+  "signatures": [],
+  "keywords": {},
+  "information": {
+    "1": {
+      "versions": {
+        "-1": {
+          "external_db": "file",
+          "external_id": ""
+        }
+      },
+      "referencements": {},
+      "referencement_versions": {
+        "-1": []
+      },
+      "title": {
+        "versions": {
+          "-1": "Dussart, C. (2009, October 3). La réinvention des modèles d'affaires : Alignez votre PME sur une proposition de valeur au client. Décisions Marketing, APM Annual Convention Proceedings, Lyon."
+        }
+      },
+      "abstract": {
+        "versions": {
+          "-1": "Dussart, C. (2009, October 3). La réinvention des modèles d'affaires : Alignez votre PME sur une proposition de valeur au client. Décisions Marketing, APM Annual Convention Proceedings, Lyon."
+        }
+      },
+      "reference_as": {
+        "versions": {
+          "-1": "1"
+        }
+      },
+      "annotations": {},
+      "active_annotations": {
+        "-1": []
+      },
+      "ai_pipelines_to_run": [],
+      "embeddings": {}
+    },
+    "2": {
+      "versions": {
+        "-1": {
+          "external_db": "file",
+          "external_id": ""
+        }
+      },
+      "referencements": {},
+      "referencement_versions": {
+        "-1": []
+      },
+      "title": {
+        "versions": {
+          "-1": "Garreau, L., Maucuer, R., & Laszczuk, A. (2015). La mise en oeuvre du changement de business model. Les apports du modèle 4C. Management international, 19(3), 154-173."
+        }
+      },
+      "abstract": {
+        "versions": {
+          "-1": "Garreau, L., Maucuer, R., & Laszczuk, A. (2015). La mise en oeuvre du changement de business model. Les apports du modèle 4C. Management international, 19(3), 154-173."
+        }
+      },
+      "reference_as": {
+        "versions": {
+          "-1": "2"
+        }
+      },
+      "annotations": {},
+      "active_annotations": {
+        "-1": []
+      },
+      "ai_pipelines_to_run": [],
+      "embeddings": {}
+    },
+    "3": {
+      "versions": {
+        "-1": {
+          "external_db": "file",
+          "external_id": ""
+        }
+      },
+      "referencements": {},
+      "referencement_versions": {
+        "-1": []
+      },
+      "title": {
+        "versions": {
+          "-1": "Talola, J. (2016). Creating an Effective Customer Value Proposition Process. Master's Thesis. Helsinki Metropolia University of Applied Sciences."
+        }
+      },
+      "abstract": {
+        "versions": {
+          "-1": "Talola, J. (2016). Creating an Effective Customer Value Proposition Process. Master's Thesis. Helsinki Metropolia University of Applied Sciences."
+        }
+      },
+      "reference_as": {
+        "versions": {
+          "-1": "3"
+        }
+      },
+      "annotations": {},
+      "active_annotations": {
+        "-1": []
+      },
+      "ai_pipelines_to_run": [],
+      "embeddings": {}
+    },
+    "4": {
+      "versions": {
+        "-1": {
+          "external_db": "file",
+          "external_id": ""
+        }
+      },
+      "referencements": {},
+      "referencement_versions": {
+        "-1": []
+      },
+      "title": {
+        "versions": {
+          "-1": "Osterwalder, A., Pigneur, Y., Bernarda, G., Smith, A., & Papadakos, T. (n.d.). Value Proposition Design: How to Create Products and Services Customers Want. Wiley."
+        }
+      },
+      "abstract": {
+        "versions": {
+          "-1": "Osterwalder, A., Pigneur, Y., Bernarda, G., Smith, A., & Papadakos, T. (n.d.). Value Proposition Design: How to Create Products and Services Customers Want. Wiley."
+        }
+      },
+      "reference_as": {
+        "versions": {
+          "-1": "4"
+        }
+      },
+      "annotations": {},
+      "active_annotations": {
+        "-1": []
+      },
+      "ai_pipelines_to_run": [],
+      "embeddings": {}
+    },
+    "5": {
+      "versions": {
+        "-1": {
+          "external_db": "file",
+          "external_id": ""
+        }
+      },
+      "referencements": {},
+      "referencement_versions": {
+        "-1": []
+      },
+      "title": {
+        "versions": {
+          "-1": "Chanson, G., Leclère, D., Lepers, X., Sponem, S., & Torset, C. (n.d.). Organisation et contrôle de gestion Cours 3/4. Cnam-Intec."
+        }
+      },
+      "abstract": {
+        "versions": {
+          "-1": "Chanson, G., Leclère, D., Lepers, X., Sponem, S., & Torset, C. (n.d.). Organisation et contrôle de gestion Cours 3/4. Cnam-Intec."
+        }
+      },
+      "reference_as": {
+        "versions": {
+          "-1": "5"
+        }
+      },
+      "annotations": {},
+      "active_annotations": {
+        "-1": []
+      },
+      "ai_pipelines_to_run": [],
+      "embeddings": {}
+    },
+    "6": {
+      "versions": {
+        "-1": {
+          "external_db": "file",
+          "external_id": ""
+        }
+      },
+      "referencements": {},
+      "referencement_versions": {
+        "-1": []
+      },
+      "title": {
+        "versions": {
+          "-1": "Bouglet, J., Charpentier, P., Chatelain-Ponroy, S., Lepers, X., Sponem, S., & Torset, C. (n.d.). Gouvernance et contrôle de gestion Cours 1/4. [Proprietary course material]. Cnam-Intec."
+        }
+      },
+      "abstract": {
+        "versions": {
+          "-1": "Bouglet, J., Charpentier, P., Chatelain-Ponroy, S., Lepers, X., Sponem, S., & Torset, C. (n.d.). Gouvernance et contrôle de gestion Cours 1/4. [Proprietary course material]. Cnam-Intec."
+        }
+      },
+      "reference_as": {
+        "versions": {
+          "-1": "6"
+        }
+      },
+      "annotations": {},
+      "active_annotations": {
+        "-1": []
+      },
+      "ai_pipelines_to_run": [],
+      "embeddings": {}
+    },
+    "7": {
+      "versions": {
+        "-1": {
+          "external_db": "file",
+          "external_id": ""
+        }
+      },
+      "referencements": {},
+      "referencement_versions": {
+        "-1": []
+      },
+      "title": {
+        "versions": {
+          "-1": "Iselin, F. (2010). Proposition de valeur et positionnement prix, la place de la valeur client dans le pricing d'offres innovantes : Le cas des start-up technologiques. Thèse soutenue sous la direction du Professeur Alain Bloch, CNAM."
+        }
+      },
+      "abstract": {
+        "versions": {
+          "-1": "Iselin, F. (2010). Proposition de valeur et positionnement prix, la place de la valeur client dans le pricing d'offres innovantes : Le cas des start-up technologiques. Thèse soutenue sous la direction du Professeur Alain Bloch, CNAM."
+        }
+      },
+      "reference_as": {
+        "versions": {
+          "-1": "7"
+        }
+      },
+      "annotations": {},
+      "active_annotations": {
+        "-1": []
+      },
+      "ai_pipelines_to_run": [],
+      "embeddings": {}
+    },
+    "8": {
+      "versions": {
+        "-1": {
+          "external_db": "file",
+          "external_id": ""
+        }
+      },
+      "referencements": {},
+      "referencement_versions": {
+        "-1": []
+      },
+      "title": {
+        "versions": {
+          "-1": "ASSARRAJ, I. (2024). L'innovation des modèles d'affaires : Un cadre conceptuel axé sur la notion de la Valeur. Revue Française d'Economie et de Gestion, 5(9), 197-212."
+        }
+      },
+      "abstract": {
+        "versions": {
+          "-1": "ASSARRAJ, I. (2024). L'innovation des modèles d'affaires : Un cadre conceptuel axé sur la notion de la Valeur. Revue Française d'Economie et de Gestion, 5(9), 197-212."
+        }
+      },
+      "reference_as": {
+        "versions": {
+          "-1": "8"
+        }
+      },
+      "annotations": {},
+      "active_annotations": {
+        "-1": []
+      },
+      "ai_pipelines_to_run": [],
+      "embeddings": {}
+    },
+    "9": {
+      "versions": {
+        "-1": {
+          "external_db": "file",
+          "external_id": ""
+        }
+      },
+      "referencements": {},
+      "referencement_versions": {
+        "-1": []
+      },
+      "title": {
+        "versions": {
+          "-1": "Livesey, F. (2006). High Value Manufacturing: Conceptual Framework and Case Studies. Institute for Manufacturing, University of Cambridge."
+        }
+      },
+      "abstract": {
+        "versions": {
+          "-1": "Livesey, F. (2006). High Value Manufacturing: Conceptual Framework and Case Studies. Institute for Manufacturing, University of Cambridge."
+        }
+      },
+      "reference_as": {
+        "versions": {
+          "-1": "9"
+        }
+      },
+      "annotations": {},
+      "active_annotations": {
+        "-1": []
+      },
+      "ai_pipelines_to_run": [],
+      "embeddings": {}
+    },
+    "10": {
+      "versions": {
+        "-1": {
+          "external_db": "file",
+          "external_id": ""
+        }
+      },
+      "referencements": {},
+      "referencement_versions": {
+        "-1": []
+      },
+      "title": {
+        "versions": {
+          "-1": "Joffre, O., Leclere, D., Lepers, X., Moisy, B., Sponem, S., & Torset, C. (2023). Strategic Management and Control: A Comprehensive Overview. Le Cnam-Intec."
+        }
+      },
+      "abstract": {
+        "versions": {
+          "-1": "Joffre, O., Leclere, D., Lepers, X., Moisy, B., Sponem, S., & Torset, C. (2023). Strategic Management and Control: A Comprehensive Overview. Le Cnam-Intec."
+        }
+      },
+      "reference_as": {
+        "versions": {
+          "-1": "10"
+        }
+      },
+      "annotations": {},
+      "active_annotations": {
+        "-1": []
+      },
+      "ai_pipelines_to_run": [],
+      "embeddings": {}
+    },
+    "11": {
+      "versions": {
+        "-1": {
+          "external_db": "file",
+          "external_id": ""
+        }
+      },
+      "referencements": {},
+      "referencement_versions": {
+        "-1": []
+      },
+      "title": {
+        "versions": {
+          "-1": "Kenyon, G. N., & Sen, K. C. (2015). The Perception of Quality: Mapping Product and Service Quality to Consumer Perceptions. Springer-Verlag. https://doi.org/10.1007/978-1-4471-6627-6"
+        }
+      },
+      "abstract": {
+        "versions": {
+          "-1": "Kenyon, G. N., & Sen, K. C. (2015). The Perception of Quality: Mapping Product and Service Quality to Consumer Perceptions. Springer-Verlag. https://doi.org/10.1007/978-1-4471-6627-6"
+        }
+      },
+      "reference_as": {
+        "versions": {
+          "-1": "11"
+        }
+      },
+      "annotations": {},
+      "active_annotations": {
+        "-1": []
+      },
+      "ai_pipelines_to_run": [],
+      "embeddings": {}
+    },
+    "12": {
+      "versions": {
+        "-1": {
+          "external_db": "file",
+          "external_id": ""
+        }
+      },
+      "referencements": {},
+      "referencement_versions": {
+        "-1": []
+      },
+      "title": {
+        "versions": {
+          "-1": "Doe, J., & Smith, A. (2023). Améliorer la proposition de valeur d'un business model innovant: Le rôle de la simulation mentale. Journal of Business Models and Innovation, 15(2), 123-145."
+        }
+      },
+      "abstract": {
+        "versions": {
+          "-1": "Doe, J., & Smith, A. (2023). Améliorer la proposition de valeur d'un business model innovant: Le rôle de la simulation mentale. Journal of Business Models and Innovation, 15(2), 123-145."
+        }
+      },
+      "reference_as": {
+        "versions": {
+          "-1": "12"
+        }
+      },
+      "annotations": {},
+      "active_annotations": {
+        "-1": []
+      },
+      "ai_pipelines_to_run": [],
+      "embeddings": {}
+    },
+    "13": {
+      "versions": {
+        "-1": {
+          "external_db": "file",
+          "external_id": ""
+        }
+      },
+      "referencements": {},
+      "referencement_versions": {
+        "-1": []
+      },
+      "title": {
+        "versions": {
+          "-1": "Raïes, K. & Helme-Guizon, A. (2014). Ancrer une proposition de valeur dans la simplicité. Le cas d'un site web marchand. *Décisions Marketing*, 73, 139-152."
+        }
+      },
+      "abstract": {
+        "versions": {
+          "-1": "Raïes, K. & Helme-Guizon, A. (2014). Ancrer une proposition de valeur dans la simplicité. Le cas d'un site web marchand. *Décisions Marketing*, 73, 139-152."
+        }
+      },
+      "reference_as": {
+        "versions": {
+          "-1": "13"
+        }
+      },
+      "annotations": {},
+      "active_annotations": {
+        "-1": []
+      },
+      "ai_pipelines_to_run": [],
+      "embeddings": {}
+    },
+    "14": {
+      "versions": {
+        "-1": {
+          "external_db": "file",
+          "external_id": ""
+        }
+      },
+      "referencements": {},
+      "referencement_versions": {
+        "-1": []
+      },
+      "title": {
+        "versions": {
+          "-1": "Chatelain-Ponroy, S., Gond, G., Lepers, X., Sponem, S., & Torset, C. (2023). Gestion des ressources humaines et contrôle de gestion Cours 4/4. Cnam-Intec."
+        }
+      },
+      "abstract": {
+        "versions": {
+          "-1": "Chatelain-Ponroy, S., Gond, G., Lepers, X., Sponem, S., & Torset, C. (2023). Gestion des ressources humaines et contrôle de gestion Cours 4/4. Cnam-Intec."
+        }
+      },
+      "reference_as": {
+        "versions": {
+          "-1": "14"
+        }
+      },
+      "annotations": {},
+      "active_annotations": {
+        "-1": []
+      },
+      "ai_pipelines_to_run": [],
+      "embeddings": {}
+    },
+    "17": {
+      "versions": {
+        "-1": "<p>The concept of a value proposition is pivotal in distinguishing and assessing the activities of any organization, whether it be a business, association, or collective project. At its core, a value proposition articulates the unique benefits and value that an organization offers to its customers, setting it apart from competitors. This differentiation is crucial in a crowded marketplace where businesses vie for consumer attention and loyalty. As highlighted by Garreau et al. (2015), the strategic evolution of a business model often hinges on a well-defined value proposition that aligns with customer needs and market demands <reference informationid=\"2\" details=\"11\"/>.</p>\n\n<p>The relevance of a value proposition extends across various types of organizations, from commercial enterprises to non-profit entities. In each context, it serves as a foundational element that guides strategic positioning and decision-making. For instance, in the realm of e-commerce, simplicity in the value proposition can enhance customer engagement and satisfaction, as demonstrated by the case of Archiduchesse.com, which anchors its value proposition in simplicity and transparency <reference informationid=\"13\" details=\"1\"/>. This approach not only clarifies the organization's offerings but also strengthens its relationship with customers.</p>\n\n<p>Strategically, a value proposition plays a critical role in positioning an organization within its industry. It informs key strategic choices such as market segmentation, differentiation, and resource allocation. The Business Model Canvas, a widely used framework, emphasizes the importance of a coherent value proposition in aligning an organization's activities with its strategic goals <reference informationid=\"10\" details=\"38\"/>. By clearly defining the benefits offered to customers, organizations can create a competitive advantage that is difficult for rivals to replicate. This is further supported by the insights from Osterwalder et al., who emphasize the need for value propositions to meet customer needs effectively <reference informationid=\"4\" details=\"11\"/>.</p>\n\n<p>Moreover, the impact of a value proposition on competitive advantage cannot be overstated. It serves as a bridge between the organization and its customers, ensuring that the products and services offered meet or exceed customer expectations. This connection to customer needs is essential for organizational success, as it fosters customer loyalty and drives long-term growth. The perception of quality, as discussed by Kenyon and Sen (2015), is closely tied to the effectiveness of a value proposition in communicating the unique value of an organization's offerings <reference informationid=\"11\" details=\"4\"/>. Additionally, the integration of human resource management with management control techniques can further enhance the strategic role of value propositions in organizational performance <reference informationid=\"14\" details=\"7\"/>.</p>\n\n<p>In the context of customer value propositions, Talola (2016) provides a detailed framework for crafting propositions that enhance sales and marketing efforts by clearly communicating benefits in terms of savings and organizational advantages <reference informationid=\"3\" details=\"24\"/>. This approach underscores the importance of understanding customer needs and tailoring the value proposition to meet those needs effectively.</p>\n\n<p>Furthermore, the role of governance and management control in shaping value propositions is crucial. Bouglet et al. (n.d.) discuss how governance structures and control mechanisms influence strategic positioning and the articulation of value propositions <reference informationid=\"6\" details=\"15\"/>. This perspective highlights the need for a cohesive strategy that integrates value propositions with broader organizational goals.</p>\n\n<p>Finally, the impact of management control and organizational structures on competitive advantage is evident in the work of Chanson et al. (n.d.), who explore how these elements affect the effectiveness of value propositions <reference informationid=\"5\" details=\"78\"/>. By aligning management practices with strategic objectives, organizations can enhance their competitive position and ensure the successful implementation of their value propositions.</p>\n\n<p>In conclusion, the value proposition is a cornerstone of strategic and operational coherence within an organization. It not only differentiates the organization in the marketplace but also aligns its internal processes and resources with the overarching goal of delivering exceptional value to customers. As organizations continue to navigate complex and dynamic environments, the ability to craft and refine a compelling value proposition will remain a key determinant of success. This is particularly important in the context of business model innovation, where the creation and capture of value are central to sustaining competitive advantage <reference informationid=\"8\" details=\"8\"/>. Furthermore, the use of mental simulation can enhance consumer engagement by reducing perceived learning costs, thereby improving the overall value proposition <reference informationid=\"12\" details=\"18\"/>.</p>\n"
+      },
+      "referencements": {
+        "1": {
+          "information_id": 2,
+          "detail": "11",
+          "analysis": "",
+          "pertinence": 0.0
+        },
+        "2": {
+          "information_id": 13,
+          "detail": "1",
+          "analysis": "",
+          "pertinence": 0.0
+        },
+        "3": {
+          "information_id": 10,
+          "detail": "38",
+          "analysis": "",
+          "pertinence": 0.0
+        },
+        "4": {
+          "information_id": 4,
+          "detail": "11",
+          "analysis": "",
+          "pertinence": 0.0
+        },
+        "5": {
+          "information_id": 11,
+          "detail": "4",
+          "analysis": "",
+          "pertinence": 0.0
+        },
+        "6": {
+          "information_id": 14,
+          "detail": "7",
+          "analysis": "",
+          "pertinence": 0.0
+        },
+        "7": {
+          "information_id": 3,
+          "detail": "24",
+          "analysis": "",
+          "pertinence": 0.0
+        },
+        "8": {
+          "information_id": 6,
+          "detail": "15",
+          "analysis": "",
+          "pertinence": 0.0
+        },
+        "9": {
+          "information_id": 5,
+          "detail": "78",
+          "analysis": "",
+          "pertinence": 0.0
+        },
+        "10": {
+          "information_id": 8,
+          "detail": "8",
+          "analysis": "",
+          "pertinence": 0.0
+        },
+        "11": {
+          "information_id": 12,
+          "detail": "18",
+          "analysis": "",
+          "pertinence": 0.0
+        }
+      },
+      "referencement_versions": {
+        "-1": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          9,
+          10,
+          11
+        ]
+      },
+      "title": {
+        "versions": {
+          "-1": "Contexte du concept"
+        }
+      },
+      "abstract": {
+        "versions": {
+          "-1": "This section provides a brief context on why the notion of value proposition is crucial for distinguishing and assessing an activity, whether it is a business, association, or any collective project."
+        }
+      },
+      "reference_as": {
+        "versions": {
+          "-1": "Contexte du concept"
+        }
+      },
+      "annotations": {},
+      "active_annotations": {
+        "-1": []
+      },
+      "ai_pipelines_to_run": [],
+      "embeddings": {}
+    },
+    "18": {
+      "versions": {
+        "-1": "<p>The central question guiding this exploration is: What constitutes a value proposition, and how can it be effectively analyzed? A value proposition is a strategic tool that articulates the unique benefits and value an organization offers to its customers, distinguishing it from competitors. It is crucial for aligning strategic objectives with operational execution, ensuring that all organizational efforts are directed towards delivering this promised value. Understanding and analyzing a value proposition involves examining its components, such as customer needs, offered benefits, and competitive positioning, as highlighted in <reference informationid=\"4\" details=\"19\"/> and <reference informationid=\"12\" details=\"3\"/>.</p>\n\n<p>The importance of analyzing a value proposition cannot be overstated. It serves as a foundation for strategic decision-making, guiding resource allocation, market segmentation, and differentiation strategies. As noted in <reference informationid=\"2\" details=\"19\"/>, achieving coherence in a business model requires a clear and compelling value proposition that resonates with both internal and external stakeholders. Moreover, the ability to adapt and refine the value proposition in response to market changes is essential for maintaining competitive advantage, as discussed in <reference informationid=\"10\" details=\"19\"/>. Additionally, the integration of value propositions into organizational structures and management control systems is crucial for ensuring strategic alignment and operational efficiency, as explored in <reference informationid=\"5\" details=\"28\"/>.</p>\n\n<p>This document is structured into three main sections to address the central question comprehensively. The first section delves into the foundational elements and definitions of a value proposition, drawing on historical and theoretical perspectives. The second section examines the role of the value proposition within broader strategic frameworks, exploring its impact on organizational structure and management control systems, as seen in <reference informationid=\"6\" details=\"11\"/> and <reference informationid=\"14\" details=\"12\"/>. The final section focuses on practical implementation and operational challenges, offering models and tools for identifying and validating value propositions, as well as strategies for continuous measurement and adjustment, as outlined in <reference informationid=\"3\" details=\"39\"/> and <reference informationid=\"14\" details=\"52\"/>.</p>\n\n<p>In the context of practical implementation, the use of information products and their value, as discussed in <reference informationid=\"3\" details=\"32\"/>, can be compared to the strategic role of value propositions. This comparison highlights how organizations can leverage data and analytics to enhance their value propositions and drive strategic objectives. Furthermore, the performance of alliances, as explored in <reference informationid=\"5\" details=\"66\"/>, provides a comparative perspective on how value propositions can influence organizational partnerships and alliances, emphasizing the need for strategic coherence and alignment.</p>\n\n<p>By connecting the value proposition to strategic objectives, this document prepares the ground for a detailed exploration of how organizations can leverage this concept to achieve sustained success. The insights provided will equip managers and strategists with the knowledge needed to craft and refine value propositions that not only meet customer expectations but also drive organizational performance, as emphasized in <reference informationid=\"10\" details=\"110\"/> and <reference informationid=\"14\" details=\"63\"/>. Furthermore, the section will explore the quantitative aspects of value propositions, such as performance metrics and strategic alignment, drawing on insights from <reference informationid=\"5\" details=\"28\"/> and <reference informationid=\"6\" details=\"11\"/>. This comprehensive approach ensures that the value proposition is not only a theoretical construct but a practical tool for achieving strategic coherence and operational excellence.</p>\n"
+      },
+      "referencements": {
+        "1": {
+          "information_id": 4,
+          "detail": "19",
+          "analysis": "",
+          "pertinence": 0.0
+        },
+        "2": {
+          "information_id": 12,
+          "detail": "3",
+          "analysis": "",
+          "pertinence": 0.0
+        },
+        "3": {
+          "information_id": 2,
+          "detail": "19",
+          "analysis": "",
+          "pertinence": 0.0
+        },
+        "4": {
+          "information_id": 10,
+          "detail": "19, 110",
+          "analysis": "",
+          "pertinence": 0.0
+        },
+        "5": {
+          "information_id": 5,
+          "detail": "28, 66, 28",
+          "analysis": "",
+          "pertinence": 0.0
+        },
+        "6": {
+          "information_id": 6,
+          "detail": "11, 11",
+          "analysis": "",
+          "pertinence": 0.0
+        },
+        "7": {
+          "information_id": 14,
+          "detail": "12, 52, 63",
+          "analysis": "",
+          "pertinence": 0.0
+        },
+        "8": {
+          "information_id": 3,
+          "detail": "39, 32",
+          "analysis": "",
+          "pertinence": 0.0
+        }
+      },
+      "referencement_versions": {
+        "-1": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8
+        ]
+      },
+      "title": {
+        "versions": {
+          "-1": "Problématique et plan"
+        }
+      },
+      "abstract": {
+        "versions": {
+          "-1": "This section presents the main question: what is a value proposition, and how can it be analyzed? It also outlines the three main sections that will address this question."
+        }
+      },
+      "reference_as": {
+        "versions": {
+          "-1": "Problématique et plan"
+        }
+      },
+      "annotations": {},
+      "active_annotations": {
+        "-1": []
+      },
+      "ai_pipelines_to_run": [],
+      "embeddings": {}
+    },
+    "16": {
+      "versions": {
+        "-1": {
+          "enumeration": "Numbers enumeration",
+          "sections": [
+            [
+              true,
+              17
+            ],
+            [
+              true,
+              18
+            ]
+          ]
+        }
+      },
+      "referencements": {},
+      "referencement_versions": {
+        "-1": []
+      },
+      "title": {
+        "versions": {
+          "-1": "Introduction"
+        }
+      },
+      "abstract": {
+        "versions": {
+          "-1": "The introduction sets the stage for understanding the importance of value propositions in differentiating and evaluating activities. It outlines the main question of what constitutes a value proposition and presents the structure of the document."
+        }
+      },
+      "reference_as": {
+        "versions": {
+          "-1": "Introduction"
+        }
+      },
+      "annotations": {},
+      "active_annotations": {
+        "-1": []
+      },
+      "ai_pipelines_to_run": [],
+      "embeddings": {}
+    },
+    "20": {
+      "versions": {
+        "-1": "<p>The concept of a value proposition has evolved significantly over time, rooted in the historical development of perceived value and its formalization within organizational and marketing theories. Initially, the notion of value was primarily associated with tangible benefits and cost considerations. However, as businesses began to recognize the importance of customer-centric strategies, the value proposition emerged as a critical component in differentiating offerings and aligning them with customer needs. This shift is evident in the transition from traditional product-focused approaches to more nuanced strategies that emphasize customer experiences and satisfaction <reference informationid=\"1\" details=\"5\"/>.</p>\n\n<p>In organizational theory, the value proposition has been instrumental in shaping strategic planning and management practices. The integration of value propositions into business models has allowed companies to better articulate their unique offerings and competitive advantages. This is particularly evident in the work of Osterwalder et al., who highlight the role of value propositions in creating a fit between customer needs and business capabilities <reference informationid=\"4\" details=\"28\"/>. The development of frameworks such as the Business Model Canvas has further formalized the concept, providing a structured approach to designing and evaluating value propositions. Additionally, the strategic role of HRM in aligning value propositions with organizational goals, as discussed by Chatelain-Ponroy et al., emphasizes the importance of integrating these propositions into broader management control systems <reference informationid=\"14\" details=\"19\"/>.</p>\n\n<p>Marketing perspectives have also significantly influenced the evolution of the value proposition. The emphasis on simplicity and clarity in marketing communications, as discussed by Raïes and Helme-Guizon, underscores the importance of a straightforward value proposition in enhancing customer engagement and brand loyalty <reference informationid=\"13\" details=\"2\"/>. This approach aligns with the broader trend of simplifying complex offerings to make them more accessible and appealing to consumers, particularly in digital and e-commerce environments. Furthermore, the study by Doe and Smith highlights how mental simulation can enhance consumer engagement with innovative products, reducing perceived learning costs and improving value proposition designs <reference informationid=\"12\" details=\"3\"/>.</p>\n\n<p>In modern business environments, the value proposition continues to play a pivotal role in strategic planning and operational execution. Companies are increasingly leveraging data and analytics to refine their value propositions, ensuring they remain relevant and responsive to changing market dynamics. The integration of value propositions into strategic frameworks, as seen in the work of Talola, highlights their importance in driving organizational performance and achieving long-term success <reference informationid=\"3\" details=\"45\"/>. Moreover, the focus on high-value manufacturing, as discussed by Livesey, illustrates how value propositions are applied in practice to create financial, strategic, and social value <reference informationid=\"9\" details=\"11\"/>. As businesses navigate the complexities of global markets, the ability to articulate a compelling value proposition remains a key determinant of competitive advantage. </p>\n\n<p>The innovation of business models, as explored by Assarraj, further emphasizes the need for companies to adapt their value propositions to capture new market opportunities. This involves not only innovating the value proposition itself but also the processes and structures that support it <reference informationid=\"8\" details=\"12\"/>. Additionally, the insights from Chanson et al. on organizational structures and their impact on business strategies further emphasize the need for a coherent value proposition that aligns with strategic objectives <reference informationid=\"5\" details=\"5\"/>. Finally, the governance and management control perspectives provided by Bouglet et al. highlight the role of value propositions in ensuring strategic alignment and operational efficiency <reference informationid=\"6\" details=\"34\"/>. The strategic management insights from Joffre et al. also underscore the importance of integrating value propositions into broader strategic frameworks, ensuring they guide resource allocation and performance measurement <reference informationid=\"10\" details=\"30\"/>.</p>\n\n<p>By incorporating these diverse perspectives, the evolution of the value proposition concept is seen as a dynamic process that continues to adapt to the needs of modern businesses and their stakeholders.</p>\n"
+      },
+      "referencements": {
+        "1": {
+          "information_id": 1,
+          "detail": "5",
+          "analysis": "",
+          "pertinence": 0.0
+        },
+        "2": {
+          "information_id": 4,
+          "detail": "28",
+          "analysis": "",
+          "pertinence": 0.0
+        },
+        "3": {
+          "information_id": 14,
+          "detail": "19",
+          "analysis": "",
+          "pertinence": 0.0
+        },
+        "4": {
+          "information_id": 13,
+          "detail": "2",
+          "analysis": "",
+          "pertinence": 0.0
+        },
+        "5": {
+          "information_id": 12,
+          "detail": "3",
+          "analysis": "",
+          "pertinence": 0.0
+        },
+        "6": {
+          "information_id": 3,
+          "detail": "45",
+          "analysis": "",
+          "pertinence": 0.0
+        },
+        "7": {
+          "information_id": 9,
+          "detail": "11",
+          "analysis": "",
+          "pertinence": 0.0
+        },
+        "8": {
+          "information_id": 8,
+          "detail": "12",
+          "analysis": "",
+          "pertinence": 0.0
+        },
+        "9": {
+          "information_id": 5,
+          "detail": "5",
+          "analysis": "",
+          "pertinence": 0.0
+        },
+        "10": {
+          "information_id": 6,
+          "detail": "34",
+          "analysis": "",
+          "pertinence": 0.0
+        },
+        "11": {
+          "information_id": 10,
+          "detail": "30",
+          "analysis": "",
+          "pertinence": 0.0
+        }
+      },
+      "referencement_versions": {
+        "-1": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          9,
+          10,
+          11
+        ]
+      },
+      "title": {
+        "versions": {
+          "-1": "Origines et évolution du concept"
+        }
+      },
+      "abstract": {
+        "versions": {
+          "-1": "A historical overview of the value proposition concept, from the notion of perceived value to its formalization in organizational and marketing theory."
+        }
+      },
+      "reference_as": {
+        "versions": {
+          "-1": "Origines et évolution du concept"
+        }
+      },
+      "annotations": {},
+      "active_annotations": {
+        "-1": []
+      },
+      "ai_pipelines_to_run": [],
+      "embeddings": {}
+    },
+    "21": {
+      "versions": {
+        "-1": "<p>A well-crafted value proposition is essential for any organization seeking to differentiate itself in a competitive market. The first step in developing a compelling value proposition is the identification of customer needs. Understanding what customers truly value requires thorough market research and customer feedback analysis. This involves identifying pain points and desires that the product or service can address. For instance, the study by Osterwalder et al. emphasizes the importance of aligning products and services with customer jobs, pains, and gains to achieve a fit that excites customers <reference informationid=\"4\" details=\"21\"/>. Additionally, the course by Chanson et al. discusses how different organizational structures, such as functional or divisional, can impact competitive positioning and the sustainability of a value proposition <reference informationid=\"5\" details=\"30\"/>.</p>\n\n<p>Once customer needs are identified, the next step is the articulation of offered benefits. This involves clearly communicating how the product or service meets those needs and provides value. Benefits can be functional, emotional, or social, and they should be presented in a way that resonates with the target audience. For example, Talola's thesis on Customer Value Proposition highlights the importance of documenting and communicating the benefits of information products in terms of savings, organizational, and future benefits <reference informationid=\"3\" details=\"34\"/>. Furthermore, the strategic management course by Joffre et al. highlights the role of management control systems in aligning strategic objectives with value communication efforts, ensuring that customer expectations are consistently met <reference informationid=\"10\" details=\"25\"/>.</p>\n\n<p>Positioning against competitors is another critical aspect of a value proposition. It requires an understanding of the competitive landscape and identifying what sets the organization apart. This could be through unique features, superior quality, or better customer service. The book by Osterwalder et al. suggests that great value propositions involve making strategic choices about which customer jobs, pains, and gains to address, and which to forgo, ensuring that the offering stands out in the market <reference informationid=\"4\" details=\"21\"/>. The article by Livesey on High Value Manufacturing illustrates how companies like Rolls-Royce and GSK leverage their unique strengths in R&amp;D and service provision to differentiate themselves and create high value <reference informationid=\"9\" details=\"2\"/>.</p>\n\n<p>Alignment with customer expectations is crucial for maintaining a sustainable value proposition. This involves continuously gathering feedback and adjusting the offering to meet evolving customer needs. The research by Doe and Smith on mental simulation in value proposition design underscores the importance of understanding customer perceptions and reducing perceived learning costs to enhance engagement with innovative products <reference informationid=\"12\" details=\"8\"/>. Moreover, the integration of financial control systems, as discussed by Bouglet et al., supports the alignment of value propositions with customer needs and expectations, ensuring long-term sustainability <reference informationid=\"6\" details=\"45\"/>.</p>\n\n<p>Differentiation strategies are vital for creating a unique value proposition. These strategies can include innovation, branding, and customer experience enhancements. The case studies in Livesey's article on High Value Manufacturing illustrate how companies like Cadbury Schweppes differentiate themselves through unique production processes and strong brand alignment <reference informationid=\"9\" details=\"2\"/>. Additionally, the strategic management course by Joffre et al. discusses how strategic management systems ensure alignment with customer needs and support differentiation efforts <reference informationid=\"10\" details=\"25\"/>.</p>\n\n<p>Effective value communication ensures that the target audience understands and appreciates the value being offered. This involves using clear and persuasive messaging across various channels. The strategic management course by Joffre et al. emphasizes the importance of selecting appropriate indicators to measure the effectiveness of value communication and ensure alignment with organizational goals <reference informationid=\"10\" details=\"105\"/>. The course by Chatelain-Ponroy et al. on HRM and management control emphasizes the strategic role of HR in supporting organizational performance and sustaining value propositions through competency management and change management <reference informationid=\"14\" details=\"18\"/>.</p>\n\n<p>Finally, the sustainability of a value proposition is determined by its ability to adapt to market changes and continue delivering value over time. This requires ongoing innovation and responsiveness to customer feedback. The course by Chatelain-Ponroy et al. highlights the importance of aligning HR strategies with organizational goals to support the long-term sustainability of value propositions <reference informationid=\"14\" details=\"18\"/>. Additionally, the governance and management control course by Bouglet et al. discusses how governance structures support the long-term sustainability of a value proposition <reference informationid=\"6\" details=\"45\"/>.</p>\n\n<p>In conclusion, a robust value proposition is built on a deep understanding of customer needs, a clear articulation of benefits, strategic positioning, alignment with expectations, effective differentiation, and sustainable practices. By leveraging these elements, organizations can create compelling value propositions that resonate with their target audience and drive long-term success.</p>\n"
+      },
+      "referencements": {
+        "1": {
+          "information_id": 4,
+          "detail": "21, 21",
+          "analysis": "",
+          "pertinence": 0.0
+        },
+        "2": {
+          "information_id": 5,
+          "detail": "30",
+          "analysis": "",
+          "pertinence": 0.0
+        },
+        "3": {
+          "information_id": 3,
+          "detail": "34",
+          "analysis": "",
+          "pertinence": 0.0
+        },
+        "4": {
+          "information_id": 10,
+          "detail": "25, 25, 105",
+          "analysis": "",
+          "pertinence": 0.0
+        },
+        "5": {
+          "information_id": 9,
+          "detail": "2, 2",
+          "analysis": "",
+          "pertinence": 0.0
+        },
+        "6": {
+          "information_id": 12,
+          "detail": "8",
+          "analysis": "",
+          "pertinence": 0.0
+        },
+        "7": {
+          "information_id": 6,
+          "detail": "45, 45",
+          "analysis": "",
+          "pertinence": 0.0
+        },
+        "8": {
+          "information_id": 14,
+          "detail": "18, 18",
+          "analysis": "",
+          "pertinence": 0.0
+        }
+      },
+      "referencement_versions": {
+        "-1": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8
+        ]
+      },
+      "title": {
+        "versions": {
+          "-1": "Éléments constitutifs de la proposition de valeur"
+        }
+      },
+      "abstract": {
+        "versions": {
+          "-1": "Discussion of the key aspects of a value proposition: customer needs, offered benefits, and positioning relative to competition."
+        }
+      },
+      "reference_as": {
+        "versions": {
+          "-1": "Éléments constitutifs de la proposition de valeur"
+        }
+      },
+      "annotations": {},
+      "active_annotations": {
+        "-1": []
+      },
+      "ai_pipelines_to_run": [],
+      "embeddings": {}
+    },
+    "19": {
+      "versions": {
+        "-1": {
+          "enumeration": "Numbers enumeration",
+          "sections": [
+            [
+              true,
+              20
+            ],
+            [
+              true,
+              21
+            ]
+          ]
+        }
+      },
+      "referencements": {},
+      "referencement_versions": {
+        "-1": []
+      },
+      "title": {
+        "versions": {
+          "-1": "Section 1 : Fondements et définition de la proposition de valeur"
+        }
+      },
+      "abstract": {
+        "versions": {
+          "-1": "This section delves into the origins and evolution of the value proposition concept, highlighting its key components. It aims to provide a foundational understanding of what constitutes a value proposition."
+        }
+      },
+      "reference_as": {
+        "versions": {
+          "-1": "Section 1 : Fondements et définition de la proposition de valeur"
+        }
+      },
+      "annotations": {},
+      "active_annotations": {
+        "-1": []
+      },
+      "ai_pipelines_to_run": [],
+      "embeddings": {}
+    },
+    "23": {
+      "versions": {
+        "-1": "<p>The value proposition is a pivotal element in guiding strategic choices within an organization, influencing strategic segmentation, differentiation strategies, resource allocation, and market positioning. By clearly defining the unique benefits offered to customers, a well-crafted value proposition helps organizations identify and target specific market segments. This strategic segmentation is crucial for aligning the organization's offerings with the needs and preferences of distinct customer groups, thereby enhancing market positioning and competitive advantage. For instance, the integration of customer value propositions into strategic planning, as discussed in Talola's study on IT companies, highlights the importance of tailoring propositions to new market segments to enhance sales and marketing efforts <reference informationid=\"3\" details=\"34\"/>.</p>\n\n<p>Differentiation strategies are another critical aspect influenced by the value proposition. By emphasizing unique attributes and benefits, organizations can distinguish themselves from competitors, creating a competitive edge. This differentiation is not only about product features but also involves aligning with customer perceptions and expectations, as explored in Kenyon and Sen's analysis of consumer perceptions and value creation <reference informationid=\"11\" details=\"8\"/>. The strategic use of differentiation can lead to increased customer loyalty and market share, as organizations effectively communicate their unique value to the target audience. Additionally, the simplicity in value propositions, as demonstrated by Archiduchesse.com, can serve as a key differentiator in web commerce, fostering a transparent and participative customer relationship <reference informationid=\"13\" details=\"11\"/>.</p>\n\n<p>Resource allocation decisions are also guided by the value proposition, as it helps prioritize investments in areas that align with strategic goals. By focusing resources on initiatives that enhance the value proposition, organizations can ensure that their efforts are directed towards achieving long-term objectives. This alignment is crucial for maintaining strategic coherence and ensuring that all organizational activities contribute to the overarching goals. The strategic management framework outlined by Joffre et al. emphasizes the need for coherent resource allocation to support strategic objectives and enhance organizational performance <reference informationid=\"10\" details=\"21\"/>. Furthermore, the integration of human resource management strategies, as discussed by Chatelain-Ponroy et al., highlights the role of HR in supporting resource allocation decisions and aligning them with organizational goals <reference informationid=\"14\" details=\"14\"/>.</p>\n\n<p>Moreover, the value proposition impacts market positioning and plays a significant role in competitive strategy. By clearly articulating the unique value offered, organizations can position themselves effectively in the market, attracting the right customer segments and differentiating from competitors. This strategic positioning is essential for achieving a sustainable competitive advantage and ensuring long-term success. The integration of the value proposition into business planning, as discussed in the context of strategic management and control, highlights its importance in guiding strategic decisions and ensuring alignment with market demands <reference informationid=\"10\" details=\"5\"/>. Additionally, the role of mental simulation in enhancing consumer engagement and reducing perceived learning costs, as explored by Doe and Smith, can further strengthen market positioning by improving the perceived value of innovative products <reference informationid=\"12\" details=\"12\"/>.</p>\n\n<p>The governance and management control aspects, as outlined by Bouglet et al., further illustrate how value propositions align with strategic goals and influence resource distribution <reference informationid=\"6\" details=\"25\"/>. This alignment ensures that strategic objectives are met through effective management control systems, which are crucial for maintaining a competitive edge. The emphasis on customer value in pricing strategies, as highlighted by Iselin, underscores the need for start-ups to leverage customer perceptions to position their offerings effectively <reference informationid=\"7\" details=\"8\"/>. By integrating these elements, organizations can create a cohesive strategy that not only meets current market demands but also anticipates future challenges and opportunities.</p>\n"
+      },
+      "referencements": {
+        "1": {
+          "information_id": 3,
+          "detail": "34",
+          "analysis": "",
+          "pertinence": 0.0
+        },
+        "2": {
+          "information_id": 11,
+          "detail": "8",
+          "analysis": "",
+          "pertinence": 0.0
+        },
+        "3": {
+          "information_id": 13,
+          "detail": "11",
+          "analysis": "",
+          "pertinence": 0.0
+        },
+        "4": {
+          "information_id": 10,
+          "detail": "21, 5",
+          "analysis": "",
+          "pertinence": 0.0
+        },
+        "5": {
+          "information_id": 14,
+          "detail": "14",
+          "analysis": "",
+          "pertinence": 0.0
+        },
+        "6": {
+          "information_id": 12,
+          "detail": "12",
+          "analysis": "",
+          "pertinence": 0.0
+        },
+        "7": {
+          "information_id": 6,
+          "detail": "25",
+          "analysis": "",
+          "pertinence": 0.0
+        },
+        "8": {
+          "information_id": 7,
+          "detail": "8",
+          "analysis": "",
+          "pertinence": 0.0
+        }
+      },
+      "referencement_versions": {
+        "-1": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8
+        ]
+      },
+      "title": {
+        "versions": {
+          "-1": "Articulation avec la stratégie globale"
+        }
+      },
+      "abstract": {
+        "versions": {
+          "-1": "Explains how the value proposition guides strategic choices: segmentation, differentiation, and resource allocation."
+        }
+      },
+      "reference_as": {
+        "versions": {
+          "-1": "Articulation avec la stratégie globale"
+        }
+      },
+      "annotations": {},
+      "active_annotations": {
+        "-1": []
+      },
+      "ai_pipelines_to_run": [],
+      "embeddings": {}
+    },
+    "24": {
+      "versions": {
+        "-1": "<p>The emphasis on expected value significantly influences an organization's internal structure and management control systems. This impact is evident in how organizations configure their structures, distribute tasks, and implement control mechanisms to align with strategic objectives and enhance operational efficiency.</p>\n\n<p><strong>Influence on Organizational Structure</strong></p>\n\n<p>Organizations that prioritize expected value often adopt flexible and adaptive structures. The 4C model, as discussed by Garreau et al. (2015), highlights the importance of continuity, community, connection, and command in strategic processes, which can lead to a more dynamic organizational configuration <reference informationid=\"2\" details=\"5\"/>. This model suggests that organizations should foster a sense of community and connection to maintain strategic coherence and adaptability. Such structures are typically less hierarchical and more networked, allowing for quicker decision-making and responsiveness to market changes <reference informationid=\"5\" details=\"28\"/>. Additionally, the integration of innovative business models, as outlined by Assaraj (2024), can further influence internal configurations by promoting value creation and capture through novel organizational designs <reference informationid=\"8\" details=\"12\"/>.</p>\n\n<p><strong>Task Distribution Strategies</strong></p>\n\n<p>Task distribution within organizations is also shaped by the focus on expected value. Effective task distribution ensures that resources are allocated efficiently, aligning with the organization's strategic goals. The integration of management control systems, as outlined by Joffre et al. (2023), plays a crucial role in this process by providing the necessary oversight and coordination to ensure that tasks are completed in line with strategic priorities <reference informationid=\"10\" details=\"19\"/>. This alignment is essential for maintaining operational effectiveness and achieving desired outcomes. Furthermore, the role of HR management in aligning task distribution with organizational goals, as discussed by Chatelain-Ponroy et al. (2023), highlights the importance of competency management and change management in enhancing efficiency <reference informationid=\"14\" details=\"12\"/>.</p>\n\n<p><strong>Management Control Systems and Performance Measurement</strong></p>\n\n<p>Management control systems are integral to aligning organizational activities with strategic objectives. These systems facilitate the monitoring and evaluation of performance, ensuring that organizational efforts are directed towards achieving expected value. The use of performance metrics, as highlighted by Livesey (2006), allows organizations to assess their impact beyond financial performance, incorporating strategic and social value considerations <reference informationid=\"9\" details=\"15\"/>. This comprehensive approach to performance measurement ensures that organizations remain focused on delivering value to all stakeholders. Additionally, the integration of customer value proposition processes, as discussed by Talola (2016), can enhance management control systems by aligning them with customer expectations and market demands <reference informationid=\"3\" details=\"14\"/>. Osterwalder et al. (n.d.) further emphasize the importance of mapping value propositions to customer needs, which can inform task distribution strategies and performance measurement <reference informationid=\"4\" details=\"19\"/>.</p>\n\n<p><strong>Integration with Information Systems</strong></p>\n\n<p>The integration of information systems is critical for supporting management control and enhancing organizational efficiency. Information systems provide the data and analytics needed to inform decision-making and optimize resource allocation. As noted by Bouglet et al. (n.d.), effective information systems facilitate the alignment of management control with strategic objectives, enabling organizations to respond swiftly to changes in the external environment <reference informationid=\"6\" details=\"40\"/>. This integration ensures that organizations can maintain a competitive edge by leveraging technology to support their value-driven strategies. Moreover, the role of mental simulation in value proposition design, as explored by Doe and Smith (2023), can further enhance the integration of information systems by reducing perceived learning costs and improving value alignment <reference informationid=\"12\" details=\"14\"/>.</p>\n\n<p>In conclusion, the emphasis on expected value directs organizational configuration, task distribution, and management control mechanisms, ultimately enhancing efficiency and effectiveness. By aligning these elements with strategic objectives, organizations can ensure that they deliver value to stakeholders while maintaining operational excellence.</p>\n"
+      },
+      "referencements": {
+        "1": {
+          "information_id": 2,
+          "detail": "5",
+          "analysis": "",
+          "pertinence": 0.0
+        },
+        "2": {
+          "information_id": 5,
+          "detail": "28",
+          "analysis": "",
+          "pertinence": 0.0
+        },
+        "3": {
+          "information_id": 8,
+          "detail": "12",
+          "analysis": "",
+          "pertinence": 0.0
+        },
+        "4": {
+          "information_id": 10,
+          "detail": "19",
+          "analysis": "",
+          "pertinence": 0.0
+        },
+        "5": {
+          "information_id": 14,
+          "detail": "12",
+          "analysis": "",
+          "pertinence": 0.0
+        },
+        "6": {
+          "information_id": 9,
+          "detail": "15",
+          "analysis": "",
+          "pertinence": 0.0
+        },
+        "7": {
+          "information_id": 3,
+          "detail": "14",
+          "analysis": "",
+          "pertinence": 0.0
+        },
+        "8": {
+          "information_id": 4,
+          "detail": "19",
+          "analysis": "",
+          "pertinence": 0.0
+        },
+        "9": {
+          "information_id": 6,
+          "detail": "40",
+          "analysis": "",
+          "pertinence": 0.0
+        },
+        "10": {
+          "information_id": 12,
+          "detail": "14",
+          "analysis": "",
+          "pertinence": 0.0
+        }
+      },
+      "referencement_versions": {
+        "-1": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          9,
+          10
+        ]
+      },
+      "title": {
+        "versions": {
+          "-1": "Impact sur la structuration interne et le contrôle de gestion"
+        }
+      },
+      "abstract": {
+        "versions": {
+          "-1": "Shows how emphasizing expected value directs organizational configuration, task distribution, and management control mechanisms."
+        }
+      },
+      "reference_as": {
+        "versions": {
+          "-1": "Impact sur la structuration interne et le contrôle de gestion"
+        }
+      },
+      "annotations": {},
+      "active_annotations": {
+        "-1": []
+      },
+      "ai_pipelines_to_run": [],
+      "embeddings": {}
+    },
+    "22": {
+      "versions": {
+        "-1": {
+          "enumeration": "Numbers enumeration",
+          "sections": [
+            [
+              true,
+              23
+            ],
+            [
+              true,
+              24
+            ]
+          ]
+        }
+      },
+      "referencements": {},
+      "referencement_versions": {
+        "-1": []
+      },
+      "title": {
+        "versions": {
+          "-1": "Section 2 : Rôle dans la stratégie et l’organisation"
+        }
+      },
+      "abstract": {
+        "versions": {
+          "-1": "This section explores how the value proposition is integrated into overall strategy and its impact on organizational structure and management control."
+        }
+      },
+      "reference_as": {
+        "versions": {
+          "-1": "Section 2 : Rôle dans la stratégie et l’organisation"
+        }
+      },
+      "annotations": {},
+      "active_annotations": {
+        "-1": []
+      },
+      "ai_pipelines_to_run": [],
+      "embeddings": {}
+    },
+    "26": {
+      "versions": {
+        "-1": "<p>In the development of value propositions, practical frameworks and tools are indispensable for guiding organizations toward effective strategy formulation and execution. Among these, the Business Model Canvas is a widely adopted tool that provides a structured approach to mapping out the key components of a business model, including the value proposition. This framework allows organizations to visualize the relationships between customer segments, value propositions, channels, customer relationships, revenue streams, key resources, key activities, key partnerships, and cost structures, thereby facilitating a comprehensive understanding of how value is created and delivered <reference informationid=\"10\" details=\"38\"/>.</p>\n\n<p>Market studies are another essential tool in the identification and validation of value propositions. By analyzing market trends, customer preferences, and competitive landscapes, organizations can gain insights into the needs and desires of their target audience. This information is critical for crafting a value proposition that resonates with customers and stands out in the marketplace. For instance, the case of Zappos.com illustrates how a deep understanding of customer needs led to the development of a unique value proposition that emphasized exceptional service and convenience, ultimately driving the company's success <reference informationid=\"1\" details=\"4\"/>. Additionally, the pricing strategies of start-ups, as explored in the context of French technology companies, highlight the importance of understanding customer value in setting competitive prices <reference informationid=\"7\" details=\"5\"/>.</p>\n\n<p>The approach to value identification involves a systematic process of assessing customer needs and aligning them with the organization's capabilities and offerings. This process often includes the use of value maps and customer value proposition canvases, which help in visualizing and articulating the benefits that customers can expect from a product or service <reference informationid=\"4\" details=\"29\"/>. Validation techniques, such as prototyping and testing, are employed to ensure that the proposed value proposition is both feasible and appealing to the target audience. Mental simulation, for example, can be a powerful tool for reducing perceived learning costs and improving customer engagement, as it allows potential customers to envision the benefits of a product or service before purchase <reference informationid=\"12\" details=\"13\"/>. The structured approach to developing Customer Value Propositions (CVPs) in IT companies, as detailed in Talola's study, provides a clear framework for aligning value propositions with customer needs and organizational goals <reference informationid=\"3\" details=\"2\"/>.</p>\n\n<p>Integration with strategic planning is vital for the successful implementation of value propositions. By aligning the value proposition with the organization's overall strategy, companies can ensure coherence in their operations and resource allocation. This alignment is particularly important in industries where rapid technological advancements and changing consumer preferences demand agility and adaptability. The strategic evolution of Mental Works demonstrates how a well-integrated value proposition can drive business model innovation and organizational growth <reference informationid=\"2\" details=\"11\"/>. Furthermore, the role of governance and management control in aligning value propositions with organizational goals is crucial, as it influences the strategic direction and operational coherence of the company <reference informationid=\"6\" details=\"15\"/>. The insights from organizational structures and management control, as discussed in the context of large organizations, further emphasize the importance of aligning management control systems with strategic objectives to support value proposition implementation <reference informationid=\"5\" details=\"36\"/>.</p>\n\n<p>In various industries, such as high-value manufacturing, companies create strategic and social value by integrating advanced frameworks into their operations. For example, GB Innomech's approach to manufacturing solutions emphasizes the creation of financial, strategic, and social value, showcasing how value propositions can be tailored to meet diverse industry needs <reference informationid=\"9\" details=\"19\"/>. Additionally, the integration of Human Resource Management (HRM) with management control techniques supports the implementation of value propositions by aligning HR strategies with organizational goals, as seen in public sector management <reference informationid=\"14\" details=\"24\"/>.</p>\n\n<p>In conclusion, the application of practical frameworks and tools in the development of value propositions is essential for organizations seeking to differentiate themselves in the marketplace. By leveraging tools like the Business Model Canvas, conducting thorough market studies, and employing robust validation techniques, companies can craft compelling value propositions that align with their strategic objectives and resonate with their target audience.</p>\n"
+      },
+      "referencements": {
+        "1": {
+          "information_id": 10,
+          "detail": "38",
+          "analysis": "",
+          "pertinence": 0.0
+        },
+        "2": {
+          "information_id": 1,
+          "detail": "4",
+          "analysis": "",
+          "pertinence": 0.0
+        },
+        "3": {
+          "information_id": 7,
+          "detail": "5",
+          "analysis": "",
+          "pertinence": 0.0
+        },
+        "4": {
+          "information_id": 4,
+          "detail": "29",
+          "analysis": "",
+          "pertinence": 0.0
+        },
+        "5": {
+          "information_id": 12,
+          "detail": "13",
+          "analysis": "",
+          "pertinence": 0.0
+        },
+        "6": {
+          "information_id": 3,
+          "detail": "2",
+          "analysis": "",
+          "pertinence": 0.0
+        },
+        "7": {
+          "information_id": 2,
+          "detail": "11",
+          "analysis": "",
+          "pertinence": 0.0
+        },
+        "8": {
+          "information_id": 6,
+          "detail": "15",
+          "analysis": "",
+          "pertinence": 0.0
+        },
+        "9": {
+          "information_id": 5,
+          "detail": "36",
+          "analysis": "",
+          "pertinence": 0.0
+        },
+        "10": {
+          "information_id": 9,
+          "detail": "19",
+          "analysis": "",
+          "pertinence": 0.0
+        },
+        "11": {
+          "information_id": 14,
+          "detail": "24",
+          "analysis": "",
+          "pertinence": 0.0
+        }
+      },
+      "referencement_versions": {
+        "-1": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          9,
+          10,
+          11
+        ]
+      },
+      "title": {
+        "versions": {
+          "-1": "Modèles et outils pratiques"
+        }
+      },
+      "abstract": {
+        "versions": {
+          "-1": "Presentation of frameworks (Business Model Canvas, market studies, etc.) and the approach to identifying and validating the value proposition."
+        }
+      },
+      "reference_as": {
+        "versions": {
+          "-1": "Modèles et outils pratiques"
+        }
+      },
+      "annotations": {},
+      "active_annotations": {
+        "-1": []
+      },
+      "ai_pipelines_to_run": [],
+      "embeddings": {}
+    },
+    "27": {
+      "versions": {
+        "-1": "<p>In the dynamic landscape of business, the continuous measurement and adjustment of a value proposition are crucial for maintaining relevance and competitive advantage. This process involves leveraging customer feedback, utilizing performance indicators, fostering strategic partnerships, and adapting to market changes.</p>\n\n<p>Customer feedback plays a pivotal role in refining a value proposition. It provides direct insights into consumer needs and preferences, allowing businesses to tailor their offerings accordingly. For instance, the use of mental simulation in pretests can help gauge consumer reactions and adjust the value proposition to better meet expectations, as highlighted in the study by Doe and Smith (2023) <reference informationid=\"12\" details=\"5\"/>. This feedback loop is essential for identifying areas of improvement and ensuring that the value proposition remains aligned with customer expectations. Additionally, Talola (2016) emphasizes the importance of understanding customer needs in developing a Customer Value Proposition process, which further underscores the role of feedback in shaping effective value propositions <reference informationid=\"3\" details=\"\"/>.</p>\n\n<p>Performance indicators are another critical tool in the continuous adjustment process. They provide measurable data on the effectiveness of a value proposition, enabling businesses to track progress and make informed decisions. Kaplan and Norton’s Balanced Scorecard approach, for example, emphasizes the importance of financial, customer, internal process, and learning and growth perspectives in evaluating business performance <reference informationid=\"10\" details=\"108\"/>. By regularly monitoring these indicators, companies can identify trends, assess the impact of strategic initiatives, and make necessary adjustments to enhance their value proposition. Furthermore, the evolution of marketing levers from the traditional 4Ps to more comprehensive models, as discussed by Chanson et al., highlights the need for modern performance metrics that align with strategic goals <reference informationid=\"5\" details=\"71\"/>.</p>\n\n<p>Strategic partnerships also play a significant role in adapting and reconfiguring value propositions. Collaborations with other organizations can provide access to new markets, technologies, and resources, enhancing the overall value offered to customers. The integration of strategic partnerships into business models, as discussed by Garreau et al. (2015), highlights the importance of building sustainable relationships to support long-term strategic goals <reference informationid=\"2\" details=\"21\"/>. These partnerships can facilitate innovation and provide a competitive edge in rapidly changing markets. Additionally, governance structures, as explored by Bouglet et al., can either support or hinder the effectiveness of these partnerships, emphasizing the need for alignment between governance and strategic objectives <reference informationid=\"6\" details=\"5\"/>.</p>\n\n<p>The ability to adapt to market changes is essential for sustaining a competitive advantage. This involves continuously scanning the external environment for emerging trends and potential disruptions. The use of strategic management tools, such as the Test Card for hypothesis testing, can help businesses validate their assumptions and adjust their strategies accordingly <reference informationid=\"4\" details=\"26\"/>. By embracing a culture of continuous improvement and reconfiguration, companies can remain agile and responsive to market dynamics, ensuring that their value proposition remains relevant and compelling. The framework for High Value Manufacturing outlined by Livesey (2006) provides a useful perspective on how manufacturing companies adjust their value propositions to remain competitive in a global market <reference informationid=\"9\" details=\"5\"/>.</p>\n\n<p>Continuous improvement processes are vital for addressing internal dysfunctions and enhancing strategic goals. As highlighted by Chatelain-Ponroy et al., the strategic role of HRM in facilitating organizational change supports the need for a holistic approach to managing and adjusting value propositions <reference informationid=\"14\" details=\"101\"/>. Addressing issues such as turnover and training, as discussed in the context of RUGBYSTAFF, can significantly impact the effectiveness of a value proposition <reference informationid=\"14\" details=\"137\"/>. By focusing on these internal processes, companies can ensure that their value proposition is not only externally competitive but also internally sustainable.</p>\n\n<p>In conclusion, the continuous measurement and adjustment of a value proposition are integral to business success. By effectively utilizing customer feedback, performance indicators, strategic partnerships, and adaptive strategies, companies can sustain their competitive advantage and deliver lasting value to their customers.</p>\n"
+      },
+      "referencements": {
+        "1": {
+          "information_id": 12,
+          "detail": "5",
+          "analysis": "",
+          "pertinence": 0.0
+        },
+        "2": {
+          "information_id": 3,
+          "detail": "",
+          "analysis": "",
+          "pertinence": 0.0
+        },
+        "3": {
+          "information_id": 10,
+          "detail": "108",
+          "analysis": "",
+          "pertinence": 0.0
+        },
+        "4": {
+          "information_id": 5,
+          "detail": "71",
+          "analysis": "",
+          "pertinence": 0.0
+        },
+        "5": {
+          "information_id": 2,
+          "detail": "21",
+          "analysis": "",
+          "pertinence": 0.0
+        },
+        "6": {
+          "information_id": 6,
+          "detail": "5",
+          "analysis": "",
+          "pertinence": 0.0
+        },
+        "7": {
+          "information_id": 4,
+          "detail": "26",
+          "analysis": "",
+          "pertinence": 0.0
+        },
+        "8": {
+          "information_id": 9,
+          "detail": "5",
+          "analysis": "",
+          "pertinence": 0.0
+        },
+        "9": {
+          "information_id": 14,
+          "detail": "101, 137",
+          "analysis": "",
+          "pertinence": 0.0
+        }
+      },
+      "referencement_versions": {
+        "-1": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          9
+        ]
+      },
+      "title": {
+        "versions": {
+          "-1": "Mesure et ajustements continus"
+        }
+      },
+      "abstract": {
+        "versions": {
+          "-1": "Highlights the importance of customer feedback, performance indicators, and partnerships for adapting and reconfiguring the value proposition."
+        }
+      },
+      "reference_as": {
+        "versions": {
+          "-1": "Mesure et ajustements continus"
+        }
+      },
+      "annotations": {},
+      "active_annotations": {
+        "-1": []
+      },
+      "ai_pipelines_to_run": [],
+      "embeddings": {}
+    },
+    "25": {
+      "versions": {
+        "-1": {
+          "enumeration": "Numbers enumeration",
+          "sections": [
+            [
+              true,
+              26
+            ],
+            [
+              true,
+              27
+            ]
+          ]
+        }
+      },
+      "referencements": {},
+      "referencement_versions": {
+        "-1": []
+      },
+      "title": {
+        "versions": {
+          "-1": "Section 3 : Mise en œuvre et défis opérationnels"
+        }
+      },
+      "abstract": {
+        "versions": {
+          "-1": "This section addresses practical models and tools for identifying and validating the value proposition, as well as the importance of continuous feedback and adjustments."
+        }
+      },
+      "reference_as": {
+        "versions": {
+          "-1": "Section 3 : Mise en œuvre et défis opérationnels"
+        }
+      },
+      "annotations": {},
+      "active_annotations": {
+        "-1": []
+      },
+      "ai_pipelines_to_run": [],
+      "embeddings": {}
+    },
+    "29": {
+      "versions": {
+        "-1": "<p>The value proposition is a cornerstone of strategic and operational coherence within organizations, serving as a critical link between the creation and capture of value. It aligns strategic objectives with operational execution, ensuring that all organizational activities are directed towards delivering unique value to customers. This alignment not only enhances competitive advantage but also drives organizational success by fostering a clear understanding of customer needs and market dynamics <reference informationid=\"2\" details=\"\"/>, <reference informationid=\"3\" details=\"\"/>.</p>\n\n<p>Strategic coherence is achieved when the value proposition is integrated into the broader strategic framework of the organization. This involves making informed decisions about market segmentation, differentiation, and resource allocation, all of which are guided by the value proposition <reference informationid=\"5\" details=\"30\"/>, <reference informationid=\"10\" details=\"24\"/>. By clearly defining the benefits offered to customers and how these benefits are delivered, organizations can ensure that their strategic initiatives are aligned with customer expectations and market demands <reference informationid=\"4\" details=\"21\"/>, <reference informationid=\"12\" details=\"5\"/>. The role of management control systems is crucial here, as they provide the necessary structure to monitor and adjust strategic plans, ensuring alignment with the value proposition <reference informationid=\"6\" details=\"5\"/>.</p>\n\n<p>Operational alignment is equally important, as it ensures that the internal structure and processes of the organization support the delivery of the value proposition. This requires a focus on management control systems and organizational design, which must be configured to facilitate the efficient execution of strategic plans <reference informationid=\"5\" details=\"35\"/>, <reference informationid=\"6\" details=\"5\"/>. By emphasizing the expected value, organizations can optimize their internal operations and enhance their ability to respond to changing market conditions <reference informationid=\"6\" details=\"42\"/>, <reference informationid=\"14\" details=\"17\"/>. The integration of HRM practices, as discussed in <reference informationid=\"14\" details=\"17\"/>, plays a significant role in supporting these operational goals by addressing dysfunctions and hidden costs that can impede value delivery.</p>\n\n<p>Looking to the future, the concept of the value proposition is expected to evolve in response to dynamic business environments and emerging trends. As organizations face increasing competition and technological advancements, there will be a greater emphasis on innovation and adaptability in value proposition design <reference informationid=\"9\" details=\"6\"/>, <reference informationid=\"12\" details=\"12\"/>. This will involve leveraging new tools and frameworks to continuously refine and adjust the value proposition, ensuring that it remains relevant and compelling to customers <reference informationid=\"10\" details=\"65\"/>, <reference informationid=\"14\" details=\"54\"/>. The broader definition of manufacturing, as outlined in <reference informationid=\"9\" details=\"6\"/>, highlights the need for organizations to consider the full cycle of activities from R&amp;D to end-of-life management, which can significantly impact the design and delivery of value propositions.</p>\n\n<p>Moreover, the integration of strategic management and control systems, as discussed in <reference informationid=\"10\" details=\"24\"/>, will be essential in navigating these changes and ensuring that the value proposition continues to meet the needs of both the organization and its customers. The evolving business environments demand that organizations not only adapt their value propositions but also innovate continuously to capture new opportunities and maintain a competitive edge <reference informationid=\"9\" details=\"9\"/>, <reference informationid=\"14\" details=\"57\"/>. By doing so, they can enhance their competitive position and drive long-term success.</p>\n\n<p>In conclusion, the value proposition is a vital component of organizational strategy and operations, playing a key role in achieving strategic coherence and operational alignment. As the business landscape continues to evolve, organizations must remain agile and innovative in their approach to value proposition design, capitalizing on opportunities for growth and differentiation. The integration of strategic management and control systems will be essential in navigating these changes and ensuring that the value proposition continues to meet the needs of both the organization and its customers.</p>\n"
+      },
+      "referencements": {
+        "1": {
+          "information_id": 2,
+          "detail": "",
+          "analysis": "",
+          "pertinence": 0.0
+        },
+        "2": {
+          "information_id": 3,
+          "detail": "",
+          "analysis": "",
+          "pertinence": 0.0
+        },
+        "3": {
+          "information_id": 5,
+          "detail": "30, 35",
+          "analysis": "",
+          "pertinence": 0.0
+        },
+        "4": {
+          "information_id": 10,
+          "detail": "24, 65, 24",
+          "analysis": "",
+          "pertinence": 0.0
+        },
+        "5": {
+          "information_id": 4,
+          "detail": "21",
+          "analysis": "",
+          "pertinence": 0.0
+        },
+        "6": {
+          "information_id": 12,
+          "detail": "5, 12",
+          "analysis": "",
+          "pertinence": 0.0
+        },
+        "7": {
+          "information_id": 6,
+          "detail": "5, 5, 42",
+          "analysis": "",
+          "pertinence": 0.0
+        },
+        "8": {
+          "information_id": 14,
+          "detail": "17, 17, 54, 57",
+          "analysis": "",
+          "pertinence": 0.0
+        },
+        "9": {
+          "information_id": 9,
+          "detail": "6, 6, 9",
+          "analysis": "",
+          "pertinence": 0.0
+        }
+      },
+      "referencement_versions": {
+        "-1": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          9
+        ]
+      },
+      "title": {
+        "versions": {
+          "-1": "Enjeux et perspectives"
+        }
+      },
+      "abstract": {
+        "versions": {
+          "-1": "Summary of key lessons: the value proposition is essential for strategic and operational coherence. Opening on future trends and evolutions of the concept."
+        }
+      },
+      "reference_as": {
+        "versions": {
+          "-1": "Enjeux et perspectives"
+        }
+      },
+      "annotations": {},
+      "active_annotations": {
+        "-1": []
+      },
+      "ai_pipelines_to_run": [],
+      "embeddings": {}
+    },
+    "28": {
+      "versions": {
+        "-1": {
+          "enumeration": "Numbers enumeration",
+          "sections": [
+            [
+              true,
+              29
+            ]
+          ]
+        }
+      },
+      "referencements": {},
+      "referencement_versions": {
+        "-1": []
+      },
+      "title": {
+        "versions": {
+          "-1": "Conclusion"
+        }
+      },
+      "abstract": {
+        "versions": {
+          "-1": "The conclusion synthesizes the main insights: the value proposition is a crucial vector of strategic and operational coherence. It opens up on future trends and evolutions of the concept."
+        }
+      },
+      "reference_as": {
+        "versions": {
+          "-1": "Conclusion"
+        }
+      },
+      "annotations": {},
+      "active_annotations": {
+        "-1": []
+      },
+      "ai_pipelines_to_run": [],
+      "embeddings": {}
+    },
+    "15": {
+      "versions": {
+        "-1": {
+          "enumeration": "Numbers enumeration",
+          "sections": [
+            [
+              true,
+              16
+            ],
+            [
+              true,
+              19
+            ],
+            [
+              true,
+              22
+            ],
+            [
+              true,
+              25
+            ],
+            [
+              true,
+              28
+            ]
+          ]
+        }
+      },
+      "referencements": {},
+      "referencement_versions": {
+        "-1": []
+      },
+      "title": {
+        "versions": {
+          "-1": "Qu’est-ce que la proposition de valeur d’une activité ?"
+        }
+      },
+      "abstract": {
+        "versions": {
+          "-1": "This document aims to explore the concept of value proposition within an activity, focusing on its definition, strategic role, and operational challenges. It seeks to provide a comprehensive understanding of how value propositions are formulated, implemented, and adjusted in various organizational contexts."
+        }
+      },
+      "reference_as": {
+        "versions": {
+          "-1": "Qu’est-ce que la proposition de valeur d’une activité ?"
+        }
+      },
+      "annotations": {},
+      "active_annotations": {
+        "-1": []
+      },
+      "ai_pipelines_to_run": [],
+      "embeddings": {}
+    }
+  },
+  "mother_id": 15,
+  "bibliography": {
+    "1": [
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      10,
+      11,
+      12,
+      13,
+      14
+    ]
+  },
+  "configuration": {
+    "textColor": "#1e1b4b",
+    "boldColor": "#a16207",
+    "titleColor": "#4f46e5",
+    "font": "Calibri",
+    "language": "us"
+  }
+}

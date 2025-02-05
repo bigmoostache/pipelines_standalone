@@ -9,6 +9,7 @@ class Reference(BaseModel):
     document_hash : str = Field(..., description = 'Hash of the document, to avoid storing the same document multiple times')
     reference_id : int = Field(..., description = 'Unique identifier for this reference.')
     citation : str = Field(..., description = 'Citation for the reference')
+    external_id : Optional[str] = Field(None, description = 'External identifier for the reference, e.g. DOI')
 class Leaf(BaseModel):
     leaf_bullet_points     : List[str] = Field(..., description = 'Bullet points of topics covered. Provide at least 10, or you will fail at this task.')
 class Node(BaseModel):
