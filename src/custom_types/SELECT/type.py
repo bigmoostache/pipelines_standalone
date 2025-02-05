@@ -2,6 +2,7 @@ from pydantic import BaseModel, Field, create_model
 from typing import Literal, List, Any, Union, Optional
 import random, json, openai
 from tqdm.auto import tqdm
+from pydantic_core._pydantic_core import ValidationError
 
 EXCLUDE = 'exclude'
 KEEP = 'keep'
@@ -64,13 +65,19 @@ class SELECT(BaseModel):
         # First two calls
         events = []
         for _ in tqdm(range(2)):
-            completion = client.beta.chat.completions.parse(
-                model=model,
-                messages=messages,
-                response_format=self.get_model()
-            )
-            events.append(completion.choices[0].message.parsed)
-        
+            for _ in range(3):
+                try:
+                    completion = client.beta.chat.completions.parse(
+                        model=model,
+                        messages=messages,
+                        response_format=self.get_model()
+                    )
+                    events.append(completion.choices[0].message.parsed)
+                    break
+                except ValidationError:
+                    pass
+                raise ValueError("Failed to get a valid response from the model.")
+            
         # Check if a tie-break is needed
         # We will do that by checking if for any criterion there is a conflict that cannot be resolved by just picking a majority.
         
@@ -98,12 +105,18 @@ class SELECT(BaseModel):
         
         # If needed, make a third call
         if need_third_call:
-            completion = client.beta.chat.completions.parse(
-                model=model,
-                messages=messages,
-                response_format=self.get_model()
-            )
-            events.append(completion.choices[0].message.parsed)
+            for _ in range(3):
+                try:
+                    completion = client.beta.chat.completions.parse(
+                        model=model,
+                        messages=messages,
+                        response_format=self.get_model()
+                    )
+                    events.append(completion.choices[0].message.parsed)
+                    break
+                except ValidationError:
+                    pass
+                raise ValueError("Failed to get a valid response from the model.")
         
         # Now determine the final decisions
         # If we called three times, we have at most a 3-way vote.
