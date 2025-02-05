@@ -1,5 +1,5 @@
 from custom_types.PLAN.type import Plan
-from custom_types.JSONL.type import JSONL
+from custom_types.LUCARIO.type import LUCARIO
 
 class Pipeline:
     def __init__(self, 
