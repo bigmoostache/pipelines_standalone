@@ -21,7 +21,7 @@ class Pipeline:
                 lucario : LUCARIO
                 ) -> JSONL:
         lucario.update()
-        references = {_.file_id: _.description for _ in lucario.elements.items()}
+        references = {_.file_id: _.description for _ in lucario.elements.values()}
         result = lucario.anchored_top_k(
             queries = [section[self.anchor_key] for section in sections.lines],
             max_groups_per_element = self.max_groups_per_element,
