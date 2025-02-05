@@ -136,5 +136,6 @@ wraped = TYPE(
     additional_converters={
         'json':lambda x : x.model_dump()
         },
+    visualiser = "https://vis.deepdocs.net/lucario",
     icon='/micons/deepsource.svg',
 )
