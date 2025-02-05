@@ -20,10 +20,16 @@ class Pipeline:
                 sections : JSONL,
                 lucario : LUCARIO
                 ) -> JSONL:
+        lucario.update()
+        references = {_.file_id: _.description for _ in lucario.elements.items()}
         result = lucario.anchored_top_k(
             queries = [section[self.anchor_key] for section in sections.lines],
             max_groups_per_element = self.max_groups_per_element,
             elements_per_group = self.elements_per_group,
             min_elements_per_list = self.min_elements_per_list
         )
-        return JSONL(lines = [_.model_dump() for _ in result])
+        lines = [_.model_dump() for _ in result]
+        # enrich the lines with the references
+        for line in lines:
+            line['reference'] = references.get(line['parent_file_id'], '')
+        return JSONL(lines)
