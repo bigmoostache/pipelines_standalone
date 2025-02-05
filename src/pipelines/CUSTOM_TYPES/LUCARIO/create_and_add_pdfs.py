@@ -1,5 +1,6 @@
 from custom_types.LUCARIO.type import LUCARIO
 from custom_types.PDF.type import PDF
+from typing import List
 
 class Pipeline:
     def __init__(self,
