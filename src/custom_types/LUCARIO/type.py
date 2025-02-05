@@ -86,7 +86,7 @@ class LUCARIO(BaseModel):
             self.elements[len(self.elements)] = document
             self.uuid_2_position[document.file_uuid] = len(self.elements) - 1
             
-    def anchored_top_k(self, queries: List[str], max_groups_per_element: int, elements_per_group: int, min_elements_per_list: int, file_uuids: List[str] = None) -> List[Document]:
+    def anchored_top_k(self, queries: List[str], group_ids: List[int], max_groups_per_element: int, elements_per_group: int, min_elements_per_list: int, file_uuids: List[str] = None) -> List[Document]:
         if file_uuids is None:
             file_uuids = [document.file_uuid for document in self.elements.values()]
         else:
@@ -98,17 +98,17 @@ class LUCARIO(BaseModel):
             'accept': 'application/json',
             'Content-Type': 'application/json',
         }
+        
         json_data = {
             'project_id': self.project_id,
             'query_texts': queries,
+            'group_ids': group_ids,
             'max_groups_per_element': max_groups_per_element,
             'elements_per_group': elements_per_group,
             'min_elements_per_list': min_elements_per_list,
-            'file_uuids': file_uuids
+            'file_uuids': file_uuids,
         }
-
-        response = requests.post(f'{self.url}/anchored_top_k', headers=headers, json=json_data)
-        return [Document.parse_obj(document) for document in response.json()]
+        return requests.post(f'{self.url}/anchored_top_k', headers=headers, json=json_data).json()
     @classmethod
     def get_new(cls, url = 'https://lucario.croquo.com'):
         return cls(url = url, project_id = str(uuid4()))
