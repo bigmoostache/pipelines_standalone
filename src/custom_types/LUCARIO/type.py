@@ -121,7 +121,7 @@ class Converter:
          
     @staticmethod
     def from_bytes(obj : bytes) -> LUCARIO:
-        return SELECT.parse_obj(json.loads(obj.decode('utf-8')))
+        return LUCARIO.parse_obj(json.loads(obj.decode('utf-8')))
     
     @staticmethod
     def len(obj : LUCARIO) -> int:
