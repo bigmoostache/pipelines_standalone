@@ -4,6 +4,7 @@ from datetime import datetime
 from enum import Enum
 import json
 import requests
+from uuid import uuid4
 
 class FileTypes(str, Enum):
     txt = 'txt'
@@ -31,10 +32,10 @@ class PipelineStatus(str, Enum):
     retrying = 'retrying'
     
 class Document(BaseModel):
-    file_id: int = Field(default=None, primary_key=True)
+    file_id: int # Useless in our context. ID of the file in the database
     parent_file_id : Optional[int]
     direct_parent_file_id : Optional[int]
-    file_uuid : str
+    file_uuid : str # Also a unique ID, to be used in the LUCARIO object
     file_name : str
     file_hash : str
     file_ext : FileTypes
@@ -52,11 +53,10 @@ class Document(BaseModel):
     raw_url : Optional[str] # Provided to the user for download
 
 class LUCARIO(BaseModel):
-    url: str = Field(..., description = 'The URL of lucario hosted service.')
+    url: str = Field('https://lucario.croquo.com', description = 'The URL of lucario hosted service.')
     project_id: str = Field(..., description = 'The project id.')
-    elements: List[Document] = Field(..., description = 'The elements to be analyzed.')
-    uuid_2_position: Dict[str, int] = Field(..., description = 'The mapping of uuid to position.')
-    file_id_2_position: Dict[int, int] = Field(..., description = 'The mapping of file_id to position.')
+    elements: Dict[int, Document] = Field({}, description = 'local_id -> Document')
+    uuid_2_position: Dict[str, int] = Field({}, description = 'uuid -> local_id')
     
     def post_file(self, file_bytes: bytes, file_name: str) -> Document:
         response = requests.post(
@@ -66,20 +66,29 @@ class LUCARIO(BaseModel):
             files = { 'file': (file_name, file_bytes, 'application/octet-stream') }
             )
         return Document.parse_obj(response.json())
-    
+    def update(self):
+        headers = {
+            'accept': 'application/json',
+        }
+        params = {
+            'project_id': self.project_id,
+            'file_ids': ','.join([v.file_uuid for v in self.elements.values()]),
+        }
+        response = requests.get('https://lucario.croquo.com/files_simple', params=params, headers=headers)
+        response = [Document.parse_obj(_) for _ in response.json()]
+        for document in response:
+            self.add_document(document)
+        
     def add_document(self, document: Document):
-        if document.file_id in self.file_id_2_position:
-            self.elements[self.file_id_2_position[document.file_id]] = document
-        elif document.file_uuid in self.uuid_2_position:
+        if document.file_uuid in self.uuid_2_position:
             self.elements[self.uuid_2_position[document.file_uuid]] = document
         else:
-            self.elements.append(document)
+            self.elements[len(self.elements)] = document
             self.uuid_2_position[document.file_uuid] = len(self.elements) - 1
-            self.file_id_2_position[document.file_id] = len(self.elements) - 1
             
     def anchored_top_k(self, queries: List[str], max_groups_per_element: int, elements_per_group: int, min_elements_per_list: int, file_uuids: List[str] = None) -> List[Document]:
         if file_uuids is None:
-            file_uuids = [document.file_uuid for document in self.elements]
+            file_uuids = [document.file_uuid for document in self.elements.values()]
         else:
             # check if all file_uuids are in the elements
             for file_uuid in file_uuids:
@@ -100,6 +109,9 @@ class LUCARIO(BaseModel):
 
         response = requests.post(f'{self.url}/anchored_top_k', headers=headers, json=json_data)
         return [Document.parse_obj(document) for document in response.json()]
+    @classmethod
+    def get_new(cls, url = 'https://lucario.croquo.com'):
+        return cls(url = url, project_id = str(uuid4()))
     
     
 class Converter:
@@ -114,6 +126,7 @@ class Converter:
     @staticmethod
     def len(obj : LUCARIO) -> int:
         return 1
+   
     
 from custom_types.wrapper import TYPE
 wraped = TYPE(
@@ -121,7 +134,7 @@ wraped = TYPE(
     _class = LUCARIO,
     converter = Converter,
     additional_converters={
-        'json':lambda x : x.to_dict()
+        'json':lambda x : x.model_dump()
         },
     icon='/micons/deepsource.svg',
 )

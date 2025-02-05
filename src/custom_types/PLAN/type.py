@@ -1,6 +1,7 @@
 import json
 from typing import List, Union, Literal, Optional
 from pydantic import BaseModel, Field
+from custom_types.LUCARIO.type import LUCARIO
 from uuid import uuid4
 import re
 import markdown2
@@ -25,6 +26,7 @@ class Plan(BaseModel):
     feedback : Optional[str] = Field(None, description = 'Feedback from the reviewer')
     text : Optional[str] = Field(None, description = 'Text of the section')
     references : List[Reference] = Field([], description = 'References for the section')
+    lucario: Optional[LUCARIO] = Field(None, description = 'Knowledge based')
 
     def get_leaves(self) -> List['Plan']:
         return [self] if self.section_type == 'leaf' else [__ for _ in self.contents.subsections for __ in _.get_leaves()]
@@ -39,8 +41,6 @@ class Plan(BaseModel):
         if self.section_type != 'leaf':
             for _ in self.contents.subsections:
                 _.set_ids_to_unique_uuids()
-
- 
     def to_markdown(self, depth = 1):
         if self.section_type == 'leaf':
             r = f"{self.prefix} {self.title}\n{self.text}"
@@ -89,7 +89,6 @@ class Plan(BaseModel):
         # Add references
         ref_dict = {_.reference_id: _ for _ in self.references}
         for ref in all_refs:
-            print(f'__REF_{ref}__')
             html = html.replace(f'<REF_{ref}>', f'<span id="ref-{ref}">{ref_dict[ref].citation}</span>')
         for ref in non_used_refs:
             html = html.replace(f'<ref {ref}/>', '')
