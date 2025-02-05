@@ -117,5 +117,6 @@ wraped = TYPE(
     additional_converters={
         'json': lambda x: x.dict()
         },
-    icon='/micons/deepsource.svg'
+    icon='/micons/deepsource.svg',
+    visualiser = "https://vis.deepdocs.net/plan"
 )
