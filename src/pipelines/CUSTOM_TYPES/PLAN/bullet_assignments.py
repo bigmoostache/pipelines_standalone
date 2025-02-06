@@ -29,7 +29,7 @@ class Pipeline:
         for r in results:
             r['section_id'] = [sections.lines[_]['section_id'] for _ in r['assigned_to']]
             parent_id = r['parent_file_id']
-            r['document_id'] = p.uuid_2_position[file_id_2_reference[parent_id].file_uuid]
+            r['document_id'] = p.lucario.uuid_2_position[file_id_2_reference[parent_id].file_uuid]
             r['chunk_id'] = r['file_id']
             r['reference'] = file_id_2_reference[parent_id].description
         return JSONL(lines = results)
