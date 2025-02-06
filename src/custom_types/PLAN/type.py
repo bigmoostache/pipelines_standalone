@@ -48,7 +48,6 @@ class Plan(BaseModel):
             children = '\n'.join([_.to_markdown(depth = depth + 1) for _ in self.contents.subsections])
             r = f"{self.prefix} {self.title}\n{children}"
         if depth == 1:
-            # Add references
             r+= "\n\n## References\n"
             for ref_id, element in self.lucario.elements.items():
                 r += f"\n- <ref {ref_id}/> <REF_{ref_id}>"
