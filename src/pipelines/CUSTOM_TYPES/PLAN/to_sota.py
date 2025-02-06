@@ -78,7 +78,7 @@ def plan_to_sota(
             title=VersionedText(versions={-1: title}),
             abstract=VersionedText(versions={-1: abstract}),
             # use the reference id as the reference_as string
-            reference_as=VersionedText(versions={-1: str(ref.reference_id)}),
+            reference_as=VersionedText(versions={-1: str(ref_id)}),
             annotations={},
             active_annotations={-1: []},
             ai_pipelines_to_run=[],
