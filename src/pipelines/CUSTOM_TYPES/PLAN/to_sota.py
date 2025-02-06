@@ -131,8 +131,9 @@ def plan_to_sota(
             # <reference informationid="i" details="j"/>.
             def ref_repl(match):
                 info_id = match.group(1)
+                new_info_id = ref_mapping.get(int(info_id), -1)
                 detail = match.group(2) if match.group(2) else ""
-                return f'<reference informationid="{info_id}" position="{detail}"/>'
+                return f'<reference informationid="{new_info_id}" position="{detail}"/>'
             
             html_content = re.sub(r"<ref (\d+)(?: *: *(\d+))? *\/?>", ref_repl, html_content)
             
@@ -183,7 +184,7 @@ def plan_to_sota(
     combined_info.update(sections_info_dict)
     
     sota = SOTA.get_empty()
-    sota.drop_url = drop_url
+    sota.drop_url = plan.lucario.url
     sota.pikabu_url = pikabu_url
     sota.information = combined_info
     sota.mother_id = root_section_id
