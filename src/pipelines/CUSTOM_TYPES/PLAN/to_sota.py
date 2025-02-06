@@ -64,11 +64,8 @@ def plan_to_sota(
             external_id=ref.file_uuid
         )
         def get_title_and_abstract(doc: Document) -> Tuple[str, str]:
-            try:
-                x = json.loads(doc.description)
-                return x.get('reference', x.get('title', x.file_name)), markdown2.markdown('- ' + '\n- '.join([f'{k}: {v}' for k, v in x.items()]))
-            except:
-                return doc.file_name, f'<a href="{drop_url}?file={doc.file_uuid}">Access file</a>'
+            x = json.loads(doc.description)
+            return x.get('reference', x.get('title', x.file_name)), markdown2.markdown('- ' + '\n- '.join([f'{k}: {v}' for k, v in x.items()]))
         title, abstract = get_title_and_abstract(ref)
         # Create a VersionedInformation for the reference.
         ref_info = VersionedInformation(
