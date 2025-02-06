@@ -20,7 +20,7 @@ class Pipeline:
         sections = JSONL(lines = p.aggregate_bullet_points())
         results = p.lucario.anchored_top_k(
             queries = [_ for section in sections.lines for _ in section['bullets']],
-            groups_ids = [i for i,section in enumerate(sections.lines) for _ in section['bullets']],
+            group_ids = [i for i,section in enumerate(sections.lines) for _ in section['bullets']],
             max_groups_per_element=self.max_groups_per_element,
             elements_per_group=self.elements_per_group,
             min_elements_per_list=self.min_elements_per_list
