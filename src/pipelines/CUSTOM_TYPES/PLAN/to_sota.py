@@ -1,9 +1,12 @@
 from custom_types.SOTA.type import SOTA, Converter, VersionedInformation, VersionedText
 from custom_types.PLAN.type import Plan, Converter as PlanConverter
+from custom_types.LUCARIO.type import LUCARIO, Document
 import itertools
 import re
+import json
 import markdown2
-from typing import Dict
+from typing import Dict, Tuple
+import markdown2
 
 def plan_to_sota(
     plan: Plan,
@@ -45,17 +48,8 @@ def plan_to_sota(
     # -------------------------------------------------------------------------
     # 1. Create the reference informations first.
     # -------------------------------------------------------------------------
-    unique_refs: Dict[int, Plan.__fields__['references'].type_] = {}
-    
-    def collect_refs(p: Plan):
-        for ref in p.references:
-            if ref.reference_id not in unique_refs:
-                unique_refs[ref.reference_id] = ref
-        if p.section_type != 'leaf':
-            for child in p.contents.subsections:
-                collect_refs(child)
-    
-    collect_refs(plan)
+    plan.lucario.update()
+    unique_refs: Dict[int, Document] = plan.lucario.elements
     
     # We will assign new SOTA.information ids sequentially.
     next_id = 1
@@ -66,16 +60,23 @@ def plan_to_sota(
     for ref_id, ref in unique_refs.items():
         # Build an External instance for this reference.
         external_inst = VersionedInformation.External(
-            external_db="file",
-            external_id=ref.external_id if ref.external_id is not None else ""
+            external_db="lucario",
+            external_id=ref.file_uuid
         )
+        def get_title_and_abstract(doc: Document) -> Tuple[str, str]:
+            try:
+                x = json.loads(doc.description)
+                return x.get('reference', x.get('title', x.file_name)), markdown2.markdown('- ' + '\n- '.join([f'{k}: {v}' for k, v in x.items()]))
+            except:
+                return doc.file_name, f'<a href="{drop_url}?file={doc.file_uuid}">Access file</a>'
+        title, abstract = get_title_and_abstract(ref)
         # Create a VersionedInformation for the reference.
         ref_info = VersionedInformation(
             versions={-1: external_inst},
             referencements={},            # no referencements inside a reference information
             referencement_versions={-1: []},
-            title=VersionedText(versions={-1: ref.citation}),
-            abstract=VersionedText(versions={-1: ref.citation}),
+            title=VersionedText(versions={-1: title}),
+            abstract=VersionedText(versions={-1: abstract}),
             # use the reference id as the reference_as string
             reference_as=VersionedText(versions={-1: str(ref.reference_id)}),
             annotations={},
