@@ -49,9 +49,9 @@ class Plan(BaseModel):
             r = f"{self.prefix} {self.title}\n{children}"
         if depth == 1:
             # Add references
-            r+= "\n\n## References"
-            for _ in self.references:
-                r += f"\n- <ref {_.reference_id}/> <REF_{_.reference_id}>" # This is a placeholder, we will edit the html later
+            r+= "\n\n## References\n"
+            for ref_id, element in self.lucario.elements.items():
+                r += f"\n- <ref {ref_id}/> <REF_{ref_id}>"
         return r
     
     
