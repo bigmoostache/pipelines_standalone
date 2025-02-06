@@ -87,12 +87,22 @@ class Plan(BaseModel):
             html = f(double_ref[0], double_ref[1], html)
         
         # Add references
-        ref_dict = {_.reference_id: _ for _ in self.references}
+        def get_citation(ref_id):
+            try:
+                x = self.lucario.elements[ref_id].description
+                x = json.loads(x)
+                return x['reference']
+            except:
+                try:
+                    x = self.lucario.elements[ref_id].file_uuid
+                    return f'<a href="{self.lucario.url}/files?file={x}">Access file</a>'
+                except:
+                    return 'No reference available'
         for ref in all_refs:
-            html = html.replace(f'<REF_{ref}>', f'<span id="ref-{ref}">{ref_dict[ref].citation}</span>')
+            html = html.replace(f'<REF_{ref}>', f'<span id="ref-{ref}">{get_citation(ref)}</span>')
         for ref in non_used_refs:
             html = html.replace(f'<ref {ref}/>', '')
-            html = html.replace(f'__REF_{ref}__', f'[NOT USED] {ref_dict[ref].citation}')
+            html = html.replace(f'__REF_{ref}__', f'[NOT USED] {get_citation(ref)}')
         
         return html
         
