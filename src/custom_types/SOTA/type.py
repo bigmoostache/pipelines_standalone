@@ -53,6 +53,7 @@ class Congiguration(BaseModel):
     language : str    
 
 class Sections(BaseModel):
+    enumeration : str
     sections    : List[Tuple[bool, int]] = Field(..., description = "Tuple[Section Name, Whether to show this section name, information_id]")
     class_name : ClassVar[str] = 'Sections'
     

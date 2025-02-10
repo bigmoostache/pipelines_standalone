@@ -664,6 +664,7 @@ sections_pipelines = {
 }
 
 class Pipeline:
+    __env__ = ["openai_api_key"]
     def __init__(self):
         pass
     def __call__(self, 

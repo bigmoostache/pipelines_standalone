@@ -49,7 +49,7 @@ def bibliography(sota, information_id, contents, params):
     sota.information[new_info_id] = new_info
     new_list = last.sections.copy()
     new_list.append((False, new_info_id))
-    info.versions[-1] = Sections(sections=new_list)
+    info.versions[-1] = Sections(sections=new_list, enumeration="Numbers enumeration")
 
 def text(sota, information_id, contents, params):
     info = sota.information[information_id]
@@ -79,7 +79,7 @@ def sections(sota, information_id, contents, params):
         new_section = VersionedInformation.create_text(title=new_section['title'], abstract=new_section['expectations'], contents=new_section['contents'])
         sota.information[new_section_id] = new_section
         infos_id.append((True, new_section_id))
-    info.versions[-1] = Sections(sections=infos_id)
+    info.versions[-1] = Sections(sections=infos_id, enumeration="Numbers enumeration")
     for new_section_id in infos_id:
         update_references(sota, new_section_id[1], params['references_mode'])
     
