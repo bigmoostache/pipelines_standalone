@@ -628,7 +628,7 @@ def write_bibliography(
             return text
     prompt = PROMPT()
     prompt.add(
-        json.dumps({f'reference_id: {k} (cite as <li><reference referenceid="{k}"/>....</li>)':jsonloads(v.description) for k,v in lucario.elements.items()}, indent=4), 
+        json.dumps({f'reference_id: {k} (cite as <li><reference informationid="{k}" />....</li>)':jsonloads(v.description) for k,v in lucario.elements.items()}, indent=4), 
         role='user')
     html_format = get_html_format(sota)
     prompt.add(
