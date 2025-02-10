@@ -3,9 +3,7 @@ import dotenv
 from typing import Annotated, List, Optional, Union
 from custom_types.PROMPT.type import PROMPT
 from openai import AzureOpenAI
-from utils.booleans import to_bool
 from pipelines.CONVERSIONS.txt_2_dict import Pipeline as TXT2DICT
-import json
 import json
 
 class Pipeline:

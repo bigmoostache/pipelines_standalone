@@ -52,6 +52,32 @@ class Document(BaseModel):
     score : Optional[float] # For documents with scores, e.g. relevance
     raw_url : Optional[str] # Provided to the user for download
 
+    @classmethod
+    def get_empty(cls) -> 'Document':
+        return cls(
+            file_id = -1,
+            parent_file_id = None,
+            direct_parent_file_id = None,
+            file_uuid = '',
+            file_name = '',
+            file_hash = '',
+            file_ext = FileTypes.txt,
+            upload_date = '',
+            pipeline_status = PipelineStatus.anticipated,
+            ext_project_id = '',
+            context = None,
+            position = None,
+            description = None,
+            text = None,
+            score = None,
+            raw_url = None,
+        )
+
+class ForceChunk(BaseModel):
+    file_uuid : str
+    group_id : str
+    chunk_id : Optional[int] = None  
+    
 class LUCARIO(BaseModel):
     url: str = Field('https://lucario.croquo.com', description = 'The URL of lucario hosted service.')
     project_id: str = Field(..., description = 'The project id.')
@@ -86,7 +112,15 @@ class LUCARIO(BaseModel):
             self.elements[len(self.elements)] = document
             self.uuid_2_position[document.file_uuid] = len(self.elements) - 1
             
-    def anchored_top_k(self, queries: List[str], group_ids: List[int], max_groups_per_element: int, elements_per_group: int, min_elements_per_list: int, file_uuids: List[str] = None) -> List[Document]:
+    def anchored_top_k(self, 
+                       queries: List[str], 
+                       group_ids: List[int], 
+                       max_groups_per_element: int, 
+                       elements_per_group: int, 
+                       min_elements_per_list: int, 
+                       file_uuids: List[str] = None,
+                       files_forced:  List[ForceChunk] = []
+                       ) -> List[Document]:
         if file_uuids is None:
             file_uuids = [document.file_uuid for document in self.elements.values()]
         else:
@@ -98,7 +132,6 @@ class LUCARIO(BaseModel):
             'accept': 'application/json',
             'Content-Type': 'application/json',
         }
-        
         json_data = {
             'project_id': self.project_id,
             'query_texts': queries,
@@ -107,6 +140,7 @@ class LUCARIO(BaseModel):
             'elements_per_group': elements_per_group,
             'min_elements_per_list': min_elements_per_list,
             'file_uuids': file_uuids,
+            'files_forced': [_.dict() for _ in files_forced]
         }
         return requests.post(f'{self.url}/anchored_top_k', headers=headers, json=json_data).json()
     @classmethod

@@ -184,6 +184,7 @@ def plan_to_sota(
     combined_info.update(sections_info_dict)
     
     sota = SOTA.get_empty()
+    sota.file_id = plan.lucario.project_id
     sota.drop_url = plan.lucario.url
     sota.pikabu_url = pikabu_url
     sota.information = combined_info
