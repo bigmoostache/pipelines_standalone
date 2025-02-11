@@ -186,7 +186,6 @@ def plan_to_sota(
     sota = SOTA.get_empty()
     sota.file_id = plan.lucario.project_id
     sota.drop_url = plan.lucario.url
-    sota.pikabu_url = pikabu_url
     sota.information = combined_info
     sota.mother_id = root_section_id
     sota.title = VersionedText(versions={-1: plan.title})
