@@ -1,4 +1,4 @@
-from custom_types.SOTA.type import SOTA, VersionedInformation, VersionedText
+from custom_types.SOTA.type import SOTA, VersionedInformation, VersionedText, Sections
 import json 
 from pydantic import BaseModel, Field
 from typing import Union, List, Optional
@@ -149,7 +149,7 @@ def build_sota(x, matches, sota, starts, node, i = -1, start = 0, end = None, us
             i, _information_id = build_sota(x, matches, sota, starts, subnode, i,base_reference = f'{base_reference}{enumeration}.')
             enumeration += 1
             children.append((True, _information_id))
-        versioned_info = VersionedInformation.create_text(contents = VersionedInformation.Sections(enumeration='Numbers enumeration', sections = children), title = node.title, reference_as = base_reference)
+        versioned_info = VersionedInformation.create_text(contents = Sections(enumeration='Numbers enumeration', sections = children), title = node.title, reference_as = base_reference)
     else:
         versioned_info = VersionedInformation.create_text(contents = gather_text(x, my_start+1, next_start), title = node.title, reference_as = base_reference)
     information_id = use_information_id if use_information_id is not None else SOTA.get_new_id(sota.information)

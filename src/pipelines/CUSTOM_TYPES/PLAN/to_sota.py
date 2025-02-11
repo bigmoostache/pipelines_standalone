@@ -1,4 +1,4 @@
-from custom_types.SOTA.type import SOTA, Converter, VersionedInformation, VersionedText
+from custom_types.SOTA.type import SOTA, Converter, VersionedInformation, VersionedText, Sections
 from custom_types.PLAN.type import Plan, Converter as PlanConverter
 from custom_types.LUCARIO.type import LUCARIO, Document
 import itertools
@@ -155,7 +155,7 @@ def plan_to_sota(
             for child in p.contents.subsections:
                 child_id = _convert(child)
                 child_ids.append(child_id)
-            sections_instance = VersionedInformation.Sections(
+            sections_instance = Sections(
                 enumeration="Numbers enumeration",
                 sections=[(True, cid) for cid in child_ids]
             )

@@ -1,4 +1,4 @@
-from custom_types.SOTA.type import SOTA, VersionedInformation, VersionedText
+from custom_types.SOTA.type import SOTA, VersionedInformation, VersionedText, Sections
 
 from pydantic import BaseModel, Field
 from typing import List, Optional, Literal
@@ -38,7 +38,7 @@ def build_sota(sota, node, i = -1, use_information_id = None, base_reference = '
             i, _information_id = build_sota(sota, subnode, i,base_reference = f'{base_reference}{enumeration}.')
             enumeration += 1
             children.append((True, _information_id))
-        versioned_info = VersionedInformation.create_text(contents = VersionedInformation.Sections(enumeration='Numbers enumeration', sections = children), title = node.title, abstract = abstract, reference_as = base_reference)
+        versioned_info = VersionedInformation.create_text(contents = Sections(enumeration='Numbers enumeration', sections = children), title = node.title, abstract = abstract, reference_as = base_reference)
     elif node.contents_type in {'Leaf Text', 'Node', 'Leaf Table'}:
         versioned_info = VersionedInformation.create_text(title = node.title, abstract = abstract, reference_as = base_reference)
     elif node.contents_type == 'Leaf Image':
