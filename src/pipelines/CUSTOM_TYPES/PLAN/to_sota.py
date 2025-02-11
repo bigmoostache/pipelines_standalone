@@ -1,4 +1,4 @@
-from custom_types.SOTA.type import SOTA, Converter, VersionedInformation, VersionedText, Sections
+from custom_types.SOTA.type import SOTA, Converter, VersionedInformation, VersionedText, Sections, Referencement
 from custom_types.PLAN.type import Plan, Converter as PlanConverter
 from custom_types.LUCARIO.type import LUCARIO, Document
 import itertools
@@ -112,7 +112,7 @@ def plan_to_sota(
                 # Only add the referencement if the reference was created.
                 if ref_id in ref_mapping and ref_id not in ref_id_2_local_id:
                     new_key = len(referencements) + 1
-                    referencements[new_key] = VersionedInformation.Referencement(
+                    referencements[new_key] = Referencement(
                         information_id=ref_mapping[ref_id],
                         detail=detail,
                         analysis="",
