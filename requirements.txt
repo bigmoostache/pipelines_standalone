@@ -33,3 +33,5 @@ tiktoken
 pyyaml
 pulp
 langchain
+langchain[openai]
+langchain[azure]
