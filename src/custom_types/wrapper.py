@@ -7,6 +7,7 @@ class TYPE:
                  inputable : bool = True,
                  additional_converters : dict = {},
                  visualiser = "",
+                 is_configuration : bool = False,
                  icon = "document" # material icon name, see https://material.io/resources/icons/
             ):
         self.extension = extension
