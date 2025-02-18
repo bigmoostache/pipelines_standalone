@@ -324,7 +324,9 @@ class SOTA(BaseModel):
             ]
         # Build Lucario out of that
         lucario = LUCARIO(url=self.drop_url, project_id=self.file_id, elements={}, uuid_2_position={})
-        for _information_id, _information in self.information.items():
+        bibliography_ids = SOTA.get_last(self.bibliography, version_list)
+        for _information_id in bibliography_ids:
+            _information = self.information[_information_id]
             _last = SOTA.get_last(_information.versions, versions_list)
             if VersionedInformation.get_class_name(_last) != 'External' or _last.external_db != 'lucario':
                 continue
@@ -384,8 +386,22 @@ class Converter:
         return doc.model_dump_json(indent=2)[:10000]
     @staticmethod
     def len(doc: SOTA) -> int:
-        # number of pipelines to run
-        return sum([len(doc.information[_].ai_pipelines_to_run) for _ in doc.information])
+        # That price is in rockets 🚀, which is an abstraction
+        pipeline_prices = {
+            'rewrite': 7,
+            'brush': 1,
+            'translate': 1,
+            'make_longer': 1,
+            'make_shorter': 1,
+            'rewrite_expectations': 2,
+            'provide_feedback': 2,
+            'sections_rewrite_expectations': 2,
+            'rebuild_sections': 2,
+            'sections_feedback': 2,
+            'sections_references': 1,
+            'write_bibliography': 2
+        }
+        return sum([pipeline_prices.get(json.loads(pipeline).get('name', ''), 1) for _ in doc.information.values() for pipeline in _.ai_pipelines_to_run])
     
 from custom_types.wrapper import TYPE
 wraped = TYPE(

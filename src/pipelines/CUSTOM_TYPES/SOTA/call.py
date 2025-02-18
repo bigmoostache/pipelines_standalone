@@ -214,8 +214,8 @@ def get_bibliography_schema(sota: SOTA):
             "html_bibliography": {
                 "type": "string",
                 "description": sota.t('', {'': {
-                    'en': "HTML-Formatted bibliography, using an unordered list. Specify the reference <reference informationid=.../> for each reference.",
-                    'fr': "Bibliographie formatée en HTML, en utilisant une liste non ordonnée. Spécifiez la référence <reference informationid=.../> pour chaque référence."
+                    'en': "HTML-Formatted bibliography, using an unordered list. Specify the reference <reference informationid=.../> for each reference (at the beginning of each line).",
+                    'fr': "Bibliographie formatée en HTML, en utilisant une liste non ordonnée. Spécifiez la référence <reference informationid=.../> pour chaque référence (au début de chaque ligne)."
                 }})
             }
             },

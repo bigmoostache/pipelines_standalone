@@ -16,7 +16,6 @@ class Pipeline:
             while info.ai_pipelines_to_run:
                 pipeline = json.loads(info.ai_pipelines_to_run.pop(0))
                 pipeline_name = pipeline['name']
-                print(pipeline_name, last_version_class_name, last_version_class_name == 'Sections', pipeline_name in sections_pipelines)
                 if last_version_class_name == 'str' and pipeline_name in text_pipelines:
                     res.append({
                         'information_id': information_id,
@@ -24,7 +23,6 @@ class Pipeline:
                     })
                     break
                 elif last_version_class_name == 'Sections' and pipeline_name in sections_pipelines:
-                    print('ADDING')
                     res.append({
                         'information_id': information_id,
                         **pipeline
