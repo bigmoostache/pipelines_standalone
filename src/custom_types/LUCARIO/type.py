@@ -146,9 +146,7 @@ class LUCARIO(BaseModel):
             f'{self.url}/anchored_top_k', 
             headers=headers, 
             json=json_data,
-            timeout=99999999  # using a very high timeout value
             )
-        print(res)
         return res.json()
     @classmethod
     def get_new(cls, url = 'https://lucario.croquo.com'):
