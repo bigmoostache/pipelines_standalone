@@ -1,7 +1,7 @@
 from custom_types.LUCARIO.type import LUCARIO
 from custom_types.PDF.type import PDF
 from typing import List
-
+from time import sleep
 class Pipeline:
     def __init__(self,
                 lucario_url: str = 'https://lucario.croquo.com'
@@ -14,5 +14,6 @@ class Pipeline:
         for pdf in pdfs:
             doc = l.post_file(pdf.file_as_bytes, 'document.pdf')
             l.add_document(doc)
+            sleep(10)
         l.update()
         return l 
