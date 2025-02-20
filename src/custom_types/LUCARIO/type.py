@@ -142,12 +142,14 @@ class LUCARIO(BaseModel):
             'file_uuids': file_uuids,
             'files_forced': [_.dict() for _ in files_forced]
         }
-        return requests.post(
+        res = requests.post(
             f'{self.url}/anchored_top_k', 
             headers=headers, 
             json=json_data,
             timeout=99999999  # using a very high timeout value
-            ).json()
+            )
+        print(res)
+        return res.json()
     @classmethod
     def get_new(cls, url = 'https://lucario.croquo.com'):
         return cls(url = url, project_id = str(uuid4()))
