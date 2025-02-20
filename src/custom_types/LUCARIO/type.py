@@ -5,6 +5,7 @@ from enum import Enum
 import json
 import requests
 from uuid import uuid4
+from time import sleep
 
 class FileTypes(str, Enum):
     txt = 'txt'
@@ -147,7 +148,21 @@ class LUCARIO(BaseModel):
             headers=headers, 
             json=json_data,
             )
-        return res.json()
+        res = res.json()
+        job_id = res['job_id']
+        while True:
+            res = requests.get(f'{self.url}/anchored_top_k?job_id={job_id}', headers=headers)
+            res = res.json()
+            if res['status'] == 'success':
+                res = res['result']
+                break
+            elif res['status'] == 'error':
+                raise ValueError(f'Error: {res["error"]}')
+            else:
+                assert res['status'] == 'processing'
+                sleep(1)
+                
+        return res
     @classmethod
     def get_new(cls, url = 'https://lucario.croquo.com'):
         return cls(url = url, project_id = str(uuid4()))
