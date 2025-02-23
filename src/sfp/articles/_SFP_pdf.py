@@ -9,4 +9,6 @@ class Pipeline:
         file_id = metadata['file_id']
         file_system = FS(metadata['file_system'])
         file = file_system.read_bytes(file_id)
-        return self.converter.from_bytes(file)
+        pdf = self.converter.from_bytes(file)
+        pdf.file_name = metadata.get('file_name', 'document.pdf')
+        return pdf

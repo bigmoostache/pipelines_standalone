@@ -2,8 +2,9 @@ from pypdf import PdfReader
 import io, re
 
 class PDF:
-    def __init__(self, file_as_bytes):
+    def __init__(self, file_as_bytes, file_name : str = 'document.pdf'):
         self.file_as_bytes = file_as_bytes
+        self.file_name = file_name
     def __repr__(self):
         return self.file_as_bytes
     def __str__(self):

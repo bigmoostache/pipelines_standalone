@@ -13,7 +13,5 @@ class Pipeline:
         l = LUCARIO.get_new(self.lucario_url)
         for pdf in pdfs:
             doc = l.post_file(pdf.file_as_bytes, 'document.pdf')
-            l.add_document(doc)
-            sleep(5)
         l.update()
         return l 
