@@ -59,6 +59,7 @@ class Plan(BaseModel):
     
     
     def to_html(self, template, css):
+        self.lucario.update()
         markdown = self.to_markdown()
         html = markdown2.markdown(markdown) 
         assert '__HTML__' in template, '__HTML__ not found in the template'
@@ -81,6 +82,9 @@ class Plan(BaseModel):
             replacement = f"<a href='#ref-{i}'>[{all_refs_renames[i]}]</a>"
             return re.sub(pattern, replacement, text)
         def g(i, text):
+            pattern = rf"<ref {i} *\/> <REF"
+            replacement = "<REF"
+            text = re.sub(pattern, replacement, text)
             pattern = rf"<ref {i} *\/>"
             replacement = f"<a href='#ref-{i}'>[{all_refs_renames[i]}]</a>"
             return re.sub(pattern, replacement, text)
@@ -101,12 +105,13 @@ class Plan(BaseModel):
                     return f'<a href="{self.lucario.url}/files?file={x}">Access file</a>'
                 except:
                     return 'No reference available'
+        def get_uuid(ref_id):
+            return self.lucario.elements[ref_id].file_uuid
         for ref in all_refs:
-            html = html.replace(f'<REF_{ref}>', f'<span id="ref-{ref}">{get_citation(ref)}</span>')
+            html = html.replace(f'<REF_{ref}>', f'<a href="{self.lucario.url}/files?file={get_uuid(ref)}">[{ref}]</a> <span id="ref-{ref}">{get_citation(ref)}</span>')
         for ref in non_used_refs:
             html = html.replace(f'<ref {ref}/>', '')
             html = html.replace(f'__REF_{ref}__', f'[NOT USED] {get_citation(ref)}')
-        
         return html
         
 class Converter:
