@@ -112,7 +112,11 @@ class Plan(BaseModel):
 class Converter:
     @staticmethod
     def to_bytes(article : Plan) -> bytes:
-        return bytes(json.dumps(article.dict()), encoding = 'utf-8')
+        def custom_serializer(obj):
+            if isinstance(obj, datetime):
+                return obj.isoformat()  # Convert datetime to ISO formatted string
+            raise TypeError(f"Type {type(obj).__name__} is not JSON serializable")
+        return bytes(json.dumps(article.dict(), default=custom_serializer), encoding = 'utf-8')
 
     @staticmethod
     def from_bytes(b: bytes) -> Plan:

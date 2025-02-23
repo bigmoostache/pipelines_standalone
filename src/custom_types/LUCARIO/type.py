@@ -53,7 +53,7 @@ class Document(BaseModel):
     file_name: str
     file_hash: str
     file_ext: FileTypes
-    upload_date: datetime
+    upload_date: str
     pipeline_status: PipelineStatus
     context: Optional[str] = None
     position: Optional[int] = None
