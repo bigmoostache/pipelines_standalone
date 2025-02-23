@@ -162,10 +162,10 @@ class LUCARIO(BaseModel):
             headers=headers, 
             json=json_data,
             )
-        res = res.json()['job_id']
+        job_id = res.json()['job_id']
         for k in range(30):
             res = requests.get(
-                f'{self.url}/anchored_top_k?job_id={res}', 
+                f'{self.url}/anchored_top_k?job_id={job_id}', 
                 headers=headers,
             )
             res = res.json()
