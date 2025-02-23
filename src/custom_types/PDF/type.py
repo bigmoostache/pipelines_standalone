@@ -1,5 +1,5 @@
 from pypdf import PdfReader
-import io
+import io, re
 
 class PDF:
     def __init__(self, file_as_bytes):
