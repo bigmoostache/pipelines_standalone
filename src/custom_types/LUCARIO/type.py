@@ -2,28 +2,34 @@ from pydantic import BaseModel, Field, create_model
 from typing import Literal, List, Any, Union, Optional, Dict
 from datetime import datetime
 from enum import Enum
+from urllib.parse import quote
 import json
 import requests
 from uuid import uuid4
 from time import sleep
+import os
+from io import BytesIO
+import httpx
 
 class FileTypes(str, Enum):
-    txt = 'txt'
-    pdf = 'pdf'
-    png = 'png'
-    jpg = 'jpg'
-    jpeg = 'jpeg'
-    webp = 'webp'
-    word = 'docx'
-    msword = 'doc'
-    ppt = 'ppt'
-    pptx = 'pptx'
-    csv = 'csv'
-    url = 'url'
+    txt = "txt"
+    pdf = "pdf"
+    png = "png"
+    jpg = "jpg"
+    jpeg = "jpeg"
+    webp = "webp"
+    word = "word"
+    msword = "msword"
+    ppt = "ppt"
+    pptx = "pptx"
+    csv = "csv"
+    url = "url"
     
-    image_desc = 'image_desc'
-    text_chunk = 'text_chunk'
-    csv_desc = 'csv_desc'
+    image_desc = "image_desc"
+    text_chunk = "text_chunk"
+    csv_desc = "csv_desc"
+    
+    vector_vendor = "vector_vendor"
 
 class PipelineStatus(str, Enum):
     anticipated = 'anticipated'
@@ -31,27 +37,32 @@ class PipelineStatus(str, Enum):
     success = 'success'
     error = 'error'
     retrying = 'retrying'
-    
-class Document(BaseModel):
-    file_id: int # Useless in our context. ID of the file in the database
-    parent_file_id : Optional[int]
-    direct_parent_file_id : Optional[int]
-    file_uuid : str # Also a unique ID, to be used in the LUCARIO object
-    file_name : str
-    file_hash : str
-    file_ext : FileTypes
-    upload_date : str
-    pipeline_status : PipelineStatus
-    ext_project_id : str
-    
-    context : Optional[str] # To situate within the parent document, e.g. a paragraph number
-    position : Optional[int] # To order within the parent document
-    description : Optional[str] # For root documents: a description of the document
 
-    # The two below are not expected to be files in the database.
-    text : Optional[str] # For textualizable documents: the text content
-    score : Optional[float] # For documents with scores, e.g. relevance
-    raw_url : Optional[str] # Provided to the user for download
+class SubFile(BaseModel):
+    raw_url: str
+    pipeline_status: PipelineStatus
+    file_ext: FileTypes
+    local_chunk_identifier: int
+
+class Document(BaseModel):
+    file_id: int
+    parent_file_id: int
+    local_document_identifier: int
+    direct_parent_file_id: Optional[int] = None
+    file_uuid: str
+    file_name: str
+    file_hash: str
+    file_ext: FileTypes
+    upload_date: datetime
+    pipeline_status: PipelineStatus
+    context: Optional[str] = None
+    position: Optional[int] = None
+    description: Optional[str] = None
+    text: Optional[str] = None
+    score: Optional[float] = None
+    raw_url: Optional[str] = None
+
+    subfiles: Optional[List[SubFile]] = []
 
     @classmethod
     def get_empty(cls) -> 'Document':
@@ -65,7 +76,6 @@ class Document(BaseModel):
             file_ext = FileTypes.txt,
             upload_date = '',
             pipeline_status = PipelineStatus.anticipated,
-            ext_project_id = '',
             context = None,
             position = None,
             description = None,
@@ -85,33 +95,35 @@ class LUCARIO(BaseModel):
     elements: Dict[int, Document] = Field({}, description = 'local_id -> Document')
     uuid_2_position: Dict[str, int] = Field({}, description = 'uuid -> local_id')
     
-    def post_file(self, file_bytes: bytes, file_name: str) -> Document:
-        response = requests.post(
-            f'{self.url}/files', 
-            params = {'project_id': self.project_id},
-            headers = {'accept': 'application/json'}, 
-            files = { 'file': (file_name, file_bytes, 'application/octet-stream') }
-            )
-        return Document.parse_obj(response.json())
+    def post_file(self, file_bytes: bytes, file_name: str):
+        file_bytes_stream = BytesIO(file_bytes)
+        files = {'file': file_bytes_stream}
+        headers = {'filename': file_name, 'key': self.project_id}
+        data = {'data': 'Uploaded from type.py - PIPELINES_STANDALONE'}
+
+        with httpx.Client(timeout=60) as client:
+            r = client.post(f'{self.url}/upload', data=data, files=files, headers=headers)
+            if r.status_code != 200:
+                raise ValueError(f'Error: {r.text}')
+    
     def update(self):
+        self.elements = {}
+        self.uuid_2_position = {}
         headers = {
             'accept': 'application/json',
         }
-        params = {
-            'project_id': self.project_id,
-            'file_ids': ','.join([v.file_uuid for v in self.elements.values()]),
-        }
-        response = requests.get('https://lucario.croquo.com/files_simple', params=params, headers=headers)
+
+        response = requests.get(
+            f'{self.url}/projects/overview/{self.project_id}',
+            headers=headers,
+        )
         response = [Document.parse_obj(_) for _ in response.json()]
         for document in response:
             self.add_document(document)
         
     def add_document(self, document: Document):
-        if document.file_uuid in self.uuid_2_position:
-            self.elements[self.uuid_2_position[document.file_uuid]] = document
-        else:
-            self.elements[len(self.elements)] = document
-            self.uuid_2_position[document.file_uuid] = len(self.elements) - 1
+        self.elements[document.local_document_identifier] = document
+        self.uuid_2_position[document.file_uuid] = document.local_document_identifier
             
     def anchored_top_k(self, 
                        queries: List[str], 
@@ -134,7 +146,7 @@ class LUCARIO(BaseModel):
             'Content-Type': 'application/json',
         }
         json_data = {
-            'project_id': self.project_id,
+            'key': self.project_id,
             'query_texts': queries,
             'group_ids': group_ids,
             'max_groups_per_element': max_groups_per_element,
@@ -163,10 +175,23 @@ class LUCARIO(BaseModel):
                 sleep(1)
                 
         return res
-    @classmethod
-    def get_new(cls, url = 'https://lucario.croquo.com'):
-        return cls(url = url, project_id = str(uuid4()))
     
+    @classmethod
+    def get_new(cls, url = 'https://lucario.croquo.com', name: str = 'New Knowledge Base'):
+        LUCARIO_MASTER_KEY = os.environ.get('LUCARIO_MASTER_KEY')
+        if not LUCARIO_MASTER_KEY:
+            raise ValueError("LUCARIO_MASTER_KEY environment variable is not set.")
+        headers = {
+            'accept': 'application/json',
+            'content-type': 'application/x-www-form-urlencoded',
+        }
+
+        response = requests.post(
+            f'{url}/projects/create/{quote(name)}/{quote(LUCARIO_MASTER_KEY)}',
+            headers=headers,
+        )
+        result = response.json()
+        return cls(url = url, project_id = result['key']['value'])
     
 class Converter:
     @staticmethod
@@ -181,7 +206,6 @@ class Converter:
     def len(obj : LUCARIO) -> int:
         return 1
    
-    
 from custom_types.wrapper import TYPE
 wraped = TYPE(
     extension='lucario',
