@@ -47,7 +47,8 @@ class SubFile(BaseModel):
 class Document(BaseModel):
     file_id: int
     parent_file_id: int
-    local_document_identifier: int
+    local_document_identifier: Optional[int] = None
+    local_chunk_identifier: Optional[int] = None
     direct_parent_file_id: Optional[int] = None
     file_uuid: str
     file_name: str
@@ -122,6 +123,7 @@ class LUCARIO(BaseModel):
             self.add_document(document)
         
     def add_document(self, document: Document):
+        assert document.local_document_identifier is not None, 'local_document_identifier is None'
         self.elements[document.local_document_identifier] = document
         self.uuid_2_position[document.file_uuid] = document.local_document_identifier
             
