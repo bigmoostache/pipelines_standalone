@@ -23,9 +23,7 @@ class Converter:
     @staticmethod
     def len(pdf : PDF) -> int:
         # number of pages
-        pdf_stream = io.BytesIO(pdf.file_as_bytes)
-        reader = PdfReader(pdf_stream)   
-        return len(reader.pages)   
+        return len(re.findall(rb'/Type\s*/Page>>', pdf.file_as_bytes))
 
 from custom_types.wrapper import TYPE
 wraped = TYPE(
