@@ -160,21 +160,7 @@ class LUCARIO(BaseModel):
             headers=headers, 
             json=json_data,
             )
-        res = res.json()
-        job_id = res['job_id']
-        while True:
-            res = requests.get(f'{self.url}/anchored_top_k?job_id={job_id}', headers=headers)
-            res = res.json()
-            if res['status'] == 'success':
-                res = res['result']
-                break
-            elif res['status'] == 'error':
-                raise ValueError(f'Error: {res["error"]}')
-            else:
-                assert res['status'] == 'processing'
-                sleep(1)
-                
-        return res
+        return res.json()
     
     @classmethod
     def get_new(cls, url = 'https://lucario.croquo.com', name: str = 'New Knowledge Base'):
