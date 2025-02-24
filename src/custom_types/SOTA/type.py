@@ -324,15 +324,6 @@ class SOTA(BaseModel):
             ]
         # Build Lucario out of that
         lucario = LUCARIO(url=self.drop_url, project_id=self.file_id, elements={}, uuid_2_position={})
-        bibliography_ids = SOTA.get_last(self.bibliography, version_list)
-        for _information_id in bibliography_ids:
-            _information = self.information[_information_id]
-            _last = SOTA.get_last(_information.versions, versions_list)
-            if VersionedInformation.get_class_name(_last) != 'External' or _last.external_db != 'lucario':
-                continue
-            lucario.elements[_information_id] = Document.get_empty()
-            lucario.elements[_information_id].file_uuid = _last.external_id
-            lucario.uuid_2_position[_last.external_id] = _information_id
         lucario.update()
         lucario_file_id_to_information_id = {v.file_id: k for k,v in lucario.elements.items()}
         # Now, the important part: the logic of how to build the similarity requests

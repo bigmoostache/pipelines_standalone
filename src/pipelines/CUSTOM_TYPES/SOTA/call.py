@@ -614,13 +614,6 @@ def write_bibliography(
     references = [sota.information[_] for _ in reference_ids]
     versions_list = sota.versions_list(-1)
     references = [_ for _ in references if VersionedInformation.get_class_name(_.get_last_version(versions_list)) == 'External']
-    lucario = LUCARIO(url=sota.drop_url, project_id=sota.file_id, elements={}, uuid_2_position={})
-    for _information_id,r in zip(reference_ids, references):
-        _last = r.get_last_version(versions_list)
-        assert _last.external_db == 'lucario', f'External reference {r.id} is not from Lucario, unimplemented'
-        lucario.elements[_information_id] = Document.get_empty()
-        lucario.elements[_information_id].file_uuid = _last.external_id
-        lucario.uuid_2_position[_last.external_id] = _information_id
     lucario.update()
     def jsonloads(text):
         try:
