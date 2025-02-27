@@ -6,6 +6,22 @@ from typing import Optional, List
 from enum import Enum
 from openai import OpenAI
 from pydantic_core._pydantic_core import ValidationError
+import re
+
+def remove_exact_chain(s):
+    def repl(m):
+        num = int(m.group(1))
+        dashes = m.group(2)
+        # Only remove if the dash count equals the specified number.
+        return "" if len(dashes) == num else m.group(0)
+    
+    # Match a literal '{', capture one or more digits, then a literal '}', then one or more dashes.
+    return re.sub(r'\{(\d+)\}(-+)', repl, s)
+
+# Example usage:
+s = "Example text {20}-------------------- and more text."
+
+
 
 class ChangeType(Enum):
     ADDITION = 'change: addition'
@@ -24,7 +40,7 @@ class ChangeImportance(Enum):
 
 class Change(BaseModel):
     new_formulation: str = Field(..., description = 'Extract of the new document, transcribed verbatim, but cleaned from parsing artifacts if necessary.')
-    old_formulation: Optional[str] = Field(..., description = 'Older version (cleaned if necessary), optional if not found in other version. Be careful: this might include several chunks of the older version, coming from different pages or sections. If so, separate them with "\n---\n"')
+    old_formulation: str = Field(..., description = 'Older version (cleaned if necessary), optional if not found in other version. Be careful: this might include several chunks of the older version, coming from different pages or sections. If so, separate them with "\n---\n". If absolutely, totally completely new, just leave this field empty. But try to put something if you can.')
     old_formulation_chunk_id: List[str] = Field(..., description = 'Older version chunk ids, example: "Chunk 321".')
     changes_description: str = Field(..., description = 'Compare the new and the old version and analyse the implications of those changes. Try to make this analysis as useful as possible for the user, PRECISELY explaning what changes and how.')
     type_of_change: ChangeType = Field(..., description = 'Level at which this text was modified')
@@ -41,7 +57,7 @@ class Pipeline:
     def __call__(self, work : dict) -> JSONL:
         old = work['old']
         old = {_['chunk_id']:_ for _ in old}
-        chunks = '\n\n'.join([f'>>>>>>>>>>>>>>>>>>>>>>>>>>> Chunk {o["chunk_id"]}\n{o["text"]}' for o in work["old"]])
+        chunks = '\n\n'.join([f'>>>>>>>>>>>>>>>>>>>>>>>>>>> Chunk {o["chunk_id"]}\n{remove_exact_chain(o["text"])}' for o in work["old"]])
         prompt = f""">>>
 >>> Below, extracts of the older versions of the document
 >>>
@@ -74,7 +90,7 @@ Please analyse the changes from the new document, extracting the changes in the 
         for retry in range(3):
             try:
                 completion = client.beta.chat.completions.parse(
-                    model="gpt-4o",
+                    model="gpt-4o-2024-11-20",
                     messages=[
                         {"role": "system", "content": "You are a helpful assistant that NEVER makes any mistakes"},
                         {"role": "user", "content": prompt}
