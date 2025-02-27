@@ -24,8 +24,8 @@ class ChangeImportance(Enum):
 
 class Change(BaseModel):
     new_formulation: str = Field(..., description = 'Extract of the new document, transcribed verbatim, but cleaned from parsing artifacts if necessary.')
-    old_formulation: Optional[str] = Field(..., description = 'Older version (cleaned if necessary), optional if not found in other version')
-    old_formulation_chunk_id: Optional[str] = Field(..., description = 'Older version chunk id, example: "Chunk 321"')
+    old_formulation: Optional[str] = Field(..., description = 'Older version (cleaned if necessary), optional if not found in other version. Be careful: this might include several chunks of the older version, coming from different pages or sections. If so, separate them with "\n---\n"')
+    old_formulation_chunk_id: List[str] = Field(..., description = 'Older version chunk ids, example: "Chunk 321".')
     changes_description: str = Field(..., description = 'Compare the new and the old version and analyse the implications of those changes.')
     type_of_change: ChangeType = Field(..., description = 'Level at which this text was modified')
     importance_of_change : ChangeImportance = Field(..., description = 'Importance for the user')
@@ -93,11 +93,11 @@ Please analyse the changes from the new document, extracting the changes in the 
         for i,c in enumerate(changes):
             c['change_number'] = i
             c['type_of_change'] = c['type_of_change'].name
-            c['old_formulation_chunk_id'] = (c['old_formulation_chunk_id'] or '').lower().replace('chunk ', '')
+            c['old_formulation_chunk_id'] = [re.sub(r'[^0-9]', '', _ or '') for _ in c['old_formulation_chunk_id']]
             c['importance_of_change'] = c['importance_of_change'].name
             if c['old_formulation_chunk_id']:
                 try:
-                    chunk_id = int(c['old_formulation_chunk_id'])
+                    chunk_id = int(c['old_formulation_chunk_id'][0])
                     chunk = old[chunk_id]
                     c['old_formulation_page_start'] = chunk['page_start']
                     c['old_formulation_page_end'] = chunk['page_end']
