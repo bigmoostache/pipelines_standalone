@@ -91,7 +91,7 @@ class Pipeline:
         # Crafting the jobs
         works = []
         for i in range(len(new_pdf.lines)):
-            old_chunks = np.argsort(M[:, i])[-5:][::-1]
+            old_chunks = np.argsort(M[:, i])[-8:][::-1]
             works.append(
                 {
                     **new_pdf.lines[i],
