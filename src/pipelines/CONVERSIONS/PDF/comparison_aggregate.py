@@ -26,10 +26,10 @@ class Change(BaseModel):
     new_formulation: str = Field(..., description = 'Extract of the new document, transcribed verbatim, but cleaned from parsing artifacts if necessary.')
     old_formulation: Optional[str] = Field(..., description = 'Older version (cleaned if necessary), optional if not found in other version. Be careful: this might include several chunks of the older version, coming from different pages or sections. If so, separate them with "\n---\n"')
     old_formulation_chunk_id: List[str] = Field(..., description = 'Older version chunk ids, example: "Chunk 321".')
-    changes_description: str = Field(..., description = 'Compare the new and the old version and analyse the implications of those changes.')
+    changes_description: str = Field(..., description = 'Compare the new and the old version and analyse the implications of those changes. Try to make this analysis as useful as possible for the user, PRECISELY explaning what changes and how.')
     type_of_change: ChangeType = Field(..., description = 'Level at which this text was modified')
     importance_of_change : ChangeImportance = Field(..., description = 'Importance for the user')
-    CTA: Optional[str] = Field(..., description = 'call to action to the user if needed. make this CTA short and super synthetic')
+    CTA: Optional[str] = Field(..., description = 'Call to action to the user if needed. Make this CTA short and super synthetic.')
 
 class Changes(BaseModel):
     changes: List[Change]
