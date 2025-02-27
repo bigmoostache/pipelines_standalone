@@ -95,8 +95,8 @@ Please analyse the changes from the new document, extracting the changes in the 
             c['type_of_change'] = c['type_of_change'].name
             c['old_formulation_chunk_id'] = [re.sub(r'[^0-9]', '', _ or '') for _ in c['old_formulation_chunk_id']]
             c['importance_of_change'] = c['importance_of_change'].name
+            prefix = []
             if c['old_formulation_chunk_id']:
-                prefix = []
                 for _ in c['old_formulation_chunk_id']:
                     try:
                         chunk_id = int(_)
