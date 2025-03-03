@@ -14,6 +14,7 @@ def add_reference(sota, information, reference_id, chunk_id: int = None):
             analysis='', pertinence=0 # unused fields
         )
         reference_list = sota.get_last(information.referencement_versions, versions)
+        reference_list = reference_list if reference_list else []
         reference_list.append(new_local_ref_id)
         information.referencement_versions[-1] = reference_list
     else:
