@@ -260,7 +260,7 @@ class SOTA(BaseModel):
             content = '\n\n'.join([self.build_text(version, subsection_id, focused_information_id = focused_information_id, depth = depth + 1) for _, subsection_id in latest_content.sections])
         # 4. Get the latest version of the annotations
         if focused_information_id == information_id:
-            annotations = get_last(info.active_annotations)
+            annotations = get_last(info.active_annotations) or []
             annotations = [get_last(info.annotations[_].versions) for _ in annotations]
             annotations = '\n'.join([f'<!--\n{self.t("comment")} n°{i+1} - {annotation}\n-->' for i, annotation in enumerate(annotations)]) + '\n'
         else:
