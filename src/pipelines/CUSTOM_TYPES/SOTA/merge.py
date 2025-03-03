@@ -64,6 +64,7 @@ def text(sota, information_id, contents, params):
         info.annotations[new_contents_id] = VersionedText(versions={-1: contents['html_a_posteriori_comment']})
         versions = sota.versions_list(-1)
         active_annotations = sota.get_last(info.active_annotations, versions)
+        active_annotations = active_annotations if active_annotations else []
         active_annotations.append(new_contents_id)
         info.active_annotations[-1] = active_annotations
     update_references(sota, information_id, params['references_mode'])
