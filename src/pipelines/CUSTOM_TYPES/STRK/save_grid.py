@@ -1,6 +1,6 @@
 import os, openai
 from custom_types.XLSX.type import XLSX
-from custom_types.XTRK.type import DataStructure, _create_model
+from custom_types.XTRK.type import DataStructure
 import pandas as pd
 
 class Pipeline:
@@ -9,7 +9,7 @@ class Pipeline:
     def __call__(self, 
                  xlsx : XLSX,
                  schema : DataStructure
-                 ) -> dict:
+                 ) -> XLSX:
         dic = {'grid': schema.model_dump_json()}
         df = pd.DataFrame(dic.items(), columns=['key', 'value'])
         xlsx.sheets['metadata'] = df
