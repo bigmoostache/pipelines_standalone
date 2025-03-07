@@ -1,6 +1,4 @@
-import os, openai
 from custom_types.XLSX.type import XLSX
-from custom_types.XTRK.type import DataStructure
 import pandas as pd
 import json
 
@@ -11,7 +9,9 @@ class Pipeline:
                  xlsx : XLSX,
                  schema : dict
                  ) -> XLSX:
-        dic = {'grid': json.dumps(schema)}
-        df = pd.DataFrame(dic.items(), columns=['key', 'value'])
-        xlsx.sheets['metadata'] = df
+        xlsx.sheets['metadata'] = \
+            pd.DataFrame(
+                {'grid': json.dumps(schema)}.items(), 
+                columns=['key', 'value']
+                )
         return xlsx
