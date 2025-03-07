@@ -231,7 +231,7 @@ wraped = TYPE(
     _class = SELECT,
     converter = Converter,
     additional_converters={
-        'json':lambda x : x.to_dict()
+        'json':lambda x : x.model_dump()
         },
     icon='/micons/deepsource.svg',
     visualiser = "https://vis.deepdocs.net/select",
