@@ -40,7 +40,6 @@ wraped = TYPE(
     _class = BIB,
     converter = Converter,
     inputable  = False,
-    hide=hasattr(Converter, 'hide') and callable(getattr(Converter, 'hide')),
     additional_converters={
         'json':lambda x : x.__dict__
         },
