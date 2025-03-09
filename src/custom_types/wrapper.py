@@ -16,4 +16,5 @@ class TYPE:
         self.inputable = inputable
         self.additional_converters = additional_converters
         self.visualiser = visualiser
-        self.icon = icon
+        self.icon = icon     
+        self.hide = hasattr(converter, 'hide') and callable(getattr(converter, 'hide'))
