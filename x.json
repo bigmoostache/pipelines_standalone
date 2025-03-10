@@ -1,147 +1,95 @@
 {
     "entrypoints": {
-        "ID:Knowledge": "SINGLE",
-        "ID:Prompt": "SINGLE"
+        "ID:PDFS": "MULTI",
+        "ID:XTRK": "SINGLE"
     },
     "inputs": {
-        "ID:Knowledge": {
-            "NAME": "ID:Knowledge",
-            "URL_SAFE_NAME": "Knowledge",
-            "DESC": "Knowledge",
-            "TYPE": "SINGLE",
-            "EXT": "jsonl",
-            "COST": 0.0
+        "ID:PDFS": {
+            "NAME": "ID:PDFS",
+            "URL_SAFE_NAME": "PDFs to Extract",
+            "DESC": "Here are the documents to process, from which specific data will be extracted",
+            "TYPE": "MULTI",
+            "EXT": "pdf",
+            "COST": 0.1
         },
-        "ID:Prompt": {
-            "NAME": "ID:Prompt",
-            "URL_SAFE_NAME": "Plan Description",
-            "DESC": "Plan Description",
+        "ID:XTRK": {
+            "NAME": "ID:XTRK",
+            "URL_SAFE_NAME": "Extract Grid",
+            "DESC": "Extraction Grid",
             "TYPE": "SINGLE",
-            "EXT": "txt",
+            "EXT": "xtrk",
             "COST": 0.0
         }
     },
     "factory": {
-        "ID:P1": {
-            "pipeline": "PROMPTING.initialize_raw",
+        "ID:Article": {
+            "pipeline": "CONVERSIONS.PDF.2_txt",
             "parameters": {
-                "role": "user",
-                "limit": 0
+                "method": "surya",
+                "surya_url": "https://www.datalab.to/api/v1/marker"
             },
             "entrypoints": {
-                "prompt": "ID:Prompt"
+                "pdf": "ID:PDFS"
             },
-            "description": "Initializing prompt sequence",
+            "description": "Extracting texts",
             "scope": {
-                "0": "FACTORY"
+                "0": "FACTORY",
+                "1": "ID:PDFS@@metadata"
             },
             "entrypoint_types": {
-                "prompt": "SINGLE"
-            },
-            "output_type": "SINGLE",
-            "step": 3,
-            "creates": [],
-            "unlocks": [],
-            "arrival_scope": {
-                "0": "FACTORY"
-            }
-        },
-        "ID:P2": {
-            "pipeline": "PROMPTING.add_static",
-            "parameters": {
-                "role": "user",
-                "prompt": "Based on the user's description of the article he wants to write, propose a draft plan for that article. It should be detailed, match the user's wishes. For leaf nodes, provide AT LEAST 6 bullet points, systematically.\n\n- You will be graded on the following criteria, and the resulting grade will be used to compare and rank your results with the results of other students. Your goal is to be in the top 10% of those goals. The criteria are:\n-> Followed user guidelines: 40 points\n-> Exhaustivity and recall (not forgetting sections and topics): 20 points\n-> Precision and relevance (not going off topic): 20 points\n-> Logic and spirit of synthesis (presenting things in a smart, logic and efficient way): 20 points"
-            },
-            "entrypoints": {
-                "p": "ID:P1"
-            },
-            "description": "Giving instructions",
-            "scope": {
-                "0": "FACTORY"
-            },
-            "entrypoint_types": {
-                "p": "SINGLE"
+                "pdf": "SINGLE"
             },
             "output_type": "SINGLE",
             "step": 4,
             "creates": [],
             "unlocks": [],
             "arrival_scope": {
-                "0": "FACTORY"
+                "0": "FACTORY",
+                "1": "ID:PDFS@@metadata"
             }
         },
-        "ID:Planv1": {
-            "pipeline": "CUSTOM_TYPES.PLAN.plan_output",
+        "ID:P32": {
+            "pipeline": "CUSTOM_TYPES.STRK.xtrk_to_dict_2",
             "parameters": {
-                "model": "gpt-4o",
-                "base_url": "https://api.openai.com/v1",
-                "temperature": 1,
-                "top_p": 1
+                "reflexive_model": "o1-mini",
+                "formatter_model": "gpt-4o",
+                "max_tokens": 32000,
+                "simpler_model_if_no_list": true
             },
             "entrypoints": {
-                "p": "ID:P2"
+                "text": "ID:Article",
+                "schema": "ID:XTRK"
             },
-            "description": "Drafting a first plan",
+            "description": "Approaching docile raccoons",
             "scope": {
-                "0": "FACTORY"
+                "0": "FACTORY",
+                "1": "ID:PDFS@@metadata"
             },
             "entrypoint_types": {
-                "p": "SINGLE"
+                "text": "SINGLE",
+                "schema": "SINGLE"
             },
             "output_type": "SINGLE",
             "step": 5,
             "creates": [],
             "unlocks": [],
             "arrival_scope": {
-                "0": "FACTORY"
+                "0": "FACTORY",
+                "1": "ID:PDFS@@metadata"
             }
         },
-        "ID:BulletPoints": {
-            "pipeline": "CUSTOM_TYPES.PLAN.all_bullet_points",
+        "ID:XLSX": {
+            "pipeline": "CUSTOM_TYPES.STRK.dicts_to_xlsx",
             "parameters": {},
             "entrypoints": {
-                "p": "ID:Planv1"
+                "dicts": "ID:with_metadata"
             },
-            "description": "Gathering bullet points",
+            "description": "Observing lively beavers",
             "scope": {
                 "0": "FACTORY"
             },
             "entrypoint_types": {
-                "p": "SINGLE"
-            },
-            "output_type": "SINGLE",
-            "step": 6,
-            "creates": [],
-            "unlocks": [],
-            "arrival_scope": {
-                "0": "FACTORY"
-            }
-        },
-        "ID:Assignment": {
-            "pipeline": "EMBEDDINGS.anchored_top_k",
-            "parameters": {
-                "embedding_model": "text-embedding-3-large",
-                "anchor_key": "bullets",
-                "anchor_expect_lists": false,
-                "chunk_key": "text",
-                "chunk_document_id_key": "document_id",
-                "max_groups_per_element": 1,
-                "elements_per_group": 2,
-                "min_elements_per_list": 0,
-                "assigned_to_key": "assigned_to",
-                "max_total_assignments": 50
-            },
-            "entrypoints": {
-                "sections": "ID:BulletPoints",
-                "chunks": "ID:Knowledge"
-            },
-            "description": "Fetching relevant data",
-            "scope": {
-                "0": "FACTORY"
-            },
-            "entrypoint_types": {
-                "sections": "SINGLE",
-                "chunks": "SINGLE"
+                "dicts": "MULTI"
             },
             "output_type": "SINGLE",
             "step": 7,
@@ -151,23 +99,71 @@
                 "0": "FACTORY"
             }
         },
-        "ID:Kept": {
-            "pipeline": "MANIPS.JSONL.filter",
+        "ID:with_metadata": {
+            "pipeline": "MANIPS.DICTS.merge",
+            "parameters": {},
+            "entrypoints": {
+                "left": "ID:remove_useless_keys",
+                "right": "ID:P32"
+            },
+            "description": "Photographing gentle wombats",
+            "scope": {
+                "0": "FACTORY",
+                "1": "ID:PDFS@@metadata"
+            },
+            "entrypoint_types": {
+                "left": "SINGLE",
+                "right": "SINGLE"
+            },
+            "output_type": "SINGLE",
+            "step": 6,
+            "creates": [],
+            "unlocks": [],
+            "arrival_scope": {
+                "0": "FACTORY",
+                "1": "ID:PDFS@@metadata"
+            }
+        },
+        "ID:remove_useless_keys": {
+            "pipeline": "MANIPS.DICT.remove_keys",
             "parameters": {
-                "jsonl_param": "assigned_to",
-                "jsonl_value": "XXX",
-                "equals": false,
-                "remove_nans": false
+                "keys_to_keep": "dataset_id,file_id,file_system",
+                "remove_them_instead": true
             },
             "entrypoints": {
-                "jsonl": "ID:Assignment"
+                "dic": "ID:PDFS@@metadata"
             },
-            "description": "Filtering text chunks",
+            "description": "Studying graceful raccoons",
+            "scope": {
+                "0": "FACTORY",
+                "1": "ID:PDFS@@metadata"
+            },
+            "entrypoint_types": {
+                "dic": "SINGLE"
+            },
+            "output_type": "SINGLE",
+            "step": 1,
+            "creates": [],
+            "unlocks": [],
+            "arrival_scope": {
+                "0": "FACTORY",
+                "1": "ID:PDFS@@metadata"
+            }
+        },
+        "ID:SavedGrid": {
+            "pipeline": "CUSTOM_TYPES.XLSX.save_grid",
+            "parameters": {},
+            "entrypoints": {
+                "xlsx": "ID:XLSX",
+                "schema": "ID:XTRK"
+            },
+            "description": "Avoiding playful meerkats",
             "scope": {
                 "0": "FACTORY"
             },
             "entrypoint_types": {
-                "jsonl": "SINGLE"
+                "xlsx": "SINGLE",
+                "schema": "SINGLE"
             },
             "output_type": "SINGLE",
             "step": 8,
@@ -177,358 +173,8 @@
                 "0": "FACTORY"
             }
         },
-        "ID:Built": {
-            "pipeline": "CONVERSIONS.JSONL.2_txt",
-            "parameters": {
-                "formatting": "{text}",
-                "sort_by": null,
-                "joiner": "\n\n====================== NEW ARTICLE ============================\n\n",
-                "grouped": true,
-                "group_by": "document_id",
-                "group_format": "{reference}\\n",
-                "group_joiner": "\n\n...\n\n"
-            },
-            "entrypoints": {
-                "jsonl": "ID:Kept"
-            },
-            "description": "RAG Prompt",
-            "scope": {
-                "0": "FACTORY"
-            },
-            "entrypoint_types": {
-                "jsonl": "SINGLE"
-            },
-            "output_type": "SINGLE",
-            "step": 9,
-            "creates": [],
-            "unlocks": [],
-            "arrival_scope": {
-                "0": "FACTORY"
-            }
-        },
-        "ID:Q1": {
-            "pipeline": "PROMPTING.initialize_raw",
-            "parameters": {
-                "role": "user",
-                "limit": 0
-            },
-            "entrypoints": {
-                "prompt": "ID:Built"
-            },
-            "description": "Initializing second prompt sequence",
-            "scope": {
-                "0": "FACTORY"
-            },
-            "entrypoint_types": {
-                "prompt": "SINGLE"
-            },
-            "output_type": "SINGLE",
-            "step": 10,
-            "creates": [],
-            "unlocks": [],
-            "arrival_scope": {
-                "0": "FACTORY"
-            }
-        },
-        "ID:Q2": {
-            "pipeline": "PROMPTING.add_dict",
-            "parameters": {
-                "role": "user",
-                "format": "# User guidelines\n\n{text}"
-            },
-            "entrypoints": {
-                "p": "ID:Q1",
-                "dic": "ID:Wrapped Prompt"
-            },
-            "description": "Feeding user input",
-            "scope": {
-                "0": "FACTORY"
-            },
-            "entrypoint_types": {
-                "p": "SINGLE",
-                "dic": "SINGLE"
-            },
-            "output_type": "SINGLE",
-            "step": 12,
-            "creates": [],
-            "unlocks": [],
-            "arrival_scope": {
-                "0": "FACTORY"
-            }
-        },
-        "ID:Wrapped Prompt": {
-            "pipeline": "CONVERSIONS.wrap_txt_in_dic",
-            "parameters": {
-                "param": "text"
-            },
-            "entrypoints": {
-                "text1": "ID:Prompt"
-            },
-            "description": "Describing swift badgers",
-            "scope": {
-                "0": "FACTORY"
-            },
-            "entrypoint_types": {
-                "text1": "SINGLE"
-            },
-            "output_type": "SINGLE",
-            "step": 11,
-            "creates": [],
-            "unlocks": [],
-            "arrival_scope": {
-                "0": "FACTORY"
-            }
-        },
-        "ID:Q3P": {
-            "pipeline": "PROMPTING.add_static",
-            "parameters": {
-                "role": "user",
-                "prompt": "Based on the user's instructions, propose a detailed and structured plan please!"
-            },
-            "entrypoints": {
-                "p": "ID:Q2"
-            },
-            "description": "Seeing fluffy wombats",
-            "scope": {
-                "0": "FACTORY"
-            },
-            "entrypoint_types": {
-                "p": "SINGLE"
-            },
-            "output_type": "SINGLE",
-            "step": 13,
-            "creates": [],
-            "unlocks": [],
-            "arrival_scope": {
-                "0": "FACTORY"
-            }
-        },
-        "ID:Q4P": {
-            "pipeline": "LLMS_v2.str_output",
-            "parameters": {
-                "model": "gpt-4o",
-                "base_url": "https://api.openai.com/v1",
-                "json_format": false,
-                "temperature": 0,
-                "max_tokens": 8000,
-                "top_p": 1,
-                "frequency_penalty": 0,
-                "presence_penalty": 0
-            },
-            "entrypoints": {
-                "p": "ID:Q3.3P"
-            },
-            "description": "Feeding majestic marmots",
-            "scope": {
-                "0": "FACTORY"
-            },
-            "entrypoint_types": {
-                "p": "SINGLE"
-            },
-            "output_type": "SINGLE",
-            "step": 18,
-            "creates": [],
-            "unlocks": [],
-            "arrival_scope": {
-                "0": "FACTORY"
-            }
-        },
-        "ID:Parsed o1 plan": {
-            "pipeline": "CUSTOM_TYPES.PLAN.from_string",
-            "parameters": {
-                "model": "gpt-4o",
-                "base_url": "https://api.openai.com/v1",
-                "temperature": 1,
-                "top_p": 1
-            },
-            "entrypoints": {
-                "t": "ID:Q4P"
-            },
-            "description": "Admiring swift pelicans",
-            "scope": {
-                "0": "FACTORY"
-            },
-            "entrypoint_types": {
-                "t": "SINGLE"
-            },
-            "output_type": "SINGLE",
-            "step": 19,
-            "creates": [],
-            "unlocks": [],
-            "arrival_scope": {
-                "0": "FACTORY"
-            }
-        },
-        "ID:Plan with references": {
-            "pipeline": "CUSTOM_TYPES.PLAN.add_references",
-            "parameters": {},
-            "entrypoints": {
-                "p": "ID:Parsed o1 plan",
-                "knowledge": "ID:Knowledge"
-            },
-            "description": "Approaching cuddly ducks",
-            "scope": {
-                "0": "FACTORY"
-            },
-            "entrypoint_types": {
-                "p": "SINGLE",
-                "knowledge": "SINGLE"
-            },
-            "output_type": "SINGLE",
-            "step": 20,
-            "creates": [],
-            "unlocks": [],
-            "arrival_scope": {
-                "0": "FACTORY"
-            }
-        },
-        "ID:And UUIDs": {
-            "pipeline": "CUSTOM_TYPES.PLAN.set_uuids",
-            "parameters": {},
-            "entrypoints": {
-                "p": "ID:Plan with references"
-            },
-            "description": "Sketching quiet meerkats",
-            "scope": {
-                "0": "FACTORY"
-            },
-            "entrypoint_types": {
-                "p": "SINGLE"
-            },
-            "output_type": "SINGLE",
-            "step": 21,
-            "creates": [],
-            "unlocks": [],
-            "arrival_scope": {
-                "0": "FACTORY"
-            }
-        },
-        "ID:Q3PP": {
-            "pipeline": "PROMPTING.add_static",
-            "parameters": {
-                "role": "user",
-                "prompt": "# Instructions\n\nBased on the user's description of the article he wants to write, propose a draft plan for that article. It should be detailed, match the user's wishes. Your answer should follow the structure below\n\n```your answer structure\n'# Some document title'\nsubsections:\n  - '## Some section title'\n    subsections:\n      - '### Some subsection title'\n        abstract: '...' # shot abstract of the subsection\n      - '### Some subsection title'\n        abstract: '...' # shot abstract of the subsection\n      - '### Some subsection decomposed in subsubsections'\n        subsections:\n          - '#### Som subsub section'\n          # etc.\n      # etc.\n  - title: '## Some title'\n    subsections:\n      - title: '### Some title'\n        abstract: '...'\n      # etc.\n```\n\n- You plan should be perfect: the perfect balance between granularity and synthetism. Not too long, not too short. You will be graded on the following criteria, and the resulting grade will be used to compare and rank your results with the results of other students. Your goal is to be in the top 10% of those goals. The criteria are:\n-> Followed user guidelines: 40 points\n-> Exhaustivity and recall (not forgetting sections and topics): 20 points\n-> Precision and relevance (not going off topic): 20 points\n-> Logic and spirit of synthesis (presenting things in a smart, logic and efficient way): 20 points"
-            },
-            "entrypoints": {
-                "p": "ID:Q2"
-            },
-            "description": "Mentioning cuddly pelicans",
-            "scope": {
-                "0": "FACTORY"
-            },
-            "entrypoint_types": {
-                "p": "SINGLE"
-            },
-            "output_type": "SINGLE",
-            "step": 14,
-            "creates": [],
-            "unlocks": [],
-            "arrival_scope": {
-                "0": "FACTORY"
-            }
-        },
-        "ID:Q4PP": {
-            "pipeline": "LLMS_v2.str_output",
-            "parameters": {
-                "model": "o1",
-                "base_url": "https://api.openai.com/v1",
-                "json_format": false,
-                "temperature": 0,
-                "max_tokens": 5000,
-                "top_p": 1,
-                "frequency_penalty": 0,
-                "presence_penalty": 0
-            },
-            "entrypoints": {
-                "p": "ID:Q3PP"
-            },
-            "description": "Sketching furry ostriches",
-            "scope": {
-                "0": "FACTORY"
-            },
-            "entrypoint_types": {
-                "p": "SINGLE"
-            },
-            "output_type": "SINGLE",
-            "step": 15,
-            "creates": [],
-            "unlocks": [],
-            "arrival_scope": {
-                "0": "FACTORY"
-            }
-        },
-        "ID:Q3.2P": {
-            "pipeline": "PROMPTING.add_raw",
-            "parameters": {
-                "role": "assistant"
-            },
-            "entrypoints": {
-                "p": "ID:Q3P",
-                "prompt": "ID:Q4PP"
-            },
-            "description": "Approaching lively armadillos",
-            "scope": {
-                "0": "FACTORY"
-            },
-            "entrypoint_types": {
-                "p": "SINGLE",
-                "prompt": "SINGLE"
-            },
-            "output_type": "SINGLE",
-            "step": 16,
-            "creates": [],
-            "unlocks": [],
-            "arrival_scope": {
-                "0": "FACTORY"
-            }
-        },
-        "ID:Q3.3P": {
-            "pipeline": "PROMPTING.add_static",
-            "parameters": {
-                "role": "user",
-                "prompt": "# Instructions\n\nGood, this plan seems to work well for me. I am going to need you to\n- detail it, adding abstracts to branch nodes and bullet points to leaf nodes\n- structure it using the yaml structure below\n\n```yaml\ndocument:\n  section_id: 'id-0'   # some id, unique across the document\n  prefix: '#'          # prefix for the section\n  title: 'Some title'  # title of the document, do not include the prefix\n  abstract: '...'      # abstract of the document. abstracts should be between 2 and 5 sentences long. It focuses rather on the objectives of that document rather than the content.\n  section_type: 'root' # can either be root, node or leaf. rot is only used for the root section, node for sections with subsections and leaf for sections without subsections\n  contents:            # list of sections\n    subsections:\n      - section_id: 'id-1'\n        prefix: '##'\n        title: 'Some title'\n        abstract: '...'\n        section_type: 'node'\n        contents: # this is a node, do contents will be a list of sections\n          subsections:\n            - section_id: 'id-2'\n              prefix: '###'\n              title: 'Some title'\n              abstract: '...'\n              type: branch\n              section_type: 'leaf'\n              contents: # this is a leaf, so contents will be a list of bullet points enumerating tackled points\n                leaf_bullet_points: # At least 7 bullet points are required\n                  - 'Some bullet point'\n                  - 'Another bullet point'\n                  - '...'\n                  - '...'\n                  - '...'\n                  - '...'\n                  - '...'\n          # etc.\n      - section_id: 'id-3'\n        prefix: '##'\n        title: 'Some title'\n        abstract: '...'\n        section_type: 'node'\n        contents:\n          subsections:\n            - section_id: 'id-4'\n              prefix: '###'\n              title: 'Some title'\n              abstract: '...'\n              type: branch\n              section_type: 'leaf'\n              contents:\n                leaf_bullet_points:\n                  - 'Some bullet point'\n                  - 'Another bullet point'\n                  - '...'\n                  - '...'\n                  - '...'\n                  - '...'\n                  - '...'\n          # etc.\n```\n\n- If you fail to follow this structure, your answer will not be parsed by the system and you will receive a grade of zero\n- Keep the EXACT structure of the plan you proposed before. Your sole and only purpose is to enrich and structure properly!!! If you fail to transpose the EXACT same plan structure, it will be absolutely CATASTROPHIC!!!"
-            },
-            "entrypoints": {
-                "p": "ID:Q3.2P"
-            },
-            "description": "Studying sleek badgers",
-            "scope": {
-                "0": "FACTORY"
-            },
-            "entrypoint_types": {
-                "p": "SINGLE"
-            },
-            "output_type": "SINGLE",
-            "step": 17,
-            "creates": [],
-            "unlocks": [],
-            "arrival_scope": {
-                "0": "FACTORY"
-            }
-        },
-        "ID:Preview": {
-            "pipeline": "CUSTOM_TYPES.PLAN.preview_jules",
-            "parameters": {},
-            "entrypoints": {
-                "plan": "ID:And UUIDs"
-            },
-            "description": "Building Plan Text Preview",
-            "scope": {
-                "0": "FACTORY"
-            },
-            "entrypoint_types": {
-                "plan": "SINGLE"
-            },
-            "output_type": "SINGLE",
-            "step": 22,
-            "creates": [],
-            "unlocks": [],
-            "arrival_scope": {
-                "0": "FACTORY"
-            }
-        },
-        "ID:Knowledge@@metadata": {
-            "pipeline": "_single_feed_pipeline",
+        "ID:PDFS@@metadata": {
+            "pipeline": "_multi_feed_pipeline",
             "parameters": {},
             "entrypoints": {},
             "scope": {
@@ -536,60 +182,32 @@
             },
             "step": 0,
             "entrypoint_types": {},
-            "output_type": "SINGLE",
-            "creates": [],
-            "unlocks": [],
+            "output_type": "MULTI",
+            "creates": [
+                "ID:Article",
+                "ID:P32",
+                "ID:with_metadata",
+                "ID:remove_useless_keys",
+                "ID:PDFS"
+            ],
+            "unlocks": [
+                "ID:XLSX"
+            ],
             "arrival_scope": {
-                "0": "FACTORY"
+                "0": "FACTORY",
+                "1": "ID:PDFS@@metadata"
             },
-            "description": "Watching spotted ostriches"
+            "description": "Feeding spotted badgers"
         },
-        "ID:Knowledge": {
-            "pipeline": "_SFP_jsonl",
+        "ID:PDFS": {
+            "pipeline": "_SFP_pdf",
             "parameters": {},
             "entrypoints": {
-                "metadata": "ID:Knowledge@@metadata"
+                "metadata": "ID:PDFS@@metadata"
             },
             "scope": {
-                "0": "FACTORY"
-            },
-            "step": 1,
-            "entrypoint_types": {
-                "metadata": "SINGLE"
-            },
-            "output_type": "SINGLE",
-            "creates": [],
-            "unlocks": [],
-            "arrival_scope": {
-                "0": "FACTORY"
-            },
-            "description": "Hearing colorful beavers"
-        },
-        "ID:Prompt@@metadata": {
-            "pipeline": "_single_feed_pipeline",
-            "parameters": {},
-            "entrypoints": {},
-            "scope": {
-                "0": "FACTORY"
-            },
-            "step": 0,
-            "entrypoint_types": {},
-            "output_type": "SINGLE",
-            "creates": [],
-            "unlocks": [],
-            "arrival_scope": {
-                "0": "FACTORY"
-            },
-            "description": "Recording curious kangaroos"
-        },
-        "ID:Prompt": {
-            "pipeline": "_SFP_txt",
-            "parameters": {},
-            "entrypoints": {
-                "metadata": "ID:Prompt@@metadata"
-            },
-            "scope": {
-                "0": "FACTORY"
+                "0": "FACTORY",
+                "1": "ID:PDFS@@metadata"
             },
             "step": 2,
             "entrypoint_types": {
@@ -599,41 +217,71 @@
             "creates": [],
             "unlocks": [],
             "arrival_scope": {
+                "0": "FACTORY",
+                "1": "ID:PDFS@@metadata"
+            },
+            "description": "Sketching spotted chameleons"
+        },
+        "ID:XTRK@@metadata": {
+            "pipeline": "_single_feed_pipeline",
+            "parameters": {},
+            "entrypoints": {},
+            "scope": {
                 "0": "FACTORY"
             },
-            "description": "Recording graceful badgers"
+            "step": 0,
+            "entrypoint_types": {},
+            "output_type": "SINGLE",
+            "creates": [],
+            "unlocks": [],
+            "arrival_scope": {
+                "0": "FACTORY"
+            },
+            "description": "Hearing striped porcupines"
+        },
+        "ID:XTRK": {
+            "pipeline": "_SFP_xtrk",
+            "parameters": {},
+            "entrypoints": {
+                "metadata": "ID:XTRK@@metadata"
+            },
+            "scope": {
+                "0": "FACTORY"
+            },
+            "step": 3,
+            "entrypoint_types": {
+                "metadata": "SINGLE"
+            },
+            "output_type": "SINGLE",
+            "creates": [],
+            "unlocks": [],
+            "arrival_scope": {
+                "0": "FACTORY"
+            },
+            "description": "Admiring graceful penguins"
         }
     },
     "output": {
-        "ID:Plan": "ID:And UUIDs",
-        "ID:Preview": "ID:Preview"
+        "ID:Excel": "ID:SavedGrid"
     },
     "outputs": {
-        "ID:Plan": {
-            "NAME": "ID:And UUIDs",
-            "URL_SAFE_NAME": "Plan",
-            "DESC": "Plan",
+        "ID:Excel": {
+            "NAME": "ID:SavedGrid",
+            "URL_SAFE_NAME": "Excel Extracted Data",
+            "DESC": "Here is the resulting structured dataset containing the extracted information from the processed PDFs, formatted as an Excel file",
             "TYPE": "SINGLE",
-            "EXT": "plan"
-        },
-        "ID:Preview": {
-            "NAME": "ID:Preview",
-            "URL_SAFE_NAME": "Preview",
-            "DESC": "Preview",
-            "TYPE": "SINGLE",
-            "EXT": "txt"
+            "EXT": "xlsx"
         }
     },
     "version": 0,
-    "factoryName": "2. Plan",
-    "description": "# Plan\nis an AI-driven pipeline designed to take user-provided bullet points as input and expand on them using information from the knowledge base.  \nIt enriches the points with detailed explanations, context, and relevant data, making the initial outline more comprehensive and actionable.\n\n------\n\nBy leveraging a knowledge base to elaborate on each bullet point, **Plan* allows for efficient transformation of simple outlines into fully developed, detailed plans.  \nThis pipeline aids users in systematically refining their initial ideas, providing structured enhancements and valuable insights from various sources.\n\n\n> MAJ 27-01-2025",
+    "factoryName": "DAM Extract v2",
+    "description": "**DAM Extract** applies the customized data extraction grid created in **DAM Extract** to systematically extract specific data points from full-text articles. This process ensures that the relevant information is captured accurately and efficiently, based on the predefined criteria set by the user. The extracted data is structured for immediate analysis, further processing, or inclusion in systematic reviews or advanced research workflows.\n",
     "benchmarks": "",
-    "costs": "",
+    "costs": "07-01-2025",
     "active_inputs": {},
     "active_outputs": {},
     "env": [
-        "openai_api_key"
-    ],
-    "grade": -1,
-    "priority": -1
+        "openai_api_key",
+        "surya_api_key"
+    ]
 }
