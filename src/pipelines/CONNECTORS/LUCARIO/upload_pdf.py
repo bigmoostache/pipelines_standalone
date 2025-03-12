@@ -24,7 +24,7 @@ class Pipeline:
             } 
         
 
-        response = requests.post('https://lucario.croquo.com/files', headers=headers, files=files, params=params)
+        response = requests.post('https://lucario.deepdocs.net/files', headers=headers, files=files, params=params)
         response.raise_for_status()
         url = response.json()['file_name']
         
@@ -34,4 +34,4 @@ class Pipeline:
         for page in reader.pages:
             text += page.extract_text()
     
-        return URL2.init(url=f'https://lucario.croquo.com/files?file={url}', title='Uploaded PDF', date=datetime.now().isoformat())
+        return URL2.init(url=f'https://lucario.deepdocs.net/files?file={url}', title='Uploaded PDF', date=datetime.now().isoformat())

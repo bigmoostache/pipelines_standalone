@@ -48,7 +48,7 @@ class Pipeline:
                     "max_per_information": self.max_per_information
                     }
                 
-                top_k_response = requests.post(url ='https://lucario.croquo.com/top_k', json=json_payload)
+                top_k_response = requests.post(url ='https://lucario.deepdocs.net/top_k', json=json_payload)
                 if top_k_response.status_code != 200:
                     raise Exception(f'Unsuccessful response: {top_k_response}')
                 # extract the chunks retrieved by topk

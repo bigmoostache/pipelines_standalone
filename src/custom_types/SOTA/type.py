@@ -171,7 +171,7 @@ class SOTA(BaseModel):
     def get_empty(cls) -> 'SOTA':
         return cls(
             title = VersionedText(versions = {1: "New Document"}),
-            drop_url = "https://lucario.croquo.com/files",
+            drop_url = "https://lucario.deepdocs.net/files",
             file_id = str(time())+'.'+str(uuid4()),
             pipeline_id = None,
             versions = {

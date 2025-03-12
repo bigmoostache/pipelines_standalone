@@ -4,7 +4,7 @@ from typing import List
 from time import sleep
 class Pipeline:
     def __init__(self,
-                lucario_url: str = 'https://lucario.croquo.com'
+                lucario_url: str = 'https://lucario.deepdocs.net'
                  ):
         self.lucario_url = lucario_url
     

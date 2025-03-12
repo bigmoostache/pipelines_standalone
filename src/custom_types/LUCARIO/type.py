@@ -91,7 +91,7 @@ class ForceChunk(BaseModel):
     chunk_id : Optional[int] = None  
     
 class LUCARIO(BaseModel):
-    url: str = Field('https://lucario.croquo.com', description = 'The URL of lucario hosted service.')
+    url: str = Field('https://lucario.deepdocs.net', description = 'The URL of lucario hosted service.')
     project_id: str = Field(..., description = 'The project id.')
     elements: Dict[int, Document] = Field({}, description = 'local_id -> Document')
     uuid_2_position: Dict[str, int] = Field({}, description = 'uuid -> local_id')
@@ -177,7 +177,7 @@ class LUCARIO(BaseModel):
         raise ValueError('Timeout')
     
     @classmethod
-    def get_new(cls, url = 'https://lucario.croquo.com', name: str = 'New Knowledge Base'):
+    def get_new(cls, url = 'https://lucario.deepdocs.net', name: str = 'New Knowledge Base'):
         LUCARIO_MASTER_KEY = os.environ.get('LUCARIO_MASTER_KEY')
         if not LUCARIO_MASTER_KEY:
             raise ValueError("LUCARIO_MASTER_KEY environment variable is not set.")

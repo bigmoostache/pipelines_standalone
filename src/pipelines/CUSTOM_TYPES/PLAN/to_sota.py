@@ -10,7 +10,7 @@ import markdown2
 
 def plan_to_sota(
     plan: Plan,
-    drop_url: str = "https://lucario.croquo.com/files",
+    drop_url: str = "https://lucario.deepdocs.net/files",
     pikabu_url: str = "https://pikabu.croquo.com"
 ) -> SOTA:
     """
@@ -136,7 +136,7 @@ def plan_to_sota(
                 info_id = match.group(1)
                 new_info_id = ref_mapping.get(int(info_id), -1)
                 detail = match.group(2) if match.group(2) else ""
-                return f'<reference informationid="{new_info_id}" position="{detail}"/>'
+                return f'<reference informationid="{new_info_id}" position="{detail}"></reference>'
             
             html_content = re.sub(r"<ref (\d+)(?: *: *(\d+))? *\/?>", ref_repl, html_content)
             
