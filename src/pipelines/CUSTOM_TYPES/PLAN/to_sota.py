@@ -1,5 +1,5 @@
-from custom_types.SOTA.type import SOTA, Converter, VersionedInformation, VersionedText, Sections, Referencement
-from custom_types.PLAN.type import Plan, Converter as PlanConverter, LucarioElement
+from custom_types.SOTA.type import SOTA, Converter, VersionedInformation, VersionedText, Sections, Referencement, LucarioElement
+from custom_types.PLAN.type import Plan, Converter as PlanConverter
 from custom_types.LUCARIO.type import LUCARIO, Document
 import itertools
 import re
