@@ -195,21 +195,17 @@ class SOTA(BaseModel):
         return [information_id]
     
     def find_or_create_lucario_element(self : 'SOTA', lucario_element : LucarioElement) -> int:
-        found = None
         for information_id, information in self.information.items():
             last = self.get_last(information.versions, self.versions_list(-1))
-            if VersionedInformation.get_class_name(last) == 'LUCARIO':
-                if last.elements.get(lucario_element.local_document_identifier, None) == lucario_element.lucario_id:
-                    found = information_id
-                    break
-        if found is not None:
-            found = self.get_new_id(self.information)
-            self.information[found] = VersionedInformation.create_text(
-                title = f"Lucario Element {lucario_element.local_document_identifier}",
-                contents = lucario_element,
-                abstract = f"Lucario Element {lucario_element.local_document_identifier}",
-                reference_as = f"{lucario_element.lucario_id}:{lucario_element.local_document_identifier}"
-            )
+            if VersionedInformation.get_class_name(last) == 'LucairoElement' and last.lucario_id == lucario_element.lucario_id and last.local_document_identifier == lucario_element.local_document_identifier:
+                return information_id
+        found = self.get_new_id(self.information)
+        self.information[found] = VersionedInformation.create_text(
+            title = f"Lucario Element {lucario_element.local_document_identifier}",
+            contents = lucario_element,
+            abstract = f"Lucario Element {lucario_element.local_document_identifier}",
+            reference_as = f"{lucario_element.lucario_id}:{lucario_element.local_document_identifier}"
+        )
         return found
     
     @classmethod
