@@ -5,6 +5,8 @@ import json
 from custom_types.LUCARIO.type import LUCARIO, Document, FileTypes, ForceChunk
 from time import time
 from uuid import uuid4
+from enum import Enum
+from pipelines.CONVERSIONS.DICT.to_html import Pipeline as DictToHtmlPipeline
 import requests
 import re
 
@@ -28,6 +30,7 @@ def extract_references(html):
 
 class VersionedText(BaseModel):
     versions      : Dict[int, str] = Field(..., description = "version_id -> text value until next version. Key = None if modified but not stored in last version not saved yet")
+
 class VersionedListVersionedText(BaseModel):
     entries       : Dict[int, VersionedText]
     versions      : Dict[int, List[int]]
@@ -45,42 +48,29 @@ class Author(BaseModel):
     current_affiliations: VersionedListVersionedText = Field(..., description = "Author affiliated institutions and organizations")
     contact_information : VersionedText = Field(..., description = "Useful information to contact the author")
 
-class Congiguration(BaseModel):
-    textColor : str
-    boldColor : str
-    titleColor : str
-    font : str
-    language : str    
-
 class Sections(BaseModel):
-    enumeration : str
-    sections    : List[Tuple[bool, int]] = Field(..., description = "Tuple[Section Name, Whether to show this section name, information_id]")
+    sections    : List[int] = Field(..., description = "Information ids")
     class_name : ClassVar[str] = 'Sections'
     
 class Referencement(BaseModel):
     information_id : int              = Field(..., description = "information_id")
     detail         : str              = Field(..., description = "Very short detail about where exactly in the information to look (eg: the page number, t)")
     analysis       : str              = Field(..., description = "Analysis of the reference w.r.t. this information.")
-    pertinence     : float
     
 def __str__(self):
     return f"Sections: {self.sections}"   
+
+class LucarioElement(BaseModel):
+    lucario_id : int = Field(..., description = "Identifier of the Lucario Information inside the SOTA document")
+    local_document_identifier : int = Field(..., description = "Identifier of the document in the Lucario database")
+
 class VersionedInformation(BaseModel):
-    
     class PlaceHolder(BaseModel):
         class_name : ClassVar[str] = 'PlaceHolder'
         def __str__(self):
             return "PlaceHolder, empty for now"
         
-    class External(BaseModel):
-        external_db : str                 = Field(..., description = "Database, provider, api, whatever. Must match an implemented algorithm.")
-        external_id : Union[str, float]           = Field(..., description = "External identifier. May be anything. Unlike the Sections model, conceptually, the information here is not just the id, it is also the information behind the underlying entity.")
-        class_name : ClassVar[str] = 'External'
-        
-        def __str__(self):
-            return f"External: {self.external_db} - {self.external_id}"
-
-    versions: Dict[int, Union[PlaceHolder, Sections, External, str]] = Field(..., description="Content of the versioned information. The key is the version id.")
+    versions: Dict[int, Union[PlaceHolder, Sections, str, LUCARIO]] = Field(..., description="Content of the versioned information. The key is the version id.")
     
     referencements : Dict[int, Referencement]     = Field(..., description = "local_referencement_id -> Referencement")
     referencement_versions : Dict[int, List[int]] = Field(..., description = "version_id -> List[local_annotation_id]")
@@ -105,7 +95,6 @@ class VersionedInformation(BaseModel):
             annotations = {},
             active_annotations = {-1:[]},
             ai_pipelines_to_run = [],
-            embeddings = {}
         )
         
     def get_last_version(
@@ -125,11 +114,14 @@ class VersionedInformation(BaseModel):
         if isinstance(x, str):
             return 'str'
         return x.class_name
+
+class Language(Enum):
+    fr = 'fr'
+    en = 'en'
+    us = 'us'
         
 class SOTA(BaseModel):
     title              : VersionedText      = Field(..., description = "Document title")
-    drop_url           : str
-    file_id            : str
     pipeline_id        : Union[int, None]   = Field(None, description = "The pipeline id that is currently running on the document. None if no pipeline is running.")
     
     versions           : Dict[int, Version] = Field(..., description = "version_id -> Version")
@@ -139,10 +131,11 @@ class SOTA(BaseModel):
     active_authors     : Dict[int, List[int]] = Field(..., description = "version_id -> List[author_id]")
 
     information        : Dict[int, VersionedInformation] = Field(..., description = "information_id -> VersionedInformation")
+    main_lucario_id    : int                  = Field(..., description = "Information id of the LUCARIO element to use as the main knowledge base")
     mother_id          : int                  = Field(..., description = "Master information for the rendering")
-    bibliography       : Dict[int, List[int]] = Field(..., description = "version_id -> List[information_id]")
     
-    configuration : Congiguration = Field(..., description = "Document configuration")
+    styles_sheet       : VersionedText        = Field(..., description = "CSS sheet for the document")
+    language           : Language             = Field(..., description = "Language of the document")
     
     translations : ClassVar[Dict[str, Dict[str, str]]] = {
         'title': {'fr': 'Titre', 'en': 'Title'},
@@ -154,10 +147,44 @@ class SOTA(BaseModel):
     
     def t(self, key : str, translations: dict = None) -> str:
         translations = translations if translations else self.translations
-        lang = self.configuration.language
+        lang = self.language.value
         if lang == 'us':
             lang = 'en'
         return translations[key].get(lang, translations[key]['en'])
+    
+    def update_lucario(self : 'SOTA', lucario_information_id: int = None):
+        if lucario_information_id is None:
+            lucario_information_id = self.main_lucario_id
+        lucario = self.information[lucario_information_id].get_last_version(self.versions_list(-1))
+        assert isinstance(lucario, LUCARIO), "The information is not a LUCARIO element"
+        lucario.update()
+        mapping = {}
+        for local_id, document in lucario.elements.items(): # This is a redundance, but is a good compromise to handle cross-references
+            lucario_element = LucarioElement(lucario_id = lucario_information_id, local_document_identifier = local_id)
+            sota_information_id = self.find_or_create_lucario_element(lucario_element) # TODO
+            mapping[local_id] = sota_information_id
+            title = document.file_name
+            cite_as = f'{lucario_information_id}:{local_id}'
+            try:
+                abstract = json.loads(document.description)
+                if 'title' in abstract:
+                    title = abstract['title']
+                if 'cite_as' in abstract:
+                    cite_as = abstract['cite_as']
+                abstract = DictToHtmlPipeline()(abstract)
+            except:
+                abstract = document.description
+            self.information[sota_information_id].title.versions[-1] = title
+            self.information[sota_information_id].abstract.versions[-1] = abstract
+            self.information[sota_information_id].reference_as.versions[-1] = cite_as
+        return lucario, mapping
+        
+    def get_lucario(self : 'SOTA', lucario_information_id: int = None) -> LUCARIO:
+        if lucario_information_id is None:
+            lucario_information_id = self.main_lucario_id
+        lucario = self.information[lucario_information_id].get_last_version(self.versions_list(-1))
+        assert isinstance(lucario, LUCARIO), "The information is not a LUCARIO element"
+        return lucario
     
     def get_leaf_children(self : 'SOTA', information_id : int, version_list : List[int]) -> List[int]:
         last = self.get_last(self.information[information_id].versions, version_list)
@@ -168,11 +195,9 @@ class SOTA(BaseModel):
         return [information_id]
     
     @classmethod
-    def get_empty(cls) -> 'SOTA':
+    def get_empty(cls, lucario: LUCARIO = None) -> 'SOTA':
         return cls(
             title = VersionedText(versions = {1: "New Document"}),
-            drop_url = "https://lucario.deepdocs.net/files",
-            file_id = str(time())+'.'+str(uuid4()),
             pipeline_id = None,
             versions = {
                 1:
@@ -194,17 +219,17 @@ class SOTA(BaseModel):
             active_authors = {1:[1]},
             signatures = [],
             information = {
-                1 : VersionedInformation.create_text(contents = {}, title = 'Body', reference_as = 'Body')
+                1 : VersionedInformation.create_text(contents = {}, title = 'Body', reference_as = 'Body'),
+                2 : VersionedInformation.create_text(
+                        contents = LUCARIO.get_new() if lucario_element is None else lucario_element,
+                        title = 'Knowledge Base',
+                        reference_as = 'Knowledge Base'
+                    )
             },
             mother_id = 1,
-            bibliography = {1:[]},
-            configuration = Congiguration(
-                textColor = '#1e1b4b',
-                titleColor = '#4f46e5',
-                boldColor = '#a16207',
-                font = 'Calibri',
-                language = 'us'
-            )
+            main_lucario_id = 2,
+            styles_sheet = VersionedText(versions = {1: ''}),
+            language = Language.en
         )
     
     def versions_list(self : 'SOTA', version : int):
@@ -326,7 +351,8 @@ class SOTA(BaseModel):
                 self.get_last(info.versions, version_list)
             ]
         # Build Lucario out of that
-        lucario = LUCARIO(url=self.drop_url, project_id=self.file_id, elements={}, uuid_2_position={})
+        lucario = self.information[self.main_lucario_id].get_last_version(version_list)
+        assert isinstance(lucario, LUCARIO), "The main knowledge base is not a LUCARIO element"
         lucario.update()
         lucario_file_id_to_information_id = {v.file_id: k for k,v in lucario.elements.items()}
         # Now, the important part: the logic of how to build the similarity requests
@@ -366,7 +392,6 @@ class SOTA(BaseModel):
             _['reference'] = lucario.elements[_['referenced_information']].description
             _['chunk_id'] = _['file_id']
         return res
-
 
 class Converter:
     @staticmethod

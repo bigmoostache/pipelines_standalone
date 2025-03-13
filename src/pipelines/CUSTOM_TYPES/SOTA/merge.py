@@ -11,7 +11,7 @@ def add_reference(sota, information, reference_id, chunk_id: int = None):
         information.referencements[new_local_ref_id] = Referencement(
             information_id=reference_id,
             detail=str(chunk_id) if chunk_id is not None else '',
-            analysis='', pertinence=0 # unused fields
+            analysis=''
         )
         reference_list = sota.get_last(information.referencement_versions, versions)
         reference_list = reference_list if reference_list else []
@@ -49,8 +49,8 @@ def bibliography(sota, information_id, contents, params):
     new_info = VersionedInformation.create_text(title=contents["bibliography_title"], abstract='References', contents=contents['html_bibliography'])
     sota.information[new_info_id] = new_info
     new_list = last.sections.copy()
-    new_list.append((False, new_info_id))
-    info.versions[-1] = Sections(sections=new_list, enumeration="Numbers enumeration")
+    new_list.append(new_info_id)
+    info.versions[-1] = Sections(sections=new_list)
 
 def text(sota, information_id, contents, params):
     info = sota.information[information_id]
@@ -80,8 +80,8 @@ def sections(sota, information_id, contents, params):
         new_section_id = SOTA.get_new_id(sota.information)
         new_section = VersionedInformation.create_text(title=new_section['title'], abstract=new_section['expectations'], contents=new_section['contents'])
         sota.information[new_section_id] = new_section
-        infos_id.append((True, new_section_id))
-    info.versions[-1] = Sections(sections=infos_id, enumeration="Numbers enumeration")
+        infos_id.append(new_section_id)
+    info.versions[-1] = Sections(sections=infos_id)
     for new_section_id in infos_id:
         update_references(sota, new_section_id[1], params['references_mode'])
     
