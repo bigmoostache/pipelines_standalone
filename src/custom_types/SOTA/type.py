@@ -194,6 +194,15 @@ class SOTA(BaseModel):
             return []
         return [information_id]
     
+    def find_or_create_lucario_element(self : 'SOTA', lucario_element : LucarioElement) -> int:
+        for information_id, information in self.information.items():
+            last = self.get_last(information.versions, self.versions_list(-1))
+            if VersionedInformation.get_class_name(last) == 'LUCARIO':
+                for local_id, document in last.elements.items():
+                    if document.lucario_id == lucario_element.lucario_id and document.local_document_identifier == lucario_element.local_document_identifier:
+                        return information_id
+        return self.add_lucario_element(lucario_element)
+    
     @classmethod
     def get_empty(cls, lucario: LUCARIO = None) -> 'SOTA':
         return cls(
