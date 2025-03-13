@@ -70,7 +70,7 @@ class VersionedInformation(BaseModel):
         def __str__(self):
             return "PlaceHolder, empty for now"
         
-    versions: Dict[int, Union[PlaceHolder, Sections, str, LUCARIO]] = Field(..., description="Content of the versioned information. The key is the version id.")
+    versions: Dict[int, Union[PlaceHolder, Sections, str, LUCARIO, LucarioElement]] = Field(..., description="Content of the versioned information. The key is the version id.")
     
     referencements : Dict[int, Referencement]     = Field(..., description = "local_referencement_id -> Referencement")
     referencement_versions : Dict[int, List[int]] = Field(..., description = "version_id -> List[local_annotation_id]")
