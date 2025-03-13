@@ -221,7 +221,7 @@ class SOTA(BaseModel):
             information = {
                 1 : VersionedInformation.create_text(contents = {}, title = 'Body', reference_as = 'Body'),
                 2 : VersionedInformation.create_text(
-                        contents = LUCARIO.get_new() if lucario_element is None else lucario_element,
+                        contents = LUCARIO.get_new() if lucario is None else lucario,
                         title = 'Knowledge Base',
                         reference_as = 'Knowledge Base'
                     )
