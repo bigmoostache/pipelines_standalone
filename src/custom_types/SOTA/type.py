@@ -109,11 +109,11 @@ class VersionedInformation(BaseModel):
     
     @staticmethod
     def get_class_name(
-        x : Union[PlaceHolder, Sections, External, str]
-        ) -> Literal['PlaceHolder', 'Sections', 'Image', 'Table', 'External', 'str', 'Paragraphs']:
+        x : Union[PlaceHolder, Sections, LUCARIO, LucarioElement, str]
+        ) -> Literal['PlaceHolder', 'Sections', 'LUCARIO', 'LucarioElement', 'str']:
         if isinstance(x, str):
             return 'str'
-        return x.class_name
+        return x.__class__.__name__
 
 class Language(Enum):
     fr = 'fr'
