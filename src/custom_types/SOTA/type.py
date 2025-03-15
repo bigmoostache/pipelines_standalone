@@ -376,7 +376,7 @@ class SOTA(BaseModel):
         else:
             # otherwise, only the documents already used may be used
             all_referenced_documents = list(set([_ for i, chunks in referenced_documents.items() for _ in chunks]))
-            file_uuids = [lucario.elements[_].file_uuid for _ in all_referenced_documents]
+            file_uuids = [lucario.elements[_].file_uuid for _ in all_referenced_documents if _ in lucario.elements]
         files_forces = []
         if force_keep_documents:
             # this will force chunks from referenced documents to be used
