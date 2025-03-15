@@ -34,3 +34,4 @@ pyyaml
 pulp
 langchain
 langchain_openai
+mistune==3.1.2

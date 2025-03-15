@@ -121,6 +121,18 @@ class LUCARIO(BaseModel):
         response = [Document.parse_obj(_) for _ in response.json()]
         for document in response:
             self.add_document(document)
+            
+    def fetch_single(self, local_document_identifier, local_chunk_identifier) -> Document:
+        response = requests.get(
+            f'{self.url}/fetch_single',
+            headers= {'accept': 'application/json'},
+            params={
+                'key': self.project_id,
+                'document_identifier': local_document_identifier,
+                'chunk_identifier': local_chunk_identifier,
+            },
+        )
+        return Document.parse_obj(response.json())
         
     def add_document(self, document: Document):
         assert document.local_document_identifier is not None, 'local_document_identifier is None'

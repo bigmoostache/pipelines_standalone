@@ -114,7 +114,7 @@ class VersionedInformation(BaseModel):
         if isinstance(x, str):
             return 'str'
         return x.__class__.__name__
-
+    
 class Language(Enum):
     fr = 'fr'
     en = 'en'
@@ -171,8 +171,8 @@ class SOTA(BaseModel):
                     title = abstract['title']
                 if 'cite_as' in abstract:
                     cite_as = abstract['cite_as']
-                abstract = DictToHtmlPipeline()(abstract)
-            except:
+                abstract = DictToHtmlPipeline()(abstract).html
+            except Exception as e:
                 abstract = document.description
             self.information[sota_information_id].title.versions[-1] = title
             self.information[sota_information_id].abstract.versions[-1] = abstract
@@ -197,7 +197,7 @@ class SOTA(BaseModel):
     def find_or_create_lucario_element(self : 'SOTA', lucario_element : LucarioElement) -> int:
         for information_id, information in self.information.items():
             last = self.get_last(information.versions, self.versions_list(-1))
-            if VersionedInformation.get_class_name(last) == 'LucairoElement' and last.lucario_id == lucario_element.lucario_id and last.local_document_identifier == lucario_element.local_document_identifier:
+            if VersionedInformation.get_class_name(last) == 'LucarioElement' and last.lucario_id == lucario_element.lucario_id and last.local_document_identifier == lucario_element.local_document_identifier:
                 return information_id
         found = self.get_new_id(self.information)
         self.information[found] = VersionedInformation.create_text(
