@@ -36,9 +36,9 @@ def update_references(sota, information_id, references_mode):
             referencement.detail = ''
         sota.information[information_id].referencement_versions[-1] = []
     text = sota.build_text(-1, information_id, information_id)
-    references = extract_references(text)
-    for r in references:
-        add_reference(sota, sota.information[information_id], r['informationid'], r['position'])
+    # references = extract_references(text)
+    # for r in references:
+    #     add_reference(sota, sota.information[information_id], r['informationid'], r['position'])
 
 def bibliography(sota, information_id, contents, params):
     info = sota.information[information_id]

@@ -510,14 +510,14 @@ def translate(
     langage: Literal['en', 'fr']
     ) -> dict:
     logging.debug(f'Starting translation')
-    langage_cache = sota.configuration.language
-    sota.configuration.language = langage
+    langage_cache = sota.language
+    sota.language = langage
     last_minute_instructions = sota.t('', {'': {
         'en': 'Please translate this section in English. Make sure to preserve styling and references. If it is already in English, then just copy it verbatim without the slightest change.',
         'fr': 'Veuillez traduire cette section en français. Assurez-vous de préserver le style et les références. Si le texte est déjà en français, copiez-le tel quel sans le moindre changement.'
     }})
     result = complex_rewrite(sota, information_id, include_article=False, include_references=False, act_on_title=True, act_on_contents=True, last_minute_instructions=last_minute_instructions)
-    sota.configuration.language = langage_cache
+    sota.language = langage_cache
     return result
 
 def make_longer(

@@ -119,6 +119,7 @@ class Language(Enum):
     fr = 'fr'
     en = 'en'
     us = 'us'
+    gb = 'gb'
         
 class SOTA(BaseModel):
     title              : VersionedText      = Field(..., description = "Document title")
@@ -147,7 +148,7 @@ class SOTA(BaseModel):
     
     def t(self, key : str, translations: dict = None) -> str:
         translations = translations if translations else self.translations
-        lang = self.language.value
+        lang = self.language
         if lang == 'us':
             lang = 'en'
         return translations[key].get(lang, translations[key]['en'])
@@ -189,7 +190,7 @@ class SOTA(BaseModel):
     def get_leaf_children(self : 'SOTA', information_id : int, version_list : List[int]) -> List[int]:
         last = self.get_last(self.information[information_id].versions, version_list)
         if VersionedInformation.get_class_name(last) == 'Sections':
-            return [_ for _ignore, __ in last.sections for _ in self.get_leaf_children(__, version_list)]
+            return [_ for __ in last.sections for _ in self.get_leaf_children(__, version_list)]
         elif VersionedInformation.get_class_name(last) == 'PlaceHolder':
             return []
         return [information_id]
@@ -296,7 +297,7 @@ class SOTA(BaseModel):
         elif info.get_class_name(latest_content) == 'PlaceHolder':
             content = ''
         elif info.get_class_name(latest_content) == 'Sections':
-            content = '\n\n'.join([self.build_text(version, subsection_id, focused_information_id = focused_information_id, depth = depth + 1) for _, subsection_id in latest_content.sections])
+            content = '\n\n'.join([self.build_text(version, subsection_id, focused_information_id = focused_information_id, depth = depth + 1) for subsection_id in latest_content.sections])
         # 4. Get the latest version of the annotations
         if focused_information_id == information_id:
             if info.annotations is None:
@@ -338,14 +339,13 @@ class SOTA(BaseModel):
         for information_id in leaf_nodes:
             info = self.information[information_id]
             # Extract in-text references from the built text.
-            intext_references = extract_references(self.build_text(information_id=information_id))
             versions_list = self.versions_list(-1)
             structure_references = SOTA.get_last(info.referencement_versions, versions_list) or []
             structure_references = [info.referencements[_] for _ in structure_references]
             structure_references = [{'informationid': ref.information_id, 'position': _.strip()} for ref in structure_references for _ in (ref.detail + ',').split(',')]
             
             # Combine both extracted and structured references, filtering out duplicates and empty positions.
-            all_references = intext_references + structure_references
+            all_references = structure_references
             all_information_ids = list(set([_['informationid'] for _ in all_references]))
             references = []
             found_pairs = set()
