@@ -72,8 +72,8 @@ def get_json_schema(sota : SOTA,
         'fr': 'Attentes de la section à la fois en termes de contenu et de formatage. Réécrivez ces attentes, en html tel que spécifié par les instructions de format HTML. Vous pouvez faire référence aux références ici, mettre des puces, formater le texte, etc. Fondamentalement la même chose que html_content.'
         }})
     html_content_description = sota.t('', {'': {
-        'en': 'Section contents, formatted as per specified by the HTML format instructions above. Do NOT include either the section title, the expectations nor the comments in there.',
-        'fr': 'Contenu de la section, formaté comme spécifié par les instructions de format HTML ci-dessus. N\'incluez ni le titre de la section, ni les attentes, ni les commentaires.'
+        'en': 'Section contents, formatted as per specified by the HTML format instructions above. Do NOT re-include either the section title, the expectations nor the comments in there. I repeat. Do NOT repeat the title here, the machine will parse it from the "title" field. If you put it here too, it will appear twice.',
+        'fr': 'Contenu de la section, formaté comme spécifié par les instructions de format HTML ci-dessus. N\'incluez ni le titre de la section, ni les attentes, ni les commentaires. Je répète. Ne répétez pas le titre ici, la machine le parsèmera du champ "titre". Si vous le mettez ici aussi, il apparaîtra deux fois.'
         }})
     html_a_posteriori_comment = sota.t('', {'': {
         'en': 'If you want to add a last a-posteriori comment, a feedback, hints at how to enhance this section or whatever, do it here, in html too, same as html_contents. You may also refer to references here, put bullet points, text formatting, etc. Basically the same as html_content.',
