@@ -99,7 +99,8 @@ class LUCARIO(BaseModel):
     def post_file(self, file_bytes: bytes, file_name: str):
         file_bytes_stream = BytesIO(file_bytes)
         files = {'file': file_bytes_stream}
-        headers = {'filename': file_name, 'key': self.project_id}
+        encoded_filename = quote(file_name)
+        headers = {'filename': encoded_filename, 'key': self.project_id}
         data = {'data': 'Uploaded from type.py - PIPELINES_STANDALONE'}
 
         with httpx.Client(timeout=60) as client:
