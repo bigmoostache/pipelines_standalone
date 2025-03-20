@@ -53,4 +53,4 @@ class Pipeline:
                 return 'Corrupted Or Locked PDF'
             else:
                 self.method = 'normal'
-                return self.call_without_wrap(pdf)
+                return self-__call__(pdf)
