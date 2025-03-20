@@ -48,7 +48,7 @@ class Pipeline:
     def __call__(self, pdf : PDF) -> str:
         try:
             return self.__call___without_wrap(pdf)
-        except KeyError as e:
+        except Exception as e:
             if self.method == 'normal':
                 return 'Corrupted Or Locked PDF'
             else:
