@@ -15,7 +15,7 @@ class Pipeline:
                  ):
         self.method = method
         self.surya_url = surya_url
-    def __call__(self, pdf : PDF) -> str:
+    def __call___without_wrap(self, pdf : PDF) -> str:
         if self.method == 'surya':
             form_data = {
                 'file': ('document.pdf', pdf.file_as_bytes, 'application/pdf'),
@@ -45,3 +45,12 @@ class Pipeline:
             for page in reader.pages:
                 text += page.extract_text()
             return text
+    def __call__(self, pdf : PDF) -> str:
+        try:
+            return self.__call___without_wrap(pdf)
+        except KeyError as e:
+            if self.method == 'normal':
+                return 'Corrupted Or Locked PDF'
+            else:
+                self.method = 'normal'
+                return self.__call___without_wrap(pdf)
