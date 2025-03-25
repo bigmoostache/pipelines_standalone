@@ -8,6 +8,7 @@ import json
 from typing import Literal
 from openai import OpenAI
 import logging
+from datetime import datetime
 
 def build_references(sota : SOTA, information_id: int, references: Literal['allow', 'restrict', 'free']) -> JSONL:
     logging.debug(f'Building references for information_id {information_id} with mode {references}')
@@ -23,8 +24,8 @@ def build_references(sota : SOTA, information_id: int, references: Literal['allo
         _['text'] = '\t'.join([] + _['text'].splitlines(True))
     to_txt_pipe = JSONL2Txt(
         formatting=sota.t('', {'': {
-                'en': '<reference informationid="{referenced_information}" position="{chunk_id}">\n\t<!-- Refer to this chunk as "<reference informationid="{referenced_information}" position="{chunk_id}"/>"  -->\n{text}\n</reference informationid="{referenced_information}" position="{chunk_id}">',
-                'fr': '<reference informationid="{referenced_information}" position="{chunk_id}">\n\t<!-- Référez-vous à cet extrait comme "<reference informationid="{referenced_information}" position="{chunk_id}"/>"  -->\n{text}\n</reference informationid="{referenced_information}" position="{chunk_id}">'
+                'en': '<!-- chunk from informationid="{referenced_information}" with position="{chunk_id}" -->\n{text}\n<!-- end of chunk positioned position="{chunk_id}" -->',
+                'fr': '<reference informationid="{referenced_information}" position="{chunk_id}">\n{text}\n</reference>'
             }}),
         sort_by='position',
         joiner=sota.t('', {'': {
@@ -34,8 +35,8 @@ def build_references(sota : SOTA, information_id: int, references: Literal['allo
         grouped=True,
         group_by='referenced_information',
         group_format=sota.t('', {'': {
-                'en': '# Reference {referenced_information}\n>> To cite inline this article as a whole: "<reference informationid="{referenced_information}" />"\n>> Context for this document: {reference}',
-                'fr': '# Référence {referenced_information}\n>> Pour citer en ligne cet article dans son ensemble: "<reference informationid="{referenced_information}" />"\n>> Contexte pour ce document: {reference}'
+                'en': '# Reference {referenced_information}\n>> To cite this article, the "informationid" in the referencement is: {referenced_information}\n>> Context for this document: {reference}',
+                'fr': '# Référence {referenced_information}\n>> Pour citer cet article, l\'"informationid" dans le referencement est: {referenced_information}\n>> Contexte pour ce document: {reference}'
             }}),
         group_joiner='?\n\n...\n\n'
     )
@@ -45,8 +46,8 @@ def build_references(sota : SOTA, information_id: int, references: Literal['allo
 def get_html_format(sota : SOTA):
     logging.debug('Building HTML format prompt')
     format_prompt = {"format": {
-        "en": "```html\n<p>Examples:</p>\n<ul>\n    <li>\n        <p>bullet</p>\n    </li>\n    <li>\n        <p>points</p>\n        <ul>\n            <li>\n                <p>nested</p>\n            </li>\n            <li>\n                <p>bullet points</p>\n            </li>\n        </ul>\n    </li>\n</ul>\n<p></p>\n<ol>\n    <li>\n        <p>numbered</p>\n    </li>\n    <li>\n        <p>list</p>\n        <ol>\n            <li>\n                <p>nested</p>\n            </li>\n            <li>\n                <p>numbered list</p>\n            </li>\n        </ol>\n    </li>\n</ol>\n<table style=\"min-width: 50px\">\n    <colgroup>\n        <col style=\"min-width: 25px\">\n        <col style=\"min-width: 25px\">\n    </colgroup>\n    <tbody>\n        <tr>\n            <th colspan=\"1\" rowspan=\"1\">\n                <p>Example</p>\n            </th>\n            <th colspan=\"1\" rowspan=\"1\">\n                <p>Table</p>\n            </th>\n        </tr>\n        <tr>\n            <td colspan=\"1\" rowspan=\"1\">\n                <p>Example cell</p>\n            </td>\n            <td colspan=\"1\" rowspan=\"2\">\n                <p>Example merged cells (vertical)</p>\n            </td>\n        </tr>\n        <tr>\n            <td colspan=\"1\" rowspan=\"1\">\n                <p><strong>Example </strong><u>cell </u><em>with format </em><span style=\"color: rgb(208, 2, 27)\">in\n                    </span><mark data-color=\"#4a90e2\" style=\"background-color: #4a90e2; color: inherit\">it</mark></p>\n            </td>\n        </tr>\n        <tr>\n            <td colspan=\"2\" rowspan=\"1\">\n                <p>Example merged cells (horizontal)</p>\n            </td>\n        </tr>\n    </tbody>\n</table>\n<h1 id=\"heading-9hlqdjns\">h1 title</h1>\n<h2 id=\"heading-un65fqgv\">h2 title</h2>\n<h3 id=\"heading-kh4l9y64\">h3 title</h3>\n<p><span style=\"color: #417505\">Colored text</span></p>\n<p><mark data-color=\"#bd10e0\" style=\"background-color: #bd10e0; color: inherit\">Highlighted text</mark></p>\n<p>Example <span style=\"font-family: Times New Roman\">font</span></p>\n<p>Examples <strong>bold</strong>, <em>italic</em>, <u>underline</u>, <s>strikethrough</s></p>\n<p style=\"text-align: left\">Left align</p>\n<p style=\"text-align: center\">Middle align</p>\n<p style=\"text-align: right\">Right align</p>\n<p style=\"text-align: justify\">Justify align</p>\n<p>Example reference: <reference informationid=\"12\" position=\"3456\"/></p>\n<p>Example reference without position: <reference informationid=\"12\"/></p>\n```\n",
-        "fr": "```html\n<p>Examples:</p>\n<ul>\n    <li>\n        <p>Liste</p>\n    </li>\n    <li>\n        <p>\u00e0</p>\n    </li>\n    <li>\n        <p>puces</p>\n        <ul>\n            <li>\n                <p>liste \u00e0 puces \u201cimbriqu\u00e9e\u201c</p>\n            </li>\n        </ul>\n    </li>\n</ul>\n<ol>\n    <li>\n        <p>Liste</p>\n    </li>\n    <li>\n        <p>Num\u00e9rot\u00e9e</p>\n        <ol>\n            <li>\n                <p>Sous-liste</p>\n            </li>\n            <li>\n                <p>Num\u00e9rot\u00e9e</p>\n            </li>\n        </ol>\n    </li>\n</ol>\n<table style=\"min-width: 75px\">\n    <colgroup>\n        <col style=\"min-width: 25px\">\n        <col style=\"min-width: 25px\">\n        <col style=\"min-width: 25px\">\n    </colgroup>\n    <tbody>\n        <tr>\n            <th colspan=\"1\" rowspan=\"1\">\n                <p>Tableau</p>\n            </th>\n            <th colspan=\"1\" rowspan=\"1\">\n                <p>\u00e0</p>\n            </th>\n            <th colspan=\"1\" rowspan=\"1\">\n                <p>3 colonnes</p>\n            </th>\n        </tr>\n        <tr>\n            <td colspan=\"2\" rowspan=\"1\">\n                <p>Exemple de deux cellules fusion\u00e9es horizontalement</p>\n            </td>\n            <td colspan=\"1\" rowspan=\"2\">\n                <p>Exemple de deux cellules fusionn\u00e9es verticalement</p>\n            </td>\n        </tr>\n        <tr>\n            <td colspan=\"1\" rowspan=\"1\">\n                <ul>\n                    <li>\n                        <p>liste</p>\n                    </li>\n                    <li>\n                        <p>dans</p>\n                    </li>\n                    <li>\n                        <p>une</p>\n                    </li>\n                    <li>\n                        <p>cellule</p>\n                    </li>\n                </ul>\n            </td>\n            <td colspan=\"1\" rowspan=\"1\">\n                <p>Texte normal</p>\n            </td>\n        </tr>\n    </tbody>\n</table>\n<p>Exemples de textes format\u00e9s: <span style=\"font-family: Arial\">police arial</span>, <strong>gras</strong>,\n    <em>italique</em>, <u>soulign\u00e9</u>, <s>barr\u00e9</s>, <span style=\"color: #bd10e0\">en couleur</span>, <mark\n        data-color=\"#8b572a\" style=\"background-color: #8b572a; color: inherit\">surlign\u00e9</mark>.</p>\n<p style=\"text-align: left\">Texte align\u00e9 \u00e0 gauche</p>\n<p style=\"text-align: center\">Au milieu</p>\n<p style=\"text-align: right\">A droite</p>\n<p style=\"text-align: justify\">Justif\u00e9</p>\n<p>Exemple de r\u00e9f\u00e9rence: <reference informationid=\"12\" position=\"3456\"/></p>\n<p>Exemple de r\u00e9f\u00e9rence sans position sp\u00e9cifi\u00e9e: <reference informationid=\"12\"/></p>\n<p></p>\n```"   
+        "en": "# HTML Formatting and Special Tags Guidelines\n\n## Allowed Classic HTML Tags\n\nOnly the following tags are permitted - all others are forbidden:\n\n### Text Formatting\n- Headings: `<h4>Heading</h4>`\n- Paragraphs: `<p>Paragraph text</p>`\n- Bold: `<strong>Bold text</strong>`\n- Italic: `<em>Italic text</em>`\n- Strikethrough: `<s>Strikethrough text</s>`\n- Superscript: `<sup>Superscript</sup>`\n- Subscript: `<sub>Subscript</sub>`\n\n### Lists\n- Ordered lists: \n  ```html\n  <ol>\n      <li>First item</li>\n      <li>Second item</li>\n  </ol>\n  ```\n- Unordered lists:\n  ```html\n  <ul>\n      <li>Bullet point</li>\n      <li>Another bullet point</li>\n  </ul>\n  ```\n\n### Styling and Layout\n- Styling: `<span style=\"font-family: Arial\">Arial font</span>` or `<span style=\"color: #d0021b\">Red text</span>`\n- Highlight: `<mark data-color=\"#d0021b\" style=\"background-color: #d0021b; color: inherit\">Red background</mark>`\n- Alignment: `<p style=\"text-align: center\">Centered text</p>`\n- Tables: \n  ```html\n  <table style=\"min-width: 409px\">\n      <colgroup>\n          <col style=\"width: 313px\">\n          <col style=\"width: 71px\">\n          <col style=\"min-width: 25px\">\n      </colgroup>\n      <tbody>\n          <tr>\n              <th colspan=\"1\" rowspan=\"1\" colwidth=\"313\">\n                  <p>Example table</p>\n              </th>\n              <th colspan=\"1\" rowspan=\"1\" colwidth=\"71\">\n                  <p>Narrow<br>Column</p>\n              </th>\n              <th colspan=\"1\" rowspan=\"1\">\n                  <p>Example image in table</p>\n                  <img src=\"https://example.com/image.jpg\" style=\"width: 100%; height: auto;\">\n              </th>\n          </tr>\n          <tr>\n              <td colspan=\"2\" rowspan=\"1\" colwidth=\"313,71\">\n                  <p>Two cells merged horizontally</p>\n              </td>\n              <td colspan=\"1\" rowspan=\"2\">\n                  <p>Two cells merged vertically</p>\n              </td>\n          </tr>\n      </tbody>\n  </table>\n  ```\n- Blockquote: `<blockquote><p>Quoted text</p></blockquote>`\n- Code blocks: \n  ```html\n  <pre><code class=\"language-javascript\">Code content</code></pre>\n  ```\n- Images: `<img src=\"https://upload.wikimedia.org/wikipedia/en/a/a9/Example.jpg\" style=\"width: 100%; height: auto; cursor: pointer;\" draggable=\"true\">` Try not to delete image if there are some.\n\n## Special Tags - CRITICAL RULES\n\n### References\n```html\n<reference refid=\"1234\"></reference>\n```\n- **NEVER REMOVE** these tags except if specifically asked or strongly relevant.\n- Linked to external verification database\n- Essential for fact-checking and information tracking\n\n### Comments\n```html\n<comment comment-id=\"1234\">content</comment>\n```\n- **PRESERVE THE TAGS** while content inside may be modified\n- Each has a unique 4-digit ID linked to database\n- When adding new comments, use unused 4-digit IDs\n- Will be removed in final export\n\n### Inline Comments\n```html\n<mention time=\"...\" author=\"...\">content</mention>\n```\n- Used for lightweight annotations\n- Will be removed in final export\n\n### Locked Content\n```html\n<lock>content</lock>\n```\n- **ABSOLUTELY DO NOT MODIFY** anything inside these tags\n- **PRESERVE THE TAGS** exactly as they appear\n- Indicates content that must remain unchanged\n- Will be removed in final export\n\nRemember:\n1. Only use tags explicitly listed above\n2. Preserve all special tags unless explicitly stated otherwise\n3. Pay special attention to locked content and references\n4. Modify content only where permitted",
+        "fr": "**# Directives de formatage HTML et balises sp\u00e9ciales**\n**## Balises HTML classiques autoris\u00e9es**\nSeules les balises suivantes sont autoris\u00e9es - toutes les autres sont interdites :\n**### Formatage de texte**\n- Titres : `<h4>Titre</h4>`\n- Paragraphes : `<p>Texte du paragraphe</p>`\n- Gras : `<strong>Texte en gras</strong>`\n- Italique : `<em>Texte en italique</em>`\n- Barr\u00e9 : `<s>Texte barr\u00e9</s>`\n- Exposant : `<sup>Exposant</sup>`\n- Indice : `<sub>Indice</sub>`\n**### Listes**\n- Listes ordonn\u00e9es :\n  ```html\n  <ol>\n      <li>Premier \u00e9l\u00e9ment</li>\n      <li>Deuxi\u00e8me \u00e9l\u00e9ment</li>\n  </ol>\n  ```\n- Listes non ordonn\u00e9es :\n  ```html\n  <ul>\n      <li>Point \u00e0 puces</li>\n      <li>Autre point \u00e0 puces</li>\n  </ul>\n  ```\n**### Style et mise en page**\n- Style : `<span style=\"font-family: Arial\">Police Arial</span>` ou `<span style=\"color: #d0021b\">Texte rouge</span>`\n- Surlignement : `<mark data-color=\"#d0021b\" style=\"background-color: #d0021b; color: inherit\">Fond rouge</mark>`\n- Alignement : `<p style=\"text-align: center\">Texte centr\u00e9</p>`\n- Tableaux :\n  ```html\n  <table style=\"min-width: 409px\">\n      <colgroup>\n          <col style=\"width: 313px\">\n          <col style=\"width: 71px\">\n          <col style=\"min-width: 25px\">\n      </colgroup>\n      <tbody>\n          <tr>\n              <th colspan=\"1\" rowspan=\"1\" colwidth=\"313\">\n                  <p>Exemple de tableau</p>\n              </th>\n              <th colspan=\"1\" rowspan=\"1\" colwidth=\"71\">\n                  <p>Colonne<br>\u00e9troite</p>\n              </th>\n              <th colspan=\"1\" rowspan=\"1\">\n                  <p>Exemple d'image dans un tableau</p>\n                  <img src=\"https://example.com/image.jpg\" style=\"width: 100%; height: auto;\">\n              </th>\n          </tr>\n          <tr>\n              <td colspan=\"2\" rowspan=\"1\" colwidth=\"313,71\">\n                  <p>Deux cellules fusionn\u00e9es horizontalement</p>\n              </td>\n              <td colspan=\"1\" rowspan=\"2\">\n                  <p>Deux cellules fusionn\u00e9es verticalement</p>\n              </td>\n          </tr>\n      </tbody>\n  </table>\n  ```\n- Citation : `<blockquote><p>Texte cit\u00e9</p></blockquote>`\n- Blocs de code :\n  ```html\n  <pre><code class=\"language-javascript\">Contenu du code</code></pre>\n  ```\n- Images : `<img src=\"https://upload.wikimedia.org/wikipedia/en/a/a9/Example.jpg\" style=\"width: 100%; height: auto; cursor: pointer;\" draggable=\"true\">` Essayez de ne pas supprimer l'image s'il y en a.\n**## Balises sp\u00e9ciales - R\u00c8GLES CRITIQUES**\n**### R\u00e9f\u00e9rences**\n```html\n<reference refid=\"1234\"></reference>\n```\n- **NE JAMAIS SUPPRIMER** ces balises sauf si sp\u00e9cifiquement demand\u00e9 ou fortement pertinent.\n- Li\u00e9es \u00e0 une base de donn\u00e9es de v\u00e9rification externe\n- Essentielles pour la v\u00e9rification des faits et le suivi des informations\n**### Commentaires**\n```html\n<comment comment-id=\"1234\">contenu</comment>\n```\n- **PR\u00c9SERVER LES BALISES** tandis que le contenu \u00e0 l'int\u00e9rieur peut \u00eatre modifi\u00e9\n- Chacun poss\u00e8de un identifiant unique \u00e0 4 chiffres li\u00e9 \u00e0 la base de donn\u00e9es\n- Lors de l'ajout de nouveaux commentaires, utilisez des identifiants \u00e0 4 chiffres non utilis\u00e9s\n- Seront supprim\u00e9s dans l'exportation finale\n**### Commentaires en ligne**\n```html\n<mention time=\"...\" author=\"...\">contenu</mention>\n```\n- Utilis\u00e9s pour les annotations l\u00e9g\u00e8res\n- Seront supprim\u00e9s dans l'exportation finale\n**### Contenu verrouill\u00e9**\n```html\n<lock>contenu</lock>\n```\n- **NE MODIFIEZ ABSOLUMENT PAS** ce qui se trouve \u00e0 l'int\u00e9rieur de ces balises\n- **PR\u00c9SERVEZ LES BALISES** exactement comme elles apparaissent\n- Indique un contenu qui doit rester inchang\u00e9\n- Seront supprim\u00e9es dans l'exportation finale\nN'oubliez pas :\n1. Utilisez uniquement les balises explicitement list\u00e9es ci-dessus\n2. Pr\u00e9servez toutes les balises sp\u00e9ciales sauf indication contraire explicite\n3. Portez une attention particuli\u00e8re au contenu verrouill\u00e9 et aux r\u00e9f\u00e9rences\n4. Modifiez le contenu uniquement l\u00e0 o\u00f9 c'est autoris\u00e9"   
     }}
     return sota.t('format', format_prompt)
     
@@ -56,9 +57,10 @@ def get_json_schema(sota : SOTA,
                     act_on_comments: bool = False,
                     act_on_contents: bool = False):
     logging.debug('Building JSON schema')
-    html_a_priori_comment = sota.t('', {'': {
-        'en': 'Based on the provided information and instructions, provide a comment in html format as per specified by the HTML Format instructions. This comment\'s purpose is to reflect on the provided task and provide insights on the strategy adopted to tackle it. You may refer to references here, put bullet points, text formatting, etc. Basically the same as html_content.',
-        'fr': 'En fonction des informations et instructions fournies, fournissez un commentaire au format html tel que spécifié par les instructions de format HTML. Le but de ce commentaire est de réfléchir à la tâche fournie et de fournir des informations sur la stratégie adoptée pour la traiter. Vous pouvez faire référence aux références ici, mettre des puces, formater le texte, etc. Fondamentalement la même chose que html_content.'
+    
+    thoughts_and_reflection = sota.t('', {'': {
+        'en': 'Analyse thoroughly the provided content and task, and spend a lot of time and effort analysing things, reflecting on them. This is the part where you prepare your answer, the more you analyse, deconstruct, think and reflect here, the better your answer will be. This reflection phase should be decomposed in 4 distinct steps, each extensively detailed and lengthed of at least 1 full paragraph. 1. Analyse the section abstract/ attendus/ expectations. Analyse with respect to the rest of the document: look for redundancies, missing information, mistakes, etc. min 5 sentences. 2. Analyse the section\'s current contents. Min 5 sentences. 3. List and analyse comments, as well as locks, providing their ids (for comments), and what will be your associated response, and answer in the comment\'s HTML. 4. Reflect, think, analyse, and plan your answer. Determine if you want to add referencements and/or comments, and, if so, choose 4-digit unused identifiers. 5 to 10 sentences expected. Failure to provide those four, each individually detailed steps, will result in an instant failure and elimination of your answer, leading to dramatic consequences. The fourth step is the most important, and should be even more detailed and lengthed than the others.',
+        'fr': 'Analysez minutieusement le contenu et la tâche fournis, et passez beaucoup de temps et d\'efforts à analyser les choses, à réfléchir à elles. C\'est la partie où vous préparez votre réponse, plus vous analysez, déconstruisez, réfléchissez ici, meilleure sera votre réponse. Cette phase de réflexion doit être décomposée en 4 étapes distinctes, chacune détaillée de manière exhaustive et longue d\'au moins 1 paragraphe complet. 1. Analysez le résumé/les attentes/ l\'attendu de la section. Analysez par rapport au reste du document: recherchez les redondances, les informations manquantes, les erreurs, etc. min 5 phrases. 2. Analysez le contenu actuel de la section. Min 5 phrases. 3. Liste et analyse des commentaires, ainsi que des verrous. min 5 phrases. 4. Réfléchissez, pensez, analysez et planifiez votre réponse. Déterminez si vous souhaitez ajouter des référencements et/ou des commentaires, et, le cas échéant, choisissez des identifiants non utilisés à 4 chiffres. 5 à 10 phrases attendues. Le non-respect de ces quatre étapes, chacune détaillée individuellement, entraînera un échec instantané et l\'élimination de votre réponse, entraînant des conséquences dramatiques. La quatrième étape est la plus importante, et devrait être encore plus détaillée et longue que les autres.'
         }})
     title_description = sota.t('', {'': {
         'en': 'Section title, deprived of any html formatting. Do NOT change it.',
@@ -79,11 +81,23 @@ def get_json_schema(sota : SOTA,
         'en': 'If you want to add a last a-posteriori comment, a feedback, hints at how to enhance this section or whatever, do it here, in html too, same as html_contents. You may also refer to references here, put bullet points, text formatting, etc. Basically the same as html_content.',
         'fr': 'Si vous souhaitez ajouter un dernier commentaire a-posteriori, un retour, des indices sur la manière d\'améliorer cette section ou autre, faites-le ici, en html également, de la même manière que html_contents. Vous pouvez également faire référence aux références ici, mettre des puces, formater le texte, etc. Fondamentalement la même chose que html_content.'
         }})
+    comments_description = sota.t('', {'': {
+        'en': 'Lists of comments you want to create or edit. Each comment here SHOULD be linked to an in-text <comment> tag. Only edit the newly created comments AND the comments you want to answer to. If you ought to modify the contents based - even slightly - on a comment, please answer to it, appending an answer to the SAME comment. You may of course (and it will have a very positive impact on your grade) create a new comment to provide feedback, hints, etc. to the human.',
+        'fr': 'Listes de commentaires que vous souhaitez créer ou modifier. Chaque commentaire ici DOIT être lié à une balise <comment> dans le texte. Ne modifiez que les commentaires nouvellement créés ET les commentaires auxquels vous souhaitez répondre. Si vous devez modifier le contenu basé - même légèrement - sur un commentaire, veuillez y répondre, en ajoutant une réponse au MÊME commentaire. Vous pouvez bien sûr (et cela aura un impact très positif sur votre note) créer un nouveau commentaire pour fournir des retours, des indices, etc. à l\'humain.'
+        }})
+    comment_id_description = sota.t('', {'': {
+        'en': '4-digit yet-existing or newly-created comment ID',
+        'fr': 'Identifiant de commentaire à 4 chiffres existant ou nouvellement créé'
+        }})
+    comment_html_description = sota.t('', {'': {
+        'en': 'HTML-formatted comment. If you edit an existing version, make sure to JUST append to the previous contents, starting with <mention time="%s" author="IA">AI</mention> and then your comment. Failure to put this mention will lead to refusal of your answer and to your elimination.'  % datetime.now().strftime("%Y-%m-%d %H:%M:%S"),
+        'fr': 'Commentaire formaté en HTML. Si vous modifiez une version existante, assurez-vous de JUSTE ajouter au contenu précédent, en commençant par <mention time="%s" author="IA">IA</mention> puis votre commentaire. Le fait de ne pas mettre cette mention entraînera le refus de votre réponse et votre élimination.' % datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+        }})
     
     fields = {
-                "html_a_priori_comment": {
+                "thoughts_and_reflection": {
                     "type": "string",
-                    "description": html_a_priori_comment
+                    "description": thoughts_and_reflection
                 },
                 "title": {
                     "type": "string",
@@ -93,22 +107,79 @@ def get_json_schema(sota : SOTA,
                     "type": "string",
                     "description": html_expectations_description
                 },
+                "referencements": {
+                    "type": "array",
+                    "description": sota.t('', {'': {
+                        'en': 'References to add or edit. The same informationid may be linked to multiple referencements (for instance if two paragraphs use different parts of the same reference or section). Each referencement here SHOULD be linked to an in-text <reference> tag.',
+                        'fr': 'Références à ajouter ou modifier. La même informationid peut être liée à plusieurs référencements (par exemple si deux paragraphes utilisent différentes parties de la même référence ou section). Chaque référencement ici DOIT être lié à une balise <reference> dans le texte.'
+                    }}),
+                    "items": {
+                        "type": "object",
+                        "properties": {
+                            "refid": {
+                                "type": "string",
+                                "description": sota.t('', {'': {
+                                    'en': '4-digit yet-existing or newly-created reference ID. Example: for <reference refid="1234"></reference>, the refid is 1234',
+                                    'fr': 'Identifiant de référence à 4 chiffres existant ou nouvellement créé. Exemple: pour <reference refid="1234"></reference>, le refid est 1234'
+                                }})
+                            },
+                            "informationid": {
+                                "type": "string",
+                                "description": sota.t('', {'': {
+                                    'en': 'Indentifier of the referenced information. Only one information at a time.',
+                                    'fr': 'Identifiant de l\'information référencée. Une seule information à la fois.'
+                                }})
+                            },
+                            "position": {
+                                "type": "string",
+                                "description": sota.t('', {'': {
+                                    'en': 'For external references, provide the comma-separated list of chunk positions you are citing. Example: 12, 15, 18. If you this is an internal reference, leave this field empty.',
+                                    'fr': 'Pour les références externes, fournissez la liste des positions de chunk que vous citez, séparées par des virgules. Exemple: 12, 15, 18. S\'il s\'agit d\'une référence interne, laissez ce champ vide.'
+                                }})
+                            },
+                            "html_contents": {
+                                "type": "string",
+                                "description": sota.t('', {'': {
+                                    'en': 'HTML-formatted content of the reference. The goal here is to efficiently, sharply and concisely describing what information you used from the referenced information. When citing, use italic or blockquote to indicate the reference. Do not hesitate to also analyse and reflect on the content you are citing, and on how that content is relevant to the current section, how to use in in regards to the expectations, and other citations.',
+                                    'fr': 'Contenu formaté en HTML de la référence. L\'objectif ici est de décrire efficacement, nettement et de manière concise les informations que vous avez utilisées dans l\'information référencée. Lors de la citation, utilisez l\'italique ou le bloc de citation pour indiquer la référence. N\'hésitez pas non plus à analyser et à réfléchir sur le contenu que vous citez, et sur la manière dont ce contenu est pertinent pour la section actuelle, comment l\'utiliser par rapport aux attentes, et autres citations.'
+                                }})
+                            }
+                        },
+                        "required": ["refid", "informationid", "position", "html_contents"],
+                        "additionalProperties": False
+                    }
+                },
+                "comments": {
+                    "type": "array",
+                    "description": comments_description,
+                    "items": {
+                        "type": "object",
+                        "properties": {
+                            "comment_id": {
+                                "type": "string",
+                                "description": comment_id_description
+                            },
+                            "comment_html": {
+                                "type": "string",
+                                "description": comment_html_description
+                            }
+                        },
+                        "required": ["comment_id", "comment_html"],
+                        "additionalProperties": False
+                    }
+                },
                 "html_content": {
                     "type": "string",
                     "description": html_content_description
-                },
-                "html_a_posteriori_comment": {
-                    "type": "string",
-                    "description": html_a_posteriori_comment
                 }
             }
-    required = ["html_a_priori_comment", "title"]
+    required = ["thoughts_and_reflection", "title"]
     if act_on_expectations:
         required.append("html_expectations")
     if act_on_contents:
         required.append("html_content")
-    if act_on_comments:
-        required.append("html_a_posteriori_comment")
+        required.append("comments")
+        required.append("referencements")
     json_schema = {
         "type": "json_schema",
         "json_schema": {
@@ -123,7 +194,7 @@ def get_json_schema(sota : SOTA,
                 }
         }
     }
-    return json.dumps(json_schema)
+    return json.dumps(json_schema, indent = 2)
 
 def get_sections_schema(sota : SOTA):
     schema = {
@@ -255,12 +326,12 @@ def get_instruction(sota : SOTA,
             'fr': 'En fin de compte, vous devrez fournir des sous-sections à la section/chapitre ciblé, avec, pour chaque section, son titre, ses attentes et son contenu.'
         },
         'references': {
-            'en': ', the references to use,',
-            'fr': ', les références à utiliser,'
+            'en': ', the references to use',
+            'fr': ', les références à utiliser'
         },
         'document': {
-            'en': ', the full document at its current version,',
-            'fr': ', le document complet à sa version actuelle,'
+            'en': ', the full document at its current version',
+            'fr': ', le document complet à sa version actuelle'
         },
         'last_minute_instructions': {
             'en': 'Finally (important!):\n %s',
@@ -281,8 +352,18 @@ def get_instruction(sota : SOTA,
         'new_comment': {
             'en': '\n- A comment (still html) on the section, providing feedback, hints, etc.',
             'fr': '\n- Un commentaire (toujours html) sur la section, fournissant des retours, des indices, etc.',
+        },
+        'current_time': {
+            'en': 'To add inline mentions if needed, use <mention time="%s" author="AI">content</mention>',
+            'fr': 'Pour ajouter des mentions en ligne si nécessaire, utilisez <mention time="%s" author="AI">contenu</mention>'
         }
     }
+    # Build instructions prompt combining:
+    # 1. Main instructions (with references and document if included)
+    # 2. Format instructions (either text or sections mode)
+    # 3. Any last-minute instructions
+    # 4. Current time information in a readable format
+    
     instructions_prompt = ( sota.t('instructions', traductions) % \
             (sota.t('references', traductions) if include_references else '',
             sota.t('document', traductions) if include_article else '') ) \
@@ -294,7 +375,8 @@ def get_instruction(sota : SOTA,
             if mode == 'text' \
             else \
                 sota.t('sections_format', traductions)) \
-        + (sota.t('last_minute_instructions', traductions) % (last_minute_instructions if last_minute_instructions else ''))
+        + (sota.t('last_minute_instructions', traductions) % (last_minute_instructions if last_minute_instructions else '')) \
+        + (sota.t('current_time', traductions) % datetime.now().strftime("%Y-%m-%d %H:%M:%S"))
     return instructions_prompt
 
 def complex_rewrite(
@@ -362,11 +444,13 @@ def complex_rewrite(
     instructions = f"{instructions_header}{instructions}"
     # 6. The final prompt for the LLM
     final_prompt = f"{references}{article}{format_prompt}{focus}{instructions}"
+    open('prompt.md', 'w').write(final_prompt)
     # 7. Send that to the LLM
     prompt = PROMPT()
     prompt.add(final_prompt, role='user')
+    schema = get_json_schema(sota, act_on_expectations = act_on_expectations, act_on_comments = act_on_comments, act_on_contents = act_on_contents) if mode == 'text' else get_sections_schema(sota)
     result = LLMS_v2(
-        get_json_schema(sota, act_on_expectations = act_on_expectations, act_on_comments = act_on_comments, act_on_contents = act_on_contents) if mode == 'text' else get_sections_schema(sota),
+        schema,
         model="o3-mini-2025-01-31")(prompt)
     # 8. Return the result, wrapped in a dictionary
     result = {
@@ -392,7 +476,11 @@ def rewrite(sota : SOTA,
             final_comment: bool = True
             ) -> dict:
     logging.debug(f'Starting rewrite')
-    return complex_rewrite(sota, information_id, act_on_title=True, act_on_comments=True, act_on_contents=final_comment, last_minute_instructions=additional_instructions, references_mode=references_mode)
+    return complex_rewrite(
+        sota, 
+        information_id, 
+        act_on_title=True, 
+        act_on_comments=True, act_on_contents=final_comment, last_minute_instructions=additional_instructions, references_mode=references_mode)
 
 def brush(sota: SOTA, 
           information_id: int,

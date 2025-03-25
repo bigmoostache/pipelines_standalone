@@ -143,7 +143,7 @@ class SOTA(BaseModel):
         'comment': {'fr': 'Commentaire', 'en': 'Comment'},
         'start': {'en': 'START OF FOCUS', 'fr': 'DEBUT DU FOCUS'},
         'end': {'en': 'END OF FOCUS', 'fr': 'FIN DU FOCUS'},
-        'expectations': {'en': 'Expectations in substance and form', 'fr': 'Attentes en fond et en forme'},
+        'expectations': {'en': 'Attendus', 'fr': 'Expectations'},
     }
     
     def t(self, key : str, translations: dict = None) -> str:
@@ -302,18 +302,59 @@ class SOTA(BaseModel):
         if focused_information_id == information_id:
             if info.annotations is None:
                 info.annotations = {}
-            annotations = get_last(info.active_annotations)
-            annotations = annotations if annotations else []
+            annotation_ids = get_last(info.active_annotations)
+            annotations = annotation_ids if annotation_ids else []
             annotations = [get_last(info.annotations[_].versions) for _ in annotations]
-            annotations = '\n'.join([f'<!--\n{self.t("comment")} n°{i+1} - {annotation}\n-->' for i, annotation in enumerate(annotations)]) + '\n'
+            annotations = [
+                {
+                    'comment-id': comment_id,
+                    'comment_html': comment
+                }
+                for comment_id, comment in zip(annotation_ids, annotations)
+            ]
+            annotations = json.dumps(annotations, indent=2)
+            desc = self.t('', {'':{
+                'en': 'Comments for the focused version',
+                'fr': 'Commentaires pour la version focalisée'
+            }})
+            annotations = f'\n<!-- {desc}:\n{annotations}\n-->\n\n\n'
+        
+            referencements = get_last(info.referencement_versions)
+            referencements_ids = referencements if referencements else []
+            referencements = [info.referencements[_] for _ in referencements_ids]
+            referencements = { 'referencements': [
+                {
+                    'refid': refid,
+                    'informationid': ref.information_id,
+                    'position': ref.detail,
+                    'html_contents': ref.analysis
+                }
+                for refid, ref in zip(referencements_ids, referencements)
+            ]}
+            referencements = json.dumps(referencements, indent=2)
+            desc = self.t('', {'':{
+                'en': 'References for the focused version',
+                'fr': 'Références pour la version focalisée'
+            }})
+            referencements = f'\n<!-- {desc}:\n{referencements}\n-->\n\n\n'
+            
         else:
             annotations = ''
+            referencements = ''
         # 5. Build the text
         start = f'<!-- >>>>>>>>>>>>>>>> {self.t("start")} -->\n' if focused_information_id == information_id else ''
         end = f'<!-- <<<<<<<<<<<<<<<< {self.t("end")} -->\n' if focused_information_id == information_id else ''
-        abstract = f'<!--\n{self.t("expectations")} - {abstract}\n-->\n' if abstract else ''
-        title = f'<h{depth+1}>{title}</h{depth+1}>\n' if title else ''
-        text = f'{start}{title}{abstract}{content}{annotations}{end}'
+        abstract = {'informationid':information_id, 'html_expectations': abstract} if abstract else {}
+        abstract = json.dumps(abstract, indent=2) if abstract else ''
+        desc = self.t('', {'':{
+            'en': 'informationid and Expectations for the focused version',
+            'fr': 'informationid et Attendus pour la version focalisée'
+        }
+        })
+        
+        abstract = f'\n<!--\n{desc} - {abstract}\n-->\n' if abstract else ''
+        title = title if title else ''
+        text = f'{start}{referencements}{title}{abstract}{content}{annotations}{end}'
         # 6. Return the text with the correct prefix to indicate the focus
         prefix1 = '>>>' if focused_information_id == information_id else ''
         prefix2 = '\t' if depth > 0 else ''
