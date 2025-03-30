@@ -1,44 +1,25 @@
 from custom_types.SOTA.type import SOTA, VersionedInformation, VersionedText, Sections, Referencement, extract_references
+from pipelines.CUSTOM_TYPES.SOTA.call import text_pipelines, sections_pipelines
 from typing import List
 import json
-from pipelines.CUSTOM_TYPES.SOTA.call import text_pipelines, sections_pipelines
+from bs4 import BeautifulSoup, NavigableString
+import re
 
-def add_reference(sota, information, reference_id, chunk_id: int = None):
-    versions = sota.versions_list(-1)
-    reference_id_to_reference_id = {r.information_id:i for i,r in information.referencements.items()}
-    if reference_id not in reference_id_to_reference_id:
-        new_local_ref_id = SOTA.get_new_id(information.referencements)
-        information.referencements[new_local_ref_id] = Referencement(
-            information_id=reference_id,
-            detail=str(chunk_id) if chunk_id is not None else '',
-            analysis=''
-        )
-        reference_list = sota.get_last(information.referencement_versions, versions)
-        reference_list = reference_list if reference_list else []
-        reference_list.append(new_local_ref_id)
-        information.referencement_versions[-1] = reference_list
-    else:
-        reference_list = sota.get_last(information.referencement_versions, versions)
-        if reference_id_to_reference_id[reference_id] not in reference_list:
-            reference_list.append(reference_id_to_reference_id[reference_id])
-            information.referencement_versions[-1] = reference_list
-        referencement = information.referencements[reference_id_to_reference_id[reference_id]]
-        if str(chunk_id) not in referencement.detail.split(','):
-            referencement = information.referencements[reference_id_to_reference_id[reference_id]]
-            referencement.detail = str(chunk_id) if not referencement.detail else referencement.detail + f",{chunk_id}"
-            information.referencements[reference_id_to_reference_id[reference_id]] = referencement
-
-def update_references(sota, information_id, references_mode):
-    if references_mode == 'restrict': # No changing of references
-        return
-    elif references_mode == 'free': # Reset
-        for referencement in sota.information[information_id].referencements.values():
-            referencement.detail = ''
-        sota.information[information_id].referencement_versions[-1] = []
-    text = sota.build_text(-1, information_id, information_id)
-    # references = extract_references(text)
-    # for r in references:
-    #     add_reference(sota, sota.information[information_id], r['informationid'], r['position'])
+def remove_first_heading(html_string):
+  if not html_string or not html_string.strip():
+      return html_string
+  soup = BeautifulSoup(html_string, 'html.parser')
+  first_tag = None
+  for element in soup.contents:
+        # isinstance check is more robust than .find(True) if the root contains multiple items
+        if not isinstance(element, NavigableString) and element.name:
+            first_tag = element
+            break # Found the first tag
+  if first_tag and re.match(r'^h[1-6]$', first_tag.name):
+        first_tag.decompose()
+        return str(soup)
+  else:
+    return str(soup)
 
 def bibliography(sota, information_id, contents, params):
     info = sota.information[information_id]
@@ -61,14 +42,38 @@ def text(sota, information_id, contents, params):
     if params['act_on_contents']:
         info.versions[-1] = contents['html_content']
     if params['act_on_comments']:
-        new_contents_id = SOTA.get_new_id(info.annotations)
-        info.annotations[new_contents_id] = VersionedText(versions={-1: contents['html_a_posteriori_comment']})
-        versions = sota.versions_list(-1)
-        active_annotations = sota.get_last(info.active_annotations, versions)
-        active_annotations = active_annotations if active_annotations else []
-        active_annotations.append(new_contents_id)
-        info.active_annotations[-1] = active_annotations
-    update_references(sota, information_id, params['references_mode'])
+        for comment in contents['comments']:
+            _id = int(comment['comment_id'])
+            if _id not in info.annotations:
+                info.annotations[_id] = VersionedText(versions={-1: comment['comment_html']})
+                versions = sota.versions_list(-1)
+                active_annotations = sota.get_last(info.active_annotations, versions)
+                active_annotations = active_annotations if active_annotations else []
+                active_annotations.append(_id)
+                info.active_annotations[-1] = active_annotations
+            else:
+                info.annotations[_id].versions[-1] = comment['comment_html']
+                versions = sota.versions_list(-1)
+                active_annotations = sota.get_last(info.active_annotations, versions)
+                active_annotations = active_annotations if active_annotations else []
+                if _id not in active_annotations:
+                    active_annotations.append(_id)
+                    info.active_annotations[-1] = active_annotations
+
+    if contents.get('referencements', None) is not None:
+        for reference in contents['referencements']:
+            refid, informationid, position, html_contents = int(reference['refid']), int(reference['informationid']), reference['position'], reference['html_contents']
+            if refid not in info.referencements:
+                sota.information[informationid].referencements[refid] = Referencement(
+                    information_id=informationid,
+                    detail=str(position),
+                    analysis=html_contents
+                )
+            referencement_versions = sota.get_last(sota.information[informationid].referencement_versions, sota.versions_list(-1))
+            if refid not in referencement_versions:
+                referencement_versions = referencement_versions if referencement_versions else []
+                referencement_versions.append(refid)
+                sota.information[informationid].referencement_versions[-1] = referencement_versions
     
 def sections(sota, information_id, contents, params):
     info = sota.information[information_id]
@@ -82,27 +87,9 @@ def sections(sota, information_id, contents, params):
         sota.information[new_section_id] = new_section
         infos_id.append(new_section_id)
     info.versions[-1] = Sections(sections=infos_id)
-    for new_section_id in infos_id:
-        update_references(sota, new_section_id[1], params['references_mode'])
     
-def add_references(sota, information_id, contents, params):
-    for reference in contents:
-        add_reference(sota, sota.information[reference['information_id']], reference['reference_id'], reference['chunk_id'])
-
 def not_found(sota, information_id, contents, params):
     raise ValueError(f"Action not found: {action}")
-
-def apply_change(sota, change):
-    information_id = change['information_id']
-    action = change['action']
-    contents = change['contents']
-    params = change['params']
-    {
-        'bibliography': bibliography, 
-        'text': text, 
-        'sections': sections, 
-        'add_references': add_references
-    }.get(action, not_found)(sota, information_id, contents, params)
 
 class Pipeline:
     def __init__(self):
@@ -112,5 +99,16 @@ class Pipeline:
             changes: List[dict]
             ) -> SOTA:
         for change in changes:
-            apply_change(sota, change)
+            {
+                'bibliography': bibliography, 
+                'text': text, 
+                'sections': sections
+            }.get(
+                change['action'], not_found
+            )(
+                sota, 
+                change['information_id'], 
+                change['contents'], 
+                change['params']
+            )
         return sota

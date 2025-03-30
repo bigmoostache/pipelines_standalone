@@ -337,7 +337,8 @@ class SOTA(BaseModel):
                 'fr': 'Références pour la version focalisée'
             }})
             referencements = f'\n<!-- {desc}:\n{referencements}\n-->\n\n\n'
-            
+            desc = self.t("", {"": {"en": "the title should not be re-included in the \'html_content\' field. use the \'title\' field for that. otherwise, there will be a doublon in the final document", "fr": "le titre ne doit pas être ré-inclus dans le champ \'html_content\'. utilisez le champ \'title\' pour cela. sinon, il y aura un doublon dans le document final"}})
+            title = f'{title} <!-- {desc} -->\n' if title else ''
         else:
             annotations = ''
             referencements = ''
