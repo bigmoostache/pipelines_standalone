@@ -1,4 +1,4 @@
-from pypdf import PdfReader
+from PyPDF2 import PdfReader
 import io, re
 
 class PDF:
@@ -23,8 +23,8 @@ class Converter:
         return f"File of {len(pdf.file_as_bytes)} bytes"
     @staticmethod
     def len(pdf : PDF) -> int:
-        # number of pages
-        return len(re.findall(rb'/Type\s*/Page>>', pdf.file_as_bytes))
+        reader = PdfReader(io.BytesIO(pdf.file_as_bytes))
+        return len(reader.pages)
 
 from custom_types.wrapper import TYPE
 wraped = TYPE(
