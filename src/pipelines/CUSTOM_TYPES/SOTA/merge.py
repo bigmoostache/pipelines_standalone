@@ -21,6 +21,14 @@ def remove_first_heading(html_string):
   else:
     return str(soup)
 
+def make_sure_mentions_start_with_arobas(html_string):
+    # custom tag <mention>'s contents should always start with @
+    soup = BeautifulSoup(html_string, 'html.parser')
+    for mention in soup.find_all('mention'):
+        if mention.string and not mention.string.startswith('@ '):
+            mention.string = '@ ' + mention.string
+    return str(soup)
+
 def bibliography(sota, information_id, contents, params):
     info = sota.information[information_id]
     version = sota.versions_list(-1)
@@ -40,19 +48,23 @@ def text(sota, information_id, contents, params):
     if params['act_on_expectations']:
         info.abstract.versions[-1] = contents['html_expectations']
     if params['act_on_contents']:
-        info.versions[-1] = contents['html_content']
+        c = contents['html_content']
+        c = make_sure_mentions_start_with_arobas(c)
+        info.versions[-1] = c
     if params['act_on_comments']:
         for comment in contents['comments']:
             _id = int(comment['comment_id'])
+            c = comment['comment_html']
+            c = make_sure_mentions_start_with_arobas(c)
             if _id not in info.annotations:
-                info.annotations[_id] = VersionedText(versions={-1: comment['comment_html']})
+                info.annotations[_id] = VersionedText(versions={-1: c})
                 versions = sota.versions_list(-1)
                 active_annotations = sota.get_last(info.active_annotations, versions)
                 active_annotations = active_annotations if active_annotations else []
                 active_annotations.append(_id)
                 info.active_annotations[-1] = active_annotations
             else:
-                info.annotations[_id].versions[-1] = comment['comment_html']
+                info.annotations[_id].versions[-1] = c
                 versions = sota.versions_list(-1)
                 active_annotations = sota.get_last(info.active_annotations, versions)
                 active_annotations = active_annotations if active_annotations else []
