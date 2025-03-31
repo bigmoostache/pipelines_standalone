@@ -112,3 +112,20 @@ wrapped = TYPE(
 - Keep your type stable: Do not frequently change fields or their meanings.
 - Ensure `from_bytes` and `to_bytes` are inverse operations.
 - Add the type to `converter.py` so the system knows how to handle it.
+
+
+
+# To build
+
+# Create and activate a virtual environment (optional but recommended)
+python -m venv venv
+source venv/bin/activate # On Windows: venv\Scripts\activate
+
+# Install the build tool
+pip install build
+
+# Navigate to your project's root directory (where pyproject.toml is)
+cd my_package_project
+
+# Run the build command
+python -m build

@@ -36,6 +36,43 @@ _allowed_inputs = {_.extension : list(set([_.extension] + [__.extension for __ i
 _ext_to_class = {_.extension:_.customclass for _ in all_types}
 _class_to_ext = {v:k for k,v in _ext_to_class.items()}
 all_types = {_.extension : _ for _ in all_types}
+def build_accepts():
+    accepts = {
+        type_name: {
+            type_name: lambda x: x
+        } for type_name in all_types.keys()
+    }
+
+    for type_name ,_type in all_types.items():
+        for destination_type, _func in _type.additional_converters.items():
+            accepts[type_name][destination_type] = _func
+            
+    def complete_tree():
+        found = False
+        to_add = []
+        for source, destination in accepts.items():
+            for destination_type, _func in destination.items():
+                for rec_destination, rec_func in accepts[destination_type].items():
+                    if rec_destination not in accepts[source]:
+                        conversion_func = lambda x: rec_func(_func(x))
+                        to_add.append((source, rec_destination, conversion_func))
+                        found = True
+        for source, destination, _func in to_add:
+            accepts[source][destination] = _func
+        return found
+    found = True
+    while found:
+        found = complete_tree()
+    to_from = {}
+    for k,v in accepts.items():
+        for kk in v.keys():
+            if kk not in to_from:
+                to_from[kk] = set([kk])
+            to_from[kk].add(k)
+    return accepts, to_from
+
+from_to, _allowed_inputs = build_accepts() # build the conversion tree
+_allowed_inputs = {k: list(v) for k,v in _allowed_inputs.items()}
 
 def get_converter(extension):
     extension = extension.lower().strip()
@@ -46,7 +83,7 @@ def get_visualiser(extension):
     return all_types[extension].visualiser
 
 def get_secondary_converter(source_ext, destination_ext):
-    return all_types[source_ext].additional_converters[destination_ext]
+    return from_to[source_ext][destination_ext]
 
 def CLASS_TO_EXT(X):
     multi = False
