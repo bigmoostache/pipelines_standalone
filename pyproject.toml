@@ -1,0 +1,64 @@
+# pyproject.toml
+
+[build-system]
+requires = ["setuptools>=78.1"] # Specifies the build backend (setuptools is common)
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "pipelines_standalone" # The distribution name (what users pip install)
+version = "0.1.0"       # Your package's version (use semantic versioning: MAJOR.MINOR.PATCH)
+authors = [
+  { name="Guillaume Draznieks", email="g.draznieks@gmail.com" },
+]
+description = "A short description of your package."
+readme = "README.md" # Specifies the file containing the long description
+requires-python = ">=3.10" # Minimum Python version required
+license = { text="MIT" } # Or use text = "MIT", etc. if not using a file
+classifiers = [
+    "Programming Language :: Python :: 3.10",
+    "License :: OSI Approved :: MIT License", # Choose your license
+    "Operating System :: OS Independent",
+    # Add more relevant classifiers from: https://pypi.org/classifiers/
+]
+
+dependencies = [
+    "bcrypt==3.2.0",
+    "langdetect==1.0.9",
+    "trafilatura",
+    "python-dotenv",
+    "python-secrets",
+    "prisma",
+    "aiofiles",
+    "openai",
+    "mysql-connector-python",
+    "scikit-learn==1.3.2",
+    "python-multipart",
+    "python-dateutil",
+    "openpyxl",
+    "pandas",
+    "regex",
+    "feedparser",
+    "scikit-learn",
+    "tldextract",
+    "markdown",
+    "markdown2",
+    "beautifulsoup4",
+    "pypdf==4.3.1",
+    "google-api-python-client",
+    "python-Levenshtein",
+    "lxml_html_clean",
+    "pdfkit",
+    "gnews==0.3.6",
+    "newspaper3k",
+    "XlsxWriter",
+    "tiktoken",
+    "pyyaml",
+    "pulp",
+    "langchain",
+    "langchain_openai",
+    "mistune==3.1.2",
+    "PyPDF2==3.0.1",
+]
+
+# [project.scripts]
+# command-name = "my_package_name.module1:main_function"

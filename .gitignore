@@ -13,3 +13,7 @@ src/c.json
 src/c.html
 src/test/*
 src/errors.txt
+*.egg
+*.egg-info
+*.tar.gz
+*.whl
