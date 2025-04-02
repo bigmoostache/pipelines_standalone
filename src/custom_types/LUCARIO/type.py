@@ -6,7 +6,7 @@ from urllib.parse import quote
 import json
 import requests
 from uuid import uuid4
-from time import sleep
+from time import sleep, time
 import os
 from io import BytesIO
 import httpx
@@ -122,6 +122,17 @@ class LUCARIO(BaseModel):
         response = [Document.parse_obj(_) for _ in response.json()]
         for document in response:
             self.add_document(document)
+            
+    def wait_for_pendings(self, max_wait: int = 200):
+        sleep(5)
+        t0 = time()
+        while True:
+            self.update()
+            if all([document.pipeline_status != PipelineStatus.pending for document in self.elements.values()]):
+                break
+            sleep(5)
+            if time() - t0 > max_wait:
+                raise ValueError('Timeout')
             
     def fetch_single(self, local_document_identifier, local_chunk_identifier) -> Document:
         response = requests.get(

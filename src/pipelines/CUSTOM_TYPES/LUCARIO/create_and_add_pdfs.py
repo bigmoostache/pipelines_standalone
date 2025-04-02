@@ -14,4 +14,5 @@ class Pipeline:
         for pdf in pdfs:
             l.post_file(pdf.file_as_bytes, pdf.file_name)
         l.update()
+        l.wait_for_pendings()
         return l 
