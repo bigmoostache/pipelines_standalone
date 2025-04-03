@@ -29,7 +29,7 @@ def extract_references(html):
     return results
 
 class VersionedText(BaseModel):
-    versions      : Dict[int, str] = Field(..., description = "version_id -> text value until next version. Key = None if modified but not stored in last version not saved yet")
+    versions      : Dict[int, Union[str, None]] = Field(..., description = "version_id -> text value until next version. Key = None if modified but not stored in last version not saved yet")
 
 class VersionedListVersionedText(BaseModel):
     entries       : Dict[int, VersionedText]
