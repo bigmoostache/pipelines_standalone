@@ -302,7 +302,7 @@ class SOTA(BaseModel):
         if focused_information_id == information_id:
             if info.annotations is None:
                 info.annotations = {}
-            annotation_ids = get_last(info.active_annotations)
+            annotation_ids = get_last(info.active_annotations) or []
             annotations = annotation_ids if annotation_ids else []
             annotations = [get_last(info.annotations[_].versions) for _ in annotations]
             annotations = [
