@@ -236,7 +236,7 @@ def get_json_schema(sota : SOTA,
                 {
                 "type": "object",
                 "properties": {k:v for k,v in fields.items() if k in required},
-                "required": required,
+                "required": list(set(required)),
                 "additionalProperties": False
                 }
         }
@@ -496,6 +496,7 @@ def complex_rewrite(
     prompt = PROMPT()
     prompt.add(final_prompt, role='user')
     schema = get_json_schema(sota, act_on_expectations = act_on_expectations, act_on_comments = act_on_comments, act_on_contents = act_on_contents) if mode == 'text' else get_sections_schema(sota)
+    open('schema.json', 'w').write(schema)
     result = LLMS_v2(
         schema,
         model="o3-mini-2025-01-31")(prompt)

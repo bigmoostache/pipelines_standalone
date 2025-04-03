@@ -17,3 +17,4 @@ src/errors.txt
 *.egg-info
 *.tar.gz
 *.whl
+src/schema.json
