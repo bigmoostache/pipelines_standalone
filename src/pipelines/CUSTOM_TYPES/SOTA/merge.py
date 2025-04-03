@@ -41,6 +41,20 @@ def bibliography(sota, information_id, contents, params):
     new_list.append(new_info_id)
     info.versions[-1] = Sections(sections=new_list)
 
+def make_sure_ref_exists_in_text(text, refid):
+    soup = BeautifulSoup(text, 'html.parser')
+    if soup.find('reference', {'refid': str(refid)}) is None:
+        new_ref = soup.new_tag('reference', refid=str(refid))
+        new_ref.string = f"Reference {refid}"
+        soup.append(new_ref)
+    return str(soup)
+def delete_ref(text, refid):
+    soup = BeautifulSoup(text, 'html.parser')
+    ref = soup.find('reference', {'refid': str(refid)})
+    if ref:
+        ref.decompose()
+    return str(soup)
+
 def text(sota, information_id, contents, params):
     info = sota.information[information_id]
     if params['act_on_title']:
@@ -51,6 +65,8 @@ def text(sota, information_id, contents, params):
         c = contents['html_content']
         c = make_sure_mentions_start_with_arobas(c)
         info.versions[-1] = c
+    versions = sota.versions_list(-1)
+    last_text = sota.get_last(info.versions, versions)
     if params['act_on_comments']:
         for comment in contents['comments']:
             _id = int(comment['comment_id'])
@@ -58,7 +74,6 @@ def text(sota, information_id, contents, params):
             c = make_sure_mentions_start_with_arobas(c)
             if _id not in info.annotations:
                 info.annotations[_id] = VersionedText(versions={-1: c})
-                versions = sota.versions_list(-1)
                 active_annotations = sota.get_last(info.active_annotations, versions)
                 active_annotations = active_annotations if active_annotations else []
                 active_annotations.append(_id)
@@ -74,7 +89,14 @@ def text(sota, information_id, contents, params):
 
     if contents.get('referencements', None) is not None:
         for reference in contents['referencements']:
-            refid, informationid, position, html_contents = int(reference['refid']), int(reference['informationid']), reference['position'], reference['html_contents']
+            try:
+                refid, informationid, position, html_contents = int(reference['refid']), int(reference['informationid']), reference['position'], reference['html_contents']
+            except ValueError:
+                continue
+            if informationid not in sota.information:
+                info.versions[-1] = delete_ref(last_text, refid)
+                last_text = info.versions[-1]
+                continue
             if refid not in info.referencements:
                 sota.information[informationid].referencements[refid] = Referencement(
                     information_id=informationid,
@@ -86,6 +108,8 @@ def text(sota, information_id, contents, params):
                 referencement_versions = referencement_versions if referencement_versions else []
                 referencement_versions.append(refid)
                 sota.information[informationid].referencement_versions[-1] = referencement_versions
+            info.versions[-1] = make_sure_ref_exists_in_text(last_text, refid)
+            last_text = info.versions[-1]
     
 def sections(sota, information_id, contents, params):
     info = sota.information[information_id]

@@ -83,8 +83,7 @@ class Pipeline:
             except Exception as e:
                 attempts += 1
                 if attempts >= self.retries:
-                    print(f"Maximum retries reached ({self.retries}). Returning empty dict.")
-                    return {}
+                    raise e
                 else:
                     print(f"Error encountered ({type(e).__name__}). Retrying {attempts}/{self.retries}... Details: {e}")
                     # Optionally, adjust parameters to prevent the error in next attempt
