@@ -19,3 +19,5 @@ src/errors.txt
 *.whl
 src/schema.json
 src/pipelines/CUSTOM_TYPES/SOTA/merge.py
+src/prompt.md
+src/res.json

@@ -108,6 +108,8 @@ def text(sota, information_id, contents, params):
                     detail=str(position),
                     analysis=html_contents
                 )
+            sota.information[information_id].referencements[refid].detail = str(position)
+            sota.information[information_id].referencements[refid].analysis = html_contents
             info.versions[-1] = make_sure_ref_exists_in_text(last_text, refid)
             last_text = info.versions[-1]
     # Finally, update referencement_versions to match the ones that appear in the text

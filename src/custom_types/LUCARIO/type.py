@@ -95,6 +95,7 @@ class LUCARIO(BaseModel):
     project_id: str = Field(..., description = 'The project id.')
     elements: Dict[int, Document] = Field({}, description = 'local_id -> Document')
     uuid_2_position: Dict[str, int] = Field({}, description = 'uuid -> local_id')
+    file_id_2_position: Dict[int, int] = Field({}, description = 'file_id -> local_id')
     
     def post_file(self, file_bytes: bytes, file_name: str):
         file_bytes_stream = BytesIO(file_bytes)
@@ -111,6 +112,7 @@ class LUCARIO(BaseModel):
     def update(self):
         self.elements = {}
         self.uuid_2_position = {}
+        self.file_id_2_position = {}
         headers = {
             'accept': 'application/json',
         }
@@ -150,7 +152,8 @@ class LUCARIO(BaseModel):
         assert document.local_document_identifier is not None, 'local_document_identifier is None'
         self.elements[document.local_document_identifier] = document
         self.uuid_2_position[document.file_uuid] = document.local_document_identifier
-            
+        self.file_id_2_position[document.file_id] = document.local_document_identifier
+        
     def anchored_top_k(self, 
                        queries: List[str], 
                        group_ids: List[int], 

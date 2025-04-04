@@ -1,7 +1,7 @@
 # ============================== References ==============================
 
-# Reference 1
->> To cite this article, the "informationid" in the referencement is: 1
+# Reference 3
+>> To cite this article, the "information_id" in the referencement is: information_id = 3
 >> Context for this document: {
   "title": "Ninety-day Complication Rate based on 532 Latarjet Procedures in Dutch Hospitals with Different Operation Volumes",
   "reference": "Alkaduhimi, H., Willigenburg, N. W., Wessel, R. N., Wolterbeek, N., Veen, E. J. D., Koorevaar, R. C. T., Willems, W. J., Nelissen, E. M., Sonneveld, H., Flikweert, P. E., Pasma, J. H., Visser, C. P. J., Meier, M. E., van den Borne, M. P. J., Dijkstra, A. J., Kraal, T., van Noort, A., Alta, T. D. W., Ga1ek-Aldridge, M. S., Floor, S., van den Bekerom, M. P. J., & Eygendaal, D. (2022). Ninety-day complication rate based on 532 Latarjet procedures in Dutch hospitals with different operation volumes. Journal of Shoulder and Elbow Surgery.",
@@ -40,7 +40,7 @@
     "Approval: Institutional review board approval was received from OLVG (no. WO 19.047)."
   ]
 }
-<!-- chunk from informationid="1" with position="3" -->
+<!-- chunk from informationid="3" with position="3" -->
 
 	# Ninety-day complication rate based on 532 Latarjet procedures in Dutch hospitals with different operation volumes 
 	
@@ -70,7 +70,7 @@
 
 ...
 
-<!-- chunk from informationid="1" with position="4" -->
+<!-- chunk from informationid="3" with position="4" -->
 
 	
 	<span id="page-0-10"></span>k Department of Orthopaedic Surgery, Flevoziekenhuis, Almere, The Netherlands 
@@ -102,7 +102,7 @@
 
 ...
 
-<!-- chunk from informationid="1" with position="5" -->
+<!-- chunk from informationid="3" with position="5" -->
 
 	
 	Conclusion: The 90-day complication rate after the Latarjet procedure was 10.9% and was higher in female patients than in male patients. Age, BMI, smoking, previous shoulder operations, type of fixation material, hospital volume, screw size, and operation time did not affect complication rates. We advise setting up a national registry to prevent under-reporting of complications. 
@@ -121,7 +121,7 @@
 
 ...
 
-<!-- chunk from informationid="1" with position="6" -->
+<!-- chunk from informationid="3" with position="6" -->
 
 	## Methods
 	
@@ -138,7 +138,7 @@
 
 ...
 
-<!-- chunk from informationid="1" with position="10" -->
+<!-- chunk from informationid="3" with position="10" -->
 
 	
 	<span id="page-2-1"></span>The study by Bokshan et al included the 30-day complication rate but not the 90-day complication rate. 
@@ -179,7 +179,7 @@
 
 ...
 
-<!-- chunk from informationid="1" with position="11" -->
+<!-- chunk from informationid="3" with position="11" -->
 
 	#### Statistical analysis
 	
@@ -195,7 +195,7 @@
 
 ...
 
-<!-- chunk from informationid="1" with position="13" -->
+<!-- chunk from informationid="3" with position="13" -->
 
 	| 3.0 mm         | 49 (9.6) | 3 (6.1)       | | | | 
 	| 3.2 mm         | 31 (6.1) | 4 (12.9)       | | | | 
@@ -236,7 +236,7 @@
 
 ...
 
-<!-- chunk from informationid="1" with position="14" -->
+<!-- chunk from informationid="3" with position="14" -->
 
 	## Discussion 
 	
@@ -271,7 +271,7 @@
 
 ...
 
-<!-- chunk from informationid="1" with position="15" -->
+<!-- chunk from informationid="3" with position="15" -->
 
 	
 	volumes of Latarjet procedures that are performed per surgeon (eg, in a high-volume hospital with many surgeons performing Latarjet procedures, it could be that surgeons do not perform the Latarjet procedure that often). An alternative could be to assess the effect of the volumes of shoulder instability surgery per surgeon or volumes of shoulder surgery per hospital or surgeon on complication rates. However, we did not have access to these data. Second, in our population, only male sex was associated with a decreased risk of complications. In previous literature, relevant factors affecting complication rates were surgeon experience, smoking, increased age, workers' compensation claim, and screw type and size.[2,](#page-6-8)[7](#page-6-9)[,18](#page-6-10) We do not have an explanation for this discrepancy. We speculate that the fact that male sex was less associated with complications is a result of hyperlaxity (female patients are more prone to have shoulder hyperlaxity, most likely because of higher levels of relaxin) and anatomic differences (female patients have a more oval-shaped glenoid)[.4](#page-6-23) Although the relaxin theory could explain the differences in recurrence rates, it does not provide an explanation for the other differences, (eg, nerve injury). Furthermore, the difference in the sample sizes between male patients and female patients hampers interpretation of the observed difference in complication rates. A more precise estimate of the difference between sexes requires a larger number of female patients. 
@@ -283,7 +283,7 @@
 
 ...
 
-<!-- chunk from informationid="1" with position="16" -->
+<!-- chunk from informationid="3" with position="16" -->
 
 	
 	Future studies should have a prospective design to ensure that milder complications are not missed. Furthermore, blinding of assessors was not possible because of the retrospective character of our study. The lack of blinding may lead to under-reporting of complications. For example, surgeons could be less prone to report on transient neuropathy owing to its self-limiting character. This issue cannot be solved by questioning patients retrospectively because of potential recall bias. In addition, the effect of complications on patient-reported outcomes and satisfaction should be studied. A milder complication might have an impact on rehabilitation and thus may affect patientreported outcomes and satisfaction. 
@@ -304,7 +304,7 @@
 
 ...
 
-<!-- chunk from informationid="1" with position="17" -->
+<!-- chunk from informationid="3" with position="17" -->
 
 	## <span id="page-6-7"></span>References 
 	
@@ -319,7 +319,7 @@
 
 ...
 
-<!-- chunk from informationid="1" with position="18" -->
+<!-- chunk from informationid="3" with position="18" -->
 
 	- <span id="page-6-5"></span>8. Griesser MJ, Harris JD, McCoy BW, Hussain WM, Jones MH, Bishop JY, et al. Complications and re-operations after Bristow-Latarjet shoulder stabilization: a systematic review. J Shoulder Elbow Surg 2013;22:286-92. <https://doi.org/10.1016/j.jse.2012.09.009> 
 	- <span id="page-6-13"></span>9. Gupta A, Delaney R, Petkin K, Laurent L. Complications of the Latarjet procedure. Curr Rev Musculoskelet Med 2015;8:59-66. <https://doi.org/10.1007/s12178-015-9258-y> 
@@ -339,8 +339,8 @@
 ====================== NEW DOCUMENT ============================
 
 
-# Reference 2
->> To cite this article, the "informationid" in the referencement is: 2
+# Reference 4
+>> To cite this article, the "information_id" in the referencement is: information_id = 4
 >> Context for this document: {
   "title": "Satisfactory functional results and complication rates after anterior glenoid bone block reconstruction in recurrent shoulder dislocation: a mean 4-year follow-up comparative study",
   "cite_as": "Mahmoud-2022",
@@ -360,7 +360,7 @@
     "Received 28 September 2021; Revised 3 April 2022; Accepted 30 April 2022"
   ]
 }
-<!-- chunk from informationid="2" with position="9" -->
+<!-- chunk from informationid="4" with position="9" -->
 There was no statistically significant difference regarding mean age, sex, side of injury, mechanism of<br>injury, follow-up period and clinical outcome between both surgical treatments. At the end of the study, both<br>groups demonstrated statistically significant improvement in the range of motion (p ˂ 0.00001). Only one, non<br>adherent patient in Laterjet group had post-operative dislocation. In ICBG group, two patients had partial bone<br>graft resorption, 3 graft site morbidities and 1 hardware prominence. <br>Conclusion: Both Laterjet and iliac bone graft procedures had satisfactory functional results in reconstruction of<br>glenoid defect >20% in unstable shoulders with a mean 4-year follow-up. No statistically significant difference<br>was reported in the last postoperative Constant and UCLA scores between both techniques, but Latarjet procedure<br>had fewer complications (4%) than ICBG (24%). | | | | |                         | Level of evidence: Prospective non-randomized comparative study; level II                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                           | | | | 
 	
 	Received 28 September 2021; Received in revised form 3 April 2022; Accepted 30 April 2022 Available online 10 May 2022 
@@ -383,7 +383,7 @@ There was no statistically significant difference regarding mean age, sex, side 
 
 ...
 
-<!-- chunk from informationid="2" with position="10" -->
+<!-- chunk from informationid="4" with position="10" -->
 
 	#### Introduction 
 	
@@ -401,7 +401,7 @@ There was no statistically significant difference regarding mean age, sex, side 
 
 ...
 
-<!-- chunk from informationid="2" with position="18" -->
+<!-- chunk from informationid="4" with position="18" -->
 
 	#### Discussion 
 	
@@ -418,7 +418,7 @@ There was no statistically significant difference regarding mean age, sex, side 
 
 ...
 
-<!-- chunk from informationid="2" with position="19" -->
+<!-- chunk from informationid="4" with position="19" -->
 
 	
 	![_page_4_Figure_13.jpeg](https://lucario.deepdocs.net/files?file=3565fa89-c783-4ff4-86d7-4c788a3a7994_20250313001353.jpeg) 
@@ -436,7 +436,7 @@ There was no statistically significant difference regarding mean age, sex, side 
 
 ...
 
-<!-- chunk from informationid="2" with position="21" -->
+<!-- chunk from informationid="4" with position="21" -->
 
 	#### Limitation of the study
 	
@@ -462,7 +462,7 @@ There was no statistically significant difference regarding mean age, sex, side 
 
 ...
 
-<!-- chunk from informationid="2" with position="22" -->
+<!-- chunk from informationid="4" with position="22" -->
 
 	#### <span id="page-5-0"></span>References 
 	
@@ -478,7 +478,7 @@ There was no statistically significant difference regarding mean age, sex, side 
 
 ...
 
-<!-- chunk from informationid="2" with position="23" -->
+<!-- chunk from informationid="4" with position="23" -->
 
 	- <span id="page-6-1"></span>[8] Magarelli N, Milano G, Sergio P, Santagada DA, Fabbriciani C, Bonomo L. Intraobserver and interobserver reliability of the 'pico' computed tomography method for quantification of glenoid bone defect in anterior shoulder instability. Skeletal Radiol 2009;38(11):1071–5. [https://doi.org/10.1007/s00256-009-0719-5.](https://doi.org/10.1007/s00256-009-0719-5) 
 	- <span id="page-6-2"></span>[9] Fedorka CJ, Mulcahey MK. Recurrent anterior shoulder instability: a review of the Latarjet procedure and its postoperative rehabilitation. Phys Sportsmed 2015 Feb; 43(1):73–9. [https://doi.org/10.1080/00913847.2015.1005543.](https://doi.org/10.1080/00913847.2015.1005543) 
@@ -493,8 +493,8 @@ There was no statistically significant difference regarding mean age, sex, side 
 ====================== NEW DOCUMENT ============================
 
 
-# Reference 3
->> To cite this article, the "informationid" in the referencement is: 3
+# Reference 5
+>> To cite this article, the "information_id" in the referencement is: information_id = 5
 >> Context for this document: {
   "title": "Arthroscopic Latarjet Versus Arthroscopic Free Bone Block Procedures for Anterior Shoulder Instability: A Proportional Meta-analysis Comparing Recurrence, Complication, and Reoperation Rates",
   "reference": "Cozzolino, A., de Giovanni, R., Malfi, P., Bernasconi, A., Scarpa, S., Smeraglia, F., Russo, R., & Mariconda, M. (2024). Arthroscopic Latarjet Vs Arthroscopic Free Bone Block Procedures for Anterior Shoulder Instability: A Meta-analysis. The American Journal of Sports Medicine, 52(7), 1865-1876. https://doi.org/10.1177/03635465231188530",
@@ -520,7 +520,7 @@ There was no statistically significant difference regarding mean age, sex, side 
     "PRISMA guidelines followed for systematic review"
   ]
 }
-<!-- chunk from informationid="3" with position="5" -->
+<!-- chunk from informationid="5" with position="5" -->
 
 	
 	Results: Of 5010 potentially relevant studies, 18 studies regarding the AL procedure (908 cases) and 15 studies regarding the ABB procedure (469 cases) were included. The 2 groups were comparable in age (*P* = .07), sex (*P* = .14), glenoid bone loss (*P* = .14), number of preoperative dislocations (*P* = .62), proportion of primary and revision procedures (*P* = .95), length of follow-up (*P* = .81), modified Coleman Methodology Score (*P* = .21), and level of evidence (*P* = .49). There was no difference in the recurrence (*P* = .88), reoperation (*P* = .79), and complication (*P* = .08) rates. The subgroup analyses showed a higher rate of hardware-related complications for screw fixation compared with flexible fixation (*P* = .01). 
@@ -540,7 +540,7 @@ There was no statistically significant difference regarding mean age, sex, side 
 
 ...
 
-<!-- chunk from informationid="3" with position="6" -->
+<!-- chunk from informationid="5" with position="6" -->
 
 	
 	improve the results of classic Bankart repair. Unfortunately, these soft tissue procedures often lead to reduced range of motion, higher postoperative pain, and an increased recurrence rate compared with the Latarjet procedure, especially in patients with glenoid bone loss .15%.44,61 
@@ -569,7 +569,7 @@ There was no statistically significant difference regarding mean age, sex, side 
 
 ...
 
-<!-- chunk from informationid="3" with position="7" -->
+<!-- chunk from informationid="5" with position="7" -->
 
 	# Eligibility Criteria 
 	
@@ -597,7 +597,7 @@ There was no statistically significant difference regarding mean age, sex, side 
 
 ...
 
-<!-- chunk from informationid="3" with position="16" -->
+<!-- chunk from informationid="5" with position="16" -->
 
 	| Valencia et al. (2019)   | | | |  | 0.11 (0.04, 0.25) | 0.43   | 
 	| Wong et al. (2018)    | | | |  | 0.04 (0.00, 0.30) | 0.34   | 
@@ -638,7 +638,7 @@ There was no statistically significant difference regarding mean age, sex, side 
 
 ...
 
-<!-- chunk from informationid="3" with position="17" -->
+<!-- chunk from informationid="5" with position="17" -->
 
 	
 	|        | Treatment |  |   | Fixation |   |   | ABB Graft |   |   |
@@ -664,7 +664,7 @@ There was no statistically significant difference regarding mean age, sex, side 
 
 ...
 
-<!-- chunk from informationid="3" with position="20" -->
+<!-- chunk from informationid="5" with position="20" -->
 
 	#### REFERENCES 
 	
@@ -681,7 +681,7 @@ There was no statistically significant difference regarding mean age, sex, side 
 
 ...
 
-<!-- chunk from informationid="3" with position="21" -->
+<!-- chunk from informationid="5" with position="21" -->
 
 	- 10. Boileau P, The´ lu CE´ , Mercier N, et al. Arthroscopic Bristow-Latarjet combined with Bankart repair restores shoulder stability in patients with glenoid bone loss. *Clin Orthop Relat Res*. 2014;472(8):2413-2424. 
 	- 11. Bonnevialle N, Girard M, Dalmas Y, Martinel V, Faruch M, Mansat P. Short-term bone fusion with arthroscopic double-button Latarjet versus open-screw Latarjet. *Am J Sports Med*. 2021;49(6):1596-1603. 
@@ -696,7 +696,7 @@ There was no statistically significant difference regarding mean age, sex, side 
 
 ...
 
-<!-- chunk from informationid="3" with position="22" -->
+<!-- chunk from informationid="5" with position="22" -->
 
 	- 19. Dumont GD, Fogerty S, Rosso C, Lafosse L. The arthroscopic Latarjet procedure for anterior shoulder instability: 5-year minimum followup. *Am J Sports Med*. 2014;42(11):2560-2566. 
 	- 20. Gilat R, Lavoie-Gagne O, Haunschild ED, et al. Outcomes of the Latarjet procedure with minimum 5- and 10-year follow-up: a systematic review. *Shoulder Elbow*. 2020;12(5):315-329. 
@@ -715,7 +715,7 @@ There was no statistically significant difference regarding mean age, sex, side 
 
 ...
 
-<!-- chunk from informationid="3" with position="23" -->
+<!-- chunk from informationid="5" with position="23" -->
 
 	- 29. Kukkonen J, Elamo S, Flinkkila¨ T, et al. Arthroscopic Bankart versus open Latarjet as a primary operative treatment for traumatic anteroinferior instability in young males: a randomised controlled trial with 2 year follow-up. *Br J Sports Med*. 2022;56(6):327-333. 
 	- 30. Lafosse L, Lejeune E, Bouchard A, Kakuda C, Gobezie R, Kochhar T. The arthroscopic Latarjet procedure for the treatment of anterior shoulder instability. *Arthroscopy*. 2007;23(11):1242.e1-1242.e5. 
@@ -732,8 +732,8 @@ There was no statistically significant difference regarding mean age, sex, side 
 ====================== NEW DOCUMENT ============================
 
 
-# Reference 4
->> To cite this article, the "informationid" in the referencement is: 4
+# Reference 31
+>> To cite this article, the "information_id" in the referencement is: information_id = 31
 >> Context for this document: {
   "title": "Clinical outcomes, return to sport, and complications after isolated primary Latarjet versus Latarjet as a revision procedure: A systematic review and meta-analysis",
   "cite_as": "Jackson et al.-2023",
@@ -763,7 +763,7 @@ There was no statistically significant difference regarding mean age, sex, side 
     "Objective: Assess the clinical outcomes, return to sport, and complications of Latarjet procedures in primary versus revision contexts."
   ]
 }
-<!-- chunk from informationid="4" with position="6" -->
+<!-- chunk from informationid="31" with position="6" -->
 {0}------------------------------------------------
 	
 	Contents lists available at [ScienceDirect](http://www.sciencedirect.com/science/journal/18770568)
@@ -806,7 +806,7 @@ There was no statistically significant difference regarding mean age, sex, side 
 
 ...
 
-<!-- chunk from informationid="4" with position="7" -->
+<!-- chunk from informationid="31" with position="7" -->
 
 	### A b s t r a c t 
 	
@@ -830,7 +830,7 @@ There was no statistically significant difference regarding mean age, sex, side 
 
 ...
 
-<!-- chunk from informationid="4" with position="8" -->
+<!-- chunk from informationid="31" with position="8" -->
 
 	#### **1. Introduction** 
 	
@@ -846,7 +846,7 @@ There was no statistically significant difference regarding mean age, sex, side 
 
 ...
 
-<!-- chunk from informationid="4" with position="9" -->
+<!-- chunk from informationid="31" with position="9" -->
 
 	#### 2.1. Article Identification and Data Extraction
 	
@@ -866,7 +866,7 @@ There was no statistically significant difference regarding mean age, sex, side 
 
 ...
 
-<!-- chunk from informationid="4" with position="10" -->
+<!-- chunk from informationid="31" with position="10" -->
 
 	#### 2.4. Statistical analysis
 	
@@ -886,7 +886,7 @@ There was no statistically significant difference regarding mean age, sex, side 
 
 ...
 
-<!-- chunk from informationid="4" with position="13" -->
+<!-- chunk from informationid="31" with position="13" -->
 
 	| deg<br>(<br>0)<br>Up<br>202<br>rov<br>e | III  | tiv<br>Ret<br>ros<br>pec<br>e<br>Coh<br>ort | isio<br>Rev<br>n<br>Pri<br>ma<br>ry | 50<br>(<br>50/<br>0)<br>(<br>46/<br>8)<br>54    | 23.<br>3<br>3.2<br>±<br>31.<br>4<br>11.<br>1<br>±    | NR<br>7.8<br>11.<br>0<br>±    | 6<br>8.5<br>17.<br>±<br>25.<br>9<br>6.6<br>±     | Op<br>en<br>Op<br>en          | NR                                      | 
 	|           |   |            | Rev<br>isio<br>n      | 103<br>(<br>91/<br>12)         | 27.<br>1<br>8.9<br>±           | 7.0<br>13.<br>2<br>±      | 23.<br>6<br>9<br>±            | Op<br>en             | Op<br>bili<br>ion<br>sta<br>zat<br>en<br>(n<br>)<br>20<br>=<br>hro<br>ic<br>Art<br>sco<br>p<br>ced<br>(n<br>74)<br>pro<br>ure<br>=      | 
@@ -917,7 +917,7 @@ There was no statistically significant difference regarding mean age, sex, side 
 
 ...
 
-<!-- chunk from informationid="4" with position="20" -->
+<!-- chunk from informationid="31" with position="20" -->
 
 	#### **4. Discussion** 
 	
@@ -931,7 +931,7 @@ There was no statistically significant difference regarding mean age, sex, side 
 
 ...
 
-<!-- chunk from informationid="4" with position="22" -->
+<!-- chunk from informationid="31" with position="22" -->
 
 	| Updegrove (2020) | Redislocation (n = 4); hematoma (n = 1); neuropraxia (n = 1);<br>hardware complications (n = 3)                  | Redislocation (n = 5); Hematoma (n = 1); Hardware<br>complications (n = 3)               | 
 	|     | Reoperation (n = 7): hardware removal (3); revision<br>stabilization (4)                        | Reoperations (n = 7): hardware removal (3); revision<br>stabilization (5)               | 
@@ -946,7 +946,7 @@ There was no statistically significant difference regarding mean age, sex, side 
 
 ...
 
-<!-- chunk from informationid="4" with position="23" -->
+<!-- chunk from informationid="31" with position="23" -->
 
 	
 	The present review is not without limitations. No randomized control trials were identified meeting our inclusion criteria for this review, as allthe included studies were of retrospective design, corresponding to a level of evidence of III. The low-quality evidence of the included studies increased the risk of selection and confounding bias. Notwithstanding, the included studies represented a fairly homogenous patient population with similar methods, allowing the authors to appropriately pool the data; however, potential differences in groups included in the arthroscopic vs open procedures could introduce selection bias. Secondly, patient-reported outcome measures were infrequently reported, largely precluding the ability to perform any meaningful analysis to assess for differences in outcomes between patients undergoing Latarjet as a primary or revision procedure. RTS timing was also reported in a limited number of patients, further preventing an analysis of this variable. Furthermore, the presence of recurrent subluxation is subjective and may have been overinterpreted among the included studies. Of the included studies, data with both arthroscopic and open Latarjet procedures were included together which introduces some variability of complications as they may be different between open versus arthroscopic Latarjet. Finally, as is inherent to every systematic review, our search strategy and eligibility criteria may have unintentionally excluded investigations or patient subgroups whose data might have contributed to a more thorough statistical analysis, had they been included.
@@ -977,7 +977,7 @@ There was no statistically significant difference regarding mean age, sex, side 
 
 ...
 
-<!-- chunk from informationid="4" with position="24" -->
+<!-- chunk from informationid="31" with position="24" -->
 
 	## **Références** 
 	
@@ -986,80 +986,80 @@ There was no statistically significant difference regarding mean age, sex, side 
 
 ...
 
-<!-- chunk from informationid="4" with position="26" -->
+<!-- chunk from informationid="31" with position="26" -->
 - [4] [Yapp](http://refhub. elsevier.com/S1877-0568(23)00387-0/sbref0165) [LZ,](http://refhub. elsevier.com/S1877-0568(23)00387-0/sbref0165) [Nicholson](http://refhub. elsevier.com/S1877-0568(23)00387-0/sbref0165) [JA,](http://refhub. elsevier.com/S1877-0568(23)00387-0/sbref0165) [McCallum](http://refhub. elsevier.com/S1877-0568(23)00387-0/sbref0165) [C,](http://refhub. elsevier.com/S1877-0568(23)00387-0/sbref0165) [et](http://refhub. elsevier.com/S1877-0568(23)00387-0/sbref0165) [al. ](http://refhub. elsevier.com/S1877-0568(23)00387-0/sbref0165) [Latarjet](http://refhub. elsevier.com/S1877-0568(23)00387-0/sbref0165) [as](http://refhub. elsevier.com/S1877-0568(23)00387-0/sbref0165) [a](http://refhub. elsevier.com/S1877-0568(23)00387-0/sbref0165) [primary](http://refhub. elsevier.com/S1877-0568(23)00387-0/sbref0165) [and](http://refhub. elsevier.com/S1877-0568(23)00387-0/sbref0165) [revision](http://refhub. elsevier.com/S1877-0568(23)00387-0/sbref0165) [pro](http://refhub. elsevier.com/S1877-0568(23)00387-0/sbref0165)[cedure](http://refhub. elsevier.com/S1877-0568(23)00387-0/sbref0165) [for](http://refhub. elsevier.com/S1877-0568(23)00387-0/sbref0165) [anterior](http://refhub. elsevier.com/S1877-0568(23)00387-0/sbref0165) [shoulder](http://refhub. elsevier.com/S1877-0568(23)00387-0/sbref0165) [instability](http://refhub. elsevier.com/S1877-0568(23)00387-0/sbref0165) – [A](http://refhub. elsevier.com/S1877-0568(23)00387-0/sbref0165) [comparative](http://refhub. elsevier.com/S1877-0568(23)00387-0/sbref0165) [study](http://refhub. elsevier.com/S1877-0568(23)00387-0/sbref0165) [of](http://refhub. elsevier.com/S1877-0568(23)00387-0/sbref0165) [survivorship,](http://refhub. elsevier.com/S1877-0568(23)00387-0/sbref0165) [complications](http://refhub. elsevier.com/S1877-0568(23)00387-0/sbref0165) [and](http://refhub. elsevier.com/S1877-0568(23)00387-0/sbref0165) [functional](http://refhub. elsevier.com/S1877-0568(23)00387-0/sbref0165) [outcomes](http://refhub. elsevier.com/S1877-0568(23)00387-0/sbref0165) [in](http://refhub.
 <!-- end of chunk positioned position="26" -->?
 
 ...
 
-<!-- chunk from informationid="4" with position="33" -->
+<!-- chunk from informationid="31" with position="33" -->
 elsevier.com/S1877-0568(23)00387-0/sbref0195) [treatment](http://refhub. elsevier.com/S1877-0568(23)00387-0/sbref0195) [of](http://refhub. elsevier.com/S1877-0568(23)00387-0/sbref0195) [anterior](http://refhub. elsevier.com/S1877-0568(23)00387-0/sbref0195) [shoulder](http://refhub. elsevier.com/S1877-0568(23)00387-0/sbref0195) [instability](http://refhub. elsevier.com/S1877-0568(23)00387-0/sbref0195) [with](http://refhub. elsevier.com/S1877-0568(23)00387-0/sbref0195) [glenoid](http://refhub. elsevier.com/S1877-0568(23)00387-0/sbref0195) [bone](http://refhub. elsevier.com/S1877-0568(23)00387-0/sbref0195) [loss:](http://refhub. elsevier.com/S1877-0568(23)00387-0/sbref0195) [a](http://refhub. elsevier.com/S1877-0568(23)00387-0/sbref0195) [prospective](http://refhub. elsevier.com/S1877-0568(23)00387-0/sbref0195) [randomized](http://refhub. elsevier.com/S1877-0568(23)00387-0/sbref0195) [trial. ](http://refhub. elsevier.com/S1877-0568(23)00387-0/sbref0195) [J](http://refhub. elsevier.com/S1877-0568(23)00387-0/sbref0195) [Shoulder](http://refhub. elsevier.com/S1877-0568(23)00387-0/sbref0195) [Elbow](http://refhub. elsevier.com/S1877-0568(23)00387-0/sbref0195) [Surg](http://refhub. elsevier.com/S1877-0568(23)00387-0/sbref0195) [2019;28:1298–307. ](http://refhub. elsevier.com/S1877-0568(23)00387-0/sbref0195) 
 	- [11] [Rollick](http://refhub.elsevier.com/S1877-0568(23)00387-0/sbref0200) [N,](http://refhub.elsevier.com/S1877-0568(23)00387-0/sbref0200) [OnoY,Kurji](http://refhub.elsevier.com/S1877-0568(23)00387-0/sbref0200) [HM,](http://refhub.elsevier.com/S1877-0568(23)00387-0/sbref0200) [et](http://refhub.elsevier.com/S1877-0568(23)00387-0/sbref0200) [al.](http://refhub.elsevier.com/S1877-0568(23)00387-0/sbref0200) [Long-termoutcomes](http://refhub.elsevier.com/S1877-0568(23)00387-0/sbref0200) [ofthe](http://refhub.elsevier.com/S1877-0568(23)00387-0/sbref0200) [Bankart](http://refhub.elsevier.com/S1877-0568(23)00387-0/sbref0200) [and](http://refhub.elsevier.com/S1877-0568(23)00387-0/sbref0200) [Latarjet](http://refhub.elsevier.com/S1877-0568(23)00387-0/sbref0200) [repairs:](http://refhub.elsevier.com/S1877-0568(23)00387-0/sbref0200) [a](http://refhub.elsevier.com/S1877-0568(23)00387-0/sbref0200) [systematic](http://refhub.elsevier.com/S1877-0568(23)00387-0/sbref0200) [review.](http://refhub.elsevier.com/S1877-0568(23)00387-0/sbref0200) [Open](http://refhub.elsevier.com/S1877-0568(23)00387-0/sbref0200) [Access](http://refhub.elsevier.com/S1877-0568(23)00387-0/sbref0200) [J](http://refhub.elsevier.com/S1877-0568(23)00387-0/sbref0200) [Sports](http://refhub.elsevier.com/S1877-0568(23)00387-0/sbref0200) [Med](http://refhub.elsevier.com/S1877-0568(23)00387-0/sbref0200) [2017;8:97](http://refhub.elsevier.com/S1877-0568(23)00387-0/sbref0200)–[105.](http://refhub.elsevier.com/S1877-0568(23)00387-0/sbref0200)
 <!-- end of chunk positioned position="33" -->?
 
 ...
 
-<!-- chunk from informationid="4" with position="35" -->
+<!-- chunk from informationid="31" with position="35" -->
 ](http://refhub. elsevier.com/S1877-0568(23)00387-0/sbref0205) 
 	- [13] [Flinkkilä](http://refhub.elsevier.com/S1877-0568(23)00387-0/sbref0210) [T,](http://refhub.elsevier.com/S1877-0568(23)00387-0/sbref0210) [Sirniö](http://refhub.elsevier.com/S1877-0568(23)00387-0/sbref0210) [K.](http://refhub.elsevier.com/S1877-0568(23)00387-0/sbref0210) [Open](http://refhub.elsevier.com/S1877-0568(23)00387-0/sbref0210) [Latarjet](http://refhub.elsevier.com/S1877-0568(23)00387-0/sbref0210) [procedure](http://refhub.elsevier.com/S1877-0568(23)00387-0/sbref0210) [for](http://refhub.elsevier.com/S1877-0568(23)00387-0/sbref0210) [failed](http://refhub.elsevier.com/S1877-0568(23)00387-0/sbref0210) [arthroscopic](http://refhub.elsevier.com/S1877-0568(23)00387-0/sbref0210) [Bankart](http://refhub.elsevier.com/S1877-0568(23)00387-0/sbref0210) [repair.](http://refhub.elsevier.com/S1877-0568(23)00387-0/sbref0210) [Orthop](http://refhub.elsevier.com/S1877-0568(23)00387-0/sbref0210) [Traumatol](http://refhub.elsevier.com/S1877-0568(23)00387-0/sbref0210) [Surg](http://refhub.elsevier.com/S1877-0568(23)00387-0/sbref0210) [Res](http://refhub.elsevier.com/S1877-0568(23)00387-0/sbref0210) [2015;101:35–8.](http://refhub.elsevier.com/S1877-0568(23)00387-0/sbref0210) - [14] [Werthel](http://refhub. elsevier.com/S1877-0568(23)00387-0/sbref0215) [J-D,](http://refhub. elsevier.com/S1877-0568(23)00387-0/sbref0215) [Sabatier](http://refhub. elsevier.com/S1877-0568(23)00387-0/sbref0215) [V,](http://refhub. elsevier.com/S1877-0568(23)00387-0/sbref0215) [Schoch](http://refhub. elsevier.com/S1877-0568(23)00387-0/sbref0215) [B,](http://refhub. elsevier.com/S1877-0568(23)00387-0/sbref0215) [et](http://refhub. elsevier.com/S1877-0568(23)00387-0/sbref0215) [al. ](http://refhub. elsevier.com/S1877-0568(23)00387-0/sbref0215) [Outcomes](http://refhub. elsevier.com/S1877-0568(23)00387-0/sbref0215) [of](http://refhub. elsevier.com/S1877-0568(23)00387-0/sbref0215) [the](http://refhub. elsevier.com/S1877-0568(23)00387-0/sbref0215) [Latarjet](http://refhub.
 <!-- end of chunk positioned position="35" -->?
 
 ...
 
-<!-- chunk from informationid="4" with position="36" -->
+<!-- chunk from informationid="31" with position="36" -->
 elsevier.com/S1877-0568(23)00387-0/sbref0215) [proce](http://refhub. elsevier.com/S1877-0568(23)00387-0/sbref0215)[dure](http://refhub. elsevier.com/S1877-0568(23)00387-0/sbref0215) [for](http://refhub. elsevier.com/S1877-0568(23)00387-0/sbref0215) [the](http://refhub. elsevier.com/S1877-0568(23)00387-0/sbref0215) [treatment](http://refhub. elsevier.com/S1877-0568(23)00387-0/sbref0215) [of](http://refhub. elsevier.com/S1877-0568(23)00387-0/sbref0215) [chronic](http://refhub. elsevier.com/S1877-0568(23)00387-0/sbref0215) [anterior](http://refhub. elsevier.com/S1877-0568(23)00387-0/sbref0215) [shoulder](http://refhub. elsevier.com/S1877-0568(23)00387-0/sbref0215) [instability:](http://refhub. elsevier.com/S1877-0568(23)00387-0/sbref0215) [patients](http://refhub. elsevier.com/S1877-0568(23)00387-0/sbref0215) [with](http://refhub. elsevier.com/S1877-0568(23)00387-0/sbref0215) [prior](http://refhub. elsevier.com/S1877-0568(23)00387-0/sbref0215) [arthroscopic](http://refhub. elsevier.com/S1877-0568(23)00387-0/sbref0215) [Bankart](http://refhub. elsevier.com/S1877-0568(23)00387-0/sbref0215) [repair](http://refhub. elsevier.com/S1877-0568(23)00387-0/sbref0215) [versus](http://refhub. elsevier.com/S1877-0568(23)00387-0/sbref0215) [primary](http://refhub. elsevier.com/S1877-0568(23)00387-0/sbref0215) [cases. ](http://refhub. elsevier.com/S1877-0568(23)00387-0/sbref0215) [Am](http://refhub. elsevier.com/S1877-0568(23)00387-0/sbref0215) [J](http://refhub. elsevier.com/S1877-0568(23)00387-0/sbref0215) [Sports](http://refhub. elsevier.com/S1877-0568(23)00387-0/sbref0215) [Med](http://refhub. elsevier.com/S1877-0568(23)00387-0/sbref0215) [2020;48:27](http://refhub. elsevier.com/S1877-0568(23)00387-0/sbref0215)–[32. ](http://refhub. elsevier.com/S1877-0568(23)00387-0/sbref0215) 
 	- [15] [Hardy](http://refhub.elsevier.com/S1877-0568(23)00387-0/sbref0220) [A,](http://refhub.elsevier.com/S1877-0568(23)00387-0/sbref0220) [Sabatier](http://refhub.elsevier.com/S1877-0568(23)00387-0/sbref0220) [V,](http://refhub.elsevier.com/S1877-0568(23)00387-0/sbref0220) [Laboudie](http://refhub.elsevier.com/S1877-0568(23)00387-0/sbref0220) [P,](http://refhub.elsevier.com/S1877-0568(23)00387-0/sbref0220) [et](http://refhub.elsevier.com/S1877-0568(23)00387-0/sbref0220) [al.](http://refhub.elsevier.com/S1877-0568(23)00387-0/sbref0220) [Outcomes](http://refhub.elsevier.com/S1877-0568(23)00387-0/sbref0220) [after](http://refhub.elsevier.com/S1877-0568(23)00387-0/sbref0220) [latarjet](http://refhub.elsevier.com/S1877-0568(23)00387-0/sbref0220) [procedure:](http://refhub.elsevier.com/S1877-0568(23)00387-0/sbref0220) [patients](http://refhub.elsevier.com/S1877-0568(23)00387-0/sbref0220) [with](http://refhub.elsevier.com/S1877-0568(23)00387-0/sbref0220) [first-time](http://refhub.elsevier.com/S1877-0568(23)00387-0/sbref0220) [versus](http://refhub.elsevier.com/S1877-0568(23)00387-0/sbref0220) [recurrent](http://refhub.elsevier.com/S1877-0568(23)00387-0/sbref0220) [dislocations.](http://refhub.elsevier.com/S1877-0568(23)00387-0/sbref0220) [Am](http://refhub.elsevier.com/S1877-0568(23)00387-0/sbref0220) [J](http://refhub.elsevier.com/S1877-0568(23)00387-0/sbref0220) [Sports](http://refhub.elsevier.com/S1877-0568(23)00387-0/sbref0220) [Med](http://refhub.elsevier.com/S1877-0568(23)00387-0/sbref0220) [2020;48:21](http://refhub.elsevier.com/S1877-0568(23)00387-0/sbref0220)–[6.](http://refhub.elsevier.com/S1877-0568(23)00387-0/sbref0220)
 <!-- end of chunk positioned position="36" -->?
 
 ...
 
-<!-- chunk from informationid="4" with position="37" -->
+<!-- chunk from informationid="31" with position="37" -->
 - [16] [Rodkey](http://refhub. elsevier.com/S1877-0568(23)00387-0/sbref0225) [DL,](http://refhub. elsevier.com/S1877-0568(23)00387-0/sbref0225) [Colantonio](http://refhub. elsevier.com/S1877-0568(23)00387-0/sbref0225) [DF,](http://refhub. elsevier.com/S1877-0568(23)00387-0/sbref0225) [LeClere](http://refhub. elsevier.com/S1877-0568(23)00387-0/sbref0225) [LE,](http://refhub. elsevier.com/S1877-0568(23)00387-0/sbref0225) [et](http://refhub. elsevier.com/S1877-0568(23)00387-0/sbref0225) [al. ](http://refhub. elsevier.com/S1877-0568(23)00387-0/sbref0225) [Latarjet](http://refhub. elsevier.com/S1877-0568(23)00387-0/sbref0225) [after](http://refhub. elsevier.com/S1877-0568(23)00387-0/sbref0225) [failed](http://refhub. elsevier.com/S1877-0568(23)00387-0/sbref0225) [arthroscopic](http://refhub. elsevier.com/S1877-0568(23)00387-0/sbref0225) [bankart](http://refhub. elsevier.com/S1877-0568(23)00387-0/sbref0225) [repair](http://refhub. elsevier.com/S1877-0568(23)00387-0/sbref0225) [results](http://refhub. elsevier.com/S1877-0568(23)00387-0/sbref0225) [in](http://refhub. elsevier.com/S1877-0568(23)00387-0/sbref0225) [twice](http://refhub. elsevier.com/S1877-0568(23)00387-0/sbref0225) [the](http://refhub. elsevier.com/S1877-0568(23)00387-0/sbref0225) [rate](http://refhub. elsevier.com/S1877-0568(23)00387-0/sbref0225) [of](http://refhub. elsevier.com/S1877-0568(23)00387-0/sbref0225) [recurrent](http://refhub. elsevier.com/S1877-0568(23)00387-0/sbref0225) [instability](http://refhub. elsevier.com/S1877-0568(23)00387-0/sbref0225) [compared](http://refhub. elsevier.com/S1877-0568(23)00387-0/sbref0225) [with](http://refhub. elsevier.com/S1877-0568(23)00387-0/sbref0225) [primary](http://refhub. elsevier.com/S1877-0568(23)00387-0/sbref0225) [Latarjet. ](http://refhub. elsevier.com/S1877-0568(23)00387-0/sbref0225) [Arthroscopy](http://refhub. elsevier.com/S1877-0568(23)00387-0/sbref0225) [2021;37:3248](http://refhub. elsevier.com/S1877-0568(23)00387-0/sbref0225)–[52. ](http://refhub. elsevier.com/S1877-0568(23)00387-0/sbref0225)
 <!-- end of chunk positioned position="37" -->?
 
 ...
 
-<!-- chunk from informationid="4" with position="39" -->
+<!-- chunk from informationid="31" with position="39" -->
 
 	- [19] [Buda](http://refhub.elsevier.com/S1877-0568(23)00387-0/sbref0240) [M,](http://refhub.elsevier.com/S1877-0568(23)00387-0/sbref0240) [D'Ambrosi](http://refhub.elsevier.com/S1877-0568(23)00387-0/sbref0240) [R,](http://refhub.elsevier.com/S1877-0568(23)00387-0/sbref0240) [Bellato](http://refhub.elsevier.com/S1877-0568(23)00387-0/sbref0240) [E,](http://refhub.elsevier.com/S1877-0568(23)00387-0/sbref0240) [et](http://refhub.elsevier.com/S1877-0568(23)00387-0/sbref0240) [al.](http://refhub.elsevier.com/S1877-0568(23)00387-0/sbref0240) [Failed](http://refhub.elsevier.com/S1877-0568(23)00387-0/sbref0240) [Latarjet](http://refhub.elsevier.com/S1877-0568(23)00387-0/sbref0240) [procedure:](http://refhub.elsevier.com/S1877-0568(23)00387-0/sbref0240) [a](http://refhub.elsevier.com/S1877-0568(23)00387-0/sbref0240) [systematic](http://refhub.elsevier.com/S1877-0568(23)00387-0/sbref0240) [review](http://refhub.elsevier.com/S1877-0568(23)00387-0/sbref0240) [of](http://refhub.elsevier.com/S1877-0568(23)00387-0/sbref0240) [surgery](http://refhub.elsevier.com/S1877-0568(23)00387-0/sbref0240) [revision](http://refhub.elsevier.com/S1877-0568(23)00387-0/sbref0240) [options.](http://refhub.elsevier.com/S1877-0568(23)00387-0/sbref0240) [J](http://refhub.elsevier.com/S1877-0568(23)00387-0/sbref0240) [Orthop](http://refhub.elsevier.com/S1877-0568(23)00387-0/sbref0240) [Traumatol](http://refhub.elsevier.com/S1877-0568(23)00387-0/sbref0240) [2021;22:24.](http://refhub.elsevier.com/S1877-0568(23)00387-0/sbref0240) - [20] [Gilat](http://refhub. elsevier.com/S1877-0568(23)00387-0/sbref0245) [R,](http://refhub. elsevier.com/S1877-0568(23)00387-0/sbref0245) [Haunschild](http://refhub. elsevier.com/S1877-0568(23)00387-0/sbref0245) [ED,](http://refhub. elsevier.com/S1877-0568(23)00387-0/sbref0245) [Lavoie-Gagne](http://refhub. elsevier.com/S1877-0568(23)00387-0/sbref0245) [OZ,](http://refhub. elsevier.com/S1877-0568(23)00387-0/sbref0245) [et](http://refhub. elsevier.com/S1877-0568(23)00387-0/sbref0245) [al.
 <!-- end of chunk positioned position="39" -->?
 
 ...
 
-<!-- chunk from informationid="4" with position="40" -->
+<!-- chunk from informationid="31" with position="40" -->
 ](http://refhub. elsevier.com/S1877-0568(23)00387-0/sbref0245) [Outcomes](http://refhub. elsevier.com/S1877-0568(23)00387-0/sbref0245) [of](http://refhub. elsevier.com/S1877-0568(23)00387-0/sbref0245) [the](http://refhub. elsevier.com/S1877-0568(23)00387-0/sbref0245) [Latarjet](http://refhub. elsevier.com/S1877-0568(23)00387-0/sbref0245) [procedure](http://refhub. elsevier.com/S1877-0568(23)00387-0/sbref0245) [versus](http://refhub. elsevier.com/S1877-0568(23)00387-0/sbref0245) [free](http://refhub. elsevier.com/S1877-0568(23)00387-0/sbref0245) [bone](http://refhub. elsevier.com/S1877-0568(23)00387-0/sbref0245) [block](http://refhub. elsevier.com/S1877-0568(23)00387-0/sbref0245) [procedures](http://refhub. elsevier.com/S1877-0568(23)00387-0/sbref0245) [for](http://refhub. elsevier.com/S1877-0568(23)00387-0/sbref0245) [anterior](http://refhub. elsevier.com/S1877-0568(23)00387-0/sbref0245) [shoulder](http://refhub. elsevier.com/S1877-0568(23)00387-0/sbref0245) [insta](http://refhub. elsevier.com/S1877-0568(23)00387-0/sbref0245)[bility:](http://refhub. elsevier.com/S1877-0568(23)00387-0/sbref0245) [a](http://refhub. elsevier.com/S1877-0568(23)00387-0/sbref0245) [systematic](http://refhub. elsevier.com/S1877-0568(23)00387-0/sbref0245) [review](http://refhub. elsevier.com/S1877-0568(23)00387-0/sbref0245) [and](http://refhub. elsevier.com/S1877-0568(23)00387-0/sbref0245) [meta-analysis. ](http://refhub. elsevier.com/S1877-0568(23)00387-0/sbref0245) [Am](http://refhub. elsevier.com/S1877-0568(23)00387-0/sbref0245) [J](http://refhub. elsevier.com/S1877-0568(23)00387-0/sbref0245) [Sports](http://refhub. elsevier.com/S1877-0568(23)00387-0/sbref0245) [Med](http://refhub. elsevier.com/S1877-0568(23)00387-0/sbref0245) [2021;49:](http://refhub. elsevier.com/S1877-0568(23)00387-0/sbref0245) [805–16. ](http://refhub. elsevier.com/S1877-0568(23)00387-0/sbref0245) 
 	- [21] [Lau](http://refhub.elsevier.com/S1877-0568(23)00387-0/sbref0250) [BC,](http://refhub.elsevier.com/S1877-0568(23)00387-0/sbref0250) [Johnston](http://refhub.elsevier.com/S1877-0568(23)00387-0/sbref0250) [TR,](http://refhub.elsevier.com/S1877-0568(23)00387-0/sbref0250) [Gregory](http://refhub.elsevier.com/S1877-0568(23)00387-0/sbref0250) [BP,](http://refhub.elsevier.com/S1877-0568(23)00387-0/sbref0250) [et](http://refhub.elsevier.com/S1877-0568(23)00387-0/sbref0250) [al.](http://refhub.elsevier.com/S1877-0568(23)00387-0/sbref0250) [Outcomes](http://refhub.elsevier.com/S1877-0568(23)00387-0/sbref0250) [after](http://refhub.elsevier.com/S1877-0568(23)00387-0/sbref0250) [revision](http://refhub.elsevier.com/S1877-0568(23)00387-0/sbref0250) [anterior](http://refhub.elsevier.com/S1877-0568(23)00387-0/sbref0250) [shoulder](http://refhub.elsevier.com/S1877-0568(23)00387-0/sbref0250) [stabilization:](http://refhub.elsevier.com/S1877-0568(23)00387-0/sbref0250) [a](http://refhub.elsevier.com/S1877-0568(23)00387-0/sbref0250) [systematic](http://refhub.elsevier.com/S1877-0568(23)00387-0/sbref0250) [review.](http://refhub.elsevier.com/S1877-0568(23)00387-0/sbref0250) [Orthop](http://refhub.elsevier.com/S1877-0568(23)00387-0/sbref0250) [J](http://refhub.elsevier.com/S1877-0568(23)00387-0/sbref0250) [Sports](http://refhub.elsevier.com/S1877-0568(23)00387-0/sbref0250) [Med](http://refhub.elsevier.com/S1877-0568(23)00387-0/sbref0250) [2020;8,](http://refhub.elsevier.com/S1877-0568(23)00387-0/sbref0250) [232596712092257.](http://refhub.elsevier.com/S1877-0568(23)00387-0/sbref0250)
 <!-- end of chunk positioned position="40" -->?
 
 ...
 
-<!-- chunk from informationid="4" with position="42" -->
+<!-- chunk from informationid="31" with position="42" -->
 elsevier.com/S1877-0568(23)00387-0/sbref0255) 
 	- [23] [Davey](http://refhub.elsevier.com/S1877-0568(23)00387-0/sbref0260) [MS,](http://refhub.elsevier.com/S1877-0568(23)00387-0/sbref0260) [Hurley](http://refhub.elsevier.com/S1877-0568(23)00387-0/sbref0260) [ET,](http://refhub.elsevier.com/S1877-0568(23)00387-0/sbref0260) [O'Doherty](http://refhub.elsevier.com/S1877-0568(23)00387-0/sbref0260) [R,](http://refhub.elsevier.com/S1877-0568(23)00387-0/sbref0260) [et](http://refhub.elsevier.com/S1877-0568(23)00387-0/sbref0260) [al.](http://refhub.elsevier.com/S1877-0568(23)00387-0/sbref0260) [Open](http://refhub.elsevier.com/S1877-0568(23)00387-0/sbref0260) [Latarjet](http://refhub.elsevier.com/S1877-0568(23)00387-0/sbref0260) [procedure](http://refhub.elsevier.com/S1877-0568(23)00387-0/sbref0260) [in](http://refhub.elsevier.com/S1877-0568(23)00387-0/sbref0260) [athletes](http://refhub.elsevier.com/S1877-0568(23)00387-0/sbref0260) [following](http://refhub.elsevier.com/S1877-0568(23)00387-0/sbref0260) [failed](http://refhub.elsevier.com/S1877-0568(23)00387-0/sbref0260) [prior](http://refhub.elsevier.com/S1877-0568(23)00387-0/sbref0260) [instability](http://refhub.elsevier.com/S1877-0568(23)00387-0/sbref0260) [surgery](http://refhub.elsevier.com/S1877-0568(23)00387-0/sbref0260) [results](http://refhub.elsevier.com/S1877-0568(23)00387-0/sbref0260) [in](http://refhub.elsevier.com/S1877-0568(23)00387-0/sbref0260) [lower](http://refhub.elsevier.com/S1877-0568(23)00387-0/sbref0260) [rates](http://refhub.elsevier.com/S1877-0568(23)00387-0/sbref0260) [of](http://refhub.elsevier.com/S1877-0568(23)00387-0/sbref0260) [return](http://refhub.elsevier.com/S1877-0568(23)00387-0/sbref0260) [to](http://refhub.elsevier.com/S1877-0568(23)00387-0/sbref0260) [play.](http://refhub.elsevier.com/S1877-0568(23)00387-0/sbref0260) [Arthroscopy](http://refhub.elsevier.com/S1877-0568(23)00387-0/sbref0260) [2021;37:2412–7.](http://refhub.elsevier.com/S1877-0568(23)00387-0/sbref0260) - [24] [Rossi](http://refhub.
 <!-- end of chunk positioned position="42" -->?
 
 ...
 
-<!-- chunk from informationid="4" with position="43" -->
+<!-- chunk from informationid="31" with position="43" -->
 elsevier.com/S1877-0568(23)00387-0/sbref0265) [LA,](http://refhub. elsevier.com/S1877-0568(23)00387-0/sbref0265) [Bertona](http://refhub. elsevier.com/S1877-0568(23)00387-0/sbref0265) [A,](http://refhub. elsevier.com/S1877-0568(23)00387-0/sbref0265) [Tanoira](http://refhub. elsevier.com/S1877-0568(23)00387-0/sbref0265) [I,](http://refhub. elsevier.com/S1877-0568(23)00387-0/sbref0265) [et](http://refhub. elsevier.com/S1877-0568(23)00387-0/sbref0265) [al. ](http://refhub. elsevier.com/S1877-0568(23)00387-0/sbref0265) [Comparison](http://refhub. elsevier.com/S1877-0568(23)00387-0/sbref0265) [between](http://refhub. elsevier.com/S1877-0568(23)00387-0/sbref0265) [modified](http://refhub. elsevier.com/S1877-0568(23)00387-0/sbref0265) [Latarjet](http://refhub. elsevier.com/S1877-0568(23)00387-0/sbref0265) [performed](http://refhub. elsevier.com/S1877-0568(23)00387-0/sbref0265) [as](http://refhub. elsevier.com/S1877-0568(23)00387-0/sbref0265) [a](http://refhub. elsevier.com/S1877-0568(23)00387-0/sbref0265) [primary](http://refhub. elsevier.com/S1877-0568(23)00387-0/sbref0265) [or](http://refhub. elsevier.com/S1877-0568(23)00387-0/sbref0265) [revision](http://refhub. elsevier.com/S1877-0568(23)00387-0/sbref0265) [procedure](http://refhub. elsevier.com/S1877-0568(23)00387-0/sbref0265) [in](http://refhub. elsevier.com/S1877-0568(23)00387-0/sbref0265) [competitive](http://refhub. elsevier.com/S1877-0568(23)00387-0/sbref0265) [athletes:](http://refhub. elsevier.com/S1877-0568(23)00387-0/sbref0265) [a](http://refhub. elsevier.com/S1877-0568(23)00387-0/sbref0265) [com](http://refhub. elsevier.com/S1877-0568(23)00387-0/sbref0265)[parative](http://refhub. elsevier.com/S1877-0568(23)00387-0/sbref0265) [study](http://refhub. elsevier.com/S1877-0568(23)00387-0/sbref0265) [of](http://refhub. elsevier.com/S1877-0568(23)00387-0/sbref0265) [100](http://refhub. elsevier.com/S1877-0568(23)00387-0/sbref0265) [patients](http://refhub. elsevier.com/S1877-0568(23)00387-0/sbref0265) [with](http://refhub. elsevier.com/S1877-0568(23)00387-0/sbref0265) [a](http://refhub.
 <!-- end of chunk positioned position="43" -->?
 
 ...
 
-<!-- chunk from informationid="4" with position="44" -->
+<!-- chunk from informationid="31" with position="44" -->
 elsevier.com/S1877-0568(23)00387-0/sbref0265) [minimum](http://refhub. elsevier.com/S1877-0568(23)00387-0/sbref0265) [2-year](http://refhub. elsevier.com/S1877-0568(23)00387-0/sbref0265) [follow-up. ](http://refhub. elsevier.com/S1877-0568(23)00387-0/sbref0265) [Orthop](http://refhub. elsevier.com/S1877-0568(23)00387-0/sbref0265) [J](http://refhub. elsevier.com/S1877-0568(23)00387-0/sbref0265) [Sports](http://refhub. elsevier.com/S1877-0568(23)00387-0/sbref0265) [Med](http://refhub. elsevier.com/S1877-0568(23)00387-0/sbref0265) [2018;6,](http://refhub. elsevier.com/S1877-0568(23)00387-0/sbref0265) [232596711881723. ](http://refhub. elsevier.com/S1877-0568(23)00387-0/sbref0265) - [25] [Buckup](http://refhub. elsevier.com/S1877-0568(23)00387-0/sbref0270) [J,](http://refhub. elsevier.com/S1877-0568(23)00387-0/sbref0270) [Sternberg](http://refhub. elsevier.com/S1877-0568(23)00387-0/sbref0270) [C,](http://refhub. elsevier.com/S1877-0568(23)00387-0/sbref0270) [Smolen](http://refhub. elsevier.com/S1877-0568(23)00387-0/sbref0270) [D,](http://refhub. elsevier.com/S1877-0568(23)00387-0/sbref0270) [et](http://refhub. elsevier.com/S1877-0568(23)00387-0/sbref0270) [al. ](http://refhub. elsevier.com/S1877-0568(23)00387-0/sbref0270) [Functional](http://refhub. elsevier.com/S1877-0568(23)00387-0/sbref0270) [outcome](http://refhub. elsevier.com/S1877-0568(23)00387-0/sbref0270) [and](http://refhub. elsevier.com/S1877-0568(23)00387-0/sbref0270) [return](http://refhub. elsevier.com/S1877-0568(23)00387-0/sbref0270) [to](http://refhub. elsevier.com/S1877-0568(23)00387-0/sbref0270) [sports](http://refhub. elsevier.com/S1877-0568(23)00387-0/sbref0270) [after](http://refhub. elsevier.com/S1877-0568(23)00387-0/sbref0270) [the](http://refhub. elsevier.com/S1877-0568(23)00387-0/sbref0270) [arthroscopic](http://refhub. elsevier.com/S1877-0568(23)00387-0/sbref0270) [latarjet](http://refhub. elsevier.com/S1877-0568(23)00387-0/sbref0270) [procedure](http://refhub. elsevier.com/S1877-0568(23)00387-0/sbref0270) [in](http://refhub.
 <!-- end of chunk positioned position="44" -->?
 
 ...
 
-<!-- chunk from informationid="4" with position="45" -->
+<!-- chunk from informationid="31" with position="45" -->
 elsevier.com/S1877-0568(23)00387-0/sbref0270) [young](http://refhub. elsevier.com/S1877-0568(23)00387-0/sbref0270) [and](http://refhub. elsevier.com/S1877-0568(23)00387-0/sbref0270) [physically](http://refhub. elsevier.com/S1877-0568(23)00387-0/sbref0270) [active](http://refhub. elsevier.com/S1877-0568(23)00387-0/sbref0270) [patients. ](http://refhub. elsevier.com/S1877-0568(23)00387-0/sbref0270) [Arch](http://refhub. elsevier.com/S1877-0568(23)00387-0/sbref0270) [Orthop](http://refhub. elsevier.com/S1877-0568(23)00387-0/sbref0270) [Trauma](http://refhub. elsevier.com/S1877-0568(23)00387-0/sbref0270) [Surg](http://refhub. elsevier.com/S1877-0568(23)00387-0/sbref0270) [2020;140:1487–94. ](http://refhub. elsevier.com/S1877-0568(23)00387-0/sbref0270) 
 	- [26] [Bhatia](http://refhub.elsevier.com/S1877-0568(23)00387-0/sbref0275) [S,](http://refhub.elsevier.com/S1877-0568(23)00387-0/sbref0275) [Frank](http://refhub.elsevier.com/S1877-0568(23)00387-0/sbref0275) [RM,](http://refhub.elsevier.com/S1877-0568(23)00387-0/sbref0275) [Ghodadra](http://refhub.elsevier.com/S1877-0568(23)00387-0/sbref0275) [NS,](http://refhub.elsevier.com/S1877-0568(23)00387-0/sbref0275) [et](http://refhub.elsevier.com/S1877-0568(23)00387-0/sbref0275) [al.](http://refhub.elsevier.com/S1877-0568(23)00387-0/sbref0275) [The](http://refhub.elsevier.com/S1877-0568(23)00387-0/sbref0275) [outcomes](http://refhub.elsevier.com/S1877-0568(23)00387-0/sbref0275) [and](http://refhub.elsevier.com/S1877-0568(23)00387-0/sbref0275) [surgical](http://refhub.elsevier.com/S1877-0568(23)00387-0/sbref0275) [techniques](http://refhub.elsevier.com/S1877-0568(23)00387-0/sbref0275) [of](http://refhub.elsevier.com/S1877-0568(23)00387-0/sbref0275) [the](http://refhub.elsevier.com/S1877-0568(23)00387-0/sbref0275) [Latarjet](http://refhub.elsevier.com/S1877-0568(23)00387-0/sbref0275) [procedure.](http://refhub.elsevier.com/S1877-0568(23)00387-0/sbref0275) [Arthroscopy](http://refhub.elsevier.com/S1877-0568(23)00387-0/sbref0275) [2014;30:227](http://refhub.elsevier.com/S1877-0568(23)00387-0/sbref0275)–[35.](http://refhub.elsevier.com/S1877-0568(23)00387-0/sbref0275)
 <!-- end of chunk positioned position="45" -->?
 
 ...
 
-<!-- chunk from informationid="4" with position="46" -->
+<!-- chunk from informationid="31" with position="46" -->
 
 	- [27] [Hurley](http://refhub.elsevier.com/S1877-0568(23)00387-0/sbref0280) [ET,](http://refhub.elsevier.com/S1877-0568(23)00387-0/sbref0280) [Montgomery](http://refhub.elsevier.com/S1877-0568(23)00387-0/sbref0280) [C,](http://refhub.elsevier.com/S1877-0568(23)00387-0/sbref0280) [Jamal](http://refhub.elsevier.com/S1877-0568(23)00387-0/sbref0280) [MS,](http://refhub.elsevier.com/S1877-0568(23)00387-0/sbref0280) [et](http://refhub.elsevier.com/S1877-0568(23)00387-0/sbref0280) [al.](http://refhub.elsevier.com/S1877-0568(23)00387-0/sbref0280) [Return](http://refhub.elsevier.com/S1877-0568(23)00387-0/sbref0280) [to](http://refhub.elsevier.com/S1877-0568(23)00387-0/sbref0280) [play](http://refhub.elsevier.com/S1877-0568(23)00387-0/sbref0280) [after](http://refhub.elsevier.com/S1877-0568(23)00387-0/sbref0280) [the](http://refhub.elsevier.com/S1877-0568(23)00387-0/sbref0280) [latarjet](http://refhub.elsevier.com/S1877-0568(23)00387-0/sbref0280) [procedure](http://refhub.elsevier.com/S1877-0568(23)00387-0/sbref0280) [for](http://refhub.elsevier.com/S1877-0568(23)00387-0/sbref0280) [anterior](http://refhub.elsevier.com/S1877-0568(23)00387-0/sbref0280) [shoulder](http://refhub.elsevier.com/S1877-0568(23)00387-0/sbref0280) [instability:](http://refhub.elsevier.com/S1877-0568(23)00387-0/sbref0280) [a](http://refhub.elsevier.com/S1877-0568(23)00387-0/sbref0280) [systematic](http://refhub.elsevier.com/S1877-0568(23)00387-0/sbref0280) [review.](http://refhub.elsevier.com/S1877-0568(23)00387-0/sbref0280) [Am](http://refhub.elsevier.com/S1877-0568(23)00387-0/sbref0280) [J](http://refhub.elsevier.com/S1877-0568(23)00387-0/sbref0280) [Sports](http://refhub.elsevier.com/S1877-0568(23)00387-0/sbref0280) [Med](http://refhub.elsevier.com/S1877-0568(23)00387-0/sbref0280) [2019;47:3002–8.](http://refhub.elsevier.com/S1877-0568(23)00387-0/sbref0280) 
 	- [28] [Lau](http://refhub.elsevier.com/S1877-0568(23)00387-0/sbref0285) [BC,](http://refhub.elsevier.com/S1877-0568(23)00387-0/sbref0285) [Pineda](http://refhub.elsevier.com/S1877-0568(23)00387-0/sbref0285) [LB,](http://refhub.elsevier.com/S1877-0568(23)00387-0/sbref0285) [Johnston](http://refhub.elsevier.com/S1877-0568(23)00387-0/sbref0285) [TR,](http://refhub.elsevier.com/S1877-0568(23)00387-0/sbref0285) [et](http://refhub.elsevier.com/S1877-0568(23)00387-0/sbref0285) [al.](http://refhub.elsevier.com/S1877-0568(23)00387-0/sbref0285) [Return](http://refhub.elsevier.com/S1877-0568(23)00387-0/sbref0285) [to](http://refhub.elsevier.com/S1877-0568(23)00387-0/sbref0285) [play](http://refhub.elsevier.com/S1877-0568(23)00387-0/sbref0285) [after](http://refhub.elsevier.com/S1877-0568(23)00387-0/sbref0285) [revision](http://refhub.elsevier.com/S1877-0568(23)00387-0/sbref0285) [ante](http://refhub.elsevier.com/S1877-0568(23)00387-0/sbref0285)[rior](http://refhub.elsevier.com/S1877-0568(23)00387-0/sbref0285) [shoulder](http://refhub.elsevier.com/S1877-0568(23)00387-0/sbref0285) [stabilization:](http://refhub.elsevier.com/S1877-0568(23)00387-0/sbref0285) [a](http://refhub.elsevier.com/S1877-0568(23)00387-0/sbref0285) [systematic](http://refhub.elsevier.com/S1877-0568(23)00387-0/sbref0285) [review.](http://refhub.elsevier.com/S1877-0568(23)00387-0/sbref0285) [Orthop](http://refhub.elsevier.com/S1877-0568(23)00387-0/sbref0285) [J](http://refhub.elsevier.com/S1877-0568(23)00387-0/sbref0285) [Sports](http://refhub.elsevier.com/S1877-0568(23)00387-0/sbref0285) [Med](http://refhub.elsevier.com/S1877-0568(23)00387-0/sbref0285) [2021;9,](http://refhub.elsevier.com/S1877-0568(23)00387-0/sbref0285) [232596712098205.](http://refhub.elsevier.com/S1877-0568(23)00387-0/sbref0285) 

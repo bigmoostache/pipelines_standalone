@@ -407,10 +407,9 @@ class SOTA(BaseModel):
                 self.get_last(info.versions, version_list)
             ]
         # Build Lucario out of that
-        lucario = self.information[self.main_lucario_id].get_last_version(version_list)
-        assert isinstance(lucario, LUCARIO), "The main knowledge base is not a LUCARIO element"
-        lucario.update()
-        lucario_file_id_to_information_id = {v.file_id: k for k,v in lucario.elements.items()}
+        lucario, mapping = self.update_lucario()
+        lucario_file_id_to_information_id = {
+        }
         # Now, the important part: the logic of how to build the similarity requests
         if allow_external:
             # in that case, all documents may be used
@@ -443,10 +442,14 @@ class SOTA(BaseModel):
             file_uuids=file_uuids,
             files_forced=files_forces
         )
+        print(lucario.file_id_2_position, lucario.elements.keys(), mapping)
         for _ in res:
-            _['referenced_information'] = lucario_file_id_to_information_id[_['parent_file_id']]
-            _['reference'] = lucario.elements[_['referenced_information']].description
+            lucario_local_document_identifier = lucario.file_id_2_position[_['parent_file_id']]
+            sota_information_id = mapping[lucario_local_document_identifier]
+            _['referenced_information'] = sota_information_id
+            _['reference'] = lucario.elements[lucario_local_document_identifier].description
             _['chunk_id'] = _['local_chunk_identifier']
+        open('res.json', 'w').write(json.dumps(res, indent=2))
         return res
 
 class Converter:

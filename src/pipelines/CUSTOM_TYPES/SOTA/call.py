@@ -35,8 +35,8 @@ def build_references(sota : SOTA, information_id: int, references: Literal['allo
         grouped=True,
         group_by='referenced_information',
         group_format=sota.t('', {'': {
-                'en': '# Reference {referenced_information}\n>> To cite this article, the "informationid" in the referencement is: {referenced_information}\n>> Context for this document: {reference}',
-                'fr': '# Référence {referenced_information}\n>> Pour citer cet article, l\'"informationid" dans le referencement est: {referenced_information}\n>> Contexte pour ce document: {reference}'
+                'en': '# Reference {referenced_information}\n>> To cite this article, the "information_id" in the referencement is: information_id = {referenced_information}\n>> Context for this document: {reference}',
+                'fr': '# Référence {referenced_information}\n>> Pour citer cet article, l\'"information_id" dans le referencement est: information_id = {referenced_information}\n>> Contexte pour ce document: {reference}'
             }}),
         group_joiner='?\n\n...\n\n'
     )
@@ -506,7 +506,7 @@ def complex_rewrite(
     prompt = PROMPT()
     open('prompt.md', 'w').write(final_prompt)
     prompt.add(final_prompt, role='user')
-    
+    raise
     free_ref_ids = []
     from random import randint
     while len(free_ref_ids) < 10:
