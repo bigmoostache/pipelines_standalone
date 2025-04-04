@@ -504,9 +504,7 @@ def complex_rewrite(
     final_prompt = f"{references}{article}{format_prompt}{focus}{instructions}"
     # 7. Send that to the LLM
     prompt = PROMPT()
-    open('prompt.md', 'w').write(final_prompt)
     prompt.add(final_prompt, role='user')
-    raise
     free_ref_ids = []
     from random import randint
     while len(free_ref_ids) < 10:
