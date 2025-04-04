@@ -2,6 +2,7 @@ from custom_types.SOTA.type import SOTA, VersionedInformation, VersionedText, Se
 from pipelines.CUSTOM_TYPES.SOTA.call import text_pipelines, sections_pipelines
 from typing import List
 import json
+import logging
 from bs4 import BeautifulSoup, NavigableString
 import re
 
@@ -54,6 +55,10 @@ def delete_ref(text, refid):
     if ref:
         ref.decompose()
     return str(soup)
+def list_refs(text):
+    soup = BeautifulSoup(text, 'html.parser')
+    refs = soup.find_all('reference')
+    return [int(ref['refid']) for ref in refs]
 
 def text(sota, information_id, contents, params):
     info = sota.information[information_id]
@@ -88,28 +93,36 @@ def text(sota, information_id, contents, params):
                     info.active_annotations[-1] = active_annotations
 
     if contents.get('referencements', None) is not None:
+        logging.debug(f'Existing referencements: {info.referencements.keys()}')
         for reference in contents['referencements']:
-            try:
-                refid, informationid, position, html_contents = int(reference['refid']), int(reference['informationid']), reference['position'], reference['html_contents']
-            except ValueError:
-                continue
-            if informationid not in sota.information:
+            refid, referenced_information_id, position, html_contents = int(reference['refid']), int(reference['informationid']), reference['position'], reference['html_contents']
+            if referenced_information_id not in sota.information:
+                logging.debug(f"Information ID {referenced_information_id} not found in SOTA.")
                 info.versions[-1] = delete_ref(last_text, refid)
                 last_text = info.versions[-1]
                 continue
             if refid not in info.referencements:
-                sota.information[informationid].referencements[refid] = Referencement(
-                    information_id=informationid,
+                logging.debug(f'Adding {reference}')
+                sota.information[information_id].referencements[refid] = Referencement(
+                    information_id=referenced_information_id,
                     detail=str(position),
                     analysis=html_contents
                 )
-            referencement_versions = sota.get_last(sota.information[informationid].referencement_versions, sota.versions_list(-1))
-            if refid not in referencement_versions:
-                referencement_versions = referencement_versions if referencement_versions else []
-                referencement_versions.append(refid)
-                sota.information[informationid].referencement_versions[-1] = referencement_versions
             info.versions[-1] = make_sure_ref_exists_in_text(last_text, refid)
             last_text = info.versions[-1]
+    # Finally, update referencement_versions to match the ones that appear in the text
+    refs = list_refs(last_text)
+    logging.debug(f'Existing referencements: {info.referencements.keys()}')
+    existing_refs = [_ for _ in refs if _ in info.referencements]
+    non_existing_refs = [_ for _ in refs if _ not in info.referencements]
+    for ref in non_existing_refs:
+        last_text = delete_ref(last_text, ref)
+        info.versions[-1] = last_text
+    for ref in existing_refs:
+        last_text = make_sure_ref_exists_in_text(last_text, ref)
+        info.versions[-1] = last_text
+    sota.information[information_id].referencement_versions[-1] = existing_refs
+
     
 def sections(sota, information_id, contents, params):
     info = sota.information[information_id]

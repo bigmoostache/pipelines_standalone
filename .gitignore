@@ -18,3 +18,4 @@ src/errors.txt
 *.tar.gz
 *.whl
 src/schema.json
+src/pipelines/CUSTOM_TYPES/SOTA/merge.py

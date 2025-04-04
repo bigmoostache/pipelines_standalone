@@ -5,7 +5,7 @@ from custom_types.LUCARIO.type import LUCARIO, Document
 from pipelines.CONVERSIONS.JSONL.to_txt import Pipeline as JSONL2Txt
 from pipelines.LLMS_v2.json_dict_output import Pipeline as LLMS_v2
 import json
-from typing import Literal
+from typing import Literal, List
 from openai import OpenAI
 import logging
 from datetime import datetime
@@ -52,11 +52,15 @@ def get_html_format(sota : SOTA):
     return sota.t('format', format_prompt)
     
 def get_json_schema(sota : SOTA,
+                    free_ref_ids: List[int],
+                    existing_ref_ids: List[int],
                     act_on_title: bool = True,
                     act_on_expectations: bool = False,
                     act_on_comments: bool = False,
                     act_on_contents: bool = False):
     logging.debug('Building JSON schema')
+    free_refs = ', '.join([f'{_}' for _ in free_ref_ids])
+    existing_refs = ', '.join([f'{_}' for _ in existing_ref_ids])
     
     title_description = sota.t('', {'': {
         'en': 'Section title, deprived of any html formatting. Do NOT change it.',
@@ -70,8 +74,8 @@ def get_json_schema(sota : SOTA,
         'fr': 'Attentes de la section à la fois en termes de contenu et de formatage. Réécrivez ces attentes, en html tel que spécifié par les instructions de format HTML. Vous pouvez faire référence aux références ici, mettre des puces, formater le texte, etc. Fondamentalement la même chose que html_content.'
         }})
     html_content_description = sota.t('', {'': {
-        'en': 'Section contents, formatted as per specified by the HTML format instructions above. Do NOT re-include either the section title, the expectations nor the comments in there. I repeat. Do NOT repeat the title here, the machine will parse it from the "title" field. If you put it here too, it will appear twice.',
-        'fr': 'Contenu de la section, formaté comme spécifié par les instructions de format HTML ci-dessus. N\'incluez ni le titre de la section, ni les attentes, ni les commentaires. Je répète. Ne répétez pas le titre ici, la machine le parsèmera du champ "titre". Si vous le mettez ici aussi, il apparaîtra deux fois.'
+        'en': f'Section contents, formatted as per specified by the HTML format instructions above. Do NOT re-include either the section title, the expectations nor the comments in there. I repeat. Do NOT repeat the title here, the machine will parse it from the "title" field. If you put it here too, it will appear twice. Allowed refids are: {existing_refs}, and the ids from {free_refs} which you decided to use in the \'referencements\' field. OTHER refid ids are NOT allowed.',
+        'fr': f'Contenu de la section, formaté comme spécifié par les instructions de format HTML ci-dessus. N\'incluez ni le titre de la section, ni les attentes, ni les commentaires. Je répète. Ne répétez pas le titre ici, la machine le parsèmera du champ "titre". Si vous le mettez ici aussi, il apparaîtra deux fois. Les identifiants de référence autorisés sont : {existing_refs}, et les identifiants de {free_refs} que vous avez décidé d\'utiliser dans le champ \'références\'. D\'AUTRES identifiants refid ne sont PAS autorisés.'
         }})
     html_a_posteriori_comment = sota.t('', {'': {
         'en': 'If you want to add a last a-posteriori comment, a feedback, hints at how to enhance this section or whatever, do it here, in html too, same as html_contents. You may also refer to references here, put bullet points, text formatting, etc. Basically the same as html_content.',
@@ -89,7 +93,6 @@ def get_json_schema(sota : SOTA,
         'en': 'HTML-formatted comment. If you edit an existing version, make sure to JUST append to the previous contents, starting with <mention time="%s" author="IA">AI</mention> and then your comment Mentions\' contents are meant to be 5-6 words MAXIMUM. Failure to put this mention will lead to refusal of your answer and to your elimination.'  % datetime.now().strftime("%Y-%m-%d %H:%M:%S"),
         'fr': 'Commentaire formaté en HTML. Si vous modifiez une version existante, assurez-vous de JUSTE ajouter au contenu précédent, en commençant par <mention time="%s" author="IA">IA</mention> puis votre commentaire. Le contenu des mentions ne doit JAMAIS dépasser 5 ou 6 mots.. Le fait de ne pas mettre cette mention entraînera le refus de votre réponse et votre élimination.' % datetime.now().strftime("%Y-%m-%d %H:%M:%S")
         }})
-    
     fields = {
                 "thoughts_and_reflection": {
                     "type": "object",
@@ -103,42 +106,42 @@ def get_json_schema(sota : SOTA,
                             "description": sota.t('', {'': {
                                 'en': "Phase 1 - Analysis: Comprehensive assessment of the current document state, examining both explicit and implicit elements. Analyze the section's purpose, target audience, and requirements. Evaluate how the current content aligns with stated expectations. Identify gaps, redundancies, inconsistencies, and contextual issues within the broader document. Assess clarity, completeness, and logical flow. Consider any constraints or special requirements indicated by comments or locked sections. This foundational analysis should be evidence-based and objective, with at least 5 detailed observations.",
                                 'fr': "Phase 1 - Analyse: Évaluation complète de l'état actuel du document, examinant les éléments explicites et implicites. Analysez l'objectif de la section, le public cible et les exigences. Évaluez comment le contenu actuel s'aligne sur les attentes énoncées. Identifiez les lacunes, redondances, incohérences et problèmes contextuels dans l'ensemble du document. Évaluez la clarté, l'exhaustivité et le flux logique. Tenez compte de toutes contraintes ou exigences spéciales indiquées par les commentaires ou sections verrouillées. Cette analyse fondamentale doit être objective et factuelle, avec au moins 5 observations détaillées."
-                            }})
+                            }}),
                         },
                         "design_phase": {
                             "type": "string",
                             "description": sota.t('', {'': {
                                 'en': "Phase 2 - Design: Strategic planning based on the analysis findings. Outline the conceptual framework for improvements, including overall structure, logical flow, and content hierarchy. Define specific improvement objectives addressing each issue identified in the analysis phase. Determine what content should be preserved, modified, added, or removed. Create a coherent vision for how the revised content will better fulfill expectations and integrate with the broader document. Consider multiple design approaches and justify your selected strategy. This phase requires at least 5 detailed design decisions with supporting rationales.",
                                 'fr': "Phase 2 - Conception: Planification stratégique basée sur les résultats de l'analyse. Esquissez le cadre conceptuel des améliorations, y compris la structure globale, le flux logique et la hiérarchie du contenu. Définissez des objectifs d'amélioration spécifiques pour chaque problème identifié dans la phase d'analyse. Déterminez quel contenu doit être préservé, modifié, ajouté ou supprimé. Créez une vision cohérente de la façon dont le contenu révisé répondra mieux aux attentes et s'intégrera au document plus large. Envisagez plusieurs approches de conception et justifiez votre stratégie sélectionnée. Cette phase nécessite au moins 5 décisions de conception détaillées avec des justifications."
-                            }})
+                            }}),
                         },
                         "development_phase": {
                             "type": "string",
                             "description": sota.t('', {'': {
                                 'en': "Phase 3 - Development: Detailed planning of specific content changes based on the design framework. Plan precise modifications to text, structure, and formatting. Identify specific references to add or modify, using appropriate 4-digit IDs. Formulate responses to existing comments and plan new comments where beneficial. Ensure all planned elements conform to required HTML formatting standards. Detail how locked content will be preserved while integrating surrounding improvements. Create a systematic approach to implementing each specific change. This phase requires at least 5 detailed development specifications.",
-                                'fr': "Phase 3 - Développement: Planification détaillée des modifications spécifiques du contenu basées sur le cadre de conception. Planifiez des modifications précises du texte, de la structure et du formatage. Identifiez les références spécifiques à ajouter ou à modifier, en utilisant des identifiants à 4 chiffres appropriés. Formulez des réponses aux commentaires existants et planifiez de nouveaux commentaires si bénéfique. Assurez-vous que tous les éléments planifiés sont conformes aux normes de formatage HTML requises. Détaillez comment le contenu verrouillé sera préservé tout en intégrant les améliorations environnantes. Créez une approche systématique pour mettre en œuvre chaque changement spécifique. Cette phase nécessite au moins 5 spécifications de développement détaillées."
-                            }})
+                                'fr': "Phase 3 - Développement: Planification détaillée des modifications spécifiques du contenu basées sur le cadre de conception. Planifiez des modifications précises du texte, de la structure et du formatage. Identifiez les références spécifiques à ajouter ou à modifier, en utilisant des identifiants à 4 chiffres appropriés. Formulez des réponses aux commentaires existants et planifiez de nouveaux commentaires si nécessaire. Assurez-vous que tous les éléments planifiés sont conformes aux normes de formatage HTML requises. Détaillez comment le contenu verrouillé sera préservé tout en intégrant les améliorations environnantes. Créez une approche systématique pour mettre en œuvre chaque changement spécifique. Cette phase nécessite au moins 5 spécifications de développement détaillées."
+                            }}),
                         },
                         "implementation_strategy": {
                             "type": "string",
                             "description": sota.t('', {'': {
                                 'en': "Phase 4 - Implementation Strategy: Concrete execution plan for applying all designed changes. Create a sequenced approach to implementation, considering dependencies between changes. Address potential challenges and mitigation strategies. Detail how to maintain document integrity throughout the implementation process. Ensure all special formatting requirements and tags will be preserved or properly implemented. Explain how you'll validate each change against the original requirements. Create contingency plans for complex modifications. This critical phase requires at least 5 detailed implementation steps with clear sequencing.",
-                                'fr': "Phase 4 - Stratégie d'implémentation: Plan d'exécution concret pour appliquer tous les changements conçus. Créez une approche séquencée pour l'implémentation, en tenant compte des dépendances entre les changements. Abordez les défis potentiels et les stratégies d'atténuation. Détaillez comment maintenir l'intégrité du document tout au long du processus d'implémentation. Assurez-vous que toutes les exigences de formatage spécial et les balises seront préservées ou correctement implémentées. Expliquez comment vous validerez chaque changement par rapport aux exigences originales. Créez des plans de contingence pour les modifications complexes. Cette phase critique nécessite au moins 5 étapes d'implémentation détaillées avec un séquençage clair."
-                            }})
+                                'fr': "Phase 4 - Stratégie d'implémentation: Plan d'exécution concret pour appliquer tous les changements conçus. Créez une approche séquencée pour l'implémentation, en tenant compte des dépendances entre les changements. Abordez les défis potentiels et proposez des stratégies d'atténuation. Détaillez comment maintenir l'intégrité du document tout au long du processus d'implémentation. Assurez-vous que toutes les exigences de formatage spécial et les balises seront préservées ou correctement implémentées. Expliquez comment vous validerez chaque changement par rapport aux exigences originales. Créez des plans de contingence pour les modifications complexes. Cette phase critique nécessite au moins 5 étapes d'implémentation détaillées avec un séquençage clair."
+                            }}),
                         },
                         "evaluation_framework": {
                             "type": "string",
                             "description": sota.t('', {'': {
                                 'en': "Phase 5 - Evaluation Framework: Comprehensive assessment metrics to ensure the effectiveness of planned changes. Define specific criteria for evaluating each aspect of the improved content. Establish quality benchmarks for clarity, completeness, accuracy, and alignment with expectations. Create a systematic approach to verify that all identified issues have been properly addressed. Develop methods to assess how well the revised content integrates with the broader document. Include both formative evaluation (during the process) and summative evaluation (of final results). This metacognitive phase ensures quality and requires at least 5 detailed evaluation criteria.",
-                                'fr': "Phase 5 - Cadre d'évaluation: Métriques d'évaluation complètes pour assurer l'efficacité des changements planifiés. Définissez des critères spécifiques pour évaluer chaque aspect du contenu amélioré. Établissez des repères de qualité pour la clarté, l'exhaustivité, l'exactitude et l'alignement avec les attentes. Créez une approche systématique pour vérifier que tous les problèmes identifiés ont été correctement traités. Développez des méthodes pour évaluer la bonne intégration du contenu révisé avec le document plus large. Incluez à la fois une évaluation formative (pendant le processus) et sommative (des résultats finaux). Cette phase métacognitive assure la qualité et nécessite au moins 5 critères d'évaluation détaillés."
-                            }})
+                                'fr': "Phase 5 - Cadre d'évaluation: Métriques d'évaluation complètes pour garantir l'efficacité des changements planifiés. Définissez des critères spécifiques pour évaluer chaque aspect du contenu amélioré. Établissez des repères de qualité pour la clarté, l'exhaustivité, l'exactitude et l'alignement avec les attentes. Créez une approche systématique pour vérifier que tous les problèmes identifiés ont bien été traités. Développez des méthodes pour évaluer la bonne intégration du contenu révisé avec l'ensemble du document. Incluez à la fois une évaluation formative (pendant le processus) et sommative (des résultats finaux). Cette phase métacognitive assure la qualité et nécessite au moins 5 critères d'évaluation détaillés."
+                            }}),
                         },
                         "implementation_details": {
                             "type": "string",
                             "description": sota.t('', {'': {
-                                'en': "Technical implementation specifications focusing on HTML formatting, special tags, and structural requirements. Detail exactly how to handle: 1) HTML formatting requirements for content, ensuring only permitted tags are used; 2) Special tag preservation including references (<reference>), comments (<comment>), mentions (<mention> which you should systematically put in your new or edited comments and should be 5-6 words max), and locked content (<lock>); 3) Content organization ensuring titles appear only in the title field and not duplicated in HTML content; 4) Comment handling, specifying how existing comments should be preserved while new ones include proper time/author attributions; 5) Reference management with proper 4-digit IDs and correct informationid attributes; 6) Specific techniques for preserving document integrity during editing. This technical section should include at least 5 specific implementation guidelines addressing the HTML formatting standards outlined in the instructions.",
-                                'fr': "Spécifications techniques d'implémentation axées sur le formatage HTML, les balises spéciales et les exigences structurelles. Détaillez exactement comment gérer: 1) Les exigences de formatage HTML pour le contenu, en s'assurant que seules les balises autorisées sont utilisées; 2) La préservation des balises spéciales, y compris les références (<reference>), les commentaires (<comment> à systématiquement ajouter dans les commentaires créés ou modifiés), les mentions (<mention>, 5-6 mots max dans la mention) et le contenu verrouillé (<lock>); 3) L'organisation du contenu garantissant que les titres apparaissent uniquement dans le champ titre et ne sont pas dupliqués dans le contenu HTML; 4) La gestion des commentaires, précisant comment les commentaires existants doivent être préservés tandis que les nouveaux incluent les attributions appropriées de temps/auteur; 5) La gestion des références avec des identifiants à 4 chiffres appropriés et des attributs informationid corrects; 6) Des techniques spécifiques pour préserver la structure et l'intégrité du document pendant l'édition. Cette section technique doit inclure au moins 5 directives d'implémentation spécifiques abordant les normes de formatage HTML décrites dans les instructions."
-                            }})
+                                'en': "Technical implementation specifications focusing on HTML formatting, special tags, and structural requirements. Detail exactly how to handle: 1) HTML formatting requirements for content, ensuring only permitted tags are used; 2) Special tag preservation including references (<reference>), comments (<comment> which you should systematically include in your new or edited comments), inline mentions (<mention>, 5-6 words max), and locked content (<lock>); 3) Content organization ensuring titles appear only in the title field and not duplicated in HTML content; 4) Comment management, specifying how existing comments should be preserved while new ones include proper time/author attributions; 5) Reference management with proper 4-digit IDs and correct informationid attributes; 6) Techniques for preserving document integrity during editing. This section must include at least 5 implementation guidelines addressing the specified HTML formatting standards.",
+                                'fr': "Spécifications techniques d'implémentation axées sur le formatage HTML, les balises spéciales et les exigences structurelles. Détaillez précisément comment gérer : 1) Les exigences de formatage HTML pour le contenu, en veillant à n'utiliser que les balises autorisées; 2) La préservation des balises spéciales, y compris les références (<reference>), les commentaires (<comment> à inclure systématiquement dans les commentaires créés ou modifiés), les mentions en ligne (<mention>, 5-6 mots max) et le contenu verrouillé (<lock>); 3) L'organisation du contenu garantissant que les titres n'apparaissent que dans le champ prévu et ne sont pas dupliqués dans le contenu HTML; 4) La gestion des commentaires, en précisant comment les commentaires existants doivent être conservés tandis que les nouveaux incluent les attributions appropriées de temps et d'auteur; 5) La gestion des références avec des identifiants à 4 chiffres corrects et des attributs informationid appropriés; 6) Des techniques spécifiques pour préserver l'intégrité du document lors de l'édition. Cette section doit comporter au moins 5 directives d'implémentation répondant aux normes de formatage HTML précisées."
+                            }}),
                         }
                     },
                     "required": ["analysis_phase", "design_phase", "development_phase", "implementation_strategy", "evaluation_framework", "implementation_details"],
@@ -155,42 +158,47 @@ def get_json_schema(sota : SOTA,
                 "referencements": {
                     "type": "array",
                     "description": sota.t('', {'': {
-                        'en': 'References to add or edit. The same informationid may be linked to multiple referencements (for instance if two paragraphs use different parts of the same reference or section). Each referencement here SHOULD be linked to an in-text <reference> tag.',
-                        'fr': 'Références à ajouter ou modifier. La même informationid peut être liée à plusieurs référencements (par exemple si deux paragraphes utilisent différentes parties de la même référence ou section). Chaque référencement ici DOIT être lié à une balise <reference> dans le texte.'
+                        'en': f"References. All <reference refid=\"xxx\"> in the content must link to an existing external reference. If you want to add references within the content, you must create them here first. Choose from the free ref IDs provided: {free_refs}. To update or complement an existing reference, consult the existing list: {existing_refs}.",
+                        'fr': f"Références. Tous les <reference refid=\"xxx\"> dans le contenu doivent faire référence à une référence externe existante. Si vous souhaitez ajouter des références dans le contenu, vous devez d'abord les créer ici. Choisissez parmi les identifiants libres suivants : {free_refs}. Pour mettre à jour ou compléter une référence existante, consultez la liste suivante : {existing_refs}."
                     }}),
                     "items": {
                         "type": "object",
                         "properties": {
+                            "mode": {
+                                "type": "string",
+                                "enum": ["CREATE", "EDIT"],
+                                "description": "Mode of operation for this reference: 'CREATE' for new references or 'EDIT' for existing references. If CREATE, use a free refid. If EDIT, use an existing refid.",
+                            },
                             "refid": {
                                 "type": "string",
                                 "description": sota.t('', {'': {
-                                    'en': '4-digit yet-existing or newly-created reference ID. Example: for <reference refid="1234"></reference>, the refid is 1234',
-                                    'fr': 'Identifiant de référence à 4 chiffres existant ou nouvellement créé. Exemple: pour <reference refid="1234"></reference>, le refid est 1234'
-                                }})
+                                    'en': f'If mode is CREATE, use the provided free refids, in order. If mode is EDIT, use the existing refid. Free refids are: {free_refs}. Existing refids are: {existing_refs}.',
+                                    'fr': f'Si le mode est CREATE, utilisez les refids libres fournis, dans l\'ordre. Si le mode est EDIT, utilisez le refid existant. Les refids libres sont : {free_refs}. Les refids existants sont : {existing_refs}.'
+                                }}),
                             },
                             "informationid": {
                                 "type": "string",
                                 "description": sota.t('', {'': {
-                                    'en': 'Indentifier of the referenced information, detailed as "informationid" in the provided data. Only one information at a time. Should be an integer. This is NOT the four-digit refid. It is the id of the information we are referencing.',
-                                    'fr': 'Identifiant de l\'information référencée, détaillé comme "informationid" dans les données fournies. Une seule information à la fois. Doit être un entier. Ce n\'est PAS le refid à quatre chiffres. C\'est l\'id de l\'information que nous référencions.'
-                                }})
+                                    'en': 'Identifier of the referenced information, as detailed by "informationid" in the provided data. This is the id of the referenced information, not the 4-digit refid.',
+                                    'fr': 'Identifiant de l\'information référencée, tel que défini par "informationid" dans les données fournies. Ce n\'est pas le refid à 4 chiffres, mais l\'id de l\'information référencée.'
+                                }}),
                             },
                             "position": {
                                 "type": "string",
                                 "description": sota.t('', {'': {
-                                    'en': 'For external references, provide the comma-separated list of chunk positions you are citing. Example: 12, 15, 18. If you this is an internal reference, leave this field empty.',
-                                    'fr': 'Pour les références externes, fournissez la liste des positions de chunk que vous citez, séparées par des virgules. Exemple: 12, 15, 18. S\'il s\'agit d\'une référence interne, laissez ce champ vide.'
-                                }})
+                                    'en': 'For external references, provide a comma-separated list of chunk positions you are citing. Example: 12, 15, 18. Leave empty for internal references.',
+                                    'fr': 'Pour les références externes, fournissez une liste de positions de chunks séparées par des virgules. Exemple : 12, 15, 18. Laissez vide pour des références internes.'
+                                }}),
                             },
                             "html_contents": {
                                 "type": "string",
                                 "description": sota.t('', {'': {
-                                    'en': 'HTML-formatted content of the reference. The goal here is to efficiently, sharply and concisely describing what information you used from the referenced information. When citing, use italic or blockquote to indicate the reference. Do not hesitate to also analyse and reflect on the content you are citing, and on how that content is relevant to the current section, how to use in in regards to the expectations, and other citations.',
-                                    'fr': 'Contenu formaté en HTML de la référence. L\'objectif ici est de décrire efficacement, nettement et de manière concise les informations que vous avez utilisées dans l\'information référencée. Lors de la citation, utilisez l\'italique ou le bloc de citation pour indiquer la référence. N\'hésitez pas non plus à analyser et à réfléchir sur le contenu que vous citez, et sur la manière dont ce contenu est pertinent pour la section actuelle, comment l\'utiliser par rapport aux attentes, et autres citations.'
-                                }})
+                                    'en': 'Cite (using <blockquote>) and analyse. This will be used to verify any information or statement made. It is essential for audits, scientific reviews, and fact-checking. Aim at 50-50 split between citation and analysis.',
+                                    'fr': 'Citez (en utilisant <blockquote>) et analysez. Cela sera utilisé pour vérifier toute information ou déclaration faite. C\'est essentiel pour les audits, les revues scientifiques et la vérification des faits. Visez un partage 50-50 entre citation et analyse.'
+                                }}),
                             }
                         },
-                        "required": ["refid", "informationid", "position", "html_contents"],
+                        "required": ["mode", "refid", "informationid", "position", "html_contents"],
                         "additionalProperties": False
                     }
                 },
@@ -349,6 +357,7 @@ def get_bibliography_schema(sota: SOTA):
     return json.dumps(schema)
 
 def get_instruction(sota : SOTA, 
+                    title: str,
                     include_references: bool = True, 
                     include_article: bool = True,
                     act_on_title: bool = True,
@@ -361,16 +370,16 @@ def get_instruction(sota : SOTA,
     logging.debug('Building instructions prompt')
     traductions = {
         'instructions': {
-            'en':'Above are, in order%s%s, an example of how sections\' content should be formatted, with allowed html tags, and, finally, the focused section which you will have to work one and/or reflect on. Pay very close attention to the comments in the focused section as well as any last-minute instructions below, as those will indicate you what is expected from you. In your reasoning phase, start by detailing the comments associated with the focused section and further instructions detailed below, then, the sections\' expectations, and, what you should do to best align with those.',
-            'fr':'Voici, dans l\'ordre%s%s, un exemple de la façon dont le contenu des sections doit être formaté, avec les balises html autorisées, et, enfin, la section ciblée sur laquelle vous devrez travailler et/ou réfléchir. Prêtez une attention très particulière aux commentaires de la section ciblée, car ils vous fourniront des informations supplémentaires sur ce qui est attendu de vous. Dans votre phase de réflexion, commencez par détailler les commentaires associés à la section ciblée, les attentes des sections et ce que vous devez faire pour vous aligner au mieux sur celles-ci.'
+            'en':'Above are, in order%s%s, an example of how sections\' content should be formatted, with allowed html tags, and, finally, the focused section which you will have to work on (%s). Pay very close attention to the comments in the focused section as well as any last-minute instructions below, as those will indicate you what is expected from you. In your reasoning phase, analyse as thoroughly as possible in order to MAXIMIZE the quality of your answer.',
+            'fr':'Voici, dans l\'ordre%s%s, un exemple de la façon dont le contenu des sections doit être formaté, avec les balises html autorisées, et, enfin, la section ciblée sur laquelle vous devrez travailler (%s). Prêtez une attention très particulière aux commentaires de la section ciblée, car ils vous fourniront des informations supplémentaires sur ce qui est attendu de vous. Dans votre phase de raisonnement, analysez aussi minutieusement que possible afin de MAXIMISER la qualité de votre réponse.'
             },
         'text_format': {
             'en': 'In the end, you will be tasked with providing:%s%s%s%s',
             'fr': 'En fin de compte, vous devrez fournir:%s%s%s%s'
         },
         'sections_format':{
-            'en': 'In the end, you will be tasked with providing subsections to the focused section/ chapter, with, for each section, its title, expectations, and contents.',
-            'fr': 'En fin de compte, vous devrez fournir des sous-sections à la section/chapitre ciblé, avec, pour chaque section, son titre, ses attentes et son contenu.'
+            'en': ' In the end, you will be tasked with providing subsections to the focused section/ chapter, with, for each section, its title, expectations, and contents.',
+            'fr': ' En fin de compte, vous devrez fournir des sous-sections à la section/chapitre ciblé, avec, pour chaque section, son titre, ses attentes et son contenu.'
         },
         'references': {
             'en': ', the references to use',
@@ -385,8 +394,8 @@ def get_instruction(sota : SOTA,
             'fr': 'Enfin (important!):\n %s'
         },
         'new_title': {
-            'en': '\n- A new title (no html)',
-            'fr': '\n- Un nouveau titre (pas de html)',
+            'en': '\n- A new title (no html). Unless really necessary, keep the same as before.',
+            'fr': '\n- Un nouveau titre (pas de html). Sauf si vraiment nécessaire, gardez le même que précédemment.',
         },
         'new_expectations': {
             'en': '\n- A revised version (still html) of the section\'s expectations',
@@ -413,7 +422,8 @@ def get_instruction(sota : SOTA,
     
     instructions_prompt = ( sota.t('instructions', traductions) % \
             (sota.t('references', traductions) if include_references else '',
-            sota.t('document', traductions) if include_article else '') ) \
+            sota.t('document', traductions) if include_article else '', 
+            title)) \
         + ( sota.t('text_format', traductions) % \
                 (sota.t('new_title', traductions) if act_on_title else '',
                 sota.t('new_expectations', traductions) if act_on_expectations else '',
@@ -422,8 +432,7 @@ def get_instruction(sota : SOTA,
             if mode == 'text' \
             else \
                 sota.t('sections_format', traductions)) \
-        + (sota.t('last_minute_instructions', traductions) % (last_minute_instructions if last_minute_instructions else '')) \
-        + (sota.t('current_time', traductions) % datetime.now().strftime("%Y-%m-%d %H:%M:%S"))
+        + '\n' + (sota.t('last_minute_instructions', traductions) % (last_minute_instructions if last_minute_instructions else '')) \
         
     return instructions_prompt
 
@@ -443,24 +452,24 @@ def complex_rewrite(
     logging.debug(f'Starting complex rewrite')
     traductions = {
         'references': {
-            'en': '============================== References ==============================\n\n',
-            'fr': '============================== Références ==============================\n\n'
+            'en': '# ============================== References ==============================\n\n',
+            'fr': '# ============================== Références ==============================\n\n'
         },
         'document': {
-            'en': '\n\n============================== Full Document, current version ==============================\n\n',
-            'fr': '\n\n============================== Document complet, version actuelle ==============================\n\n'
+            'en': '\n\n# ============================== Full Document ==============================\n\n',
+            'fr': '\n\n# ============================== Document complet, version actuelle ==============================\n\n'
         },
         'format': {
-            'en': '\n\n============================== HTML Format for Sections\' content ==============================\n\n',
-            'fr': '\n\n============================== Format HTML pour le contenu des sections ==============================\n\n'
+            'en': '\n\n# ============================== HTML Format for Sections\' content ==============================\n\n',
+            'fr': '\n\n# ============================== Format HTML pour le contenu des sections ==============================\n\n'
         },
         'focused': {
-            'en': '\n\n============================== Focused Section ==============================\n\n',
-            'fr': '\n\n============================== Section ciblée sur laquelle travailler ==============================\n\n'
+            'en': '\n\n# ============================== Focused Section ==============================\n\n',
+            'fr': '\n\n# ============================== Section ciblée sur laquelle travailler ==============================\n\n'
         },
         'instructions': {
-            'en': '\n\n============================== Instructions ==============================\n\n',
-            'fr': '\n\n============================== Instructions ==============================\n\n'
+            'en': '\n\n# ============================== Instructions ==============================\n\n',
+            'fr': '\n\n# ============================== Instructions ==============================\n\n'
         }
     }
     references, article, focus, format_prompt = '', '', '', ''
@@ -487,16 +496,25 @@ def complex_rewrite(
     focus_header = sota.t('focused', traductions)
     focus = f"{focus_header}{focus}"
     # 5. The instructions
-    instructions = get_instruction(sota, include_article=include_article, include_references=include_references, act_on_comments=act_on_comments, act_on_contents=act_on_contents, act_on_expectations=act_on_expectations, last_minute_instructions=last_minute_instructions, mode=mode)
+    title = sota.get_last(sota.information[information_id].title.versions, sota.versions_list(-1))
+    instructions = get_instruction(sota, title, include_article=include_article, include_references=include_references, act_on_comments=act_on_comments, act_on_contents=act_on_contents, act_on_expectations=act_on_expectations, last_minute_instructions=last_minute_instructions, mode=mode)
     instructions_header = sota.t('instructions', traductions)
     instructions = f"{instructions_header}{instructions}"
     # 6. The final prompt for the LLM
     final_prompt = f"{references}{article}{format_prompt}{focus}{instructions}"
     # 7. Send that to the LLM
     prompt = PROMPT()
+    open('prompt.md', 'w').write(final_prompt)
     prompt.add(final_prompt, role='user')
-    schema = get_json_schema(sota, act_on_expectations = act_on_expectations, act_on_comments = act_on_comments, act_on_contents = act_on_contents) if mode == 'text' else get_sections_schema(sota)
-    open('schema.json', 'w').write(schema)
+    
+    free_ref_ids = []
+    from random import randint
+    while len(free_ref_ids) < 10:
+        new_id = randint(1000, 9999)
+        if new_id not in free_ref_ids and new_id not in sota.information[information_id].referencements:
+            free_ref_ids.append(new_id)
+    existing_ref_ids = list(sota.information[information_id].referencements.keys())
+    schema = get_json_schema(sota, free_ref_ids, existing_ref_ids, act_on_expectations = act_on_expectations, act_on_comments = act_on_comments, act_on_contents = act_on_contents) if mode == 'text' else get_sections_schema(sota)
     result = LLMS_v2(
         schema,
         model="o3-mini-2025-01-31")(prompt)

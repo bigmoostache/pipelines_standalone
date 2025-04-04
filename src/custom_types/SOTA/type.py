@@ -446,7 +446,7 @@ class SOTA(BaseModel):
         for _ in res:
             _['referenced_information'] = lucario_file_id_to_information_id[_['parent_file_id']]
             _['reference'] = lucario.elements[_['referenced_information']].description
-            _['chunk_id'] = _['file_id']
+            _['chunk_id'] = _['local_chunk_identifier']
         return res
 
 class Converter:
