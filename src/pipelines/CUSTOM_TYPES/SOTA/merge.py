@@ -95,7 +95,19 @@ def text(sota, information_id, contents, params):
     if contents.get('referencements', None) is not None:
         logging.debug(f'Existing referencements: {info.referencements.keys()}')
         for reference in contents['referencements']:
-            refid, referenced_information_id, position, html_contents = int(reference['refid']), int(reference['informationid']), reference['position'], reference['html_contents']
+            try:
+                def extract_number(value):
+                    cleaned = re.sub(r'\D', '', value)
+                    if cleaned == '':
+                        raise ValueError(f"Invalid numeric value in '{value}'")
+                    return int(cleaned)
+
+                refid = extract_number(reference['refid'])
+                referenced_information_id = extract_number(reference['informationid'])
+                position = reference['position']
+                html_contents = reference['html_contents']
+            except ValueError:
+                continue
             if referenced_information_id not in sota.information:
                 logging.debug(f"Information ID {referenced_information_id} not found in SOTA.")
                 info.versions[-1] = delete_ref(last_text, refid)
