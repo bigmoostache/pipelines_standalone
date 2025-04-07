@@ -52,6 +52,7 @@ def get_html_format(sota : SOTA):
     return sota.t('format', format_prompt)
     
 def get_json_schema(sota : SOTA,
+                    title: str,
                     free_ref_ids: List[int],
                     existing_ref_ids: List[int],
                     act_on_title: bool = True,
@@ -63,19 +64,19 @@ def get_json_schema(sota : SOTA,
     existing_refs = ', '.join([f'{_}' for _ in existing_ref_ids])
     
     title_description = sota.t('', {'': {
-        'en': 'Section title, deprived of any html formatting. Do NOT change it.',
-        'fr': 'Titre de la section, dépourvu de tout formatage html. Ne le changez PAS.'
+        'en': f'Section title, deprived of any html formatting. Do NOT change it. Old title was: "{title}"',
+        'fr': f'Titre de la section, dépourvu de tout formatage html. Ne le changez PAS. Ancien titre était: "{title}"'
         }}) if not act_on_title else sota.t('', {'': {
-        'en': 'Section title, deprived of any html formatting. You may change it.',
-        'fr': 'Titre de la section, dépourvu de tout formatage html. Vous pouvez le changer.'
+        'en': f'Section title, deprived of any html formatting. You may change it. Old title was: "{title}"',
+        'fr': f'Titre de la section, dépourvu de tout formatage html. Vous pouvez le changer. Ancien titre était: "{title}"'
         }})
     html_expectations_description = sota.t('', {'': {
-        'en': 'Section expectations both in terms of content and formatting. Rewrite those expectations, in html as per specified by the HTML Format instructions. You may also refer to references here, put bullet points, text formatting, etc. Basically the same as html_content.',
-        'fr': 'Attentes de la section à la fois en termes de contenu et de formatage. Réécrivez ces attentes, en html tel que spécifié par les instructions de format HTML. Vous pouvez faire référence aux références ici, mettre des puces, formater le texte, etc. Fondamentalement la même chose que html_content.'
+        'en': 'Section expectations both in terms of content and formatting. Rewrite those expectations, in html as per specified by the HTML Format instructions. You may also refer to references here, put bullet points, text formatting, etc. Basically the same as html_content. We work on the section "{title}".',
+        'fr': 'Attentes de la section à la fois en termes de contenu et de formatage. Réécrivez ces attentes, en html tel que spécifié par les instructions de format HTML. Vous pouvez faire référence aux références ici, mettre des puces, formater le texte, etc. Fondamentalement la même chose que html_content. Nous travaillons sur la section "{title}".'
         }})
     html_content_description = sota.t('', {'': {
-        'en': f'Section contents, formatted as per specified by the HTML format instructions above. Do NOT re-include either the section title, the expectations nor the comments in there. I repeat. Do NOT repeat the title here, the machine will parse it from the "title" field. If you put it here too, it will appear twice. Allowed refids are: {existing_refs}, and the ids from {free_refs} which you decided to use in the \'referencements\' field. OTHER refid ids are NOT allowed. Also, remember to preserve locked content (<lock> left untouched) and comments (<comment>)',
-        'fr': f'Contenu de la section, formaté comme spécifié par les instructions de format HTML ci-dessus. N\'incluez ni le titre de la section, ni les attentes, ni les commentaires. Je répète. Ne répétez pas le titre ici, la machine le parsèmera du champ "titre". Si vous le mettez ici aussi, il apparaîtra deux fois. Les identifiants de référence autorisés sont : {existing_refs}, et les identifiants de {free_refs} que vous avez décidé d\'utiliser dans le champ \'références\'. D\'AUTRES identifiants refid ne sont PAS autorisés. De plus, n\'oubliez pas de préserver le contenu verrouillé (<lock> laissé tels quels) et les commentaires (<comment>)',
+        'en': f'Section contents, formatted as per specified by the HTML format instructions above. Do NOT re-include either the section title, the expectations nor the comments in there. I repeat. Do NOT repeat the title here, the machine will parse it from the "title" field. If you put it here too, it will appear twice. Allowed refids are: {existing_refs}, and the ids from {free_refs} which you decided to use in the \'referencements\' field. OTHER refid ids are NOT allowed. Also, remember to preserve locked content (<lock> left untouched) and comments (<comment>). You should ONLY REWRITE the section "{title}", not the rest of the document.',
+        'fr': f'Contenu de la section, formaté comme spécifié par les instructions de format HTML ci-dessus. N\'incluez ni le titre de la section, ni les attentes, ni les commentaires. Je répète. Ne répétez pas le titre ici, la machine le parsèmera du champ "titre". Si vous le mettez ici aussi, il apparaîtra deux fois. Les identifiants de référence autorisés sont : {existing_refs}, et les identifiants de {free_refs} que vous avez décidé d\'utiliser dans le champ \'références\'. D\'AUTRES identifiants refid ne sont PAS autorisés. De plus, n\'oubliez pas de préserver le contenu verrouillé (<lock> laissé tels quels) et les commentaires (<comment>). Vous devez UNIQUEMENT RÉÉCRIRE la section "{title}", pas le reste du document.'
         }})
     html_a_posteriori_comment = sota.t('', {'': {
         'en': 'If you want to add a last a-posteriori comment, a feedback, hints at how to enhance this section or whatever, do it here, in html too, same as html_contents. You may also refer to references here, put bullet points, text formatting, etc. Basically the same as html_content.',
@@ -97,8 +98,8 @@ def get_json_schema(sota : SOTA,
                 "thoughts_and_reflection": {
                     "type": "object",
                     "description": sota.t('', {'': {
-                        'en': 'Analyze the provided content and task using the ADDIE methodology (Analysis, Design, Development, Implementation, Evaluation) - a scientifically proven framework widely used in instructional design and content development. Each phase should be thoroughly explored with at least one detailed paragraph per phase. The comprehensive approach ensures systematic improvement of content through evidence-based methods.',
-                        'fr': 'Analysez le contenu et la tâche fournis en utilisant la méthodologie ADDIE (Analyse, Conception, Développement, Implémentation, Évaluation) - un cadre scientifiquement prouvé largement utilisé dans la conception pédagogique et le développement de contenu. Chaque phase doit être explorée en profondeur avec au moins un paragraphe détaillé par phase. Cette approche globale assure une amélioration systématique du contenu grâce à des méthodes fondées sur des preuves.'
+                        'en': f'We are currently working on the section "{title}". Analyze the provided content and task using the ADDIE methodology (Analysis, Design, Development, Implementation, Evaluation) - a scientifically proven framework widely used in instructional design and content development. Each phase should be thoroughly explored with at least one detailed paragraph per phase. The comprehensive approach ensures systematic improvement of content through evidence-based methods.',
+                        'fr': f'Nous travaillons actuellement sur la section "{title}". Analysez le contenu et la tâche fournis en utilisant la méthodologie ADDIE (Analyse, Conception, Développement, Implémentation, Évaluation) - un cadre scientifiquement prouvé largement utilisé dans la conception pédagogique et le développement de contenu. Chaque phase doit être explorée en profondeur avec au moins un paragraphe détaillé par phase. Cette approche globale assure une amélioration systématique du contenu grâce à des méthodes fondées sur des preuves.'
                     }}),
                     "properties": {
                         "analysis_phase": {
@@ -512,7 +513,7 @@ def complex_rewrite(
         if new_id not in free_ref_ids and new_id not in sota.information[information_id].referencements:
             free_ref_ids.append(new_id)
     existing_ref_ids = list(sota.information[information_id].referencements.keys())
-    schema = get_json_schema(sota, free_ref_ids, existing_ref_ids, act_on_expectations = act_on_expectations, act_on_comments = act_on_comments, act_on_contents = act_on_contents) if mode == 'text' else get_sections_schema(sota)
+    schema = get_json_schema(sota, title, free_ref_ids, existing_ref_ids, act_on_expectations = act_on_expectations, act_on_comments = act_on_comments, act_on_contents = act_on_contents) if mode == 'text' else get_sections_schema(sota)
     result = LLMS_v2(
         schema,
         model="o3-mini-2025-01-31")(prompt)
