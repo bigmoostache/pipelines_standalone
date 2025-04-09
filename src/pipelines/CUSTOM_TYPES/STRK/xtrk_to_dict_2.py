@@ -5,6 +5,14 @@ import tiktoken
 import json
 import openai
 
+def removenulls(d):
+    if isinstance(d, dict):
+        return {k: removenulls(v) for k, v in d.items() if v is not None}
+    elif isinstance(d, list):
+        return [removenulls(i) for i in d]
+    else:
+        return d
+    
 class Pipeline:
     __env__ = ["openai_api_key"]
     def __init__(self, 
@@ -23,7 +31,9 @@ class Pipeline:
                  schema : DataStructure
                  ) -> dict:
         encoding              = tiktoken.encoding_for_model(self.reflexive_model)
-        dumped_schema         = schema.model_dump_json(indent = 1)
+        dumped_schema         = schema.model_dump()
+        # let's recursively remove all keys whose value is null
+        dumped_schema         = json.dumps(removenulls(json.loads(dumped_schema)), indent = 2)
         prompt                = f'Please extract data from the article above, using the schema description below.\n\n{dumped_schema}'
         n_text_tokens, n_prompt_tokens         = len(encoding.encode(text)), len(encoding.encode(prompt))
         n_allowed_text_tokens = self.max_tokens - n_prompt_tokens
@@ -46,9 +56,11 @@ class Pipeline:
                  text : str,
                  schema : DataStructure
                  ) -> dict:
-        encoding              = tiktoken.encoding_for_model(self.reflexive_model)
-        dumped_schema         = schema.model_dump_json(indent = 1)
-        prompt                = f'Please extract data from the article above, as a json dictionary, using the schema description below.\n\n{dumped_schema}'
+        encoding              = tiktoken.encoding_for_model(self.reflexive_model if 'o3' not in self.reflexive_model else 'o1-mini')
+        dumped_schema         = schema.model_dump()
+        dumped_schema         = json.dumps(removenulls(dumped_schema), indent = 2)
+        prompt                = f'Please extract data from the article above, as a json dictionary, using the schema description below.\n\n{dumped_schema}\n\n- If you miss information, consequences will be absolutely catastrophic.\n- If you make mistakes, consequences will be absolutely catastrophic.\n-> You should be both super precise (NO MISTAKES) AND have a very very high recall (NO MISSING INFO). You are in competition with other models, so be as good as possible.'
+        open('X.txt', 'w').write(text + '\n\n\n' + prompt)
         n_text_tokens, n_prompt_tokens         = len(encoding.encode(text)), len(encoding.encode(prompt))
         n_allowed_text_tokens = self.max_tokens - n_prompt_tokens
         if n_allowed_text_tokens < 1000:
@@ -64,6 +76,7 @@ class Pipeline:
             ]
         )
         reflexive_response = reflexive_response.choices[0].message.content
+        open('Y.txt', 'w').write(text + '\n\n\n' + prompt + '\n\n\n' +reflexive_response)
         formatted_response = client.beta.chat.completions.parse(
             model=self.formatter_model,
             messages=[

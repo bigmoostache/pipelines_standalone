@@ -21,3 +21,6 @@ src/schema.json
 src/pipelines/CUSTOM_TYPES/SOTA/merge.py
 src/prompt.md
 src/res.json
+src/Y.txt
+src/X.txt
+src/mistral.py
