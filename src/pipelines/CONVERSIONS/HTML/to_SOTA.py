@@ -104,14 +104,13 @@ def transfer(sota, node, information_id: int = None, root: bool = False):
         sota.information[new_id] = new_info
     information.sections.append(new_id)
 
-nodes = extract_node_sequence(doc)
+""" nodes = extract_node_sequence(doc)
 doc = 'v2.html'
 doc = open(doc, 'r').read()
 node = process_nodes(nodes)
 node = merge_nodes_below_threshold(node, char_th = 3000)
 
 vt = lambda x : VersionedText(versions={-1:x})
-os.environ['LUCARIO_MASTER_KEY'] = '7e4b823f7f6af52b4be8b319957d47463e8be0230d09ca535303ea449f8ade18'
 new_sota = SOTA.get_empty()
 transfer(new_sota, node, root = True)
-open('v12.sota', 'wb').write(SOTAConverter.to_bytes(new_sota))
+open('v12.sota', 'wb').write(SOTAConverter.to_bytes(new_sota)) """
