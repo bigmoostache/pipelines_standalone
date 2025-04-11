@@ -6,6 +6,7 @@ from custom_types.SOTA.type import SOTA, VersionedText, Version, Author, Version
 from custom_types.LUCARIO.type import LUCARIO
 import datetime, os, json
 
+
 class HTML_H_TREE(BaseModel):
     title: str = Field(..., description="Title of the HTML node")
     contents: Union[str, List["HTML_H_TREE"]] = Field(..., description="Contents of the HTML node")
@@ -104,13 +105,29 @@ def transfer(sota, node, information_id: int = None, root: bool = False):
         sota.information[new_id] = new_info
     information.sections.append(new_id)
 
-""" nodes = extract_node_sequence(doc)
-doc = 'v2.html'
-doc = open(doc, 'r').read()
-node = process_nodes(nodes)
-node = merge_nodes_below_threshold(node, char_th = 3000)
 
-vt = lambda x : VersionedText(versions={-1:x})
-new_sota = SOTA.get_empty()
-transfer(new_sota, node, root = True)
-open('v12.sota', 'wb').write(SOTAConverter.to_bytes(new_sota)) """
+
+
+class Pipeline:
+    def __init__(self):
+        self.converter = Converter
+        self.sota_converter = SOTAConverter
+        self.lucario_converter = LUCARIO
+
+    def __call__(self, metadata: dict) -> SOTA:
+        file_id = metadata['file_id']
+        file_system = FS(metadata['file_system'])
+        file = file_system.read_bytes(file_id)
+        pdf = self.converter.from_bytes(file)
+        pdf = self.process(pdf)
+        return pdf
+        """ nodes = extract_node_sequence(doc)
+        doc = 'v2.html'
+        doc = open(doc, 'r').read()
+        node = process_nodes(nodes)
+        node = merge_nodes_below_threshold(node, char_th = 3000)
+
+        vt = lambda x : VersionedText(versions={-1:x})
+        new_sota = SOTA.get_empty()
+        transfer(new_sota, node, root = True)
+        open('v12.sota', 'wb').write(SOTAConverter.to_bytes(new_sota)) """
