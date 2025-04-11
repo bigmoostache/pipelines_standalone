@@ -4,6 +4,7 @@ from typing import Union, List
 import bs4
 from custom_types.SOTA.type import SOTA, VersionedText, Version, Author, VersionedInformation, Language, VersionedListVersionedText, Converter as SOTAConverter, Sections
 from custom_types.LUCARIO.type import LUCARIO
+from custom_types.HTML.type import HTML
 import datetime, os, json
 
 class HTML_H_TREE(BaseModel):
