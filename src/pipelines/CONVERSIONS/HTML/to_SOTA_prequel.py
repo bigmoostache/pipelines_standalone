@@ -36,6 +36,8 @@ def parse_and_verify(res: str) -> str:
     tag_list = []
     at_least_one = False
     for i,child in enumerate(soup.children):
+        if not str(child).strip():
+            continue
         at_least_one = True
         if i == 0:
             # rule 3 - Check that the document starts with a h1 tag, and that there is only one h1 tag in the document
