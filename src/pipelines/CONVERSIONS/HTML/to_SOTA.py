@@ -2,6 +2,7 @@ from custom_types.PDF.type import PDF, Converter
 from pydantic import BaseModel, Field
 from typing import Union, List
 import bs4
+from bs4 import BeautifulSoup
 from custom_types.SOTA.type import SOTA, VersionedText, Version, Author, VersionedInformation, Language, VersionedListVersionedText, Converter as SOTAConverter, Sections
 from custom_types.LUCARIO.type import LUCARIO
 from custom_types.HTML.type import HTML
