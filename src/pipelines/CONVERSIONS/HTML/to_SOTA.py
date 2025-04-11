@@ -8,6 +8,8 @@ from custom_types.LUCARIO.type import LUCARIO
 from custom_types.HTML.type import HTML
 import datetime, os, json
 
+vt = lambda x: VersionedText(versions={-1: x})
+
 class HTML_H_TREE(BaseModel):
     title: str = Field(..., description="Title of the HTML node")
     contents: Union[str, List["HTML_H_TREE"]] = Field(..., description="Contents of the HTML node")
