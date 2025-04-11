@@ -1,13 +1,19 @@
 import os
 import openai
-from utils.booleans import to_bool
+def to_bool(val):
+    if isinstance(val, bool):
+        return val
+    elif isinstance(val, str):
+        isFalse = val.lower().strip() in ["false", "0", "no", "n", "off"]
+        return not isFalse
+    return bool(val)
 from custom_types.PROMPT.type import PROMPT
 
 class Pipeline:
     __env__ = ["openai_api_key"]
 
     def __init__(self, 
-                 model : str = "gpt-4-1106-preview", 
+                 model : str = "gpt-4o", 
                  base_url : str = "https://api.openai.com/v1",
                  json_format : bool = False,
                  temperature : int =0, 

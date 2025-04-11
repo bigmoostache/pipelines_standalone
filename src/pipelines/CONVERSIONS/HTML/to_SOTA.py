@@ -25,7 +25,6 @@ def extract_node_sequence(html_body: str) -> List[str]:
             nodes.append(node_str)
     return nodes
 
-nodes = extract_node_sequence(doc)
     
 def process_nodes(input_nodes: List[str]) -> HTML_H_TREE:
     nodes = {0: HTML_H_TREE(title='root', contents=[])}  # root node
@@ -69,14 +68,7 @@ def merge_nodes_below_threshold(node: HTML_H_TREE, char_th: int = 3000) -> HTML_
             return HTML_H_TREE(title=node.title, contents=merged_contents)
         return merge_subtree(node)
     
-doc = 'v2.html'
-doc = open(doc, 'r').read()
-node = process_nodes(nodes)
-node = merge_nodes_below_threshold(node, char_th = 3000)
 
-vt = lambda x : VersionedText(versions={-1:x})
-os.environ['LUCARIO_MASTER_KEY'] = '7e4b823f7f6af52b4be8b319957d47463e8be0230d09ca535303ea449f8ade18'
-new_sota = SOTA.get_empty()
 def transfer(sota, node, information_id: int = None, root: bool = False):
     if root:
         sota.information[sota.mother_id] = VersionedInformation.create_text(node.title, Sections(sections=[]), node.title, node.title)
@@ -111,5 +103,15 @@ def transfer(sota, node, information_id: int = None, root: bool = False):
         new_id = sota.get_new_id(sota.information)
         sota.information[new_id] = new_info
     information.sections.append(new_id)
+
+nodes = extract_node_sequence(doc)
+doc = 'v2.html'
+doc = open(doc, 'r').read()
+node = process_nodes(nodes)
+node = merge_nodes_below_threshold(node, char_th = 3000)
+
+vt = lambda x : VersionedText(versions={-1:x})
+os.environ['LUCARIO_MASTER_KEY'] = '7e4b823f7f6af52b4be8b319957d47463e8be0230d09ca535303ea449f8ade18'
+new_sota = SOTA.get_empty()
 transfer(new_sota, node, root = True)
 open('v12.sota', 'wb').write(SOTAConverter.to_bytes(new_sota))
