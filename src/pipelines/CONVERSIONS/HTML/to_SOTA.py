@@ -6,7 +6,6 @@ from custom_types.SOTA.type import SOTA, VersionedText, Version, Author, Version
 from custom_types.LUCARIO.type import LUCARIO
 import datetime, os, json
 
-
 class HTML_H_TREE(BaseModel):
     title: str = Field(..., description="Title of the HTML node")
     contents: Union[str, List["HTML_H_TREE"]] = Field(..., description="Contents of the HTML node")
@@ -26,7 +25,6 @@ def extract_node_sequence(html_body: str) -> List[str]:
             nodes.append(node_str)
     return nodes
 
-    
 def process_nodes(input_nodes: List[str]) -> HTML_H_TREE:
     nodes = {0: HTML_H_TREE(title='root', contents=[])}  # root node
     for n in input_nodes:
@@ -69,7 +67,6 @@ def merge_nodes_below_threshold(node: HTML_H_TREE, char_th: int = 3000) -> HTML_
             return HTML_H_TREE(title=node.title, contents=merged_contents)
         return merge_subtree(node)
     
-
 def transfer(sota, node, information_id: int = None, root: bool = False):
     if root:
         sota.information[sota.mother_id] = VersionedInformation.create_text(node.title, Sections(sections=[]), node.title, node.title)
@@ -105,29 +102,17 @@ def transfer(sota, node, information_id: int = None, root: bool = False):
         sota.information[new_id] = new_info
     information.sections.append(new_id)
 
-
-
-
 class Pipeline:
-    def __init__(self):
-        self.converter = Converter
-        self.sota_converter = SOTAConverter
-        self.lucario_converter = LUCARIO
-
-    def __call__(self, metadata: dict) -> SOTA:
-        file_id = metadata['file_id']
-        file_system = FS(metadata['file_system'])
-        file = file_system.read_bytes(file_id)
-        pdf = self.converter.from_bytes(file)
-        pdf = self.process(pdf)
-        return pdf
-        """ nodes = extract_node_sequence(doc)
-        doc = 'v2.html'
-        doc = open(doc, 'r').read()
-        node = process_nodes(nodes)
-        node = merge_nodes_below_threshold(node, char_th = 3000)
-
-        vt = lambda x : VersionedText(versions={-1:x})
+    def __init__(self, char_th: int = 5000):
+        self.char_th = char_th
+    def __call__(self, html: HTML) -> SOTA:
         new_sota = SOTA.get_empty()
-        transfer(new_sota, node, root = True)
-        open('v12.sota', 'wb').write(SOTAConverter.to_bytes(new_sota)) """
+        transfer(
+            new_sota, 
+            merge_nodes_below_threshold(
+                process_nodes(extract_node_sequence(html.html)), 
+                char_th = self.char_th
+                ), 
+            root = True
+            )
+        return new_sota
