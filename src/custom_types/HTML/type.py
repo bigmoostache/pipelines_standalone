@@ -27,7 +27,8 @@ wraped = TYPE(
     _class = HTML,
     converter = Converter,
     additional_converters={
-        'txt' : lambda x : x.html
+        'txt' : lambda x : x.html,
+        'json' : lambda x : {'html': x.html},
         },
     icon = "/icons/html.svg"
 )

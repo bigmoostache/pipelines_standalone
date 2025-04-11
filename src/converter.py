@@ -29,9 +29,10 @@ from custom_types.RIS.type import wraped as RISWrapped
 from custom_types.ZIP.type import wraped as ZIPWrapped
 from custom_types.PLAN.type import wraped as PLANWrapped
 from custom_types.LLM.type import wraped as LLMWrapped
+from custom_types.DOCX.type import wraped as DOCXWrapped
 from custom_types.KONEKT.type import wraped_result as KONEKTWrapped, wraped_generic as KONEKTWrappedGeneric
 
-all_types = [LLMWrapped, LUCARIOWrapped, PLANWrapped, ZIPWrapped, RISWrapped, XTRKWrapped, URL2Wrapped, KONEKTWrapped, KONEKTWrappedGeneric, NBIBWrapped, SELECTWrapped, EXTRACTIONWrapped, SOTAWrapped, TINY_BIBWrapped, GRIDWrapped, RAWrapped, PDICTWrapped, RAWrapped, URLWrapped,PDFWrapped,BIBWrapped,HTMLWrapped,PUBMEDWrapped,PROMPTWrapped, XLSXWrapped,JSONWrapped,JSONLWrapped, TXTWrapped, BYTESWrapped, FLOATWrapped, INTWrapped, BOOLWrapped, NEWSLETTERWrapped]
+all_types = [DOCXWrapped, LLMWrapped, LUCARIOWrapped, PLANWrapped, ZIPWrapped, RISWrapped, XTRKWrapped, URL2Wrapped, KONEKTWrapped, KONEKTWrappedGeneric, NBIBWrapped, SELECTWrapped, EXTRACTIONWrapped, SOTAWrapped, TINY_BIBWrapped, GRIDWrapped, RAWrapped, PDICTWrapped, RAWrapped, URLWrapped,PDFWrapped,BIBWrapped,HTMLWrapped,PUBMEDWrapped,PROMPTWrapped, XLSXWrapped,JSONWrapped,JSONLWrapped, TXTWrapped, BYTESWrapped, FLOATWrapped, INTWrapped, BOOLWrapped, NEWSLETTERWrapped]
 _allowed_inputs = {_.extension : list(set([_.extension] + [__.extension for __ in all_types if _.extension in __.additional_converters])) for _ in all_types}
 _ext_to_class = {_.extension:_.customclass for _ in all_types}
 _class_to_ext = {v:k for k,v in _ext_to_class.items()}
