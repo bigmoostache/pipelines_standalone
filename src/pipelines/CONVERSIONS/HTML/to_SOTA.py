@@ -1,8 +1,10 @@
 from custom_types.PDF.type import PDF, Converter
-
 from pydantic import BaseModel, Field
 from typing import Union, List
 import bs4
+from custom_types.SOTA.type import SOTA, VersionedText, Version, Author, VersionedInformation, Language, VersionedListVersionedText, Converter as SOTAConverter, Sections
+from custom_types.LUCARIO.type import LUCARIO
+import datetime, os, json
 
 class HTML_H_TREE(BaseModel):
     title: str = Field(..., description="Title of the HTML node")
@@ -12,9 +14,7 @@ class HTML_H_TREE(BaseModel):
             return len(self.title) + len(self.contents)
         else:
             return sum([c.num_chars() for c in self.contents]) + len(self.title)
-doc = 'v2.html'
-doc = open(doc, 'r').read()
-from bs4 import BeautifulSoup
+
 def extract_node_sequence(html_body: str) -> List[str]:
     soup = BeautifulSoup(html_body, 'html.parser')
     body_tag = soup.body if soup.body else soup
@@ -69,14 +69,12 @@ def merge_nodes_below_threshold(node: HTML_H_TREE, char_th: int = 3000) -> HTML_
             return HTML_H_TREE(title=node.title, contents=merged_contents)
         return merge_subtree(node)
     
-
+doc = 'v2.html'
+doc = open(doc, 'r').read()
 node = process_nodes(nodes)
 node = merge_nodes_below_threshold(node, char_th = 3000)
 
-from custom_types.SOTA.type import SOTA, VersionedText, Version, Author, VersionedInformation, Language, VersionedListVersionedText, Converter as SOTAConverter, Sections
-from custom_types.LUCARIO.type import LUCARIO
 vt = lambda x : VersionedText(versions={-1:x})
-import datetime, os, json
 os.environ['LUCARIO_MASTER_KEY'] = '7e4b823f7f6af52b4be8b319957d47463e8be0230d09ca535303ea449f8ade18'
 new_sota = SOTA.get_empty()
 def transfer(sota, node, information_id: int = None, root: bool = False):
