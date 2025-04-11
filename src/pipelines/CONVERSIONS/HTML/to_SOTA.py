@@ -52,13 +52,14 @@ def process_nodes(input_nodes: List[str]) -> HTML_H_TREE:
             nodes[max_depth].contents += n
     return nodes[0]
 
-def merge_nodes_below_threshold(node: HTML_H_TREE, char_th: int = 3000) -> HTML_H_TREE:
+def merge_nodes_below_threshold(node: HTML_H_TREE, char_th: int = 3000, depth : int = 0) -> HTML_H_TREE:
     if isinstance(node.contents, str):
         return node
     else:
         for i,n in enumerate(node.contents):
-            node.contents[i] = merge_nodes_below_threshold(n, char_th)
-    
+            node.contents[i] = merge_nodes_below_threshold(n, char_th, depth + 1)
+    if depth <= 1:
+        return node # level 0 and 1 have to remain sections
     if node.num_chars() > char_th:
         return node
     else:
