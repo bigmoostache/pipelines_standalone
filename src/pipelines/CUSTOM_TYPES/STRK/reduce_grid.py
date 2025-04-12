@@ -36,7 +36,7 @@ class Pipeline:
                  grid : DataStructure
                  ) -> DataStructure:
         # 0. If the total number of parameters is already below, just passthrough
-        if len([f in grid.fields for _ in f.get_params_list()]) <= self.max_number_of_parameters:
+        if len([param for f in grid.fields for param in f.get_params_list()]) <= self.max_number_of_parameters:
             return grid
         # 1. Build the prompt
         p = PROMPT()
