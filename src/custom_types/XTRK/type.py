@@ -51,6 +51,18 @@ class DataStructure(BaseModel):
                 'evaluations': (List[ParameterEvaluation], Field(..., description=f"Please provide a list of evaluations for the following parameters:\n{params}")),
             }
         )
+        
+    def recursive_sheet_order(self) -> List[str]:
+        """
+        Returns a list of all the sheets in the data structure, including sub-sheets.
+        """
+        sheets = []
+        for f in self.fields:
+            if hasattr(f.object_type, 'object_list'):
+                sheets.append(f.object_name)
+                sheets += f.object_type.recursive_sheet_order()
+        return sheets
+    
     @classmethod
     def filter_fields(cls, self: 'DataStructure', fields: List[str]) -> 'DataStructure':
         return cls(
