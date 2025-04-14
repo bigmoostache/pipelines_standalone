@@ -56,7 +56,10 @@ class Pipeline:
                  text : str,
                  schema : DataStructure
                  ) -> dict:
-        encoding              = tiktoken.encoding_for_model(self.reflexive_model if 'o3' not in self.reflexive_model else 'o1-mini')
+        try:
+            encoding              = tiktoken.encoding_for_model(self.reflexive_model if 'o3' not in self.reflexive_model else 'o1-mini')
+        except KeyError:
+            encoding              = tiktoken.encoding_for_model('gpt-4o')
         dumped_schema         = schema.model_dump()
         dumped_schema         = json.dumps(removenulls(dumped_schema), indent = 2)
         prompt                = f'Please extract data from the article above, as a json dictionary, using the schema description below.\n\n{dumped_schema}\n\n- If you miss information, consequences will be absolutely catastrophic.\n- If you make mistakes, consequences will be absolutely catastrophic.\n-> You should be both super precise (NO MISTAKES) AND have a very very high recall (NO MISSING INFO). You are in competition with other models, so be as good as possible.'
