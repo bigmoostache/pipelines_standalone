@@ -74,11 +74,13 @@ class Pipeline:
         sheets = process('document_level', dicts, parent_df = None, parent_id_col = None)[1]
         sheet_keys = list(sheets.keys())
         sorted_keys = grid.recursive_sheet_order()
+        def ON(x):
+            return '_'.join(x.split('_')[1:])
         sheet_keys.sort(key=
-                        lambda x: sorted_keys.index(x.split('_')[1]) 
-                        if x.split('_')[1] in sorted_keys 
+                        lambda x: sorted_keys.index(ON(x)) 
+                        if ON(x) in sorted_keys 
                         else (
-                            -1 if x.split('_')[1] == 'document_level'
+                            -1 if ON(x) == 'document_level'
                             else len(sorted_keys))
                         )
         sheets = {k: sheets[k] for k in sheet_keys}
