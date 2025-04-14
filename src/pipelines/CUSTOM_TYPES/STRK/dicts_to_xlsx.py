@@ -69,4 +69,8 @@ class Pipeline:
                 sheet_number, sheets = process(k, lines, main_df, my_id_column, sheet_number)
                 res = {**res, **sheets}
             return sheet_number, res
-        return XLSX(sheets = process('Sheet1', dicts, parent_df = None, parent_id_col = None)[1])
+        sheets = process('Sheet1', dicts, parent_df = None, parent_id_col = None)[1]
+        sheet_keys = list(sheets.keys())
+        sheet_keys.sort(key=lambda x: int(x.split('_')[0]))
+        sheets = {k: sheets[k] for k in sheet_keys}
+        return XLSX(sheets=sheets)
