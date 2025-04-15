@@ -23,18 +23,16 @@ class Pipeline:
         if api_key is None:
             raise ValueError("OpenAI API key not found in environment variables")	
         import openai
-        client = openai.OpenAI(api_key=api_key)
-        return client
-    def azure(self, texts) -> str:
+        return openai.OpenAI(api_key=api_key)
+    def azure(self) -> str:
         api_key=os.environ['AZURE_OPENAI_API_KEY']
         azure_endpoint=os.environ['AZURE_OPENAI_ENDPOINT']
         api_version="2024-08-01-preview"
         if api_key is None or azure_endpoint is None:
             raise ValueError("Azure OpenAI API key or endpoint not found in environment variables")
         import openai
-        client = openai.AzureOpenAI(
+        return openai.AzureOpenAI(
                 api_key=api_key,  
                 api_version=api_version,
                 azure_endpoint=azure_endpoint
                 )
-        return client
