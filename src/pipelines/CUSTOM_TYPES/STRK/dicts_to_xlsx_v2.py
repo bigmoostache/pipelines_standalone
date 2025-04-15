@@ -1,7 +1,7 @@
 from typing import List
 from custom_types.XLSX.type import XLSX
 import pandas as pd
-from custom_types.XTRK.type import DataStructure
+from custom_types.XTRK.type import DataStructure, rep
 
 class Pipeline:
     def __init__(self):
@@ -11,7 +11,10 @@ class Pipeline:
                  grid: DataStructure
                  ) -> XLSX:
         def process(name, dics : List[dict], parent_df = None, parent_id_col = None, sheet_number : int = 1, sub_grid: DataStructure = grid):
-            sheet_keys = [f.object_name for f in sub_grid.fields if hasattr(f.object_type, 'object_list')]
+            old_sheet_keys = list(set([k for dic in dics for k,v in dic.items() if isinstance(v, list)]))
+            sheet_keys = [rep(f.object_name) for f in sub_grid.fields if hasattr(f.object_type, 'object_list')]
+            for old_k in old_sheet_keys:
+                assert old_k in sheet_keys, f'key {old_k} not in {sheet_keys}'
             # Check if parent_id_col is in all dicts
             if parent_df is not None:
                 for i,d in enumerate(dics):
@@ -26,7 +29,7 @@ class Pipeline:
                             _[my_id_column] = i
             # Compute main_df: keys that are not lists
             old_direct_keys = list(set([k for dic in dics for k,v in dic.items() if not isinstance(v, list)]))
-            direct_keys = [f.object_name for f in sub_grid.fields if not hasattr(f.object_type, 'object_list')]
+            direct_keys = [rep(f.object_name) for f in sub_grid.fields if not hasattr(f.object_type, 'object_list')]
             for old_k in old_direct_keys:
                 assert old_k in direct_keys, f'key {old_k} not in {direct_keys}'
             # If we have a parent_df, we must ensure parent_id_col is present in main_df
