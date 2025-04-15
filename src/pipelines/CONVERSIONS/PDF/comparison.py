@@ -10,6 +10,7 @@ import requests
 import time
 from pipelines.MANIPS.TEXTS.segment_uniform import Pipeline as ChunkingPipeline
 import openai, numpy as np
+from pipelines.LLMS.v3.embeddings import Pipeline as EmbeddingPipeline
 
 def get_text(pdf: PDF):
     form_data = {
@@ -53,21 +54,13 @@ def paginate(chunks: JSONL):
         current_page = next_current_page
         line['page_end'] = current_page
         
-def get_embeddings_in_chunks(client, texts, model, chunk_size=1024):
-    embeddings = []
-    for i in range(0, len(texts), chunk_size):
-        chunk = texts[i:i + chunk_size]
-        try:
-            response = client.embeddings.create(input=chunk, model=model).data
-        except:
-            response = client.embeddings.create(input=['no data here'] * len(chunk), model=model).data
-        embeddings.extend(response)
-    return np.array([x.embedding for x in embeddings])
-
 class Pipeline:
-    __env__ = ["surya_api_key", "openai_api_key"]
-    def __init__(self):
-        pass
+    def __init__(self,
+                provider: Literal["openai", "cohere", "anthropic", "google", "azure", "huggingface"] = "openai",
+                model: str = "text-embedding-3-large", 
+                ):
+        self.provider = provider
+        self.model = model
     def __call__(self, old_pdf : PDF, new_pdf : PDF) -> JSONL:
         old_pdf = get_text(old_pdf)
         new_pdf = get_text(new_pdf)
@@ -81,12 +74,11 @@ class Pipeline:
         paginate(old_pdf)
         paginate(new_pdf)
         # Embedding the chunks
-        client = openai.OpenAI(api_key=os.environ.get("openai_api_key"))
-        model = 'text-embedding-3-large'
+        embedding_pipeline = EmbeddingPipeline(provider=self.provider, model=self.model)
         texts_old_pdf = [_['text'] for _ in old_pdf.lines]
         texts_new_pdf = [_['text'] for _ in new_pdf.lines]
-        embeddings_old = get_embeddings_in_chunks(client, texts_old_pdf, model)
-        embeddings_new = get_embeddings_in_chunks(client, texts_new_pdf, model)
+        embeddings_old = embedding_pipeline(texts_old_pdf)
+        embeddings_new = embedding_pipeline(texts_new_pdf)
         M = embeddings_old.dot(embeddings_new.T)
         # Crafting the jobs
         works = []

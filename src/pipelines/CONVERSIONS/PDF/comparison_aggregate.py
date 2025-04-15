@@ -7,6 +7,9 @@ from enum import Enum
 from openai import OpenAI
 from pydantic_core._pydantic_core import ValidationError
 import re
+from pipelines.LLMS.v3.client import Providers
+from pipelines.LLMS.v3.structured import Pipeline as StructuredPipeline
+from custom_types.PROMPT.type import PROMPT
 
 def remove_exact_chain(s):
     def repl(m):
@@ -51,9 +54,11 @@ class Changes(BaseModel):
     changes: List[Change]
 
 class Pipeline:
-    __env__ = ["openai_api_key"]
-    def __init__(self):
-        pass
+    def __init__(self,
+        provider: Providers = "openai",
+        model: str = "gpt-4.1",   
+        ):
+        self.structured_pipeline = pipeline = StructuredPipeline(provider=provider, model=model)
     def __call__(self, work : dict) -> JSONL:
         old = work['old']
         old = {_['chunk_id']:_ for _ in old}
@@ -85,20 +90,13 @@ Please analyse the changes from the new document, extracting the changes in the 
 - CTA (optional): call to action to the user if needed. make this CTA short and super synthetic
 
 """
-        client = OpenAI(api_key=os.environ.get("openai_api_key"))
         changes = None
+        p = PROMPT()
+        p.add("You are a helpful assistant that NEVER makes any mistakes", role='system')
+        p.add(prompt, role='user')
         for retry in range(3):
             try:
-                completion = client.beta.chat.completions.parse(
-                    model="gpt-4o-2024-11-20",
-                    messages=[
-                        {"role": "system", "content": "You are a helpful assistant that NEVER makes any mistakes"},
-                        {"role": "user", "content": prompt}
-                    ],
-                    response_format=Changes,
-                )
-
-                changes = completion.choices[0].message.parsed
+                changes = self.structured_pipeline(p=p,output_format=Changes)
                 break
             except ValidationError as e:
                 continue
