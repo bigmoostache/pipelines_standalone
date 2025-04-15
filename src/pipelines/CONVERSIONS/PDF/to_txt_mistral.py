@@ -1,5 +1,6 @@
 from custom_types.PDF.type import PDF
 from mistralai import Mistral
+import mistralai
 import io, os
 from time import sleep
 class Pipeline:
