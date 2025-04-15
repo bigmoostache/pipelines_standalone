@@ -39,6 +39,13 @@ class Boolean(BaseModel):
 class DataStructure(BaseModel):
     object_list : Literal['object_list']
     fields : List['Fields']
+    
+    def get_field(self, field_name: str) -> 'Fields':
+        for f in self.fields:
+            if f.object_name == field_name:
+                return f
+        raise ValueError(f"Field {field_name} not found in DataStructure")
+    
     def at_least_one_field_is_a_data_structure(self):
         return any(hasattr(f.object_type, 'object_list') for f in self.fields)
     

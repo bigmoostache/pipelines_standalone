@@ -10,22 +10,22 @@ class Pipeline:
                  dicts : List[dict],
                  grid: DataStructure
                  ) -> XLSX:
-        def process(name, dics : List[dict], parent_df = None, parent_id_col = None, sheet_number : int = 1):
-            sheet_keys = list(set([k for dic in dics for k,v in dic.items() if isinstance(v, list)]))
+        def process(name, dics : List[dict], parent_df = None, parent_id_col = None, sheet_number : int = 1, sub_grid: DataStructure = grid):
+            sheet_keys = [f.object_name for f in sub_grid.fields if hasattr(f.object_type, 'object_list')]
             # Check if parent_id_col is in all dicts
             if parent_df is not None:
                 for i,d in enumerate(dics):
                     assert parent_id_col in d, f'parent_id_col {parent_id_col} not in dict {d}'
             # Add id column to all dicts and subdicts in order to allow merge in recursive calls
+            my_id_column = f'{name}_id'
             if len(sheet_keys) > 0:
-                my_id_column = f'{name}_id'
                 for i,d in enumerate(dics):
                     d[my_id_column] = i
                     for sheet in sheet_keys:
                         for _ in d[sheet]:
                             _[my_id_column] = i
             # Compute main_df: keys that are not lists
-            direct_keys = list(set([k for dic in dics for k,v in dic.items() if not isinstance(v, list)]))
+            direct_keys = [f.object_name for f in sub_grid.fields if not hasattr(f.object_type, 'object_list')]
 
             # If we have a parent_df, we must ensure parent_id_col is present in main_df
             if parent_df is not None and parent_id_col not in direct_keys:
@@ -33,12 +33,8 @@ class Pipeline:
 
             # If we have sheet_keys, we have a my_id_column that must also be present
             if len(sheet_keys) > 0:
-                my_id_column = f'{name}_id'
                 if my_id_column not in direct_keys:
                     direct_keys.append(my_id_column)
-
-            # Re-make direct_keys unique
-            direct_keys = list(set(direct_keys))
 
             # Now perform the assertions
             if parent_df is not None:
@@ -56,7 +52,7 @@ class Pipeline:
                 else:
                     main_df = pd.DataFrame()
             else:
-                main_df = pd.DataFrame([{k: v for k,v in d.items() if k in direct_keys} for d in dics])
+                main_df = pd.DataFrame([{k: d.get(k, None) for k in  direct_keys} for d in dics])
 
             # Merge with parent_df if it exists
             if parent_df is not None:
@@ -68,9 +64,11 @@ class Pipeline:
             # Recursive call for all sheet_keys
             for k in sheet_keys:
                 lines = [_ for __ in dics for _ in __[k]]
-                sheet_number, sheets = process(k, lines, main_df, my_id_column, sheet_number)
+                sub_sub_grid = sub_grid.get_field(k).object_type
+                sheet_number, sheets = process(k, lines, main_df, my_id_column, sheet_number, sub_grid=sub_sub_grid)
                 res = {**res, **sheets}
             return sheet_number, res
+        
         sheets = process('document_level', dicts, parent_df = None, parent_id_col = None)[1]
         sheet_keys = list(sheets.keys())
         sorted_keys = grid.recursive_sheet_order()
