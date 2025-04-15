@@ -1,7 +1,7 @@
 from custom_types.PDF.type import PDF
 from mistralai import Mistral
 import io, os
-
+from time import sleep
 class Pipeline:
     """
     Pipeline class for converting PDF files to text using the Mistral OCR API.
@@ -43,14 +43,25 @@ class Pipeline:
             purpose="ocr"
         )
         signed_url = client.files.get_signed_url(file_id=uploaded_pdf.id)
-        ocr_response = client.ocr.process(
-            model="mistral-ocr-latest",
-            document={
-                "type": "document_url",
-                "document_url": signed_url.url,
-            },
-            include_image_base64=False
-        )
+        retries = 0
+        while True:
+            try:
+                ocr_response = client.ocr.process(
+                    model="mistral-ocr-latest",
+                    document={
+                        "type": "document_url",
+                        "document_url": signed_url.url,
+                    },
+                    include_image_base64=False
+                )
+            except mistralai.models.sdkerror.SDKError as e:
+                if retries < 5:
+                    retries += 1
+                    sleep(5)
+                    continue
+                else:
+                    raise e
+                
         def build_md(ocr_response):
             md = ""
             for page in ocr_response.pages:
