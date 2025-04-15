@@ -25,8 +25,10 @@ class Pipeline:
                         for _ in d[sheet]:
                             _[my_id_column] = i
             # Compute main_df: keys that are not lists
+            old_direct_keys = list(set([k for dic in dics for k,v in dic.items() if not isinstance(v, list)]))
             direct_keys = [f.object_name for f in sub_grid.fields if not hasattr(f.object_type, 'object_list')]
-
+            for old_k in old_direct_keys:
+                assert old_k in direct_keys, f'key {old_k} not in {direct_keys}'
             # If we have a parent_df, we must ensure parent_id_col is present in main_df
             if parent_df is not None and parent_id_col not in direct_keys:
                 direct_keys.append(parent_id_col)
