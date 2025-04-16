@@ -58,7 +58,7 @@ class Pipeline:
         provider: Providers = "openai",
         model: str = "gpt-4.1",   
         ):
-        self.structured_pipeline = pipeline = StructuredPipeline(provider=provider, model=model)
+        self.structured_pipeline = StructuredPipeline(provider=provider, model=model)
     def __call__(self, work : dict) -> JSONL:
         old = work['old']
         old = {_['chunk_id']:_ for _ in old}

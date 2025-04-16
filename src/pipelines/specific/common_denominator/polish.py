@@ -5,21 +5,22 @@ import os
 class Pipeline:
     def __init__(self):
         pass
-        
+    
     def __call__(self, concatenated: JSONL) -> JSONL:
         # Define the order of columns for the output
         column_order = [
-            'topic', 
+            'topic',
             'document_a_title',
             'document_a_chunk_id',
-            'document_a_formulation', 
+            'requirement_a',
             'document_b_title',
             'document_b_chunk_id',
-            'document_b_formulation', 
-            'comparison_type', 
-            'requirement_strictness', 
-            'least_constraining_requirement',
-            'analysis'
+            'requirement_b',
+            'comparison_type',
+            'requirement_importance',
+            'least_stringent',
+            'comparison_description',
+            'notes'
         ]
         
         # Sort by topic for better readability
@@ -47,14 +48,15 @@ class Pipeline:
             'topic': 'Topic',
             'document_a_title': 'Document A',
             'document_a_chunk_id': 'Document A Reference',
-            'document_a_formulation': 'Document A Requirement',
+            'requirement_a': 'Document A Requirement',
             'document_b_title': 'Document B',
             'document_b_chunk_id': 'Document B Reference',
-            'document_b_formulation': 'Document B Requirement',
+            'requirement_b': 'Document B Requirement',
             'comparison_type': 'Comparison Type',
-            'requirement_strictness': 'Requirement Strictness',
-            'least_constraining_requirement': 'Least Constraining Requirement',
-            'analysis': 'Analysis'
+            'requirement_importance': 'Requirement Importance',
+            'least_stringent': 'Least Stringent Requirement',
+            'comparison_description': 'Analysis',
+            'notes': 'Additional Notes'
         }
         
         # Apply the renames
