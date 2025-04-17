@@ -16,7 +16,7 @@ class Pipeline:
     def __call__(self,
                 doc: dict,
                 sections_contents: dict
-                ) -> str:
+                ) -> HTML:
         _res = ResponseType.model_validate(doc)
         html = markdown.markdown(
             _res.document_denominator.build(sections_contents, 1, []), 
