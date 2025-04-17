@@ -115,4 +115,4 @@ class Pipeline:
                 ) -> dict:
         res = Tree_Gap_AnalysisResponseType.model_validate(doc)
         section = write(res, doc_A, doc_B, task)
-        return {tuple(task): section}
+        return {','.join([str(x) for x in tasks]): section}

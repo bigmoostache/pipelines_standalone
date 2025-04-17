@@ -17,6 +17,9 @@ class Pipeline:
                 doc: dict,
                 sections_contents: dict
                 ) -> HTML:
+        sections_contents = {
+            tuple([int(_) for _ in k.split(',')]): v for k, v in sections_contents.items()
+        } # convert back the keys to tuples
         _res = Tree_Gap_AnalysisResponseType.model_validate(doc)
         html = markdown.markdown(
             _res.document_denominator.build(sections_contents, 1, []), 
