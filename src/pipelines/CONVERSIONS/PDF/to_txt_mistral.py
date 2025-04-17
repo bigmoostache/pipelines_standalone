@@ -3,33 +3,8 @@ from mistralai import Mistral
 import mistralai
 import io, os
 from time import sleep
+
 class Pipeline:
-    """
-    Pipeline class for converting PDF files to text using the Mistral OCR API.
-
-    Attributes:
-        __env__ (list): A list of required environment variables. This pipeline requires
-            the `MISTRAL_API_KEY` environment variable to authenticate with the Mistral API.
-
-    Methods:
-        __init__():
-            Initializes the Pipeline instance.
-
-        __call__(pdf: PDF) -> str:
-            Processes a PDF file using the Mistral OCR API and returns the extracted text
-            in Markdown format.
-
-            Args:
-                pdf (PDF): An object representing the PDF file to be processed. It should
-                    have the attributes `file_name` (str) and `file_as_bytes` (bytes).
-
-            Returns:
-                str: The extracted text from the PDF in Markdown format.
-
-            Raises:
-                KeyError: If the `MISTRAL_API_KEY` environment variable is not set.
-                MistralAPIError: If there is an error during the interaction with the Mistral API.
-    """
     __env__ = ["MISTRAL_API_KEY"]
     def __init__(self):
         pass
@@ -55,6 +30,7 @@ class Pipeline:
                     },
                     include_image_base64=False
                 )
+                break
             except mistralai.models.sdkerror.SDKError as e:
                 if retries < 5:
                     retries += 1
@@ -70,3 +46,17 @@ class Pipeline:
                 md += f"{page.markdown}\n\n"
             return md
         return build_md(ocr_response)
+import re 
+def extract_pages(text):
+    page_markers = re.finditer(r'// Page (\d+)', text)
+    page_positions = [(int(match.group(1)), match.start()) for match in page_markers]
+    page_positions.sort(key=lambda x: x[1])
+    pages = {}
+    for i, (page_num, start_pos) in enumerate(page_positions):
+        if i < len(page_positions) - 1:
+            next_pos = page_positions[i + 1][1]
+            content = text[start_pos:next_pos].strip()
+        else:
+            content = text[start_pos:].strip()
+        pages[page_num] = content
+    return pages

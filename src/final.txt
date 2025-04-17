@@ -1,0 +1,46 @@
+<!-- your thought process here -->
+
+To construct section 5. Approbation as a denominator of both Document A and Document B, I first identify the major overlapping procedural requirements. Both documents require:
+- Formal approval of the change request and the associated action plan before changes can be implemented.
+- Approval by responsible parties in the Quality and Regulatory Affairs departments, possibly after prior consultation with relevant experts or committees.
+- Confirmation that all "blocking" (indispensable) actions have been completed.
+- Verification of the regulatory significance/substantiality of the change, especially regarding UDI and notification obligations.
+
+Differences:  
+- Document A allows for approval by either the Quality Director, Regulatory Affairs Responsible, or another authorized person, sometimes after committee consultation; it describes international impacts and product release in more detail.
+- Document B specifically requires concurrence of both a Quality representative and a Regulatory Affairs representative—both must approve (or the process is reverted); it adds more about automatic notifications after approval.
+
+The denominator section thus retains:
+- The dual involvement of Quality and Regulatory Affairs in approving, after impact, action plan, and technical/financial review.
+- Confirmation that all mandatory (“blocking”) tasks are resolved before final approval.
+- Requirement to assess/confirm significance/substantiality, especially for CE-marked changes or UDI updates.
+
+I will keep the language clear, concise, and formal, consistent with both documents.
+
+```md
+## 5. Approbation
+
+The approval of the change request and its associated action plan is required before implementation of any change.
+
+Approval must be granted by the designated representatives of both the Quality department and the Regulatory Affairs department (or other authorized persons, as defined by internal procedures). Approval is dependent on:
+
+- Completion and closure of all mandatory (“blocking”) actions necessary for the implementation of the change;
+- Satisfactory technical and financial evaluation of the proposed change and action plan;
+- Regulatory Affairs review and confirmation on whether the change is significant or substantial, including, where applicable, assessment of impact on UDI and the need for notification to regulatory authorities or other relevant stakeholders.
+
+If required by internal governance or the nature of the change, review or consultation with a steering committee or other experts may occur prior to final approval.
+
+No implementation of the change shall occur until the formal approval has been given. If approval is denied by either responsible party, the change request returns to the previous step for further review or corrections.
+
+**Gap analysis**
+
+| Aspect                                        | Document A                                                                                         | Document B                                                                                              | Common Denominator                                                              |
+|------------------------------------------------|----------------------------------------------------------------------------------------------------|---------------------------------------------------------------------------------------------------------|---------------------------------------------------------------------------------|
+| Approving parties                              | Quality Director or Regulatory Affairs Responsible or other authorized person; possible committee   | Representative of Quality AND Regulatory Affairs; both must sign off                                    | Representatives from both Quality and Regulatory Affairs must approve            |
+| Blocking actions prerequisite                  | Approval after verification that blocking actions are completed                                     | Approval not given until all blocking tasks are closed                                                   | Blocking actions must be completed before approval                               |
+| Regulatory/technical/financial assessment      | Evaluation done prior to approval, including technical and financial aspects                       | Assumes evaluations done; regulatory representative confirms significance/substantiality, UDI changes   | Approval follows satisfactory technical, regulatory, and financial evaluation    |
+| Significance/substantiality & UDI assessment   | Explicitly stated for CE-marked devices; refers to impact tables and procedures                    | Must be confirmed during approval; applies to all relevant regulatory requirements, including UDI       | Must confirm regulatory significance/substantiality and UDI changes as required  |
+| Committee involvement                          | Approval sometimes after committee discussion                                                      | Not always explicit; may include re-assignment between pilot/RA                                         | Committee consultation possible if required by process or change significance    |
+| Notification/communication duties after approval| Detailed (international registration impacts, authority/partner notifications)                     | Automatic notifications post-signature to distribution list and affected departments                    | Communication/notification follows approval, as per specific internal processes  |
+| If approval refused                            | Not explicitly detailed                                                                            | Request returns to previous step for correction                                                          | If approval not given, change request returns for further review/correction      |
+```

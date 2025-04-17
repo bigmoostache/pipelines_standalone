@@ -2,6 +2,7 @@ import os
 from typing import Literal
 
 Providers = Literal["openai", "cohere", "anthropic", "google", "azure", "huggingface"]
+ReasoningEffort = Literal["none", "low", "medium", "high"]
 
 class Pipeline:
     def __init__(self,
