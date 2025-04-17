@@ -13,7 +13,7 @@ class Pipeline:
     def __init__(self,
         provider: Providers = "openai",
         model: str = "gpt-4.1",
-        hard_coded_model: str = Literal['none', 'tree/gap_analysis'],
+        hard_coded_model: Literal['none', 'tree/gap_analysis'] = 'none',
         convert_back_to_dict: bool = False
         ):
         self.provider = provider
