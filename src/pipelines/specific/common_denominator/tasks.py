@@ -8,8 +8,6 @@ class Pipeline:
     def __init__(self):
         pass
     def __call__(self,
-                doc_A: str,
-                doc_B: str,
                 doc: dict 
                 ) -> List[dict]:
         _res = ResponseType.model_validate(doc)
