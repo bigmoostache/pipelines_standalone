@@ -10,9 +10,32 @@ from markdown.extensions.fenced_code import FencedCodeExtension
 from markdown.extensions.codehilite import CodeHiliteExtension
 from markdown.extensions.smarty import SmartyExtension
 
+template = """
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+__CSS__
+    </style>
+</head>
+<body>
+    <main>
+__HTML__
+    </main>
+</body>
+</html>
+"""
+
 class Pipeline:
-    def __init__(self, css: str = ''):
+    def __init__(self, 
+                css: str = '',
+                template: str = template
+                ):
         self.css = css
+        self.template = template
     def __call__(self,
                 doc: dict,
                 sections_contents: dict
@@ -31,5 +54,5 @@ class Pipeline:
             ]
         )
         return HTML(
-            html=f'<html><head><style>{self.css}</style></head><body>{html}</body></html>'
+            html=self.template.replace('__HTML__', html).replace('__CSS__', self.css)
             )
