@@ -115,6 +115,6 @@ class Pipeline:
                 doc: dict,
                 task: dict
                 ) -> dict:
-        _res = ResponseType.model_validate(doc)
+        _res = Tree_Gap_AnalysisResponseType.model_validate(doc)
         section = write(res, doc_A, doc_B, task)
         return {tuple(task): section}

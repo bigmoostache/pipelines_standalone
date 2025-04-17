@@ -10,6 +10,6 @@ class Pipeline:
     def __call__(self,
                 doc: dict 
                 ) -> List[dict]:
-        _res = ResponseType.model_validate(doc)
+        _res = Tree_Gap_AnalysisResponseType.model_validate(doc)
         tasks = _res.document_denominator.get_tasks()
         return tasks

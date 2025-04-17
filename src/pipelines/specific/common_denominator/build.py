@@ -17,7 +17,7 @@ class Pipeline:
                 doc: dict,
                 sections_contents: dict
                 ) -> HTML:
-        _res = ResponseType.model_validate(doc)
+        _res = Tree_Gap_AnalysisResponseType.model_validate(doc)
         html = markdown.markdown(
             _res.document_denominator.build(sections_contents, 1, []), 
             extensions=[
