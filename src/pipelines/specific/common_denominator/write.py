@@ -69,8 +69,6 @@ You should write in English.
 # In order of %s: TOC doc A, list_relevant_sections(mapping), content doc A, TOC doc B, relevant dob b sections, content doc B, denominator section title, TOC doc denominator, denominator section title
  
 def write(res, doc_A, doc_B, task):
-    res = ResponseType.model_validate(res)
-    
     depth = len(task)
     diese_depth = '#' * depth
     task_doc = res.document_denominator.get_task_doc(res.document_denominator, task)
@@ -115,6 +113,6 @@ class Pipeline:
                 doc: dict,
                 task: dict
                 ) -> dict:
-        _res = Tree_Gap_AnalysisResponseType.model_validate(doc)
+        res = Tree_Gap_AnalysisResponseType.model_validate(doc)
         section = write(res, doc_A, doc_B, task)
         return {tuple(task): section}
