@@ -137,7 +137,6 @@ def text(sota, information_id, contents, params):
         info.versions[-1] = last_text
     sota.information[information_id].referencement_versions[-1] = existing_refs
 
-    
 def sections(sota, information_id, contents, params):
     info = sota.information[information_id]
     version = sota.versions_list(-1)
@@ -154,6 +153,10 @@ def sections(sota, information_id, contents, params):
 def not_found(sota, information_id, contents, params):
     raise ValueError(f"Action not found: {action}")
 
+def title(sota, information_id, contents, params):
+    info = sota.information[information_id]
+    info.title.versions[-1] = contents['title']
+
 class Pipeline:
     def __init__(self):
         pass
@@ -165,7 +168,8 @@ class Pipeline:
             {
                 'bibliography': bibliography, 
                 'text': text, 
-                'sections': sections
+                'sections': sections,
+                'title': title
             }.get(
                 change['action'], not_found
             )(

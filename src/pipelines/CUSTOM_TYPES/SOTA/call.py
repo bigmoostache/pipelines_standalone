@@ -9,6 +9,10 @@ from typing import Literal, List
 from openai import OpenAI
 import logging
 from datetime import datetime
+from pipelines.LLMS.v3.client import Providers
+from pipelines.LLMS.v3.structured import Pipeline as LLMS_v3_Structured
+from pydantic import BaseModel, Field
+
 
 def build_references(sota : SOTA, information_id: int, references: Literal['allow', 'restrict', 'free']) -> JSONL:
     logging.debug(f'Building references for information_id {information_id} with mode {references}')
@@ -536,6 +540,8 @@ def complex_rewrite(
 
 def rewrite(sota : SOTA, 
             information_id: int,
+            provider: Providers,
+            model: str,
             references_mode: Literal['allow', 'restrict', 'free'] = 'allow',
             additional_instructions: str = '',
             final_comment: bool = True
@@ -549,6 +555,8 @@ def rewrite(sota : SOTA,
 
 def brush(sota: SOTA, 
           information_id: int,
+    provider: Providers,
+    model: str,
           brush_mode: Literal['academic', 'research', 'technical', 'informative', 'analytical', 'explanatory', 'summarize', 'evaluative', 'critical', 'neutral']
           ) -> dict:
     logging.debug(f'Starting brush')
@@ -660,6 +668,8 @@ def brush(sota: SOTA,
 def translate(
     sota : SOTA, 
     information_id: int,
+    provider: Providers,
+    model: str,
     langage: Literal['en', 'fr']
     ) -> dict:
     logging.debug(f'Starting translation')
@@ -676,6 +686,8 @@ def translate(
 def make_longer(
     sota : SOTA, 
     information_id: int,
+    provider: Providers,
+    model: str,
     ) -> dict:
     logging.debug(f'Starting make_longer')
     last_minute_instructions = sota.t('', {'': {
@@ -687,6 +699,8 @@ def make_longer(
 def make_shorter(
     sota : SOTA, 
     information_id: int,
+    provider: Providers,
+    model: str,
     ) -> dict:
     logging.debug(f'Starting make_shorter')
     last_minute_instructions = sota.t('', {'': {
@@ -698,6 +712,8 @@ def make_shorter(
 def rewrite_expectations(
     sota : SOTA, 
     information_id: int,
+    provider: Providers,
+    model: str,
     additional_instructions: str = '',
     ) -> dict:
     logging.debug(f'Starting rewrite_expectations')
@@ -706,6 +722,8 @@ def rewrite_expectations(
 def provide_feedback(
     sota : SOTA, 
     information_id: int,
+    provider: Providers,
+    model: str,
     additional_instructions: str = '',
     ) -> dict:
     logging.debug(f'Starting provide_feedback')
@@ -811,10 +829,48 @@ sections_pipelines = {
     'write_bibliography': write_bibliography
 }
 
+def lucario_reference_style(
+    sota: SOTA,
+    information_id: int,
+    provider: Providers,
+    model: str,
+    style: str # examples: apa, etc.
+    ) -> dict:
+    info = sota.information[information_id]
+    title = sota.get_last(info.title.versions, sota.versions_list(-1))
+    abstract = sota.get_last(info.abstract.versions, sota.versions_list(-1))
+    _prompt = sota.t('', {'': {
+        'en': 'Write the formatted reference for this documents, in %s format:\n%s\n\n%s\n\nAgain: please give me the %s formatted reference for this document. For italic and bold, use html, not markdown.\n\n',
+        'fr': 'Écrivez la référence formatée pour ce document, au format %s:\n%s\n\n%s\n\nEncore une fois: veuillez me donner la référence formatée %s pour ce document. Pour l\'italique et le gras, utilisez html, pas markdown.\n\n'
+    }}) % (style, title, abstract, style)
+    prompt = PROMPT()
+    prompt.add(_prompt, role='user')
+    class OutputFormat(BaseModel):
+        reference_entry: str = Field(description=sota.t('', {'': {
+            'en': 'Formatted reference, in %s format' % style,
+            'fr': 'Référence formatée, au format %s ' % style
+        }}))
+    reference_entry = LLMS_v3_Structured(
+        provider=provider, model=model
+        )(p=prompt, output_format=OutputFormat).reference_entry
+    return {
+        'information_id': information_id,
+        'contents': {'title': reference_entry},
+        'action': 'title',
+        'params': {}
+    }
+lucario_pipelines = {
+    'reference_style': lucario_reference_style
+}
+
 class Pipeline:
     __env__ = ["openai_api_key"]
-    def __init__(self):
-        pass
+    def __init__(self,
+        provider: Providers = 'openai',
+        model: str = 'gpt-4.1'    
+        ):
+        self.provider = provider
+        self.model = model
     def __call__(self, 
             sota : SOTA,
             task : dict
@@ -826,8 +882,11 @@ class Pipeline:
         if last_version_class_name == 'str':
             assert name in text_pipelines, f'Pipeline {name} not found for text sections'
             pipeline = text_pipelines[name]
-        else:
-            assert last_version_class_name == 'Sections', f'Pipeline {name} not found for sections'
+        elif last_version_class_name == 'Sections':
             assert name in sections_pipelines, f'Pipeline {name} not found for sections'
             pipeline = sections_pipelines[name]
-        return pipeline(**{**task['params'], 'sota': sota, 'information_id': task['information_id']}) 
+        else:
+            assert last_version_class_name == 'LucarioElement', f'Pipeline {name} not found for lucario elements'
+            assert name in lucario_pipelines, f'Pipeline {name} not found for lucario elements'
+            pipeline = lucario_pipelines[name]
+        return pipeline(**{**task['params'], 'sota': sota, 'information_id': task['information_id'], 'provider': self.provider, 'model': self.model}) 

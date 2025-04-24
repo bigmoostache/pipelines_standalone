@@ -1,7 +1,7 @@
 from custom_types.SOTA.type import SOTA, VersionedInformation
 from typing import List
 import json
-from pipelines.CUSTOM_TYPES.SOTA.call import text_pipelines, sections_pipelines
+from pipelines.CUSTOM_TYPES.SOTA.call import text_pipelines, sections_pipelines, lucario_pipelines
 class Pipeline:
     def __init__(self):
         pass
@@ -28,4 +28,12 @@ class Pipeline:
                         **pipeline
                     })
                     break
+                elif last_version_class_name == 'LucarioElement' and pipeline_name in lucario_pipelines:
+                    res.append({
+                        'information_id': information_id,
+                        **pipeline
+                    })
+                    break
+                else:
+                    raise ValueError(f"Pipeline {pipeline_name} not found for information {information_id} with class {last_version_class_name}")
         return res
