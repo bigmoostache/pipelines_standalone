@@ -254,7 +254,7 @@ def get_json_schema(sota : SOTA,
                 }
         }
     }
-    return json.dumps(json_schema, indent = 2)
+    return json_schema # json.dumps(json_schema, indent = 2)
 
 def get_sections_schema(sota : SOTA):
     schema = {
@@ -452,7 +452,9 @@ def complex_rewrite(
     act_on_contents: bool = False,
     last_minute_instructions: str = '',
     references_mode: Literal['allow', 'restrict', 'free'] = 'allow',
-    mode: Literal['text', 'sections'] = 'text'
+    mode: Literal['text', 'sections'] = 'text',
+    provider: Providers = 'openai',
+    model: str = 'gpt-4.1',
     ):
     logging.debug(f'Starting complex rewrite')
     traductions = {
@@ -518,9 +520,13 @@ def complex_rewrite(
             free_ref_ids.append(new_id)
     existing_ref_ids = list(sota.information[information_id].referencements.keys())
     schema = get_json_schema(sota, title, free_ref_ids, existing_ref_ids, act_on_expectations = act_on_expectations, act_on_comments = act_on_comments, act_on_contents = act_on_contents) if mode == 'text' else get_sections_schema(sota)
-    result = LLMS_v2(
+    """ result = LLMS_v2(
         schema,
-        model="o3-mini-2025-01-31")(prompt)
+        model="o3-mini-2025-01-31")(prompt) """
+    result = LLMS_v3_Structured(
+        provider=provider,
+        model=model
+        )(p=prompt, output_format=schema, mode='json_schema')
     # 8. Return the result, wrapped in a dictionary
     result = {
         'information_id': information_id,
@@ -553,12 +559,13 @@ def rewrite(sota : SOTA,
         act_on_title=True, 
         act_on_comments=True, act_on_contents=final_comment, last_minute_instructions=additional_instructions, references_mode=references_mode)
 
-def brush(sota: SOTA, 
-          information_id: int,
-    provider: Providers,
-    model: str,
-          brush_mode: Literal['academic', 'research', 'technical', 'informative', 'analytical', 'explanatory', 'summarize', 'evaluative', 'critical', 'neutral']
-          ) -> dict:
+def brush(
+        sota: SOTA, 
+        information_id: int,
+        provider: Providers,
+        model: str,
+        brush_mode: Literal['academic', 'research', 'technical', 'informative', 'analytical', 'explanatory', 'summarize', 'evaluative', 'critical', 'neutral']
+        ) -> dict:
     logging.debug(f'Starting brush')
     traductions = {
         'academic': {
@@ -859,6 +866,7 @@ def lucario_reference_style(
         'action': 'title',
         'params': {}
     }
+
 lucario_pipelines = {
     'reference_style': lucario_reference_style
 }

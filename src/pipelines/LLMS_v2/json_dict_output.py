@@ -12,17 +12,17 @@ class Pipeline:
     __env__ = ["openai_api_key"]
 
     def __init__(self, 
-                 schema : str,
-                 model : str = "gpt-4o-2024-08-06", 
-                 base_url : str = "https://api.openai.com/v1",
-                 temperature : int =1, 
-                 retries : int =3, 
-                 max_tokens : int =3500, 
-                 top_p : int =1, 
-                 frequency_penalty : float =0, 
-                 presence_penalty : float=0,
-                 reasoning_effort : str = "high"
-                 ):
+                schema : str,
+                model : str = "gpt-4o-2024-08-06", 
+                base_url : str = "https://api.openai.com/v1",
+                temperature : int =1, 
+                retries : int =3, 
+                max_tokens : int =3500, 
+                top_p : int =1, 
+                frequency_penalty : float =0, 
+                presence_penalty : float=0,
+                reasoning_effort : str = "high"
+                ):
         if not schema:
             raise Exception("schema is missing")
         else:
