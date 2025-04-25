@@ -909,7 +909,7 @@ class Pipeline:
         logging.debug(f'Calling pipeline with task {task}')
         information = sota.information[task.get('information_id')]
         last_version_class_name = VersionedInformation.get_class_name(information.get_last_version(sota.versions_list(-1)))
-        name = task.pop('name')
+        name = task['name']
         if last_version_class_name == 'str':
             assert name in text_pipelines, f'Pipeline {name} not found for text sections'
             pipeline = text_pipelines[name]
