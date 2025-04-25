@@ -81,7 +81,7 @@ def transfer(sota, node, information_id: int = None, root: bool = False, hardcod
         assert not isinstance(node.contents, str), "Root node child contents should not be a string"
         sota.title = vt(node.title)
         for n in node.contents:
-            transfer(sota, n)
+            transfer(sota, n, hardcoded_prompt=hardcoded_prompt)
         return
     information_id = information_id if information_id else sota.mother_id
     information = sota.get_last(sota.information[information_id].versions, sota.versions_list(-1))
@@ -90,7 +90,7 @@ def transfer(sota, node, information_id: int = None, root: bool = False, hardcod
         new_id = sota.get_new_id(sota.information) if not root else sota.mother_id
         sota.information[new_id] = new_info
         for n in node.contents:
-            transfer(sota, n, information_id = new_id)
+            transfer(sota, n, information_id = new_id, hardcoded_prompt = hardcoded_prompt)
     else:
         # append new sections info
         abstract = f'<p><em>Below is the TEMPLATE for that section. </em></p><hr><p>{node.contents}</p>'
