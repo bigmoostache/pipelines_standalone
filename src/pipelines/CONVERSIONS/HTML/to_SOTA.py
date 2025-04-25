@@ -72,7 +72,7 @@ def merge_nodes_below_threshold(node: HTML_H_TREE, char_th: int = 3000, depth : 
             return HTML_H_TREE(title=node.title, contents=merged_contents)
         return merge_subtree(node)
     
-def transfer(sota, node, information_id: int = None, root: bool = False):
+def transfer(sota, node, information_id: int = None, root: bool = False, hardcoded_prompt: str = ''):
     if root:
         sota.information[sota.mother_id] = VersionedInformation.create_text(node.title, Sections(sections=[]), node.title, node.title)
         assert not isinstance(node.contents, str), "Root node contents should not be a string"
@@ -99,8 +99,8 @@ def transfer(sota, node, information_id: int = None, root: bool = False):
             'name': 'rewrite', 
             'params': {
                 'references_mode': 'allow', 
-                'additional_instructions': 'Please rewrite this section, filling the missing information using the provided context and data. Preserve the structure of the section, your role is to fill the template. Is there is any missing information, please specify it, embedded in the text, in red. If everything is already filled, then your task is trivial: just rewrite everything verbatim.', 
-                'final_comment': True
+                'additional_instructions': hardcoded_prompt, 
+                'final_comment': False
             }
             })]
         new_id = sota.get_new_id(sota.information)
@@ -108,8 +108,12 @@ def transfer(sota, node, information_id: int = None, root: bool = False):
     information.sections.append(new_id)
 
 class Pipeline:
-    def __init__(self, char_th: int = 5000):
+    def __init__(self, 
+                 char_th: int = 5000,
+                 hardcoded_prompt: str = 'Please rewrite this section, filling the missing information using the provided context and data. Preserve the structure of the section, your role is to fill the template. Is there is any missing information, please specify it, embedded in the text, in red. If everything is already filled, then your task is trivial: just rewrite everything verbatim. Be AS EXHAUSTIVE AS POSSIBLE., any missing data will be heavily punished.'
+                 ):
         self.char_th = char_th
+        self.hardcoded_prompt = hardcoded_prompt
     def __call__(self, html: HTML) -> SOTA:
         new_sota = SOTA.get_empty()
         transfer(
@@ -118,6 +122,7 @@ class Pipeline:
                 process_nodes(extract_node_sequence(html.html)), 
                 char_th = self.char_th
                 ), 
-            root = True
+            root = True,
+            hardcoded_prompt = self.hardcoded_prompt
             )
         return new_sota

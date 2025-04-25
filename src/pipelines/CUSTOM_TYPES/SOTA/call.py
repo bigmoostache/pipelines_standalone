@@ -557,7 +557,13 @@ def rewrite(sota : SOTA,
         sota, 
         information_id, 
         act_on_title=True, 
-        act_on_comments=True, act_on_contents=final_comment, last_minute_instructions=additional_instructions, references_mode=references_mode)
+        act_on_comments=True, 
+        act_on_contents=final_comment, 
+        last_minute_instructions=additional_instructions, 
+        references_mode=references_mode,
+        provider=provider,
+        model=model,
+        )
 
 def brush(
         sota: SOTA, 
@@ -670,7 +676,11 @@ def brush(
         }
     }
     last_minute_instructions = sota.t(brush_mode, traductions)
-    return complex_rewrite(sota, information_id, include_references=False, act_on_contents=True, last_minute_instructions=last_minute_instructions)
+    return complex_rewrite(
+        sota, information_id, include_references=False, act_on_contents=True, 
+        last_minute_instructions=last_minute_instructions,
+        provider=provider,
+        model=model,)
 
 def translate(
     sota : SOTA, 
@@ -686,7 +696,10 @@ def translate(
         'en': 'Please translate this section in English. Make sure to preserve styling and references. If it is already in English, then just copy it verbatim without the slightest change.',
         'fr': 'Veuillez traduire cette section en français. Assurez-vous de préserver le style et les références. Si le texte est déjà en français, copiez-le tel quel sans le moindre changement.'
     }})
-    result = complex_rewrite(sota, information_id, include_article=False, include_references=False, act_on_title=True, act_on_contents=True, last_minute_instructions=last_minute_instructions)
+    result = complex_rewrite(
+        sota, information_id, include_article=False, include_references=False, act_on_title=True, act_on_contents=True, last_minute_instructions=last_minute_instructions,
+        provider=provider,
+        model=model)
     sota.language = langage_cache
     return result
 
@@ -701,7 +714,10 @@ def make_longer(
         'en': 'Please make this section longer. You can add more details, examples, explanations, or any relevant information to expand the content. Ensure that the additional content aligns with the existing text and references.',
         'fr': 'Veuillez allonger cette section. Vous pouvez ajouter plus de détails, d\'exemples, d\'explications ou toute information pertinente pour étendre le contenu. Assurez-vous que le contenu supplémentaire est en accord avec le texte et les références existants.'
     }})
-    return complex_rewrite(sota, information_id, act_on_contents=True, last_minute_instructions=last_minute_instructions, references_mode='restrict')
+    return complex_rewrite(
+        sota, information_id, act_on_contents=True, last_minute_instructions=last_minute_instructions, references_mode='restrict',
+        provider=provider,
+        model=model,)
     
 def make_shorter(
     sota : SOTA, 
@@ -714,7 +730,10 @@ def make_shorter(
         'en': 'Please make this section shorter. You can remove redundant information, unnecessary details, or any content that does not directly contribute to the main message. Ensure that the shortened version maintains clarity and coherence.',
         'fr': 'Veuillez raccourcir cette section. Vous pouvez supprimer les informations redondantes, les détails inutiles ou tout contenu qui ne contribue pas directement au message principal. Assurez-vous que la version raccourcie conserve la clarté et la cohérence.'
     }})
-    return complex_rewrite(sota, information_id, act_on_contents=True, last_minute_instructions=last_minute_instructions, references_mode='restrict')
+    return complex_rewrite(
+        sota, information_id, act_on_contents=True, last_minute_instructions=last_minute_instructions, references_mode='restrict',
+        provider=provider,
+        model=model,)
 
 def rewrite_expectations(
     sota : SOTA, 
@@ -724,7 +743,10 @@ def rewrite_expectations(
     additional_instructions: str = '',
     ) -> dict:
     logging.debug(f'Starting rewrite_expectations')
-    return complex_rewrite(sota, information_id, act_on_expectations=True, last_minute_instructions=additional_instructions, references_mode='free')
+    return complex_rewrite(
+        sota, information_id, act_on_expectations=True, last_minute_instructions=additional_instructions, references_mode='free',
+        provider=provider,
+        model=model)
 
 def provide_feedback(
     sota : SOTA, 
@@ -734,7 +756,10 @@ def provide_feedback(
     additional_instructions: str = '',
     ) -> dict:
     logging.debug(f'Starting provide_feedback')
-    return complex_rewrite(sota, information_id, act_on_comments=True, last_minute_instructions=additional_instructions, references_mode='allow')
+    return complex_rewrite(
+        sota, information_id, act_on_comments=True, last_minute_instructions=additional_instructions, references_mode='allow',
+        provider=provider,
+        model=model)
 
 text_pipelines = {
     'rewrite': rewrite,
@@ -745,8 +770,6 @@ text_pipelines = {
     'rewrite_expectations': rewrite_expectations,
     'provide_feedback': provide_feedback
 }
-
-# Pipelines for sections
 
 def rebuild_sections(
     sota: SOTA,
