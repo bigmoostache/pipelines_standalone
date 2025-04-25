@@ -1,8 +1,8 @@
 from custom_types.HTML.type import HTML
 from custom_types.PROMPT.type import PROMPT
-from pipelines.LLMS_v2.str_output import Pipeline as LLM
 from bs4 import BeautifulSoup
-
+from pipelines.LLMS.v3.client import Providers
+from pipelines.LLMS.v3.str import Pipeline as LLM
 default_prompt ="""
 # HTML Section Headers Formatter
 
@@ -65,6 +65,7 @@ Your response must follow this structure:
 <your formatted HTML here>
 ```
 """
+
 def parse_and_verify(res: str) -> str:
     count = res.count("```html")
     # rule 1 - Ensure ```html exists, and only once
@@ -104,15 +105,17 @@ def parse_and_verify(res: str) -> str:
 class Pipeline:
     __env__ = ["openai_api_key"]
     def __init__(self, 
-                 model : str = "gpt-4o",
+                 model : str = "gpt-4.1",
+                 provider: Providers = 'openai',
                  prompt : str = default_prompt):
         self.model = model
         self.prompt = prompt
+        self.provider = provider
 
     def __call__(self, doc: HTML) -> HTML:
         prompt = PROMPT()
         prompt.add(doc.html, role="user")
         prompt.add(self.prompt, role="system")
-        pipeline = LLM(model = self.model)
+        pipeline = LLM(model = self.model, provider=self.provider)
         res = pipeline(prompt)
         return HTML(html=parse_and_verify(res))
