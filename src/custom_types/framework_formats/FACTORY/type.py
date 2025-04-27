@@ -9,7 +9,7 @@ class Converter:
     def to_bytes(FACTORY) -> bytes:
         return bytes(json.dumps(FACTORY.dictionary, indent = 2), 'utf-8')
     @staticmethod
-    def from_bytes(b: bytes) -> MD:
+    def from_bytes(b: bytes) -> FACTORY:
         return FACTORY(dictionary=json.loads(b.decode('utf-8')))
     @staticmethod
     def len(f : FACTORY) -> int:
