@@ -1,7 +1,6 @@
 from pydantic import BaseModel
-class MDX:
+class MD(BaseModel):
     mdx: str
-    
 
 class Converter:
     @staticmethod

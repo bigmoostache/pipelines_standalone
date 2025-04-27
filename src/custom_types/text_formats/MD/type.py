@@ -1,5 +1,5 @@
 from pydantic import BaseModel
-class MD:
+class MD(BaseModel):
     md: str
     
 class Converter:
