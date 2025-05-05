@@ -1,6 +1,6 @@
 from pydantic import BaseModel, Field, create_model
 from typing import Literal, List, Any, Union, Optional
-import random, json, openai
+import random, json
 from tqdm.auto import tqdm
 from pydantic_core._pydantic_core import ValidationError
 from custom_types.PROMPT.type import PROMPT
