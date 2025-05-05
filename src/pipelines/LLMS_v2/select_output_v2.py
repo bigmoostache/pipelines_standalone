@@ -1,19 +1,23 @@
 from custom_types.PROMPT.type import PROMPT
 from custom_types.SELECT.type import SELECT
-import os 
+import os
+from pipelines.LLMS.v3.structured import Providers
 
 class Pipeline:
-    __env__ = ["openai_api_key"]
     def __init__(self, 
-                 model : str = "gpt-4o", 
+                 model : str = "gpt-4o",
+                 provider: Providers = 'openai',
                  rerolls: int = 1,
                  ):
         self.model = model
-        self.rerolls = rerolls
+        self.provider = provider
         
     def __call__(self, 
              p : PROMPT,
              e : SELECT
              ) -> dict:
         p.truncate()
-        return e(p.messages, openai_api_key=os.environ.get("openai_api_key"), model=self.model, rerolls=self.rerolls)
+        return e(
+            p, 
+            model=self.model,
+            provider=self.provider)

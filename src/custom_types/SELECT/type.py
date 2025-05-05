@@ -3,6 +3,7 @@ from typing import Literal, List, Any, Union, Optional
 import random, json, openai
 from tqdm.auto import tqdm
 from pydantic_core._pydantic_core import ValidationError
+from custom_types.PROMPT.type import PROMPT
 
 EXCLUDE = 'exclude'
 KEEP = 'keep'
@@ -48,34 +49,24 @@ class SELECT(BaseModel):
         return create_model("Data", **{e.name : e.get_tuple() for e in self.selection_criteria})
     
     def __call__(self, 
-                 messages,
+                 prompt,
                  *,
-                 openai_api_key : str,
                  model : str,
-                 use_azure: bool = False,
-                 azure_endpoint : str = None,
-                 rerolls : int = 1 # deprecated
+                 provider: str = 'openai'
                 ):
-        if use_azure:
-            client = openai.AzureOpenAI(
-                api_key=openai_api_key,  
-                api_version="2024-08-01-preview",
-                azure_endpoint=azure_endpoint
-            )
-        else:
-            client = openai.OpenAI(api_key=openai_api_key)
-        
+        from pipelines.LLMS.v3.structured import Providers, Pipeline as StructuredPipeline
         # First two calls
+        output_format = self.get_model()
+        pipe = lambda : StructuredPipeline(
+                            provider=provider,
+                            model=model,
+                        )(prompt, output_format, mode='structured')
+        
         events = []
         for _ in tqdm(range(2)):
             for _ in range(3):
                 try:
-                    completion = client.beta.chat.completions.parse(
-                        model=model,
-                        messages=messages,
-                        response_format=self.get_model()
-                    )
-                    events.append(completion.choices[0].message.parsed)
+                    events.append(pipe())
                     break
                 except ValidationError:
                     pass
@@ -110,12 +101,7 @@ class SELECT(BaseModel):
         if need_third_call:
             for _ in range(3):
                 try:
-                    completion = client.beta.chat.completions.parse(
-                        model=model,
-                        messages=messages,
-                        response_format=self.get_model()
-                    )
-                    events.append(completion.choices[0].message.parsed)
+                    events.append(pipe())
                     break
                 except ValidationError:
                     pass
@@ -177,21 +163,21 @@ class SELECT(BaseModel):
                 f'Decision: {event.__dict__[criteria.name].decision} - {event.__dict__[criteria.name].__dict__[justification_field]}' 
                 for event in events
             ])
-            
             # Populate the results
-            if criteria.code is None:
-                res[f'{criteria.name}'] = final_decision
-            else:
-                if final_decision in {EXCLUDE, INCLUDE}:
-                    res[f'{criteria.code}'] = criteria.code
-                elif final_decision == EXCL_MAYBE:
-                    res[f'{criteria.code}'] = f'{criteria.code} - unsure'
-                elif final_decision == INCL_MAYBE:
-                    res[f'{criteria.code}'] = f'{criteria.code} - unsure'
-                else:
-                    res[f'{criteria.code}'] = ''
+            res[criteria.name] = final_decision
             res[f'{criteria.name}_score'] = score
             res[f'{criteria.name}_justification'] = justification
+            
+            
+            if criteria.code is not None:
+                if final_decision in {EXCLUDE, INCLUDE}:
+                    res[f'{criteria.name}_code'] = criteria.code
+                elif final_decision == EXCL_MAYBE:
+                    res[f'{criteria.name}_code'] = f'{criteria.code} - unsure'
+                elif final_decision == INCL_MAYBE:
+                    res[f'{criteria.name}_code'] = f'{criteria.code} - unsure'
+                else:
+                    res[f'{criteria.name}_code'] = ''
             
         inclusion_decisions = [res[c.name] for c in self.selection_criteria if isinstance(c, InclusionCriteria)]
         exclusion_decisions = [res[c.name] for c in self.selection_criteria if isinstance(c, ExclusionCriteria)]
@@ -224,7 +210,6 @@ class SELECT(BaseModel):
         
         return res
 
-            
 class Converter:
     @staticmethod
     def to_bytes(obj : SELECT) -> bytes:
