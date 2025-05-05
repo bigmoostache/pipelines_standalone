@@ -112,6 +112,7 @@ class SELECT(BaseModel):
         # If we have only two calls, we have a 2-way decision.
         
         res = {}
+        recap = []
         for criteria in self.selection_criteria:
             if isinstance(criteria, ExclusionCriteria):
                 is_exclusion = True
@@ -165,19 +166,22 @@ class SELECT(BaseModel):
             ])
             # Populate the results
             res[criteria.name] = final_decision
-            res[f'{criteria.name}_score'] = score
-            res[f'{criteria.name}_justification'] = justification
-            
             
             if criteria.code is not None:
+                letter = 'E' if is_exclusion else 'I'
                 if final_decision in {EXCLUDE, INCLUDE}:
-                    res[f'{criteria.name}_code'] = criteria.code
+                    res[f'{criteria.name}_code'] = f'{criteria.code} ({letter})'
+                    recap.append(f'{criteria.code} ({letter})')
                 elif final_decision == EXCL_MAYBE:
-                    res[f'{criteria.name}_code'] = f'{criteria.code} - unsure'
+                    res[f'{criteria.name}_code'] = f'{criteria.code} ({letter}) - unsure'
+                    recap.append(f'{criteria.code} ({letter}) - unsure')
                 elif final_decision == INCL_MAYBE:
-                    res[f'{criteria.name}_code'] = f'{criteria.code} - unsure'
+                    res[f'{criteria.name}_code'] = f'{criteria.code} ({letter}) - unsure'
+                    recap.append(f'{criteria.code} ({letter}) - unsure')
                 else:
                     res[f'{criteria.name}_code'] = ''
+            res[f'{criteria.name}_score'] = score
+            res[f'{criteria.name}_justification'] = justification
             
         inclusion_decisions = [res[c.name] for c in self.selection_criteria if isinstance(c, InclusionCriteria)]
         exclusion_decisions = [res[c.name] for c in self.selection_criteria if isinstance(c, ExclusionCriteria)]
@@ -207,7 +211,7 @@ class SELECT(BaseModel):
             res['at_least_one_exclusion_criteria_is_respected'] = UNSURE
         else:
             res['at_least_one_exclusion_criteria_is_respected'] = 'false'
-        
+        res['recap'] = '\n'.join(recap)
         return res
 
 class Converter:
