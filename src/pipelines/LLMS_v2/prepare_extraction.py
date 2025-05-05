@@ -1,35 +1,25 @@
 from custom_types.PROMPT.type import PROMPT
 from custom_types.SELECT.type import SELECT
 import openai
-import os 
+import os
+from pipelines.LLMS.v3.structured import Providers, Pipeline as StructuredPipeline
 
 class Pipeline:
-    __env__ = ["openai_api_key"]
     def __init__(self, 
-                 model : str = "gpt-4o", 
-                 base_url : str = "https://api.openai.com/v1",
-                 temperature : float =1, 
-                 top_p : float =1
-                 ):
+                provider: Providers = "openai",
+                model: str = "gpt-4.1",
+                temperature : float =1, 
+                top_p : float =1
+                ):
+        self.provider = provider
         self.model = model
-        self.temperature = temperature
-        self.top_p = top_p
-        self.base_url = base_url
         
     def __call__(self, 
                  p : PROMPT,
                  ) -> SELECT:
-        p.truncate()
-        client = openai.OpenAI(
-            api_key=os.environ.get("openai_api_key"), 
-            base_url=self.base_url)
-        completion = client.beta.chat.completions.parse(
-            model="gpt-4o-2024-08-06",
-            messages=p.messages,
-            temperature=self.temperature,
-            top_p=self.top_p,
-            response_format=SELECT,
-        )
-        event = completion.choices[0].message.parsed
-        return event
+        return StructuredPipeline(
+            provider=self.provider, 
+            model=self.model, 
+            hard_coded_model='select'
+        )(p, None, 'structured')
     

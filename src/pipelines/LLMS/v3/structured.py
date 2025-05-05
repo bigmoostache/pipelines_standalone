@@ -1,5 +1,6 @@
 import os
 from typing import List, Literal
+from custom_types.SELECT.type import SELECT
 from custom_types.PROMPT.type import PROMPT
 from pipelines.LLMS.v3.client import Pipeline as ClientPipeline, Providers
 import json
@@ -7,19 +8,21 @@ from custom_types.trees.gap_analysis.type import ResponseType as Tree_Gap_Analys
 
 output_formats = {
     'tree/gap_analysis': Tree_Gap_AnalysisResponseType,
+    'select': SELECT
 }
 
 class Pipeline:
     def __init__(self,
         provider: Providers = "openai",
         model: str = "gpt-4.1",
-        hard_coded_model: Literal['none', 'tree/gap_analysis'] = 'none',
+        hard_coded_model: Literal['none', 'tree/gap_analysis', 'select'] = 'none',
         convert_back_to_dict: bool = False
         ):
         self.provider = provider
         self.model = model
         self.hard_coded_model = hard_coded_model
         self.convert_back_to_dict = convert_back_to_dict
+        
     def __call__(self, 
                 p : PROMPT,
                 output_format : str,

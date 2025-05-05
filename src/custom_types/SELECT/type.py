@@ -26,12 +26,14 @@ class INCLUSION(BaseModel):
 class ExclusionCriteria(BaseModel):
     exclusion_criteria_description  : str = Field(..., description = "Describe precisely the situation where this exclusion criteria should be applied.")
     name                            : str = Field(..., description = "The name of the exclusion criteria. Should be upper, no special characters, spaces replaced by underscores and no numbers.")
+    code                           : Optional[str] = Field(None, description = "Small optional code for this criteria. Shorter than name, no special characters and no spaces.")
     def get_tuple(self):
         return (EXCLUSION, Field(..., description = self.exclusion_criteria_description))
 
 class InclusionCriteria(BaseModel):
     inclusion_criteria_description : str = Field(..., description = "Describe precisely the situation where this inclusion criteria should be applied.")
     name                           : str = Field(..., description = "The name of the selection criteria. Should be upper, no special characters, spaces replaced by underscores and no numbers.")
+    code                           : Optional[str] = Field(None, description = "Small optional code for this criteria. Shorter than name, no special characters and no spaces.")
     def get_tuple(self):
         return (INCLUSION, Field(..., description = self.inclusion_criteria_description))
 
@@ -40,6 +42,7 @@ def special_join(vals : List[str]) -> str:
    
 class SELECT(BaseModel):
     selection_criteria : List[Union[ExclusionCriteria, InclusionCriteria]] = Field(..., description = "List of selection criteria") 
+    langage            : Optional[str] = Field(None, description = "Language of the selection grid. Possible values are 'en' or 'fr'. Default is 'en'.")
     
     def get_model(self):
         return create_model("Data", **{e.name : e.get_tuple() for e in self.selection_criteria})
@@ -125,11 +128,11 @@ class SELECT(BaseModel):
         res = {}
         for criteria in self.selection_criteria:
             if isinstance(criteria, ExclusionCriteria):
-                decision_field = "decision"
+                is_exclusion = True
                 justification_field = "e_justification"
                 unsure_decision = EXCL_MAYBE
             else:
-                decision_field = "decision"
+                is_exclusion = False
                 justification_field = "i_justification"
                 unsure_decision = INCL_MAYBE
             
@@ -176,7 +179,17 @@ class SELECT(BaseModel):
             ])
             
             # Populate the results
-            res[f'{criteria.name}'] = final_decision
+            if criteria.code is None:
+                res[f'{criteria.name}'] = final_decision
+            else:
+                if final_decision in {EXCLUDE, INCLUDE}:
+                    res[f'{criteria.code}'] = criteria.code
+                elif final_decision == EXCL_MAYBE:
+                    res[f'{criteria.code}'] = f'{criteria.code} - unsure'
+                elif final_decision == INCL_MAYBE:
+                    res[f'{criteria.code}'] = f'{criteria.code} - unsure'
+                else:
+                    res[f'{criteria.code}'] = ''
             res[f'{criteria.name}_score'] = score
             res[f'{criteria.name}_justification'] = justification
             
