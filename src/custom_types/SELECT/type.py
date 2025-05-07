@@ -211,7 +211,7 @@ class SELECT(BaseModel):
             res['at_least_one_exclusion_criteria_is_respected'] = UNSURE
         else:
             res['at_least_one_exclusion_criteria_is_respected'] = 'false'
-        res['recap'] = '\n'.join(recap)
+        res['recap'] = ', '.join(recap)
         return res
 
 class Converter:
