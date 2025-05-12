@@ -466,17 +466,17 @@ class Converter:
     def len(doc: SOTA) -> int:
         # That price is in rockets 🚀, which is an abstraction
         pipeline_prices = {
-            'rewrite': 7,
-            'brush': 1,
-            'translate': 1,
-            'make_longer': 1,
-            'make_shorter': 1,
+            'rewrite': 2,
+            'brush': 2,
+            'translate': 2,
+            'make_longer': 2,
+            'make_shorter': 2,
             'rewrite_expectations': 2,
             'provide_feedback': 2,
             'sections_rewrite_expectations': 2,
             'rebuild_sections': 2,
             'sections_feedback': 2,
-            'sections_references': 1,
+            'sections_references': 2,
             'write_bibliography': 2
         }
         return sum([pipeline_prices.get(json.loads(pipeline).get('name', ''), 1) for _ in doc.information.values() for pipeline in _.ai_pipelines_to_run])
