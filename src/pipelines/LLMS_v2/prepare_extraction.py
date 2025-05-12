@@ -9,17 +9,20 @@ class Pipeline:
                 provider: Providers = "openai",
                 model: str = "gpt-4.1",
                 temperature : float =1, 
-                top_p : float =1
+                top_p : float = 1,
+                use_codes : bool = False
                 ):
         self.provider = provider
         self.model = model
+        self.use_codes = use_codes
         
     def __call__(self, 
                  p : PROMPT,
                  ) -> SELECT:
-        return StructuredPipeline(
+        result = StructuredPipeline(
             provider=self.provider, 
             model=self.model, 
             hard_coded_model='select'
         )(p, None, 'structured')
-    
+        result.use_codes = self.use_codes
+        return result

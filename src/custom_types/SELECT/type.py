@@ -44,6 +44,7 @@ def special_join(vals : List[str]) -> str:
 class SELECT(BaseModel):
     selection_criteria : List[Union[ExclusionCriteria, InclusionCriteria]] = Field(..., description = "List of selection criteria") 
     langage            : Optional[str] = Field(None, description = "Language of the selection grid. Possible values are 'en' or 'fr'. Default is 'en'.")
+    use_codes          : Optional[bool] = Field(None, description = "If True, the codes will be used in the final decision. If False, the codes will not be used. Default is True.")
     
     def get_model(self):
         return create_model("Data", **{e.name : e.get_tuple() for e in self.selection_criteria})
@@ -167,7 +168,7 @@ class SELECT(BaseModel):
             # Populate the results
             res[criteria.name] = final_decision
             
-            if criteria.code is not None:
+            if criteria.code is not None and self.use_codes:
                 letter = 'E' if is_exclusion else 'I'
                 if final_decision in {EXCLUDE, INCLUDE}:
                     res[f'{criteria.name}_code'] = f'{criteria.code} ({letter})'
@@ -211,7 +212,8 @@ class SELECT(BaseModel):
             res['at_least_one_exclusion_criteria_is_respected'] = UNSURE
         else:
             res['at_least_one_exclusion_criteria_is_respected'] = 'false'
-        res['recap'] = ', '.join(recap)
+        if self.use_codes:
+            res['recap'] = ', '.join(recap)
         return res
 
 class Converter:
