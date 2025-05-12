@@ -479,7 +479,7 @@ class Converter:
             'sections_references': 2,
             'write_bibliography': 2
         }
-        return sum([pipeline_prices.get(json.loads(pipeline).get('name', ''), 1) for _ in doc.information.values() for pipeline in _.ai_pipelines_to_run])
+        return sum([pipeline_prices.get(json.loads(pipeline).get('name', ''), .1) for _ in doc.information.values() for pipeline in _.ai_pipelines_to_run])
     
 from custom_types.wrapper import TYPE
 wraped = TYPE(
