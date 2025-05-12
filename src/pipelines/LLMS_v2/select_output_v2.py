@@ -7,10 +7,7 @@ class Pipeline:
     def __init__(self, 
                  model : str = "gpt-4o",
                  provider: Providers = 'openai',
-                 rerolls: int = 1,
-                 # deprecated
-                 base_url: str = '',
-                 temperature : float = 1
+                 rerolls: int = 1
                  ):
         self.model = model
         self.provider = provider

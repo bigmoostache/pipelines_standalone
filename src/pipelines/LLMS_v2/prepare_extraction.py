@@ -10,8 +10,11 @@ class Pipeline:
                 model: str = "gpt-4.1",
                 temperature : float =1, 
                 top_p : float = 1,
-                use_codes : bool = False
-                ):
+                use_codes : bool = False,
+                # deprecated
+                base_url: str = '',
+                temperature : float = 1
+            ):
         self.provider = provider
         self.model = model
         self.use_codes = use_codes
