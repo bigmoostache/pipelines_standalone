@@ -12,8 +12,7 @@ class Pipeline:
                 top_p : float = 1,
                 use_codes : bool = False,
                 # deprecated
-                base_url: str = '',
-                temperature : float = 1
+                base_url: str = ''
             ):
         self.provider = provider
         self.model = model
