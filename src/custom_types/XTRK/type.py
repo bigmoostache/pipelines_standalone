@@ -44,7 +44,8 @@ class DataStructure(BaseModel):
         for f in self.fields:
             if f.object_name == field_name:
                 return f
-        raise ValueError(f"Field {field_name} not found in DataStructure")
+        all_fields = [f.object_name for f in self.fields]
+        raise ValueError(f"Field {field_name} not found in DataStructure. Available fields: {all_fields}")
     
     def at_least_one_field_is_a_data_structure(self):
         return any(hasattr(f.object_type, 'object_list') for f in self.fields)
