@@ -4,7 +4,7 @@ from pipelines.LLMS.v3.client import Providers
 from pipelines.LLMS.v3.structured import Pipeline as StructuredPipeline
 
 class Pipeline:
-    def __init__(self, ,
+    def __init__(self,
                 provider: Providers = "openai",
                 model : str = "gpt-4o-2024-08-06"):
         self.pipeline = StructuredPipeline(
