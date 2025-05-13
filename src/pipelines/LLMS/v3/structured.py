@@ -28,10 +28,11 @@ class Pipeline:
     def __call__(self, 
                 p : PROMPT,
                 output_format : str,
-                mode: str = 'structured',
+                mode: str = 'structured', #Literal['structured', 'json_schema']
                 ) -> dict:
         if self.hard_coded_model != 'none':
             output_format = output_formats[self.hard_coded_model]
+            mode = 'structured'
         # for now, str as output, but this will change
         if self.provider == "openai":
             response = self.openai(p, output_format, mode)
