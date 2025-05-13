@@ -28,7 +28,7 @@ class Pipeline:
     def __call__(self, 
                 p : PROMPT,
                 output_format : str,
-                mode: Literal['structured', 'json_schema'] = 'structured',
+                mode: str = 'structured',
                 ) -> dict:
         if self.hard_coded_model != 'none':
             output_format = output_formats[self.hard_coded_model]
