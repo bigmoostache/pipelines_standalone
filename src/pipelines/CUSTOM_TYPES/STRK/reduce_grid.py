@@ -1,6 +1,8 @@
 import os, openai
 from custom_types.PROMPT.type import PROMPT
 from custom_types.XTRK.type import DataStructure, _create_model
+from pipelines.LLMS.v3.client import Providers
+from pipelines.LLMS.v3.structured import Pipeline as StructuredPipeline
 
 _ = """We are preparing a data extraction pipeline. Our issue is the following:
 the extraction grid is too big to fir in our pipeline. to solve this issue, we are going to remove from that grid the parameters which have a very low probability of being found by the pipeline (ie the ones that are NOT present in the document). For each of the parameters in the provided json schema, provide
@@ -24,12 +26,13 @@ If you forget any, you will be HEAVILY penalized. HEAVILY. If you just lazy out 
 """
 
 class Pipeline:
-    __env__ = ["openai_api_key"]
     def __init__(self, 
                  model : str = "o3-mini",
+                 provider: Providers = "openai",
                  max_number_of_parameters : int = 50,
                  ):
         self.model = model
+        self.provider = provider
         self.max_number_of_parameters = max_number_of_parameters
     def __call__(self, 
                  text : str,
@@ -44,13 +47,7 @@ class Pipeline:
         params = '\n'.join([f'{_[0]} - {_[1]}' for f in grid.fields for _ in f.get_params_list()])
         p.add(_ % params)
         # 2. Call the model
-        client = openai.OpenAI(api_key=os.environ.get("openai_api_key"))
-        dic = client.beta.chat.completions.parse(
-            model = self.model,
-            messages = p.messages,
-            response_format = grid.create_evaluation_model()  
-        )
-        dic = dic.choices[0].message.parsed
+        dic = StructuredPipeline(provider=self.provider, model=self.model)(p, grid.create_evaluation_model())
         dic = {
             dic.param_name: dic for dic in dic.evaluations
         }
