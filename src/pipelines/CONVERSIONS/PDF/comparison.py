@@ -11,6 +11,7 @@ import time
 from pipelines.MANIPS.TEXTS.segment_uniform import Pipeline as ChunkingPipeline
 import openai, numpy as np
 from pipelines.LLMS.v3.embeddings import Pipeline as EmbeddingPipeline
+from pipelines.LLMS.v3.client import Providers
 
 def get_text(pdf: PDF):
     form_data = {
@@ -56,7 +57,7 @@ def paginate(chunks: JSONL):
         
 class Pipeline:
     def __init__(self,
-                provider: Literal["openai", "cohere", "anthropic", "google", "azure", "huggingface"] = "openai",
+                provider: Providers = "openai",
                 model: str = "text-embedding-3-large", 
                 ):
         self.provider = provider
