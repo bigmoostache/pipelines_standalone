@@ -2,6 +2,7 @@ from enum import Enum
 from pydantic import BaseModel, Field, create_model
 from typing import List, Union, Literal, Tuple
 
+def rep(s): return __import__('re').sub(r'[^a-z0-9_]', '', __import__('unicodedata').normalize('NFKD', s.lower().replace(' ', '_')).encode('ascii', 'ignore').decode('ascii'))
 
 # This is aside, but its a good idea to have it here
 class ParameterEvaluation(BaseModel):
@@ -42,7 +43,7 @@ class DataStructure(BaseModel):
     
     def get_field(self, field_name: str) -> 'Fields':
         for f in self.fields:
-            if f.object_name == field_name:
+            if rep(f.object_nam) == rep(field_name):
                 return f
         all_fields = [f.object_name for f in self.fields]
         raise ValueError(f"Field {field_name} not found in DataStructure. Available fields: {all_fields}")
@@ -110,7 +111,6 @@ class Fields(BaseModel):
     def object_is_a_data_structure(self) -> bool:
         return hasattr(self.object_type, 'object_list')
     
-def rep(s): return __import__('re').sub(r'[^a-z0-9_]', '', __import__('unicodedata').normalize('NFKD', s.lower().replace(' ', '_')).encode('ascii', 'ignore').decode('ascii'))
 
 def _create_model(name: str, x: DataStructure):
     def v2t(f: Fields):
