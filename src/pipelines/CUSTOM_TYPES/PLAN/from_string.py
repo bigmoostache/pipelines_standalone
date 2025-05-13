@@ -2,19 +2,20 @@ from custom_types.PLAN.type import Plan
 from pipelines.utils.yaml import robust_safe_load
 from pipelines.CUSTOM_TYPES.PLAN.plan_output import Pipeline as LLMPlanOutputPipeline
 from custom_types.PROMPT.type import PROMPT
+from pipelines.LLMS.v3.client import Providers
 
 class Pipeline:
-    __env__ = ["openai_api_key"]
     def __init__(self,
                  model : str = "gpt-4o",
                  base_url : str = "https://api.openai.com/v1",
+                 provider: Providers = "openai",
                  temperature : float = 1,
                  top_p : float = 1
                  ):
-        self.model = model
-        self.temperature = temperature
-        self.top_p = top_p
-        self.base_url = base_url
+        self.pipeline = lambda p : LLMPlanOutputPipeline(
+            provider=provider, 
+            model=model
+        )(p)
     
     def __call__(self, 
             t : str
@@ -25,10 +26,5 @@ class Pipeline:
             return Plan.parse_obj(dico)
         except:
             prompt = PROMPT()
-            prompt.add(f'{t}\n\n Please rewrite this plan verbatim in the provided data structure.', 'user')
-            return LLMPlanOutputPipeline(
-                model=self.model,
-                base_url=self.base_url,
-                temperature=self.temperature,
-                top_p=self.top_p
-            )(prompt)
+            prompt.add(f'{t}\n\n---\n\nPlease rewrite this plan verbatim in the provided data structure.', 'user')
+            return self.pipeline(prompt)
