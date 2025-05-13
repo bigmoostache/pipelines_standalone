@@ -57,7 +57,6 @@ class Pipeline:
         client = ClientPipeline(provider=self.provider, model=self.model)()
         response = client.chat.completions.create(
                 model=self.model,
-                messages=p.messages,
-                max_completion_tokens=self.max_tokens,
+                messages=p.messages
             )
         return response.choices[0].message.content
