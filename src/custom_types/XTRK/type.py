@@ -43,7 +43,7 @@ class DataStructure(BaseModel):
     
     def get_field(self, field_name: str) -> 'Fields':
         for f in self.fields:
-            if rep(f.object_nam) == rep(field_name):
+            if rep(f.object_name) == rep(field_name):
                 return f
         all_fields = [f.object_name for f in self.fields]
         raise ValueError(f"Field {field_name} not found in DataStructure. Available fields: {all_fields}")
