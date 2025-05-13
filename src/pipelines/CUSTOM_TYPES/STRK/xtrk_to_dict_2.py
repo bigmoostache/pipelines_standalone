@@ -19,8 +19,8 @@ def removenulls(d):
 class Pipeline:
     def __init__(self, 
                  provider: Providers = "openai",
-                 reflexive_model : Providers = "o1-preview",
-                 formatter_model : Providers = "gpt-4o",
+                 reflexive_model : str = "o1-preview",
+                 formatter_model : str = "gpt-4o",
                  max_tokens : int = 32000,
                  simpler_model_if_no_list : bool = True
                  ):
