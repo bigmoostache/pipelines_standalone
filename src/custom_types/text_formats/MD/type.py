@@ -19,7 +19,8 @@ wraped = TYPE(
     _class = MD,
     converter = Converter,
     additional_converters={
-        'json':lambda x : {'__text__':x}
+        'json':lambda x : {'__text__':x},
+        'txt': lambda x : x.md
         },
     visualiser = "https://vis.deepdocs.net/md"
 )
