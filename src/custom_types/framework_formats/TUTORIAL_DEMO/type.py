@@ -51,7 +51,7 @@ class Converter:
         return max(1, (len(graph.nodes) + len(graph.edges)) // 100)
 from custom_types.wrapper import TYPE
 # Wrap the type
-wrapped = TYPE(
+wraped = TYPE(
     extension='tutorial_demo',
     _class=SimpleGraph,
     converter=Converter,
