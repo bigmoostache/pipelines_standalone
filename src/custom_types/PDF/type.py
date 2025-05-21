@@ -31,5 +31,6 @@ wraped = TYPE(
     extension='pdf',
     _class = PDF,
     converter = Converter,
+    visualiser = "https://vis.deepdocs.net/pdf",
     icon="/icons/pdf.svg"
 )
