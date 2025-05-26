@@ -3,6 +3,7 @@ from mistralai import Mistral
 import mistralai
 import io, os
 from time import sleep
+from pipelines.CONVERSIONS.PDF.to_txt import Pipeline as PipelineNormal
 
 class Pipeline:
     __env__ = ["MISTRAL_API_KEY"]
@@ -32,12 +33,23 @@ class Pipeline:
                 )
                 break
             except mistralai.models.sdkerror.SDKError as e:
-                if retries < 5:
+                # Check for internal server error and fallback if needed
+                if retries < 1:
                     retries += 1
                     sleep(5)
                     continue
                 else:
-                    raise e
+                    if (
+                        hasattr(e, "args")
+                        and len(e.args) >= 3
+                        and e.args[1] == 500
+                        and 'internal_server_error' in e.args[2]
+                    ):
+                        # Fallback to PipelineNormal
+                        pipeline_normal = PipelineNormal(method='surya')
+                        return pipeline_normal(pdf)
+                    else:
+                        raise e
                 
         def build_md(ocr_response):
             md = ""
