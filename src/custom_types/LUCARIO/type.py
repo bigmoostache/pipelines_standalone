@@ -146,7 +146,11 @@ class LUCARIO(BaseModel):
                 'chunk_identifier': local_chunk_identifier,
             },
         )
-        return Document.parse_obj(response.json())
+        x = response.json()
+        try:
+            return Document.parse_obj(x)
+        except Exception as e:
+            raise ValueError(f'Error parsing document: {e}. Response: {x}') from e
         
     def add_document(self, document: Document):
         assert document.local_document_identifier is not None, 'local_document_identifier is None'
