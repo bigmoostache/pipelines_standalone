@@ -109,7 +109,7 @@ def transfer(sota, node, information_id: int = None, root: bool = False, hardcod
 
 class Pipeline:
     def __init__(self, 
-                 char_th: int = 5000,
+                 char_th: int = 7500,
                  hardcoded_prompt: str = 'Please rewrite this section, filling the missing information using the provided context and data. Preserve the structure of the section, your role is to fill the template. Is there is any missing information, please specify it, embedded in the text, in red. If everything is already filled, then your task is trivial: just rewrite everything verbatim. Be AS EXHAUSTIVE AS POSSIBLE., any missing data will be heavily punished.'
                  ):
         self.char_th = char_th

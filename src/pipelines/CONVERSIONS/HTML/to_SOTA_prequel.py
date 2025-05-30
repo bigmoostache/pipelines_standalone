@@ -3,6 +3,7 @@ from custom_types.PROMPT.type import PROMPT
 from bs4 import BeautifulSoup
 from pipelines.LLMS.v3.client import Providers
 from pipelines.LLMS.v3.str import Pipeline as LLM
+
 default_prompt ="""
 # HTML Section Headers Formatter
 
@@ -10,13 +11,18 @@ default_prompt ="""
 Rewrite the given document with proper HTML heading tags while preserving all original content.
 
 ## Instructions
-1. Format the document by adding appropriate HTML heading tags (h1-h6)
-2. The document's title must be wrapped in an <h1> tag
-3. Use only ONE <h1> tag for the entire document
-4. All section headings should use h2-h6 tags in a hierarchical structure
-5. Maintain proper heading hierarchy - never skip levels (e.g., don't go from h2 to h4)
-6. Do not modify any content - only add heading tags to existing section titles
-7. Return the complete HTML-formatted document
+1. Clean this document
+2. Remove any table of contents, page numbers, footers, headers, and other artifacts that are not part of the main content. Leave the rest!!!
+3. Keep the paragraph ids, table ids, image ids and list ids intact!!! (This is very important, those ids, such as id="paragraph_1" MUST remain unchanged)
+4. The document's title must be wrapped in an <h1> tag
+5. Use only ONE <h1> tag for the entire document: if there currently are any, relegate them and shift the whole hierarchy down
+6. All section headings should use h2-h6 tags in a hierarchical structure
+7. Maintain proper heading hierarchy - never skip levels (e.g., don't go from h2 to h4)
+8. Return the complete HTML-formatted document
+
+The purpose of your work is both to
+- Clean the document from unnecessary artifacts
+- Create a clean header structure that will be parsed in order to convert this html to a proper tree structure
 
 To be more detailed, here is the python function that will be used to verify your output:
 ```python
@@ -59,10 +65,11 @@ def parse_and_verify(res: str) -> str:
 
 ## Output Format
 Your response must follow this structure:
-1. Brief explanation of what you did
-2. The formatted HTML inside code blocks:
+1. Repeat the instructions
+2. Provide the formatted HTML inside code blocks:
 ```html
-<your formatted HTML here>
+<h1>Document Title</h1> (or the actual title if you see it)
+...
 ```
 """
 
@@ -103,7 +110,6 @@ def parse_and_verify(res: str) -> str:
     return res
             
 class Pipeline:
-    __env__ = ["openai_api_key"]
     def __init__(self, 
                  model : str = "gpt-4.1",
                  provider: Providers = 'openai',
