@@ -67,7 +67,7 @@ class Pipeline:
                 
                 # Use the full placeholder string as key
                 placeholder_str = str(placeholder)
-                replacements[placeholder_str] = original_content
+                replacements[placeholder_id] = original_content
                 
                 element.replace_with(placeholder)
                 p_counter += 1
@@ -91,7 +91,7 @@ class Pipeline:
                 
                 # Use the full placeholder string as key
                 placeholder_str = str(placeholder)
-                replacements[placeholder_str] = original_content
+                replacements[placeholder_id] = original_content
                 
                 element.replace_with(placeholder)
                 img_counter += 1
@@ -132,7 +132,7 @@ class Pipeline:
                 
                 # Use the full placeholder string as key
                 placeholder_str = str(placeholder)
-                replacements[placeholder_str] = original_content
+                replacements[placeholder_id] = original_content
                 
                 element.replace_with(placeholder)
                 table_counter += 1
@@ -180,7 +180,7 @@ class Pipeline:
                 
                 # Use the full placeholder string as key
                 placeholder_str = str(placeholder)
-                replacements[placeholder_str] = original_content
+                replacements[placeholder_id] = original_content
                 
                 element.replace_with(placeholder)
                 list_counter += 1

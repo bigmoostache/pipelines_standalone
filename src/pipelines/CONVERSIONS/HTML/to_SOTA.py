@@ -48,7 +48,7 @@ def process_nodes(input_nodes: List[str]) -> HTML_H_TREE:
             nodes[depth-1].contents.append(nodes[depth])
         else:
             max_depth = max(nodes.keys())
-            assert isinstance(nodes[max_depth].contents, str), f"Contents of node {max_depth} is not a string"
+            assert isinstance(nodes[max_depth].contents, str), f"Contents of node {max_depth} ({tag}, {nodes[max_depth].contents}) is not a string"
             nodes[max_depth].contents += n
     return nodes[0]
 
