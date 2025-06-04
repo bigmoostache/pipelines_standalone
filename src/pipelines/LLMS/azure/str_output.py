@@ -1,6 +1,6 @@
 import os
 from openai import AzureOpenAI
-from utils.booleans import to_bool
+from pipelines.utils.booleans import to_bool
 from custom_types.PROMPT.type import PROMPT
 
 class Pipeline:

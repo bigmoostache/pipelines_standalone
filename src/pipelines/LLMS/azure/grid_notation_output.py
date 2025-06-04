@@ -3,7 +3,7 @@ from custom_types.GRID.type import GRID, NOTATION_CRITERIA, GRID_SECTION
 from typing import Literal
 from pydantic import Field, BaseModel, create_model
 from openai import AzureOpenAI
-from utils.booleans import to_bool
+from pipelines.utils.booleans import to_bool
 from pipelines.CONVERSIONS.txt_2_dict import Pipeline as TXT2DICT
 import logging 
 import os

@@ -1,4 +1,4 @@
-from utils.logger import log, result
+from pipelines.utils.logger import log, result
 
 class Pipeline:
     def __init__(self):

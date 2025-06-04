@@ -1,7 +1,7 @@
 from custom_types.PROMPT.type import PROMPT
 from custom_types.GRID.type import GRID
 import openai
-from utils.booleans import to_bool
+from pipelines.utils.booleans import to_bool
 from pipelines.CONVERSIONS.txt_2_dict import Pipeline as TXT2DICT
 import logging 
 import os

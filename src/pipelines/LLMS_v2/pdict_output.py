@@ -2,7 +2,7 @@ from typing import Annotated, List, Optional, Union
 from custom_types.PROMPT.type import PROMPT
 from custom_types.PDICT.type import PDICT
 import openai
-from utils.booleans import to_bool
+from pipelines.utils.booleans import to_bool
 from pipelines.CONVERSIONS.txt_2_dict import Pipeline as TXT2DICT
 import logging 
 import os
