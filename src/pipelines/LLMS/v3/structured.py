@@ -7,19 +7,21 @@ import json
 from custom_types.trees.gap_analysis.type import ResponseType as Tree_Gap_AnalysisResponseType
 from custom_types.TINY_BIB.type import TINY_BIB
 from custom_types.XTRK.type import DataStructure
+from pipelines.MANIPS.XLSX.table_to_tables import Schema
 
 output_formats = {
     'tree/gap_analysis': Tree_Gap_AnalysisResponseType,
     'select': SELECT,
     'tiny_bib': TINY_BIB,
-    'xtrk': DataStructure
+    'xtrk': DataStructure,
+    'simple_schema': Schema
 }
 
 class Pipeline:
     def __init__(self,
         provider: Providers = "openai",
         model: str = "gpt-4.1",
-        hard_coded_model: Literal['none', 'tree/gap_analysis', 'select', 'tiny_bib', 'xtrk'] = 'none',
+        hard_coded_model: Literal['none', 'tree/gap_analysis', 'select', 'tiny_bib', 'xtrk', 'simple_schema'] = 'none',
         convert_back_to_dict: bool = False
         ):
         self.provider = provider
