@@ -1,7 +1,7 @@
 from pydantic import BaseModel, Field
 from typing import Dict, List, Optional, Union, Any
 from enum import Enum
-import json, os, converter,  importlib, inspect
+import json, os,  importlib, inspect
 
 def analyse(dump_res_here: dict, folder: str):
     ignore = {
