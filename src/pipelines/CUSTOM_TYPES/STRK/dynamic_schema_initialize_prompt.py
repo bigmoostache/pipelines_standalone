@@ -9,10 +9,10 @@ class Pipeline:
         
     def __call__(self,
                 xlsx : XLSX,
+                p: PROMPT
                 ) -> PROMPT:
         assert len(xlsx.sheets.keys()) == 1, "This pipeline only supports single-sheet XLSX files"
         key = list(xlsx.sheets.keys())[0]
-        p = PROMPT()
         p.add(self.prompt.replace("__column__", key), 'user')
         return p
         
