@@ -1,5 +1,3 @@
-from pipelines.utils.logger import log, result
-
 class Pipeline:
     def __init__(self):
         pass
