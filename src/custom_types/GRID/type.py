@@ -1,6 +1,6 @@
 from typing import List, Dict, Any, Optional
-from pydantic import BaseModel, Field
-import json
+from pydantic import BaseModel, Field, create_model
+import json, re
 
 class POSSIBLE_VALUE(BaseModel):
     value: int
@@ -24,6 +24,20 @@ class GRID(BaseModel):
     @classmethod
     def from_dict(cls, d: Dict[str, Any]):
         return cls.parse_obj(d)
+    
+    def create_model(self, name: str = 'GRID') -> type:
+        x = {}
+        for section in self.rows:
+            for row in section.rows:
+                root_name = re.sub(r'[^a-zA-Z0-9 -]', '', row.name)
+                root_name = re.sub(r'[ -]', '_', root_name)
+                root_name = re.sub(r'_+', '_', root_name).strip('_')
+                y = {
+                    f'{root_name}_analysis': (str, Field(..., description=f'Analysis for the {row.name} section.')),
+                    f'{root_name}_value': (int, Field(..., description=f'Value for the {row.name} section.')),
+                }
+                x[root_name] = (create_model(f'{row.name}_Model', **y), Field(..., description=f'{row.definition}, with possible values: {row.possible_values}'))
+        return create_model(name, **x)
     
 class Converter:
     @staticmethod
