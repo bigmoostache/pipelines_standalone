@@ -41,24 +41,24 @@ class Pipeline:
                 avg_value_non_rounded = np.mean(all_values)
                 median_value = np.median(all_values)
                 
-                final[criteria_name] = avg_value_rounded
-                final[f"{criteria_name} - non-rounded value"] = avg_value_non_rounded
+                # final[criteria_name] = avg_value_rounded
+                # final[f"{criteria_name} - non-rounded value"] = avg_value_non_rounded
                 final[f"{criteria_name} - median value"] = median_value
                 final[f"{criteria_name} - justification"] = justification
                 
-                group_sum += avg_value
-                group_sum_non_rounded += avg_value_non_rounded
+                # group_sum += avg_value
+                # group_sum_non_rounded += avg_value_non_rounded
                 group_sum_median += median_value
 
-            final[f'TOTAL - {group}'] = group_sum
-            final[f'TOTAL - {group} - non-rounded'] = group_sum_non_rounded
+            # final[f'TOTAL - {group}'] = group_sum
+            # final[f'TOTAL - {group} - non-rounded'] = group_sum_non_rounded
             final[f'TOTAL - {group} - median'] = group_sum_median
             
-            total += group_sum
-            total_non_rounded += group_sum_non_rounded
+            # total += group_sum
+            # total_non_rounded += group_sum_non_rounded
             total_median += group_sum_median
         
-        final['TOTAL'] = total
-        final['TOTAL - non-rounded'] = total_non_rounded
+        # final['TOTAL'] = total
+        # final['TOTAL - non-rounded'] = total_non_rounded
         final['TOTAL - median'] = total_median
         return final
