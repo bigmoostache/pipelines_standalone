@@ -32,7 +32,7 @@ class Pipeline:
             placeholder_element = soup.find(id=placeholder_id)
             
             if placeholder_element is None:
-                raise ValueError(f"Placeholder element with ID '{placeholder_id}' not found in HTML")
+                continue # raise ValueError(f"Placeholder element with ID '{placeholder_id}' not found in HTML")
             
             # Parse the original content to reconstruct the element
             original_soup = BeautifulSoup(original_content, 'html.parser')
