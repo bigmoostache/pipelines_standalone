@@ -28,6 +28,10 @@ class GRID(BaseModel):
     def create_model(self, name: str = 'GRID') -> type:
         x = {}
         for section in self.rows:
+            z = {}
+            section_name = re.sub(r'[^a-zA-Z0-9 -]', '', section.name)
+            section_name = re.sub(r'[ -]', '_', section_name)
+            section_name = re.sub(r'_+', '_', section_name).strip('_')
             for row in section.rows:
                 root_name = re.sub(r'[^a-zA-Z0-9 -]', '', row.name)
                 root_name = re.sub(r'[ -]', '_', root_name)
@@ -36,7 +40,8 @@ class GRID(BaseModel):
                     f'{root_name}_analysis': (str, Field(..., description=f'Analysis for the {row.name} section.')),
                     f'{root_name}_value': (int, Field(..., description=f'Value for the {row.name} section.')),
                 }
-                x[root_name] = (create_model(f'{row.name}_Model', **y), Field(..., description=f'{row.definition}, with possible values: {row.possible_values}'))
+                z[root_name] = (create_model(f'{row.name}_Model', **y), Field(..., description=f'{row.definition}, with possible values: {row.possible_values}'))
+            x[section_name] = (create_model(f'{section_name}_Model', **z), Field(..., description=f'{row.name}'))
         return create_model(name, **x)
     
 class Converter:
