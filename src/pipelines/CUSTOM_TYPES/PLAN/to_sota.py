@@ -50,9 +50,9 @@ def plan_to_sota(
                     analysis = f'<p>Image reference</p><p><img src="{refdoc.raw_url}" alt="{refdoc.file_name}" /></p>'
                 elif refdoc.file_ext in {FileTypes.image_desc, FileTypes.text_chunk, FileTypes.csv_desc}:
                     analysis = mistune.html(refdoc.text)
-                    analysis = f'<p><a href="{refdoc.raw_url}">[source]</a></p>' + analysis
+                    analysis = f'<p><i>Verbatim extract referenced.</i></p>' + analysis
                 else:
-                    analysis = f'<p>{refdoc.file_ext.value} file</p><p><a href="{refdoc.raw_url}">[source]</a></p>'
+                    analysis = f'<p><i>This is a reference to the whole document, and not to a specific chunk of it.</i></p>'
                 analysis = f'<p>Raw text used, from <strong>{title}</strong></p><blockquote>{analysis}<p></p></blockquote>'
                 if (local_id, chunk_id) not in referencements_map:
                     new_key = None
