@@ -87,7 +87,7 @@ def parse_and_verify(res: str) -> str:
     position = res.index("```")
     res = res[:position]
     # rule 2 - Document should start with '<h1>' -> YOU SHOULD ADD THIS AT THE VERY BEGINNING IF NECESSARY, even if it means inventing a title
-    if not res.strip().startswith('<h1'):, f"Document does not start with <h1>, got: {res[:50]}..."  # Check first 50 chars for context
+    if not res.strip().startswith('<h1'):#, f"Document does not start with <h1>, got: {res[:50]}..."  # Check first 50 chars for context
         # 'add <h1>Document Title</h1>' at the beginning
         res = '<h1>Document Title</h1>\n' + res.strip()
     # 3. Check correct structure of h tags: 
