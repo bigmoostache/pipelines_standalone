@@ -1,19 +1,3 @@
-#!/usr/bin/env python3
-"""
-Enhanced DOCX to HTML Converter with Robust Error Handling, Advanced Tables, and Font Support
-
-This script manually parses DOCX files and converts them to HTML while preserving formatting.
-Enhanced with:
-1. ✅ ROBUST ERROR HANDLING - Comprehensive error handling and graceful degradation
-2. ✅ ADVANCED TABLE FORMATTING - Cell spanning, borders, alignment, column widths
-3. ✅ COMPREHENSIVE FONT HANDLING - Font families, sizes, styles, and character formatting
-4. Image extraction and embedding as base64
-5. Hyperlink processing and conversion 
-6. Proper list structure generation with nested <ul>/<ol> tags
-
-Uses only Python built-in modules: zipfile, xml.etree.ElementTree, io, re, base64
-"""
-
 import zipfile
 import xml.etree.ElementTree as ET
 import io
@@ -1510,38 +1494,11 @@ class DocxToHtmlConverter:
 
 
 def convert_docx_to_html(docx_bytes: bytes, debug: bool = False) -> str:
-    """
-    Convert DOCX file bytes to HTML string with preserved formatting.
-    
-    Args:
-        docx_bytes (bytes): The DOCX file content as bytes
-        debug (bool): Enable debug logging
-        
-    Returns:
-        str: HTML string with preserved formatting
-        
-    Raises:
-        ConversionError: If conversion fails
-    """
     converter = DocxToHtmlConverter(debug=debug)
     return converter.convert_docx_to_html(docx_bytes)
 
 
 def convert_docx_file_to_html(input_path: str, output_path: Optional[str] = None, debug: bool = False) -> Tuple[str, Dict[str, Any]]:
-    """
-    Convert a DOCX file directly from file path to HTML with detailed reporting.
-    
-    Args:
-        input_path (str): Path to the input DOCX file
-        output_path (str, optional): Path to save the HTML output
-        debug (bool): Enable debug logging
-        
-    Returns:
-        Tuple[str, Dict]: HTML string and conversion summary
-        
-    Raises:
-        ConversionError: If conversion fails
-    """
     try:
         with open(input_path, 'rb') as f:
             docx_bytes = f.read()
