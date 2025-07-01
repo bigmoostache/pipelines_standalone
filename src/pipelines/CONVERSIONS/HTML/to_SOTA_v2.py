@@ -269,15 +269,16 @@ def process_node_title(title: str, target_depth: int) -> str:
     if not title.strip():
         return f"<h{target_depth}>Section</h{target_depth}>"
     
-    # Use regex to find and replace header tags
-    def replace_header(match):
-        attributes = match.group(1)  # Any attributes in the opening tag
-        content = match.group(2)     # The content between tags
-        return f"<h{target_depth}{attributes}>{content}</h{target_depth}>"
+    # Remove ALL HTML formatting by extracting just the text content
+    soup = BeautifulSoup(title, 'html.parser')
+    clean_text = soup.get_text().strip()
     
-    # Replace any header tags with the target depth
-    result = re.sub(r'<h[1-6]([^>]*)>(.*?)</h[1-6]>', replace_header, title, flags=re.DOTALL)
-    return result
+    # If no text remains after cleaning, use default
+    if not clean_text:
+        return f"<h{target_depth}>Section</h{target_depth}>"
+    
+    # Wrap the clean text in the appropriate header tag
+    return f"<h{target_depth}>{clean_text}</h{target_depth}>"
 
 def process_string_headers(content: str, parent_depth: int) -> str:
     """Process headers in string content to ensure they're at least parent_depth+1."""
