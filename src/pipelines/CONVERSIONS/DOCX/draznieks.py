@@ -1566,56 +1566,9 @@ from custom_types.HTML.type import HTML
 
 class Pipeline:
     def __init__(self,
-                debug: str = False,
                 ):
-        self.debug = debug
-        
+        pass        
     def __call__(self, docx: DOCX) -> HTML:
-        converter = DocxToHtmlConverter(debug=self.debug)
+        converter = DocxToHtmlConverter(debug=False)
         html_content = converter.convert_docx_to_html(docx.file_as_bytes)
         return HTML(html=html_content)
-
-# Example usage with enhanced features and error reporting
-if __name__ == "__main__":
-    try:
-        input_file = "data/doc.docx"
-        
-        # Convert with debug enabled
-        html_result, summary = convert_docx_file_to_html(input_file, "output_enhanced_robust.html", debug=True)
-        
-        print("✅ Enhanced conversion completed successfully!")
-        print(f"HTML length: {len(html_result)} characters")
-        print(f"\n📊 Conversion Summary:")
-        print(f"  • Errors: {len(summary['errors'])}")
-        print(f"  • Warnings: {len(summary['warnings'])}")
-        print(f"  • Images extracted: {summary['images_extracted']}")
-        print(f"  • Fonts found: {summary['fonts_found']}")
-        print(f"  • Styles parsed: {summary['styles_parsed']}")
-        print(f"  • Relationships found: {summary['relationships_found']}")
-        
-        if summary['warnings']:
-            print(f"\n⚠️  Warnings:")
-            for warning in summary['warnings'][:5]:  # Show first 5 warnings
-                print(f"    - {warning}")
-            if len(summary['warnings']) > 5:
-                print(f"    ... and {len(summary['warnings']) - 5} more warnings")
-        
-        if summary['errors']:
-            print(f"\n❌ Errors:")
-            for error in summary['errors']:
-                print(f"    - {error}")
-        
-        print(f"\n🎯 Enhanced Features Implemented:")
-        print(f"  ✅ Robust Error Handling - Graceful degradation for malformed files")
-        print(f"  ✅ Advanced Table Formatting - Cell spanning, borders, alignment")
-        print(f"  ✅ Comprehensive Font Handling - Font families, sizes, styles")
-        
-    except ConversionError as e:
-        print(f"❌ Conversion failed: {e}")
-    except FileNotFoundError:
-        print(f"❌ File not found: {input_file}")
-        print("Please ensure the file exists at the specified path")
-    except Exception as e:
-        print(f"❌ Unexpected error: {e}")
-        import traceback
-        traceback.print_exc()
