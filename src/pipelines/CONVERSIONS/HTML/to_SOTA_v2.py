@@ -250,6 +250,73 @@ def parse_html_to_tree(html_string: str, max_section_length: int = 3000) -> HTML
     
     return root
 
+def post_process_tree(node: HTML_H_TREE, depth: int = 1):
+    """Post-process the tree to ensure proper header hierarchy."""
+    
+    # Process the title
+    node.title = process_node_title(node.title, depth)
+    
+    if isinstance(node.contents, str):
+        # For string contents, ensure all headers are at least depth+1
+        node.contents = process_string_headers(node.contents, depth)
+    else:
+        # For list contents, recursively process children
+        for child in node.contents:
+            post_process_tree(child, depth + 1)
+
+def process_node_title(title: str, target_depth: int) -> str:
+    """Process a node's title to ensure headers match the target depth."""
+    if not title.strip():
+        return f"<h{target_depth}>Section</h{target_depth}>"
+    
+    # Use regex to find and replace header tags
+    def replace_header(match):
+        attributes = match.group(1)  # Any attributes in the opening tag
+        content = match.group(2)     # The content between tags
+        return f"<h{target_depth}{attributes}>{content}</h{target_depth}>"
+    
+    # Replace any header tags with the target depth
+    result = re.sub(r'<h[1-6]([^>]*)>(.*?)</h[1-6]>', replace_header, title, flags=re.DOTALL)
+    return result
+
+def process_string_headers(content: str, parent_depth: int) -> str:
+    """Process headers in string content to ensure they're at least parent_depth+1."""
+    # Find all header levels
+    headers = re.findall(r'<h([1-6])', content)
+    
+    if not headers:
+        return content
+    
+    current_levels = sorted(set(int(h) for h in headers))
+    min_allowed_level = parent_depth + 1
+    
+    # Create mapping from old to new levels
+    level_mapping = {}
+    new_level = min_allowed_level
+    
+    for old_level in current_levels:
+        if old_level <= parent_depth:
+            # This level violates, needs to be remapped
+            level_mapping[old_level] = min(new_level, 6)
+            new_level += 1
+        else:
+            # This level is ok, but might need to be shifted up to avoid conflicts
+            level_mapping[old_level] = min(max(old_level, new_level), 6)
+            new_level = level_mapping[old_level] + 1
+    
+    # Apply the mapping
+    def replace_header(match):
+        old_level = int(match.group(1))
+        attributes = match.group(2)
+        header_content = match.group(3)
+        
+        new_level = level_mapping[old_level]
+        return f"<h{new_level}{attributes}>{header_content}</h{new_level}>"
+    
+    header_pattern = r'<h([1-6])([^>]*)>(.*?)</h[1-6]>'
+    result = re.sub(header_pattern, replace_header, content, flags=re.DOTALL)
+    return result
+
 def transfer(sota, node, information_id: int = None, root: bool = False, hardcoded_prompt: str = ''):
     if root:
         # Create root information
@@ -324,6 +391,10 @@ class Pipeline:
         body = soup.body
         html_body = str(body) if body else html.html
         r = parse_html_to_tree(html_body, self.char_th)
+        
+        # Post-process the tree to ensure proper header hierarchy
+        post_process_tree(r, depth=1)
+        
         transfer(
             new_sota,
             r,
