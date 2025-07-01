@@ -286,7 +286,10 @@ class Pipeline:
     def __call__(self, html: HTML) -> SOTA:
         new_sota = SOTA.get_empty()
         # Parse HTML using only from_html and split methods
-        r = parse_html_to_tree(html.html, self.char_th)
+        soup = BeautifulSoup(html.html, 'html.parser')
+        body = soup.body
+        html_body = str(body) if body else html.html
+        r = parse_html_to_tree(html_body, self.char_th)
         print(r.prrint())
         transfer(
             new_sota,
