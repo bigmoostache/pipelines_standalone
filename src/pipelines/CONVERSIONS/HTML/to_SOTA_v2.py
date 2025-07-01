@@ -34,33 +34,78 @@ class HTML_H_TREE(BaseModel):
         """
         Create HTML_H_TREE from HTML string with enhanced title detection.
         The title + contents should always equal the original html_string.
+        Enhanced: The title will only contain headers/titles, not tables, lists, images, etc.
+        The split will not occur mid-paragraph or mid-element, and will be below 200 chars if possible.
         """
         if not html_string or not html_string.strip():
             return cls(title='', contents=html_string)
-        
+
         soup = BeautifulSoup(html_string, 'html.parser')
-        
+
         # Find the first heading tag in the HTML
         first_heading = soup.find(['h1', 'h2', 'h3', 'h4', 'h5', 'h6'])
-        
+
         if first_heading:
-            # Find the position of the first heading in the original string
             heading_html = str(first_heading)
             heading_pos = html_string.find(heading_html)
-            
             if heading_pos != -1:
-                # Split at the heading position
-                title_part = html_string[:heading_pos]
-                contents_part = html_string[heading_pos:]
-                
-                # If there's content before the heading, use it as title
-                if title_part.strip():
-                    return cls(title=title_part, contents=contents_part)
+                # Start with the end of the first heading as the initial split
+                header_end_position = heading_pos + len(heading_html)
+
+                # Now, iteratively reduce header_end_position to satisfy constraints
+                # 1. Only allow headers/titles in the title part
+                # 2. Do not split mid-paragraph or mid-element
+                # 3. Try to keep title under 200 chars if possible
+
+                # Helper: forbidden tags in title
+                forbidden_tags = {'table', 'ul', 'ol', 'li', 'img', 'figure', 'tbody', 'thead', 'tr', 'td', 'th'}
+
+                # Find all tags up to header_end_position
+                def is_title_clean(title_html):
+                    title_soup = BeautifulSoup(title_html, 'html.parser')
+                    for tag in title_soup.find_all(True):
+                        if tag.name in forbidden_tags:
+                            return False
+                    return True
+
+                # Try to find a safe split point
+                safe_split = header_end_position
+                min_split = heading_pos + len(heading_html)
+                max_title_len = 200
+
+                # Try to reduce split point if needed
+                while safe_split > 0:
+                    title_part = html_string[:safe_split]
+                    # Check forbidden tags
+                    if not is_title_clean(title_part):
+                        safe_split -= 1
+                        continue
+                    # Check not splitting mid-paragraph or mid-tag (avoid splitting inside <p>...</p>)
+                    if title_part.rstrip().endswith('>'):
+                        # Try to keep under 200 chars if possible
+                        if len(title_part) <= max_title_len:
+                            break
+                        else:
+                            # If too long, try to reduce further
+                            safe_split -= 1
+                            continue
+                    else:
+                        safe_split -= 1
+                        continue
                 else:
-                    # If heading is at the start, use the heading as title
-                    heading_end = heading_pos + len(heading_html)
-                    return cls(title=heading_html, contents=html_string[heading_end:])
-        
+                    # Fallback: use the original header_end_position
+                    safe_split = min_split
+
+                # Final split
+                title_part = html_string[:safe_split]
+                contents_part = html_string[safe_split:]
+
+                # If title_part is empty, fallback to heading as title
+                if not title_part.strip():
+                    return cls(title=heading_html, contents=html_string[heading_pos + len(heading_html):])
+                else:
+                    return cls(title=title_part, contents=contents_part)
+
         # No heading found, or heading detection failed
         return cls(title='', contents=html_string)
     
@@ -148,17 +193,6 @@ def find_split_positions(html_string: str, max_section_length: int) -> List[int]
     return sorted(list(set(split_positions)))
 
 def parse_html_to_tree(html_string: str, max_section_length: int = 3000) -> HTML_H_TREE:
-    """
-    Parse HTML string into a hierarchical tree structure using only HTML_H_TREE.from_html 
-    and HTML_H_TREE.split methods.
-    
-    Args:
-        html_string: The HTML content to parse
-        max_section_length: Maximum length for a section before splitting
-    
-    Returns:
-        Single HTML_H_TREE object representing the document structure
-    """
     def split_recursively(node: HTML_H_TREE, depth: int = 0) -> None:
         """Recursively split a node if needed."""
         # Prevent infinite recursion
@@ -290,7 +324,6 @@ class Pipeline:
         body = soup.body
         html_body = str(body) if body else html.html
         r = parse_html_to_tree(html_body, self.char_th)
-        print(r.prrint())
         transfer(
             new_sota,
             r,
