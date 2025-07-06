@@ -49,6 +49,8 @@ class Converter:
     def len(graph: SimpleGraph) -> int:
         """Compute the length of the graph for cost calculation"""
         return max(1, (len(graph.nodes) + len(graph.edges)) // 100)
+    
+    
 from custom_types.wrapper import TYPE
 # Wrap the type
 wraped = TYPE(
