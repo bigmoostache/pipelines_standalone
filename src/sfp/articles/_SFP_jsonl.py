@@ -8,7 +8,6 @@ class Pipeline:
     def __call__(self, metadata : dict) -> JSONL:
         file_id = metadata['file_id']
         file_system = FS(metadata['file_system'])
-        file = 
         return auto_convert(
             metadata.get('file_type', 'jsonl'),
             'jsonl',
