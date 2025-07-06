@@ -19,7 +19,7 @@ class DocxToHtmlConverter:
         if debug:
             logging.basicConfig(level=logging.DEBUG)
         
-        # DOCX XML namespaces
+        # DOCX XML namespaces - will be dynamically discovered and updated
         self.namespaces = {
             'w': 'http://schemas.openxmlformats.org/wordprocessingml/2006/main',
             'r': 'http://schemas.openxmlformats.org/officeDocument/2006/relationships',
@@ -29,11 +29,45 @@ class DocxToHtmlConverter:
             'v': 'urn:schemas-microsoft-com:vml'
         }
         
+        # NEW: Namespace discovery and fallback system
+        self.discovered_namespaces = {}
+        self.namespace_mappings = {}
+        
+        # Known namespace patterns for different Office versions
+        self.known_namespace_patterns = {
+            'wordprocessing': [
+                'http://schemas.openxmlformats.org/wordprocessingml/2006/main',
+                'http://schemas.microsoft.com/office/word/2003/wordml',
+                'http://purl.oclc.org/ooxml/wordprocessingml/main'
+            ],
+            'relationships': [
+                'http://schemas.openxmlformats.org/officeDocument/2006/relationships',
+                'http://schemas.openxmlformats.org/package/2006/relationships',
+                'http://purl.oclc.org/ooxml/officeDocument/relationships'
+            ],
+            'drawingml': [
+                'http://schemas.openxmlformats.org/drawingml/2006/main',
+                'http://purl.oclc.org/ooxml/drawingml/main'
+            ],
+            'wordprocessing_drawing': [
+                'http://schemas.openxmlformats.org/drawingml/2006/wordprocessingDrawing',
+                'http://purl.oclc.org/ooxml/drawingml/wordprocessingDrawing'
+            ],
+            'picture': [
+                'http://schemas.openxmlformats.org/drawingml/2006/picture',
+                'http://purl.oclc.org/ooxml/drawingml/picture'
+            ],
+            'vml': [
+                'urn:schemas-microsoft-com:vml',
+                'http://www.w3.org/TR/NOTE-VML'
+            ]
+        }
+        
         self.styles = {}
         self.numbering = {}
         self.relationships = {}
         self.theme_colors = {}
-        self.fonts = {}  # NEW: Font definitions
+        self.fonts = {}  # Font definitions
         self.images = {}  # Store extracted images
         self.list_stack = []  # Track nested lists
         self.current_list_ids = {}  # Track current list IDs per level
@@ -58,7 +92,7 @@ class DocxToHtmlConverter:
             'followedHyperlink': '954F72'
         }
         
-        # NEW: Default font mappings for common Office fonts
+        # Default font mappings for common Office fonts
         self.default_fonts = {
             'Calibri': 'Calibri, sans-serif',
             'Arial': 'Arial, sans-serif',
@@ -68,7 +102,118 @@ class DocxToHtmlConverter:
             'Georgia': 'Georgia, serif',
             'Courier New': 'Courier New, monospace'
         }
+
+    # NEW: Dynamic namespace discovery methods
+    def _discover_namespaces_from_xml(self, xml_content: str) -> Dict[str, str]:
+        """Dynamically discover namespaces from XML content."""
+        try:
+            root = ET.fromstring(xml_content)
+            namespaces = {}
+            
+            # Extract namespace declarations from the root element
+            for attr_name, attr_value in root.attrib.items():
+                if attr_name.startswith('xmlns'):
+                    if attr_name == 'xmlns':
+                        namespaces['default'] = attr_value
+                    else:
+                        ns_prefix = attr_name.split(':', 1)[1]
+                        namespaces[ns_prefix] = attr_value
+            
+            # Also check the tag itself for namespace info
+            if '}' in root.tag:
+                default_ns = root.tag.split('}')[0][1:]
+                if 'default' not in namespaces:
+                    namespaces['default'] = default_ns
+            
+            return namespaces
+            
+        except Exception as e:
+            self.warnings.append(f"Could not discover namespaces: {str(e)}")
+            return {}
+
+    def _update_namespace_mappings(self, discovered_ns: Dict[str, str]):
+        """Update namespace mappings based on discovered namespaces."""
+        try:
+            # Map discovered namespaces to our expected prefixes
+            for prefix, uri in discovered_ns.items():
+                # Check which known pattern this URI matches
+                for ns_type, patterns in self.known_namespace_patterns.items():
+                    if any(pattern in uri or uri in pattern for pattern in patterns):
+                        if ns_type == 'wordprocessing':
+                            self.namespaces['w'] = uri
+                        elif ns_type == 'relationships':
+                            self.namespaces['r'] = uri
+                        elif ns_type == 'drawingml':
+                            self.namespaces['a'] = uri
+                        elif ns_type == 'wordprocessing_drawing':
+                            self.namespaces['wp'] = uri
+                        elif ns_type == 'picture':
+                            self.namespaces['pic'] = uri
+                        elif ns_type == 'vml':
+                            self.namespaces['v'] = uri
+                        break
+            
+            self.logger.debug(f"Updated namespaces: {self.namespaces}")
+            
+        except Exception as e:
+            self.warnings.append(f"Error updating namespace mappings: {str(e)}")
+
+    def _robust_find(self, parent: ET.Element, xpath: str, namespaces: Dict[str, str] = None) -> List[ET.Element]:
+        """Robust element finding that falls back to local name matching."""
+        if namespaces is None:
+            namespaces = self.namespaces
+            
+        try:
+            # First try with provided namespaces
+            elements = parent.findall(xpath, namespaces)
+            if elements:
+                return elements
+        except Exception:
+            pass
         
+        # Fallback: extract local names and search by them
+        try:
+            # Parse the xpath to extract local names
+            local_names = re.findall(r'([a-zA-Z_][a-zA-Z0-9_-]*):([a-zA-Z_][a-zA-Z0-9_-]*)', xpath)
+            if local_names:
+                # Search by local name
+                target_local_name = local_names[-1][1]  # Get the last local name
+                elements = []
+                for elem in parent.iter():
+                    elem_local_name = elem.tag.split('}')[-1] if '}' in elem.tag else elem.tag
+                    if elem_local_name == target_local_name:
+                        elements.append(elem)
+                return elements
+        except Exception:
+            pass
+            
+        return []
+
+    def _robust_find_one(self, parent: ET.Element, xpath: str, namespaces: Dict[str, str] = None) -> Optional[ET.Element]:
+        """Robust single element finding."""
+        elements = self._robust_find(parent, xpath, namespaces)
+        return elements[0] if elements else None
+
+    def _robust_get_attribute(self, element: ET.Element, attr_name: str, namespace_prefix: str = None) -> Optional[str]:
+        """Robust attribute getting that handles namespace variations."""
+        # Try direct attribute access first
+        if attr_name in element.attrib:
+            return element.attrib[attr_name]
+        
+        # Try with namespace
+        if namespace_prefix and namespace_prefix in self.namespaces:
+            namespaced_attr = f'{{{self.namespaces[namespace_prefix]}}}{attr_name}'
+            if namespaced_attr in element.attrib:
+                return element.attrib[namespaced_attr]
+        
+        # Fallback: search by local name
+        for full_attr_name, attr_value in element.attrib.items():
+            local_attr_name = full_attr_name.split('}')[-1] if '}' in full_attr_name else full_attr_name
+            if local_attr_name == attr_name:
+                return attr_value
+        
+        return None
+
     def convert_docx_to_html(self, docx_bytes: bytes) -> str:
         """
         Convert DOCX bytes to HTML string with preserved formatting.
@@ -97,22 +242,22 @@ class DocxToHtmlConverter:
                 # Validate DOCX structure
                 self._validate_docx_structure(docx_zip)
                 
+                # NEW: Discover and update namespaces from the main document
+                try:
+                    document_xml = docx_zip.read('word/document.xml').decode('utf-8')
+                    self.discovered_namespaces = self._discover_namespaces_from_xml(document_xml)
+                    self._update_namespace_mappings(self.discovered_namespaces)
+                    self.logger.info(f"Discovered and updated namespaces: {self.namespaces}")
+                except Exception as e:
+                    self.warnings.append(f"Could not discover namespaces from document: {str(e)}")
+                
                 # Extract and parse various XML components with error handling
                 self._safe_parse_theme_colors(docx_zip)
-                self._safe_parse_fonts(docx_zip)  # NEW: Parse font definitions
+                self._safe_parse_fonts(docx_zip)
                 self._safe_parse_styles(docx_zip)
                 self._safe_parse_numbering(docx_zip)
                 self._safe_parse_relationships(docx_zip)
                 self._safe_extract_images(docx_zip)
-                
-                # Get the main document content
-                try:
-                    document_xml = docx_zip.read('word/document.xml').decode('utf-8')
-                except UnicodeDecodeError as e:
-                    self.logger.warning(f"UTF-8 decode failed, trying with error handling: {e}")
-                    document_xml = docx_zip.read('word/document.xml').decode('utf-8', errors='replace')
-                except Exception as e:
-                    raise ConversionError(f"Failed to read main document: {str(e)}")
                 
                 # Parse and convert to HTML
                 html_content = self._safe_parse_document(document_xml)
@@ -132,7 +277,7 @@ class DocxToHtmlConverter:
             raise ConversionError(f"Unexpected error during conversion: {str(e)}")
     
     def _validate_docx_structure(self, docx_zip: zipfile.ZipFile):
-        """NEW: Validate that the ZIP file contains required DOCX components."""
+        """Validate that the ZIP file contains required DOCX components."""
         required_files = ['word/document.xml', '[Content_Types].xml']
         file_list = docx_zip.namelist()
         
@@ -145,7 +290,7 @@ class DocxToHtmlConverter:
             self.warnings.append("Missing document relationships file")
     
     def _safe_extract_images(self, docx_zip: zipfile.ZipFile):
-        """ENHANCED: Extract images with comprehensive error handling."""
+        """Extract images with comprehensive error handling."""
         try:
             file_list = docx_zip.namelist()
             image_files = [f for f in file_list if f.startswith('word/media/') and 
@@ -187,7 +332,7 @@ class DocxToHtmlConverter:
             self.warnings.append(f"Could not extract images: {str(e)}")
     
     def _safe_parse_fonts(self, docx_zip: zipfile.ZipFile):
-        """NEW: Parse font definitions with error handling."""
+        """Parse font definitions with error handling."""
         try:
             if 'word/fontTable.xml' not in docx_zip.namelist():
                 self.logger.debug("No fontTable.xml found")
@@ -196,22 +341,27 @@ class DocxToHtmlConverter:
             font_xml = docx_zip.read('word/fontTable.xml').decode('utf-8')
             root = ET.fromstring(font_xml)
             
-            for font in root.findall('.//w:font', self.namespaces):
+            # Discover namespaces from font table
+            font_namespaces = self._discover_namespaces_from_xml(font_xml)
+            temp_namespaces = self.namespaces.copy()
+            self._update_namespace_mappings(font_namespaces)
+            
+            for font in self._robust_find(root, './/w:font'):
                 try:
-                    font_name = font.get('{%s}name' % self.namespaces['w'])
+                    font_name = self._robust_get_attribute(font, 'name', 'w')
                     if font_name:
                         # Extract font family information
                         font_info = {'name': font_name}
                         
                         # Get font family type
-                        family = font.find('.//w:family', self.namespaces)
+                        family = self._robust_find_one(font, './/w:family')
                         if family is not None:
-                            font_info['family'] = family.get('{%s}val' % self.namespaces['w'])
+                            font_info['family'] = self._robust_get_attribute(family, 'val', 'w')
                         
                         # Get font pitch
-                        pitch = font.find('.//w:pitch', self.namespaces)
+                        pitch = self._robust_find_one(font, './/w:pitch')
                         if pitch is not None:
-                            font_info['pitch'] = pitch.get('{%s}val' % self.namespaces['w'])
+                            font_info['pitch'] = self._robust_get_attribute(pitch, 'val', 'w')
                         
                         # Map to CSS font family
                         css_family = self._map_font_to_css(font_name, font_info.get('family'))
@@ -226,7 +376,7 @@ class DocxToHtmlConverter:
             self.warnings.append(f"Could not parse fonts: {str(e)}")
     
     def _map_font_to_css(self, font_name: str, font_family: Optional[str] = None) -> str:
-        """NEW: Map DOCX font to appropriate CSS font family."""
+        """Map DOCX font to appropriate CSS font family."""
         # First check if we have a direct mapping
         if font_name in self.default_fonts:
             return self.default_fonts[font_name]
@@ -247,7 +397,7 @@ class DocxToHtmlConverter:
         return f'"{font_name}", sans-serif'
     
     def _safe_parse_theme_colors(self, docx_zip: zipfile.ZipFile):
-        """ENHANCED: Parse theme colors with comprehensive error handling."""
+        """Parse theme colors with comprehensive error handling."""
         try:
             if 'word/theme/theme1.xml' not in docx_zip.namelist():
                 self.theme_colors = self.default_theme_colors.copy()
@@ -257,21 +407,24 @@ class DocxToHtmlConverter:
             theme_xml = docx_zip.read('word/theme/theme1.xml').decode('utf-8')
             root = ET.fromstring(theme_xml)
             
-            color_scheme = root.find('.//a:clrScheme', {'a': 'http://schemas.openxmlformats.org/drawingml/2006/main'})
+            # Discover namespaces from theme
+            theme_namespaces = self._discover_namespaces_from_xml(theme_xml)
+            
+            color_scheme = self._robust_find_one(root, './/a:clrScheme')
             if color_scheme is not None:
                 for color_elem in color_scheme:
                     try:
                         color_name = color_elem.tag.split('}')[-1] if '}' in color_elem.tag else color_elem.tag
                         
-                        srgb_color = color_elem.find('.//a:srgbClr', {'a': 'http://schemas.openxmlformats.org/drawingml/2006/main'})
-                        sys_color = color_elem.find('.//a:sysClr', {'a': 'http://schemas.openxmlformats.org/drawingml/2006/main'})
+                        srgb_color = self._robust_find_one(color_elem, './/a:srgbClr')
+                        sys_color = self._robust_find_one(color_elem, './/a:sysClr')
                         
                         if srgb_color is not None:
-                            color_val = srgb_color.get('val')
+                            color_val = self._robust_get_attribute(srgb_color, 'val')
                             if color_val and self._is_valid_hex_color(color_val):
                                 self.theme_colors[color_name] = color_val.upper()
                         elif sys_color is not None:
-                            sys_val = sys_color.get('val', '').lower()
+                            sys_val = (self._robust_get_attribute(sys_color, 'val') or '').lower()
                             sys_color_map = {
                                 'windowtext': '000000',
                                 'window': 'FFFFFF'
@@ -291,11 +444,11 @@ class DocxToHtmlConverter:
             self.warnings.append(f"Could not parse theme colors, using defaults: {str(e)}")
     
     def _is_valid_hex_color(self, color: str) -> bool:
-        """NEW: Validate hex color format."""
+        """Validate hex color format."""
         return bool(re.match(r'^[0-9A-Fa-f]{6}$', color))
     
     def _safe_parse_styles(self, docx_zip: zipfile.ZipFile):
-        """ENHANCED: Parse styles with comprehensive error handling."""
+        """Parse styles with comprehensive error handling."""
         try:
             if 'word/styles.xml' not in docx_zip.namelist():
                 self.logger.debug("No styles.xml found")
@@ -304,10 +457,13 @@ class DocxToHtmlConverter:
             styles_xml = docx_zip.read('word/styles.xml').decode('utf-8')
             root = ET.fromstring(styles_xml)
             
-            for style in root.findall('.//w:style', self.namespaces):
+            # Discover namespaces from styles
+            styles_namespaces = self._discover_namespaces_from_xml(styles_xml)
+            
+            for style in self._robust_find(root, './/w:style'):
                 try:
-                    style_id = style.get('{%s}styleId' % self.namespaces['w'])
-                    style_type = style.get('{%s}type' % self.namespaces['w'])
+                    style_id = self._robust_get_attribute(style, 'styleId', 'w')
+                    style_type = self._robust_get_attribute(style, 'type', 'w')
                     if style_id:
                         style_props = self._parse_style_properties(style)
                         if style_props:
@@ -320,7 +476,7 @@ class DocxToHtmlConverter:
             self.warnings.append(f"Could not parse styles: {str(e)}")
     
     def _safe_parse_numbering(self, docx_zip: zipfile.ZipFile):
-        """ENHANCED: Parse numbering with error handling."""
+        """Parse numbering with error handling."""
         try:
             if 'word/numbering.xml' not in docx_zip.namelist():
                 self.logger.debug("No numbering.xml found")
@@ -331,22 +487,22 @@ class DocxToHtmlConverter:
             
             # Parse abstract numbering definitions
             abstract_nums = {}
-            for abstract_num in root.findall('.//w:abstractNum', self.namespaces):
+            for abstract_num in self._robust_find(root, './/w:abstractNum'):
                 try:
-                    abstract_num_id = abstract_num.get('{%s}abstractNumId' % self.namespaces['w'])
+                    abstract_num_id = self._robust_get_attribute(abstract_num, 'abstractNumId', 'w')
                     if abstract_num_id:
                         abstract_nums[abstract_num_id] = self._parse_numbering_properties(abstract_num)
                 except Exception as e:
                     self.warnings.append(f"Error parsing abstract numbering {abstract_num_id}: {str(e)}")
             
             # Parse numbering instances
-            for num in root.findall('.//w:num', self.namespaces):
+            for num in self._robust_find(root, './/w:num'):
                 try:
-                    num_id = num.get('{%s}numId' % self.namespaces['w'])
+                    num_id = self._robust_get_attribute(num, 'numId', 'w')
                     if num_id:
-                        abstract_num_ref = num.find('.//w:abstractNumId', self.namespaces)
+                        abstract_num_ref = self._robust_find_one(num, './/w:abstractNumId')
                         if abstract_num_ref is not None:
-                            abstract_id = abstract_num_ref.get('{%s}val' % self.namespaces['w'])
+                            abstract_id = self._robust_get_attribute(abstract_num_ref, 'val', 'w')
                             if abstract_id in abstract_nums:
                                 self.numbering[num_id] = abstract_nums[abstract_id]
                 except Exception as e:
@@ -356,7 +512,7 @@ class DocxToHtmlConverter:
             self.warnings.append(f"Could not parse numbering: {str(e)}")
     
     def _safe_parse_relationships(self, docx_zip: zipfile.ZipFile):
-        """ENHANCED: Parse relationships with error handling."""
+        """Parse relationships with error handling."""
         try:
             if 'word/_rels/document.xml.rels' not in docx_zip.namelist():
                 self.logger.debug("No document relationships found")
@@ -365,11 +521,14 @@ class DocxToHtmlConverter:
             rels_xml = docx_zip.read('word/_rels/document.xml.rels').decode('utf-8')
             root = ET.fromstring(rels_xml)
             
-            for rel in root.findall('.//r:Relationship', {'r': 'http://schemas.openxmlformats.org/package/2006/relationships'}):
+            # Discover namespaces from relationships
+            rels_namespaces = self._discover_namespaces_from_xml(rels_xml)
+            
+            for rel in self._robust_find(root, './/r:Relationship'):
                 try:
-                    rel_id = rel.get('Id')
-                    target = rel.get('Target')
-                    rel_type = rel.get('Type')
+                    rel_id = self._robust_get_attribute(rel, 'Id')
+                    target = self._robust_get_attribute(rel, 'Target')
+                    rel_type = self._robust_get_attribute(rel, 'Type')
                     if rel_id and target:
                         self.relationships[rel_id] = {'target': target, 'type': rel_type}
                 except Exception as e:
@@ -378,12 +537,12 @@ class DocxToHtmlConverter:
             self.warnings.append(f"Could not parse relationships: {str(e)}")
     
     def _safe_parse_document(self, document_xml: str) -> str:
-        """ENHANCED: Parse document with comprehensive error handling."""
+        """Parse document with comprehensive error handling."""
         try:
             root = ET.fromstring(document_xml)
             html_parts = []
             
-            body = root.find('.//w:body', self.namespaces)
+            body = self._robust_find_one(root, './/w:body')
             if body is not None:
                 for element in body:
                     try:
@@ -411,7 +570,7 @@ class DocxToHtmlConverter:
             if tag == 'p':  # Paragraph
                 return self._process_paragraph(element)
             elif tag == 'tbl':  # Table
-                return self._process_table_enhanced(element)  # NEW: Enhanced table processing
+                return self._process_table_enhanced(element)
             elif tag == 'sectPr':  # Section properties - ignore
                 return ''
             else:
@@ -427,7 +586,7 @@ class DocxToHtmlConverter:
             return ''
     
     def _process_table_enhanced(self, table: ET.Element) -> str:
-        """NEW: Enhanced table processing with advanced formatting."""
+        """Enhanced table processing with advanced formatting."""
         try:
             # Close any open lists before table
             list_closure = self._close_all_lists() if self.list_stack else ''
@@ -443,7 +602,7 @@ class DocxToHtmlConverter:
             html_parts.append(f'<table{table_style}>')
             
             # Process table grid for column information
-            table_grid = table.find('.//w:tblGrid', self.namespaces)
+            table_grid = self._robust_find_one(table, './/w:tblGrid')
             col_widths = self._parse_table_grid(table_grid) if table_grid is not None else []
             
             # Add column definitions if we have width information
@@ -457,7 +616,7 @@ class DocxToHtmlConverter:
                 html_parts.append('</colgroup>')
             
             # Process rows
-            for row in table.findall('.//w:tr', self.namespaces):
+            for row in self._robust_find(table, './/w:tr'):
                 try:
                     row_html = self._process_table_row_enhanced(row)
                     if row_html:
@@ -473,29 +632,29 @@ class DocxToHtmlConverter:
             return '<p>[Table conversion error]</p>'
     
     def _parse_table_properties(self, table: ET.Element) -> Dict[str, Any]:
-        """NEW: Parse table-level properties."""
+        """Parse table-level properties."""
         props = {}
         
         try:
-            tbl_pr = table.find('.//w:tblPr', self.namespaces)
+            tbl_pr = self._robust_find_one(table, './/w:tblPr')
             if tbl_pr is not None:
                 # Table borders
-                borders = tbl_pr.find('.//w:tblBorders', self.namespaces)
+                borders = self._robust_find_one(tbl_pr, './/w:tblBorders')
                 if borders is not None:
                     props['borders'] = self._parse_table_borders(borders)
                 
                 # Table width
-                width = tbl_pr.find('.//w:tblW', self.namespaces)
+                width = self._robust_find_one(tbl_pr, './/w:tblW')
                 if width is not None:
-                    w_type = width.get('{%s}type' % self.namespaces['w'])
-                    w_val = width.get('{%s}w' % self.namespaces['w'])
+                    w_type = self._robust_get_attribute(width, 'type', 'w')
+                    w_val = self._robust_get_attribute(width, 'w', 'w')
                     if w_type and w_val:
                         props['width'] = {'type': w_type, 'value': w_val}
                 
                 # Table alignment
-                jc = tbl_pr.find('.//w:jc', self.namespaces)
+                jc = self._robust_find_one(tbl_pr, './/w:jc')
                 if jc is not None:
-                    props['alignment'] = jc.get('{%s}val' % self.namespaces['w'])
+                    props['alignment'] = self._robust_get_attribute(jc, 'val', 'w')
         
         except Exception as e:
             self.warnings.append(f"Error parsing table properties: {str(e)}")
@@ -503,16 +662,16 @@ class DocxToHtmlConverter:
         return props
     
     def _parse_table_borders(self, borders: ET.Element) -> Dict[str, str]:
-        """NEW: Parse table border definitions."""
+        """Parse table border definitions."""
         border_props = {}
         
         border_sides = ['top', 'left', 'bottom', 'right', 'insideH', 'insideV']
         for side in border_sides:
-            border_elem = borders.find(f'.//w:{side}', self.namespaces)
+            border_elem = self._robust_find_one(borders, f'.//w:{side}')
             if border_elem is not None:
-                border_val = border_elem.get('{%s}val' % self.namespaces['w'])
-                border_sz = border_elem.get('{%s}sz' % self.namespaces['w'])
-                border_color = border_elem.get('{%s}color' % self.namespaces['w'])
+                border_val = self._robust_get_attribute(border_elem, 'val', 'w')
+                border_sz = self._robust_get_attribute(border_elem, 'sz', 'w')
+                border_color = self._robust_get_attribute(border_elem, 'color', 'w')
                 
                 if border_val and border_val != 'none':
                     css_side = {'insideH': 'horizontal', 'insideV': 'vertical'}.get(side, side)
@@ -525,7 +684,7 @@ class DocxToHtmlConverter:
         return border_props
     
     def _generate_table_style(self, table_props: Dict[str, Any]) -> str:
-        """NEW: Generate CSS style for table from properties."""
+        """Generate CSS style for table from properties."""
         styles = ['border-collapse: collapse']
         
         # Width
@@ -557,12 +716,12 @@ class DocxToHtmlConverter:
         return f' style="{"; ".join(styles)};"' if styles else ''
     
     def _parse_table_grid(self, grid: ET.Element) -> List[Optional[str]]:
-        """NEW: Parse table grid for column widths."""
+        """Parse table grid for column widths."""
         widths = []
         
         try:
-            for grid_col in grid.findall('.//w:gridCol', self.namespaces):
-                width_attr = grid_col.get('{%s}w' % self.namespaces['w'])
+            for grid_col in self._robust_find(grid, './/w:gridCol'):
+                width_attr = self._robust_get_attribute(grid_col, 'w', 'w')
                 if width_attr:
                     # Convert twentieths of a point to pixels (rough approximation)
                     width_px = int(width_attr) / 20
@@ -575,11 +734,11 @@ class DocxToHtmlConverter:
         return widths
     
     def _process_table_row_enhanced(self, row: ET.Element) -> str:
-        """NEW: Enhanced table row processing with cell properties."""
+        """Enhanced table row processing with cell properties."""
         try:
             html_parts = ['<tr>']
             
-            for cell in row.findall('.//w:tc', self.namespaces):
+            for cell in self._robust_find(row, './/w:tc'):
                 cell_html = self._process_table_cell_enhanced(cell)
                 if cell_html:
                     html_parts.append(cell_html)
@@ -592,7 +751,7 @@ class DocxToHtmlConverter:
             return ''
     
     def _process_table_cell_enhanced(self, cell: ET.Element) -> str:
-        """NEW: Enhanced table cell processing with spanning and alignment."""
+        """Enhanced table cell processing with spanning and alignment."""
         try:
             # Parse cell properties
             cell_props = self._parse_cell_properties(cell)
@@ -641,7 +800,7 @@ class DocxToHtmlConverter:
             
             # Process cell content
             cell_content = []
-            for paragraph in cell.findall('.//w:p', self.namespaces):
+            for paragraph in self._robust_find(cell, './/w:p'):
                 try:
                     p_content = self._process_paragraph(paragraph)
                     if p_content:
@@ -661,45 +820,45 @@ class DocxToHtmlConverter:
             return '<td>&nbsp;</td>'
     
     def _parse_cell_properties(self, cell: ET.Element) -> Dict[str, Any]:
-        """NEW: Parse table cell properties."""
+        """Parse table cell properties."""
         props = {}
         
         try:
-            tc_pr = cell.find('.//w:tcPr', self.namespaces)
+            tc_pr = self._robust_find_one(cell, './/w:tcPr')
             if tc_pr is not None:
                 # Grid span (colspan)
-                grid_span = tc_pr.find('.//w:gridSpan', self.namespaces)
+                grid_span = self._robust_find_one(tc_pr, './/w:gridSpan')
                 if grid_span is not None:
-                    span_val = grid_span.get('{%s}val' % self.namespaces['w'])
+                    span_val = self._robust_get_attribute(grid_span, 'val', 'w')
                     if span_val:
                         props['gridSpan'] = int(span_val)
                 
                 # Vertical merge (rowspan)
-                v_merge = tc_pr.find('.//w:vMerge', self.namespaces)
+                v_merge = self._robust_find_one(tc_pr, './/w:vMerge')
                 if v_merge is not None:
-                    merge_val = v_merge.get('{%s}val' % self.namespaces['w'])
+                    merge_val = self._robust_get_attribute(v_merge, 'val', 'w')
                     props['vMerge'] = merge_val or 'continue'
                 
                 # Text alignment
-                tc_w = tc_pr.find('.//w:tcW', self.namespaces)
+                tc_w = self._robust_find_one(tc_pr, './/w:tcW')
                 if tc_w is not None:
                     # Cell width - could be used for styling
                     pass
                 
                 # Vertical alignment
-                v_align = tc_pr.find('.//w:vAlign', self.namespaces)
+                v_align = self._robust_find_one(tc_pr, './/w:vAlign')
                 if v_align is not None:
-                    props['verticalAlign'] = v_align.get('{%s}val' % self.namespaces['w'])
+                    props['verticalAlign'] = self._robust_get_attribute(v_align, 'val', 'w')
                 
                 # Cell borders
-                borders = tc_pr.find('.//w:tcBorders', self.namespaces)
+                borders = self._robust_find_one(tc_pr, './/w:tcBorders')
                 if borders is not None:
                     props['borders'] = self._parse_table_borders(borders)
                 
                 # Cell shading/background
-                shd = tc_pr.find('.//w:shd', self.namespaces)
+                shd = self._robust_find_one(tc_pr, './/w:shd')
                 if shd is not None:
-                    fill_color = shd.get('{%s}fill' % self.namespaces['w'])
+                    fill_color = self._robust_get_attribute(shd, 'fill', 'w')
                     if fill_color and fill_color != 'auto':
                         props['background'] = f'#{fill_color}'
         
@@ -711,15 +870,15 @@ class DocxToHtmlConverter:
     def _detect_heading_level(self, paragraph: ET.Element, style_id: Optional[str] = None) -> Optional[int]:
         """Enhanced heading detection with error handling."""
         try:
-            pPr = paragraph.find('.//w:pPr', self.namespaces)
+            pPr = self._robust_find_one(paragraph, './/w:pPr')
             if pPr is None:
                 return None
             
             # Method 1: Check outline level
-            outlineLvl = pPr.find('.//w:outlineLvl', self.namespaces)
+            outlineLvl = self._robust_find_one(pPr, './/w:outlineLvl')
             if outlineLvl is not None:
                 try:
-                    outline_level = int(outlineLvl.get('{%s}val' % self.namespaces['w'], '0'))
+                    outline_level = int(self._robust_get_attribute(outlineLvl, 'val', 'w') or '0')
                     if 0 <= outline_level <= 5:
                         return outline_level + 1
                 except (ValueError, TypeError):
@@ -747,15 +906,15 @@ class DocxToHtmlConverter:
                             return 4
             
             # Method 4: Direct formatting
-            first_run = paragraph.find('.//w:r', self.namespaces)
+            first_run = self._robust_find_one(paragraph, './/w:r')
             if first_run is not None:
-                rPr = first_run.find('.//w:rPr', self.namespaces)
+                rPr = self._robust_find_one(first_run, './/w:rPr')
                 if rPr is not None:
-                    is_bold = rPr.find('.//w:b', self.namespaces) is not None
-                    sz = rPr.find('.//w:sz', self.namespaces)
+                    is_bold = self._robust_find_one(rPr, './/w:b') is not None
+                    sz = self._robust_find_one(rPr, './/w:sz')
                     if sz is not None and is_bold:
                         try:
-                            font_size = int(sz.get('{%s}val' % self.namespaces['w'], '24')) / 2
+                            font_size = int(self._robust_get_attribute(sz, 'val', 'w') or '24') / 2
                             if font_size >= 18:
                                 return 1
                             elif font_size >= 16:
@@ -864,34 +1023,34 @@ class DocxToHtmlConverter:
         """Enhanced paragraph processing with font support and error handling."""
         try:
             # Check for paragraph properties
-            pPr = paragraph.find('.//w:pPr', self.namespaces)
+            pPr = self._robust_find_one(paragraph, './/w:pPr')
             style_id = None
             is_list_item = False
             list_level = 0
             num_id = None
             paragraph_color = None
             paragraph_highlight = None
-            paragraph_font = None  # NEW: Font information
+            paragraph_font = None
             
             if pPr is not None:
                 # Check for style
-                pStyle = pPr.find('.//w:pStyle', self.namespaces)
+                pStyle = self._robust_find_one(pPr, './/w:pStyle')
                 if pStyle is not None:
-                    style_id = pStyle.get('{%s}val' % self.namespaces['w'])
+                    style_id = self._robust_get_attribute(pStyle, 'val', 'w')
                     
                     # Get properties from paragraph style
                     if style_id and style_id in self.styles:
                         style_props = self.styles[style_id]
                         paragraph_color = style_props.get('color')
                         paragraph_highlight = style_props.get('highlight')
-                        paragraph_font = style_props.get('font_family')  # NEW
+                        paragraph_font = style_props.get('font_family')
                 
                 # Check for direct paragraph-level properties
-                pPr_rPr = pPr.find('.//w:rPr', self.namespaces)
+                pPr_rPr = self._robust_find_one(pPr, './/w:rPr')
                 if pPr_rPr is not None:
                     direct_color = self._extract_text_color(pPr_rPr)
                     direct_highlight = self._extract_highlight_color(pPr_rPr)
-                    direct_font = self._extract_font_info(pPr_rPr)  # NEW
+                    direct_font = self._extract_font_info(pPr_rPr)
                     
                     if direct_color:
                         paragraph_color = direct_color
@@ -901,26 +1060,27 @@ class DocxToHtmlConverter:
                         paragraph_font = direct_font
                 
                 # Check for numbering (lists)
-                numPr = pPr.find('.//w:numPr', self.namespaces)
+                numPr = self._robust_find_one(pPr, './/w:numPr')
                 if numPr is not None:
                     is_list_item = True
-                    ilvl_elem = numPr.find('.//w:ilvl', self.namespaces)
-                    numId_elem = numPr.find('.//w:numId', self.namespaces)
+                    ilvl_elem = self._robust_find_one(numPr, './/w:ilvl')
+                    numId_elem = self._robust_find_one(numPr, './/w:numId')
                     
                     if ilvl_elem is not None:
-                        list_level = int(ilvl_elem.get('{%s}val' % self.namespaces['w'], '0'))
+                        list_level = int(self._robust_get_attribute(ilvl_elem, 'val', 'w') or '0')
                     if numId_elem is not None:
-                        num_id = numId_elem.get('{%s}val' % self.namespaces['w'])
+                        num_id = self._robust_get_attribute(numId_elem, 'val', 'w')
             
             # Process runs with enhanced font support
             content_parts = []
             for element in paragraph:
                 try:
-                    if element.tag.endswith('r'):  # Regular run
+                    element_local_name = element.tag.split('}')[-1] if '}' in element.tag else element.tag
+                    if element_local_name == 'r':  # Regular run
                         run_content = self._process_run_enhanced(element, paragraph_color, paragraph_highlight, paragraph_font)
                         if run_content:
                             content_parts.append(run_content)
-                    elif element.tag.endswith('hyperlink'):  # Hyperlink element
+                    elif element_local_name == 'hyperlink':  # Hyperlink element
                         hyperlink_content = self._process_hyperlink_enhanced(element, paragraph_color, paragraph_highlight, paragraph_font)
                         if hyperlink_content:
                             content_parts.append(hyperlink_content)
@@ -969,8 +1129,8 @@ class DocxToHtmlConverter:
         """Enhanced hyperlink processing with font support."""
         try:
             # Get hyperlink relationship ID
-            r_id = hyperlink.get('{%s}id' % self.namespaces['r'])
-            anchor = hyperlink.get('{%s}anchor' % self.namespaces['w'])
+            r_id = self._robust_get_attribute(hyperlink, 'id', 'r')
+            anchor = self._robust_get_attribute(hyperlink, 'anchor', 'w')
             
             # Determine link target
             href = None
@@ -983,7 +1143,7 @@ class DocxToHtmlConverter:
             
             # Process hyperlink content
             content_parts = []
-            for run in hyperlink.findall('.//w:r', self.namespaces):
+            for run in self._robust_find(hyperlink, './/w:r'):
                 run_content = self._process_run_enhanced(run, paragraph_color, paragraph_highlight, paragraph_font)
                 if run_content:
                     content_parts.append(run_content)
@@ -1008,10 +1168,10 @@ class DocxToHtmlConverter:
     
     def _process_run_enhanced(self, run: ET.Element, paragraph_color: Optional[str] = None, 
                              paragraph_highlight: Optional[str] = None, paragraph_font: Optional[Dict] = None) -> str:
-        """NEW: Enhanced run processing with comprehensive font and formatting support."""
+        """Enhanced run processing with comprehensive font and formatting support."""
         try:
             # Get run properties
-            rPr = run.find('.//w:rPr', self.namespaces)
+            rPr = self._robust_find_one(run, './/w:rPr')
             
             # Extract formatting
             is_bold = False
@@ -1020,27 +1180,27 @@ class DocxToHtmlConverter:
             is_strikethrough = False
             text_color = None
             highlight_color = None
-            font_info = None  # NEW
-            font_size = None  # NEW
+            font_info = None
+            font_size = None
             
             if rPr is not None:
-                is_bold = rPr.find('.//w:b', self.namespaces) is not None
-                is_italic = rPr.find('.//w:i', self.namespaces) is not None
-                is_underline = rPr.find('.//w:u', self.namespaces) is not None
-                is_strikethrough = rPr.find('.//w:strike', self.namespaces) is not None
+                is_bold = self._robust_find_one(rPr, './/w:b') is not None
+                is_italic = self._robust_find_one(rPr, './/w:i') is not None
+                is_underline = self._robust_find_one(rPr, './/w:u') is not None
+                is_strikethrough = self._robust_find_one(rPr, './/w:strike') is not None
                 
                 # Enhanced color processing
                 text_color = self._extract_text_color(rPr)
                 highlight_color = self._extract_highlight_color(rPr)
                 
-                # NEW: Extract font information
+                # Extract font information
                 font_info = self._extract_font_info(rPr)
                 font_size = self._extract_font_size(rPr)
                 
                 # Check for character style inheritance
-                rStyle = rPr.find('.//w:rStyle', self.namespaces)
+                rStyle = self._robust_find_one(rPr, './/w:rStyle')
                 if rStyle is not None:
-                    style_id = rStyle.get('{%s}val' % self.namespaces['w'])
+                    style_id = self._robust_get_attribute(rStyle, 'val', 'w')
                     if style_id and style_id in self.styles:
                         style_props = self.styles[style_id]
                         if not text_color and 'color' in style_props:
@@ -1064,26 +1224,26 @@ class DocxToHtmlConverter:
             content_parts = []
             
             # Handle text elements
-            for text_elem in run.findall('.//w:t', self.namespaces):
+            for text_elem in self._robust_find(run, './/w:t'):
                 if text_elem.text:
                     content_parts.append(text_elem.text)
             
             # Handle line breaks
-            for br in run.findall('.//w:br', self.namespaces):
+            for br in self._robust_find(run, './/w:br'):
                 content_parts.append('<br/>')
             
             # Handle tabs
-            for tab in run.findall('.//w:tab', self.namespaces):
+            for tab in self._robust_find(run, './/w:tab'):
                 content_parts.append('&nbsp;&nbsp;&nbsp;&nbsp;')
             
             # Handle images (drawings)
-            for drawing in run.findall('.//w:drawing', self.namespaces):
+            for drawing in self._robust_find(run, './/w:drawing'):
                 image_html = self._process_drawing(drawing)
                 if image_html:
                     content_parts.append(image_html)
             
             # Handle embedded objects
-            for obj in run.findall('.//w:object', self.namespaces):
+            for obj in self._robust_find(run, './/w:object'):
                 image_html = self._process_object(obj)
                 if image_html:
                     content_parts.append(image_html)
@@ -1104,7 +1264,7 @@ class DocxToHtmlConverter:
                 if is_strikethrough:
                     content = f'<s>{content}</s>'
                 
-                # NEW: Apply comprehensive styling
+                # Apply comprehensive styling
                 style_parts = []
                 if text_color:
                     style_parts.append(f'color: #{text_color}')
@@ -1126,14 +1286,14 @@ class DocxToHtmlConverter:
             return '[Run error]'
     
     def _extract_font_info(self, rPr: ET.Element) -> Optional[Dict[str, Any]]:
-        """NEW: Extract font information from run properties."""
+        """Extract font information from run properties."""
         try:
-            font_elem = rPr.find('.//w:rFonts', self.namespaces)
+            font_elem = self._robust_find_one(rPr, './/w:rFonts')
             if font_elem is not None:
                 # Get font name (prefer ascii, then eastAsia, then default)
-                font_name = (font_elem.get('{%s}ascii' % self.namespaces['w']) or
-                            font_elem.get('{%s}eastAsia' % self.namespaces['w']) or
-                            font_elem.get('{%s}hAnsi' % self.namespaces['w']))
+                font_name = (self._robust_get_attribute(font_elem, 'ascii', 'w') or
+                            self._robust_get_attribute(font_elem, 'eastAsia', 'w') or
+                            self._robust_get_attribute(font_elem, 'hAnsi', 'w'))
                 
                 if font_name:
                     # Look up font in our font table
@@ -1153,11 +1313,11 @@ class DocxToHtmlConverter:
             return None
     
     def _extract_font_size(self, rPr: ET.Element) -> Optional[float]:
-        """NEW: Extract font size from run properties."""
+        """Extract font size from run properties."""
         try:
-            sz = rPr.find('.//w:sz', self.namespaces)
+            sz = self._robust_find_one(rPr, './/w:sz')
             if sz is not None:
-                size_val = sz.get('{%s}val' % self.namespaces['w'])
+                size_val = self._robust_get_attribute(sz, 'val', 'w')
                 if size_val:
                     # Font size in half-points, convert to points
                     return float(size_val) / 2
@@ -1169,10 +1329,10 @@ class DocxToHtmlConverter:
     def _process_drawing(self, drawing: ET.Element) -> str:
         """Enhanced drawing processing with error handling."""
         try:
-            blip_elements = drawing.findall('.//a:blip', {'a': 'http://schemas.openxmlformats.org/drawingml/2006/main'})
+            blip_elements = self._robust_find(drawing, './/a:blip')
             
             for blip in blip_elements:
-                r_embed = blip.get('{%s}embed' % self.namespaces['r'])
+                r_embed = self._robust_get_attribute(blip, 'embed', 'r')
                 if r_embed and r_embed in self.relationships:
                     image_path = self.relationships[r_embed]['target']
                     image_filename = image_path.split('/')[-1]
@@ -1182,10 +1342,10 @@ class DocxToHtmlConverter:
                         width = None
                         height = None
                         
-                        extent = drawing.find('.//wp:extent', {'wp': 'http://schemas.openxmlformats.org/drawingml/2006/wordprocessingDrawing'})
+                        extent = self._robust_find_one(drawing, './/wp:extent')
                         if extent is not None:
-                            cx = extent.get('cx')
-                            cy = extent.get('cy')
+                            cx = self._robust_get_attribute(extent, 'cx')
+                            cy = self._robust_get_attribute(extent, 'cy')
                             if cx:
                                 width = int(int(cx) / 914400 * 96)
                             if cy:
@@ -1208,12 +1368,12 @@ class DocxToHtmlConverter:
     def _process_object(self, obj: ET.Element) -> str:
         """Enhanced object processing with error handling."""
         try:
-            shape_elements = obj.findall('.//v:shape', {'v': 'urn:schemas-microsoft-com:vml'})
+            shape_elements = self._robust_find(obj, './/v:shape')
             
             for shape in shape_elements:
-                imagedata = shape.find('.//v:imagedata', {'v': 'urn:schemas-microsoft-com:vml'})
+                imagedata = self._robust_find_one(shape, './/v:imagedata')
                 if imagedata is not None:
-                    r_id = imagedata.get('{%s}id' % self.namespaces['r'])
+                    r_id = self._robust_get_attribute(imagedata, 'id', 'r')
                     if r_id and r_id in self.relationships:
                         image_path = self.relationships[r_id]['target']
                         image_filename = image_path.split('/')[-1]
@@ -1229,23 +1389,23 @@ class DocxToHtmlConverter:
     def _extract_text_color(self, rPr: ET.Element) -> Optional[str]:
         """Enhanced text color extraction with validation."""
         try:
-            color_elem = rPr.find('.//w:color', self.namespaces)
+            color_elem = self._robust_find_one(rPr, './/w:color')
             if color_elem is None:
                 return None
             
             # Direct color value
-            color_val = color_elem.get('{%s}val' % self.namespaces['w'])
+            color_val = self._robust_get_attribute(color_elem, 'val', 'w')
             if color_val and color_val.lower() != 'auto':
                 if self._is_valid_hex_color(color_val):
                     return color_val.upper()
             
             # Theme color reference
-            theme_color = color_elem.get('{%s}themeColor' % self.namespaces['w'])
+            theme_color = self._robust_get_attribute(color_elem, 'themeColor', 'w')
             if theme_color:
                 base_color = self.theme_colors.get(theme_color)
                 if base_color:
-                    theme_tint = color_elem.get('{%s}themeTint' % self.namespaces['w'])
-                    theme_shade = color_elem.get('{%s}themeShade' % self.namespaces['w'])
+                    theme_tint = self._robust_get_attribute(color_elem, 'themeTint', 'w')
+                    theme_shade = self._robust_get_attribute(color_elem, 'themeShade', 'w')
                     
                     if theme_tint:
                         return self._apply_tint(base_color, theme_tint)
@@ -1270,9 +1430,9 @@ class DocxToHtmlConverter:
     def _extract_highlight_color(self, rPr: ET.Element) -> Optional[str]:
         """Enhanced highlight color extraction with validation."""
         try:
-            highlight_elem = rPr.find('.//w:highlight', self.namespaces)
+            highlight_elem = self._robust_find_one(rPr, './/w:highlight')
             if highlight_elem is not None:
-                highlight_val = highlight_elem.get('{%s}val' % self.namespaces['w'])
+                highlight_val = self._robust_get_attribute(highlight_elem, 'val', 'w')
                 if highlight_val and highlight_val.lower() != 'none':
                     highlight_map = {
                         'yellow': 'FFFF00', 'green': '00FF00', 'cyan': '00FFFF', 'magenta': 'FF00FF',
@@ -1287,9 +1447,9 @@ class DocxToHtmlConverter:
                         return highlight_val.upper()
             
             # Check for shading
-            shd_elem = rPr.find('.//w:shd', self.namespaces)
+            shd_elem = self._robust_find_one(rPr, './/w:shd')
             if shd_elem is not None:
-                fill_color = shd_elem.get('{%s}fill' % self.namespaces['w'])
+                fill_color = self._robust_get_attribute(shd_elem, 'fill', 'w')
                 if fill_color and fill_color.lower() != 'auto':
                     if self._is_valid_hex_color(fill_color):
                         return fill_color.upper()
@@ -1341,16 +1501,16 @@ class DocxToHtmlConverter:
         
         try:
             # Parse run properties (character formatting)
-            rPr = style_element.find('.//w:rPr', self.namespaces)
+            rPr = self._robust_find_one(style_element, './/w:rPr')
             if rPr is not None:
-                properties['bold'] = rPr.find('.//w:b', self.namespaces) is not None
-                properties['italic'] = rPr.find('.//w:i', self.namespaces) is not None
+                properties['bold'] = self._robust_find_one(rPr, './/w:b') is not None
+                properties['italic'] = self._robust_find_one(rPr, './/w:i') is not None
                 
                 # Extract font size
-                sz = rPr.find('.//w:sz', self.namespaces)
+                sz = self._robust_find_one(rPr, './/w:sz')
                 if sz is not None:
                     try:
-                        font_size = int(sz.get('{%s}val' % self.namespaces['w'], '24')) / 2
+                        font_size = int(self._robust_get_attribute(sz, 'val', 'w') or '24') / 2
                         properties['font_size'] = font_size
                     except (ValueError, TypeError):
                         pass
@@ -1364,7 +1524,7 @@ class DocxToHtmlConverter:
                 if highlight_color:
                     properties['highlight'] = highlight_color
                 
-                # NEW: Extract font information
+                # Extract font information
                 font_info = self._extract_font_info(rPr)
                 if font_info:
                     properties['font_family'] = font_info
@@ -1379,18 +1539,18 @@ class DocxToHtmlConverter:
         properties = {}
         
         try:
-            for lvl in abstract_num.findall('.//w:lvl', self.namespaces):
-                ilvl = lvl.get('{%s}ilvl' % self.namespaces['w'])
+            for lvl in self._robust_find(abstract_num, './/w:lvl'):
+                ilvl = self._robust_get_attribute(lvl, 'ilvl', 'w')
                 if ilvl:
-                    numFmt = lvl.find('.//w:numFmt', self.namespaces)
+                    numFmt = self._robust_find_one(lvl, './/w:numFmt')
                     fmt_val = 'bullet'
                     if numFmt is not None:
-                        fmt_val = numFmt.get('{%s}val' % self.namespaces['w'], 'bullet')
+                        fmt_val = self._robust_get_attribute(numFmt, 'val', 'w') or 'bullet'
                     
-                    lvlText = lvl.find('.//w:lvlText', self.namespaces)
+                    lvlText = self._robust_find_one(lvl, './/w:lvlText')
                     level_text = ''
                     if lvlText is not None:
-                        level_text = lvlText.get('{%s}val' % self.namespaces['w'], '')
+                        level_text = self._robust_get_attribute(lvlText, 'val', 'w') or ''
                     
                     properties[ilvl] = {
                         'format': fmt_val,
@@ -1482,14 +1642,15 @@ class DocxToHtmlConverter:
 </html>"""
 
     def get_conversion_summary(self) -> Dict[str, Any]:
-        """NEW: Get summary of conversion process including errors and warnings."""
+        """Get summary of conversion process including errors and warnings."""
         return {
             'errors': self.errors,
             'warnings': self.warnings,
             'images_extracted': len(self.images),
             'fonts_found': len(self.fonts),
             'styles_parsed': len(self.styles),
-            'relationships_found': len(self.relationships)
+            'relationships_found': len(self.relationships),
+            'discovered_namespaces': self.discovered_namespaces
         }
 
 
@@ -1522,8 +1683,7 @@ from custom_types.DOCX.type import DOCX
 from custom_types.HTML.type import HTML
 
 class Pipeline:
-    def __init__(self,
-                ):
+    def __init__(self):
         pass        
     def __call__(self, docx: DOCX) -> HTML:
         converter = DocxToHtmlConverter(debug=False)
