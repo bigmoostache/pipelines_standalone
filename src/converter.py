@@ -108,3 +108,11 @@ def CLASS_TO_EXT(X):
 
 def get_feeder(extension):
     return f"_SFP_{extension}"
+
+def auto_convert(source_ext: str, destination_ext: str, data: bytes):
+    """
+    Automatically convert data from source_ext to destination_ext.
+    """
+    loader = get_converter(source_ext)
+    converter = get_secondary_converter(source_ext, destination_ext)
+    return converter(loader.from_bytes(data))
