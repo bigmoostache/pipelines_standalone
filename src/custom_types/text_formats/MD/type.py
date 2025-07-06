@@ -28,7 +28,7 @@ class Pipeline:
         html = markdown2.markdown(md.md)
         with tempfile.NamedTemporaryFile(suffix=".pdf") as temp_file:
             # Convert HTML to PDF and save to the temporary file
-            pdfkit.from_string(html.html, temp_file.name, configuration=self.config)
+            pdfkit.from_string(html, temp_file.name, configuration=self.config)
             # Read the PDF file content and return as bytes
             temp_file.seek(0)
             pdf_bytes = temp_file.read()
