@@ -35,6 +35,12 @@ class Converter:
     def len(df: XLSX) -> int:
         # total number of rows
         return sum([len(sheet) for sheet in df.sheets.values()])
+
+from custom_types.JSONL.type import JSONL
+def convert_to_jsonl(df : XLSX) -> JSONL:
+    df = list(df.sheets.values())[0]
+    list_of_dicts = df.to_dict(orient='records')
+    return JSONL(list_of_dicts)
     
 from custom_types.wrapper import TYPE
 wraped = TYPE(
@@ -42,5 +48,8 @@ wraped = TYPE(
     _class = XLSX,
     converter = Converter,
     icon="/icons/xlsx.svg",
+    additional_converters={
+        'jsonl': convert_to_jsonl,
+    },
     visualiser = "https://vis.deepdocs.net/xlsx",
 )

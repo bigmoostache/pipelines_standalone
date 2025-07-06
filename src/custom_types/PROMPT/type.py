@@ -70,8 +70,5 @@ wraped = TYPE(
     extension='prompt',
     _class = PROMPT,
     converter = Converter,
-    additional_converters={
-        'jsonl':lambda x : JSONL(x.messages)
-        },
     icon='/micons/coffee.svg'
 )
