@@ -33,6 +33,7 @@ from custom_types.DOCX.type import wraped as DOCXWrapped
 from custom_types.NP_ARRAY.type import wraped as NDARRAYWrapped
 
 from custom_types.KONEKT.type import wraped_result as KONEKTWrapped, wraped_generic as KONEKTWrappedGeneric
+from custom_types.framework_formats.REPORT.type import wraped as REPORTWrapped
 
 # text formats
 from custom_types.text_formats.MD.type import wraped as MDWrapped
@@ -42,7 +43,7 @@ from custom_types.text_formats.MDX.type import wraped as MDXWrapped
 from custom_types.framework_formats.FACTORY.type import wraped as FACTORYWrapped
 from custom_types.framework_formats.TUTORIAL_DEMO.type import wraped as TUTORIAL_DEMOWrapped
 
-all_types = [TUTORIAL_DEMOWrapped, FACTORYWrapped, MDWrapped, MDXWrapped, NDARRAYWrapped, DOCXWrapped, LLMWrapped, LUCARIOWrapped, PLANWrapped, ZIPWrapped, RISWrapped, XTRKWrapped, URL2Wrapped, KONEKTWrapped, KONEKTWrappedGeneric, NBIBWrapped, SELECTWrapped, EXTRACTIONWrapped, SOTAWrapped, TINY_BIBWrapped, GRIDWrapped, RAWrapped, PDICTWrapped, RAWrapped, URLWrapped,PDFWrapped,BIBWrapped,HTMLWrapped,PUBMEDWrapped,PROMPTWrapped, XLSXWrapped,JSONWrapped,JSONLWrapped, TXTWrapped, BYTESWrapped, FLOATWrapped, INTWrapped, BOOLWrapped, NEWSLETTERWrapped]
+all_types = [REPORTWrapped, TUTORIAL_DEMOWrapped, FACTORYWrapped, MDWrapped, MDXWrapped, NDARRAYWrapped, DOCXWrapped, LLMWrapped, LUCARIOWrapped, PLANWrapped, ZIPWrapped, RISWrapped, XTRKWrapped, URL2Wrapped, KONEKTWrapped, KONEKTWrappedGeneric, NBIBWrapped, SELECTWrapped, EXTRACTIONWrapped, SOTAWrapped, TINY_BIBWrapped, GRIDWrapped, RAWrapped, PDICTWrapped, RAWrapped, URLWrapped,PDFWrapped,BIBWrapped,HTMLWrapped,PUBMEDWrapped,PROMPTWrapped, XLSXWrapped,JSONWrapped,JSONLWrapped, TXTWrapped, BYTESWrapped, FLOATWrapped, INTWrapped, BOOLWrapped, NEWSLETTERWrapped]
 _allowed_inputs = {_.extension : list(set([_.extension] + [__.extension for __ in all_types if _.extension in __.additional_converters])) for _ in all_types}
 _ext_to_class = {_.extension:_.customclass for _ in all_types}
 _class_to_ext = {v:k for k,v in _ext_to_class.items()}
