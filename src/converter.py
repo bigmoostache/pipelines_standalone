@@ -8,6 +8,7 @@ from custom_types.PUBMED.type import wraped as PUBMEDWrapped
 from custom_types.NBIB.type import wraped as NBIBWrapped
 from custom_types.PROMPT.type import wraped as PROMPTWrapped
 from custom_types.XLSX.type import wraped as XLSXWrapped
+from custom_types.CSV.type import wraped as CSVWrapped
 from custom_types.JSON.type import wraped as JSONWrapped
 from custom_types.JSONL.type import wraped as JSONLWrapped
 from custom_types.TXT.type import wraped as TXTWrapped
@@ -43,7 +44,7 @@ from custom_types.text_formats.MDX.type import wraped as MDXWrapped
 from custom_types.framework_formats.FACTORY.type import wraped as FACTORYWrapped
 from custom_types.framework_formats.TUTORIAL_DEMO.type import wraped as TUTORIAL_DEMOWrapped
 
-all_types = [REPORTWrapped, TUTORIAL_DEMOWrapped, FACTORYWrapped, MDWrapped, MDXWrapped, NDARRAYWrapped, DOCXWrapped, LLMWrapped, LUCARIOWrapped, PLANWrapped, ZIPWrapped, RISWrapped, XTRKWrapped, URL2Wrapped, KONEKTWrapped, KONEKTWrappedGeneric, NBIBWrapped, SELECTWrapped, EXTRACTIONWrapped, SOTAWrapped, TINY_BIBWrapped, GRIDWrapped, RAWrapped, PDICTWrapped, RAWrapped, URLWrapped,PDFWrapped,BIBWrapped,HTMLWrapped,PUBMEDWrapped,PROMPTWrapped, XLSXWrapped,JSONWrapped,JSONLWrapped, TXTWrapped, BYTESWrapped, FLOATWrapped, INTWrapped, BOOLWrapped, NEWSLETTERWrapped]
+all_types = [CSVWrapped, REPORTWrapped, TUTORIAL_DEMOWrapped, FACTORYWrapped, MDWrapped, MDXWrapped, NDARRAYWrapped, DOCXWrapped, LLMWrapped, LUCARIOWrapped, PLANWrapped, ZIPWrapped, RISWrapped, XTRKWrapped, URL2Wrapped, KONEKTWrapped, KONEKTWrappedGeneric, NBIBWrapped, SELECTWrapped, EXTRACTIONWrapped, SOTAWrapped, TINY_BIBWrapped, GRIDWrapped, RAWrapped, PDICTWrapped, RAWrapped, URLWrapped,PDFWrapped,BIBWrapped,HTMLWrapped,PUBMEDWrapped,PROMPTWrapped, XLSXWrapped,JSONWrapped,JSONLWrapped, TXTWrapped, BYTESWrapped, FLOATWrapped, INTWrapped, BOOLWrapped, NEWSLETTERWrapped]
 _allowed_inputs = {_.extension : list(set([_.extension] + [__.extension for __ in all_types if _.extension in __.additional_converters])) for _ in all_types}
 _ext_to_class = {_.extension:_.customclass for _ in all_types}
 _class_to_ext = {v:k for k,v in _ext_to_class.items()}
