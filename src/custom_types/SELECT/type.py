@@ -8,20 +8,20 @@ from custom_types.PROMPT.type import PROMPT
 EXCLUDE = 'exclude'
 KEEP = 'keep'
 EXCL_MAYBE = 'unsure, so keep for now'
-EXL_TOGETHER = f'"{EXCLUDE}". "{KEEP}" or "{EXCL_MAYBE}"'
+EXL_TOGETHER = f'"{EXCLUDE}", "{KEEP}" or "{EXCL_MAYBE}"'
 
 INCLUDE = 'include'
 NO_INCLUDE = 'do not include'
 INCL_MAYBE = 'unsure, so include for now'
-INCL_TOGETHER = f'"{INCLUDE}". "{NO_INCLUDE}" or "{INCL_MAYBE}"'
+INCL_TOGETHER = f'"{INCLUDE}", "{NO_INCLUDE}" or "{INCL_MAYBE}"'
 
 UNSURE = 'unsure'
 
 class EXCLUSION(BaseModel):
-    e_justification  : str = Field(..., description = f'Analyse the article to determine whether or not it should be excluded. Your analysis should be highly detailed and precise: at least a full paragraph, weighing the pros and cons of whether or not the article should be excluded based on this specific criteria only. Only at THE END of your justification should you state your final decision. If you fail to deliver a complete and detailed justification, or that your decision comes at the beginning of your justification, you will be heavily penalized and will be required to redo the task. Possible decisions are {EXL_TOGETHER}.')
+    e_justification  : str = Field(..., description = f'Analyse the article to determine whether or not it should be excluded. Possible decisions are {EXL_TOGETHER}.')
     decision       : Literal[EXCLUDE, KEEP, EXCL_MAYBE] = Field(..., description = 'Your final action. Inconsistency with the justification above would lead to dramatic consequences and heavily penalized notation of your response, so make sure your answer fits the justification you provided.')
 class INCLUSION(BaseModel):
-    i_justification : str = Field(..., description = f'Analyse the article to determine whether or not it verifies this inclusion criteria. Your analysis should be highly detailed and precise: at least a full paragraph, weighing the pros and cons of whether or not the article should be included based on this specific criteria only. Only at THE END of your justification should you state your final decision. If you fail to deliver a complete and detailed justification, or that your decision comes at the beginning of your justification, you will be heavily penalized and will be required to redo the task. Possible decisions are {INCL_TOGETHER}.')
+    i_justification : str = Field(..., description = f'Analyse the article to determine whether or not it verifies this inclusion criteria. Possible decisions are {INCL_TOGETHER}.')
     decision      : Literal[INCLUDE, NO_INCLUDE, INCL_MAYBE] = Field(..., description = 'Your final decision.  Inconsistency with the justification above would lead to dramatic consequences and heavily penalized notation of your response, so make sure your answer fits the justification you provided.')
 
 class ExclusionCriteria(BaseModel):
