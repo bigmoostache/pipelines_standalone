@@ -7,7 +7,7 @@ class TINY_BIB(BaseModel):
     title: str = Field(..., description = "Article title")
     reference: str = Field(..., description = "Article reference, APA format. As complete as possible.")
     doi : Optional[str] = Field(..., description = "Article doi")
-    date : Optional[str] = Field(..., description = "Publication Date, format DD-MM-YYYY")
+    date : Optional[str] = Field(..., description = "Publication Date, ISO 8601 format: one of: YYYY-MM-DD, YYYY-MM, or YYYY, the most specific format available. Failing to comply with this format will result in an error.")
     journal : Optional[str] = Field(..., description = "Article journal")
     authors : List[str] = Field(..., description = "Article authors")
     context: str = Field(..., description = "Article context, a brief summary of the article: its objectives, methods, and results. Max 3 sentences.")

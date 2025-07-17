@@ -9,7 +9,6 @@ from enum import Enum
 from pipelines.CONVERSIONS.DICT.to_html import Pipeline as DictToHtmlPipeline
 import requests
 import re
-
 from bs4 import BeautifulSoup
 
 def extract_references(html):
@@ -133,6 +132,7 @@ class SOTA(BaseModel):
 
     information        : Dict[int, VersionedInformation] = Field(..., description = "information_id -> VersionedInformation")
     main_lucario_id    : int                  = Field(..., description = "Information id of the LUCARIO element to use as the main knowledge base")
+    other_lucario_ids  : List[int]            = Field([],  description = "List of other LUCARIO elements to use as knowledge bases")
     mother_id          : int                  = Field(..., description = "Master information for the rendering")
     
     styles_sheet       : VersionedText        = Field(..., description = "CSS sheet for the document")
