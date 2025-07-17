@@ -10,6 +10,7 @@ from pipelines.LLMS.v3.structured import Pipeline as StructuredPipeline
 
 class Leaf(BaseModel):
     leaf_bullet_points     : List[str] = Field(..., description = 'Bullet points of topics covered. Provide at least 10, or you will fail at this task.')
+    target_number_of_words : int = Field(..., description = 'Target number of words for the section.')
 class Node(BaseModel):
     subsections : List['PlanForLLM'] = Field(..., description = 'Subsections of this node')
 class PlanForLLM(BaseModel):

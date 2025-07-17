@@ -13,6 +13,7 @@ class Reference(BaseModel):
     external_id : Optional[str] = Field(None, description = 'External identifier for the reference, e.g. DOI')
 class Leaf(BaseModel):
     leaf_bullet_points     : List[str] = Field(..., description = 'Bullet points of topics covered. Provide at least 10, or you will fail at this task.')
+    target_number_of_words : Optional[int] = Field(250, description = 'Target number of words for the section.')
 class Node(BaseModel):
     subsections : List['Plan'] = Field(..., description = 'Subsections of this node')
 class Plan(BaseModel):
