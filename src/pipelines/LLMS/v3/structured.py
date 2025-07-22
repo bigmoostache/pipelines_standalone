@@ -22,12 +22,14 @@ class Pipeline:
         provider: Providers = "openai",
         model: str = "gpt-4.1",
         hard_coded_model: Literal['none', 'tree/gap_analysis', 'select', 'tiny_bib', 'xtrk', 'simple_schema'] = 'none',
-        convert_back_to_dict: bool = False
+        convert_back_to_dict: bool = False,
+        temperature: float = 0.5
         ):
         self.provider = provider
         self.model = model
         self.hard_coded_model = hard_coded_model
         self.convert_back_to_dict = convert_back_to_dict
+        self.temperature = temperature
         
     def __call__(self, 
                 p : PROMPT,
@@ -54,6 +56,7 @@ class Pipeline:
                 model=self.model,
                 messages=p.messages,
                 response_format=output_format,
+                temperature=self.temperature
             )
             return response.choices[0].message.parsed
         else:
@@ -66,7 +69,8 @@ class Pipeline:
                                 'schema': output_format,
                                 'name': 'ResultStructure'
                             }
-                } if 'json_schema' not in output_format else output_format
+                } if 'json_schema' not in output_format else output_format,
+                temperature=self.temperature
             )
             return json.loads(response.choices[0].message.content)
         
@@ -77,6 +81,7 @@ class Pipeline:
                     model=self.model,
                     messages=p.messages,
                     response_format=output_format,
+                    temperature=self.temperature
                 )
             return response.choices[0].message.parsed
         else:
@@ -89,6 +94,7 @@ class Pipeline:
                         'schema': output_format,
                         'name': 'ResultStructure'
                     }
-                } if 'json_schema' not in output_format else output_format
+                } if 'json_schema' not in output_format else output_format,
+                temperature=self.temperature
             )
             return response.choices[0].message.content

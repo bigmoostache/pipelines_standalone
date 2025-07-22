@@ -53,7 +53,8 @@ class SELECT(BaseModel):
                  prompt,
                  *,
                  model : str,
-                 provider: str = 'openai'
+                 provider: str = 'openai',
+                 temperature: float = 0.5
                 ):
         from pipelines.LLMS.v3.structured import Providers, Pipeline as StructuredPipeline
         # First two calls
@@ -61,6 +62,7 @@ class SELECT(BaseModel):
         pipe = lambda : StructuredPipeline(
                             provider=provider,
                             model=model,
+                            temperature=temperature
                         )(prompt, output_format, mode='structured')
         
         events = []

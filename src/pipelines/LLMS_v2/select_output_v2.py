@@ -7,11 +7,13 @@ class Pipeline:
     def __init__(self, 
                  model : str = "gpt-4o",
                  provider: Providers = 'openai',
-                 rerolls: int = 1
+                 rerolls: int = 1,
+                 temperature: float = 0.5
                  ):
         self.model = model
         self.provider = provider
-        
+        self.temperature = temperature
+
     def __call__(self, 
              p : PROMPT,
              e : SELECT
@@ -20,4 +22,6 @@ class Pipeline:
         return e(
             p, 
             model=self.model,
-            provider=self.provider)
+            provider=self.provider,
+            temperature=self.temperature
+        )
