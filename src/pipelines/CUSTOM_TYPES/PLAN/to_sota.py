@@ -77,7 +77,10 @@ def plan_to_sota(
             def ref_repl(match):
                 local_id = int(match.group(1))
                 chunk_id = match.group(2) if match.group(2) is not None else ""
-                refid = referencements_map[(local_id, chunk_id)]
+                try:
+                    refid = referencements_map[(local_id, chunk_id)]
+                except KeyError:
+                    return ''
                 return f'REF{refid}'
             
             html_content = re.sub(pattern, ref_repl, html_content)
