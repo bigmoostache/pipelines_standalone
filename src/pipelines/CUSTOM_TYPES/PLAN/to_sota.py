@@ -41,7 +41,10 @@ def plan_to_sota(
                 local_id = int(m.group(1))
                 chunk_id = m.group(2) if m.group(2) is not None else ""
                 # Only add the referencement if the reference was created.
-                refdoc = lucario.fetch_single(local_id, int(chunk_id) if chunk_id != "" else None)
+                try:
+                    refdoc = lucario.fetch_single(local_id, int(chunk_id) if chunk_id != "" else None)
+                except:
+                    continue
                 information = sota.find_or_create_lucario_element(LucarioElement(lucario_id = sota.main_lucario_id, local_document_identifier = local_id))
                 information = sota.information[information]
                 title = sota.get_last(information.title.versions, [-1])

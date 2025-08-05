@@ -107,9 +107,16 @@ class Plan(BaseModel):
                 except:
                     return 'No reference available'
         def get_uuid(ref_id):
-            return self.lucario.elements[ref_id].file_uuid
+            try:
+                return self.lucario.elements[ref_id].file_uuid
+            except KeyError:
+                return None
         for ref in all_refs:
-            html = html.replace(f'<REF_{ref}>', f'<a href="{self.lucario.url}/files?file={get_uuid(ref)}">[{ref}]</a> <span id="ref-{ref}">{get_citation(ref)}</span>')
+            uuid = get_uuid(ref)
+            if uuid is not None:
+                html = html.replace(f'<REF_{ref}>', f'<a href="{self.lucario.url}/files?file={uuid}">[{ref}]</a> <span id="ref-{ref}">{get_citation(ref)}</span>')
+            else:
+                html = html.replace(f'<REF_{ref}>', '')
         for ref in non_used_refs:
             html = html.replace(f'<ref {ref}/>', '')
             html = html.replace(f'__REF_{ref}__', f'[NOT USED] {get_citation(ref)}')
