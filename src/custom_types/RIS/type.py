@@ -158,7 +158,7 @@ class Converter:
                     _k = convs[k]
                     dic[_k] = dic.get(_k, []) + [v]
                 if k == 'TY':
-                    dic['type'] = dic.get('type', []) + [abbreviation_to_category[v]]
+                    dic['type'] = dic.get('type', []) + [abbreviation_to_category.get(v, v)]
             for k in dic.keys():
                 dic[k] = list(set(dic[k]))
 
