@@ -44,7 +44,6 @@ class Pipeline:
         if self.hard_coded_model != 'none':
             output_format = output_formats[self.hard_coded_model]
             mode = 'structured'
-        
         # for now, str as output, but this will change
         for attempt in range(self.n_rate_limit_retries + 1):
             try:
@@ -52,6 +51,8 @@ class Pipeline:
                     response = self.openai(p, output_format, mode)
                 elif self.provider == "azure":
                     response = self.azure(p, output_format, mode)
+                elif self.provider == "anthropic":
+                    response = self.anthropic(p, output_format, mode)
                 else:
                     raise NotImplementedError(f"Provider {self.provider} not implemented")
                 break
@@ -61,7 +62,6 @@ class Pipeline:
                     continue
                 else:
                     raise e
-        
         if self.convert_back_to_dict:
             response = response.model_dump()
         return response
@@ -115,3 +115,15 @@ class Pipeline:
                 temperature=self.temperature
             )
             return response.choices[0].message.content
+    
+    def anthropic(self, p : PROMPT, output_format: str, mode: str) -> str:
+        if mode == 'structured':
+            client = ClientPipeline(provider=self.provider, model=self.model, wrap_in_instructor=True)()
+            return client.chat.completions.create(
+                model=self.model,
+                messages=p.messages,
+                response_model=output_format,
+                max_tokens=8192,
+            )
+        else:
+            raise NotImplementedError("Anthropic does not support JSON Schema output format yet")

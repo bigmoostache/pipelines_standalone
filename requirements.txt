@@ -38,3 +38,5 @@ mistune==3.1.2
 PyPDF2==3.0.1
 mistralai
 mammoth==1.9.0
+instructor
+anthropic==0.61.0

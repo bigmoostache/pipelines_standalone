@@ -8,17 +8,31 @@ class Pipeline:
     def __init__(self,
         provider: Providers = "openai",
         model: str = "text-embedding-3-large",
+        wrap_in_instructor: bool = False
         ):
         self.provider = provider
         self.model = model
+        self.wrap_in_instructor = wrap_in_instructor
     def __call__(self) -> str:
         # for now, str as output, but this will change
         if self.provider == "openai":
             return self.openai()
         elif self.provider == "azure":
             return self.azure()
+        elif self.provider == "anthropic":
+            return self.anthropic()
         else:
             raise NotImplementedError(f"Provider {self.provider} not implemented")
+    def anthropic(self):
+        import anthropic
+        import instructor
+        api_key = os.environ.get("ANTHROPIC_API_KEY")
+        if self.wrap_in_instructor:
+            return instructor.from_anthropic(
+                anthropic.Anthropic(api_key=api_key)
+            )
+        else:
+            return anthropic.Anthropic(api_key=api_key)
     def openai(self):
         api_key = os.environ.get("openai_api_key")
         if api_key is None:

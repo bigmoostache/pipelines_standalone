@@ -31,6 +31,8 @@ class Pipeline:
             return self.openai(p)
         elif self.provider == "azure":
             return self.azure(p)
+        elif self.provider == "anthropic":
+            return self.anthropic(p)
         else:
             raise NotImplementedError(f"Provider {self.provider} not implemented")
     def openai(self, p : PROMPT) -> str:
@@ -60,3 +62,12 @@ class Pipeline:
                 messages=p.messages
             )
         return response.choices[0].message.content
+    def anthropic(self, p : PROMPT) -> str:
+        client = ClientPipeline(provider=self.provider, model=self.model)()
+        max_tokens = 8192
+        message  = client.messages.create(
+                max_tokens=8192,
+                model=self.model,
+                messages=p.messages
+            )
+        return message.content
