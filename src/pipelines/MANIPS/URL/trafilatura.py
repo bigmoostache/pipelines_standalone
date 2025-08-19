@@ -1,5 +1,9 @@
 from trafilatura import fetch_url, extract
+from trafilatura.settings import use_config
 from custom_types.URL.type import URL
+
+newconfig = use_config()
+newconfig.set("DEFAULT", "EXTRACTION_TIMEOUT", "0")
 
 class Pipeline:
     def __init__(self, ignore_if_success:bool = True):
@@ -9,7 +13,7 @@ class Pipeline:
         if self.ignore_if_success and url.success:
             return url
         downloaded = fetch_url(url.url)
-        result = extract(downloaded, include_tables = True)
+        result = extract(downloaded, include_tables = True, config=newconfig)
         if result:
             url.success = True
             url.text = result
