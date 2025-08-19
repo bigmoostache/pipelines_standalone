@@ -1,6 +1,7 @@
 from trafilatura import fetch_url, extract
 from trafilatura.settings import use_config
 from custom_types.URL.type import URL
+import os
 
 newconfig = use_config()
 newconfig.set("DEFAULT", "EXTRACTION_TIMEOUT", "0")
