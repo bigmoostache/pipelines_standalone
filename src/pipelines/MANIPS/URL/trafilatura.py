@@ -13,7 +13,10 @@ class Pipeline:
         if self.ignore_if_success and url.success:
             return url
         downloaded = fetch_url(url.url)
-        result = extract(downloaded, include_tables = True, config=newconfig)
+        try:
+            result = extract(downloaded, include_tables = True, config=newconfig)
+        except TypeError as e:
+            return url
         if result:
             url.success = True
             url.text = result
