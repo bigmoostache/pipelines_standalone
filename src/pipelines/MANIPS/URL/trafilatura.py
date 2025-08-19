@@ -18,6 +18,8 @@ class Pipeline:
         self.country = 'us'
 
     def __call__(self, url : URL) -> URL:
+        if url.text and len(url.text.split()) > 100:
+            return url
         def html_finder(_url):
             SCRAPING_BEE = os.environ.get("SCRAPING_BEE")
             if not SCRAPING_BEE:
@@ -59,7 +61,7 @@ class Pipeline:
         html = html_finder(url.url)
         if html:
             try:
-                result = extract(downloaded, include_tables = True, config=newconfig)
+                result = extract(html, include_tables = True, config=newconfig)
                 if result:
                     url.success = True
                     url.text = result
