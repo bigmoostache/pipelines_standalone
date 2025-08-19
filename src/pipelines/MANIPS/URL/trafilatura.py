@@ -66,6 +66,7 @@ class Pipeline:
                 if result:
                     url.success = True
                     url.text = result
+                    return url
                 else:
                     return url
             except TypeError as e:
